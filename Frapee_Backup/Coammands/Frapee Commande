@@ -1,0 +1,171 @@
+Update System
+Open Terminal and run:
+
+sudo apt update && sudo apt upgrade -y
+
+✅ PHASE 1: Download the Frappe App Code
+cd ~/frappe-bench/apps
+
+🧩 Step 2: Clone the GitHub Repo
+git clone https://github.com/your-username/your-frappe-app.git
+
+
+🧩 Step 3: Go back to the root folder
+cd ~/frappe-bench
+
+
+Step 4: Install the App on Your Site
+bench --site yoursite.local install-app your-frappe-app
+
+
+PHASE 3: Run the App Locally
+bench start
+
+PHASE 4: Review & Modify the Code
+code ~/frappe-bench/apps/your-frappe-app
+
+
+✅ PHASE 5: Apply Code Changes
+bench --site yoursite.local migrate
+bench restart
+
+
+Steps to use MySQL instead of MariaDB for Frappe:
+sudo apt-get remove --purge mariadb-server mariadb-client
+sudo apt-get autoremove
+sudo apt-get clean
+
+
+
+Install MySQL:
+You need to install MySQL server. If it's not already installed, you can install it using the following command:
+sudo apt update
+sudo apt install mysql-server
+
+
+
+Secure MySQL Installation:
+sudo mysql_secure_installation
+
+sudo systemctl status mysql
+
+
+
+Alternative (Reinstall MariaDB):
+sudo apt-get remove --purge mysql-server mysql-client
+sudo apt-get autoremove
+sudo apt-get clean
+
+
+Install MariaDB:
+sudo apt update
+sudo apt install mariadb-server
+
+
+Secure MariaDB Installation:
+sudo mysql_secure_installation
+
+
+Recreate Database and User for Frappe:
+mysql -u root -p
+CREATE DATABASE frappe;
+CREATE USER 'frappeuser'@'localhost' IDENTIFIED BY 'root';
+GRANT ALL PRIVILEGES ON frappe.* TO 'frappeuser'@'localhost';
+FLUSH PRIVILEGES;
+
+
+Reinstall Frappe and LMS:
+bench new-site dev.local
+bench --site dev.local install-app lms
+
+
+bench build
+bench restart
+
+
+
+
+/*
+
+Server Error
+Traceback (most recent call last):
+  File "env/lib/python3.10/site-packages/pdfkit/configuration.py", line 35, in __init__
+    with open(self.wkhtmltopdf) as f:
+FileNotFoundError: [Errno 2] No such file or directory: b''
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "apps/frappe/frappe/app.py", line 115, in application
+    response = frappe.api.handle(request)
+  File "apps/frappe/frappe/api/__init__.py", line 49, in handle
+    data = endpoint(**arguments)
+  File "apps/frappe/frappe/api/v1.py", line 36, in handle_rpc_call
+    return frappe.handler.handle()
+  File "apps/frappe/frappe/handler.py", line 51, in handle
+    data = execute_cmd(cmd)
+  File "apps/frappe/frappe/handler.py", line 84, in execute_cmd
+    return frappe.call(method, **frappe.form_dict)
+  File "apps/frappe/frappe/__init__.py", line 1742, in call
+    return fn(*args, **newargs)
+  File "apps/frappe/frappe/utils/typing_validations.py", line 31, in wrapper
+    return func(*args, **kwargs)
+  File "apps/frappe/frappe/utils/print_format.py", line 244, in download_pdf
+    pdf_file = frappe.get_print(
+  File "apps/frappe/frappe/utils/print_utils.py", line 89, in get_print
+    return get_pdf(html, options=pdf_options, output=output)
+  File "apps/frappe/frappe/utils/pdf.py", line 94, in get_pdf
+    filedata = pdfkit.from_string(html, options=options or {}, verbose=True)
+  File "env/lib/python3.10/site-packages/pdfkit/api.py", line 72, in from_string
+    r = PDFKit(input, 'string', options=options, toc=toc, cover=cover, css=css,
+  File "env/lib/python3.10/site-packages/pdfkit/pdfkit.py", line 45, in __init__
+    self.configuration = (Configuration() if configuration is None
+  File "env/lib/python3.10/site-packages/pdfkit/configuration.py", line 38, in __init__
+    raise IOError('No wkhtmltopdf executable found: "%s"\n'
+OSError: No wkhtmltopdf executable found: "b''"
+If this file exists please check that this process can read it or you can pass path to it man
+
+
+
+
+sudo apt update
+sudo apt install wkhtmltopdf
+
+
+
+
+sudo apt install -y software-properties-common
+sudo add-apt-repository ppa:apt-fast/stable
+sudo apt update
+
+# Download prebuilt wkhtmltopdf package
+wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.focal_amd64.deb
+
+# Install
+sudo apt install ./wkhtmltox_0.12.6-1.focal_amd64.deb
+
+
+wkhtmltopdf --version
+wkhtmltopdf 0.12.6 (with patched qt)
+
+bench restart
+
+
+
+sudo apt update
+wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.focal_amd64.deb
+sudo apt install ./wkhtmltox_0.12.6-1.focal_amd64.deb
+
+
+
+wkhtmltopdf --version
+
+
+wkhtmltopdf 0.12.6 (with patched qt)
+
+bench restart
+
+
+*/
+
+

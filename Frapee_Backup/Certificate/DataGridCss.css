@@ -1,0 +1,379 @@
+<meta name="pdfkit-orientation" content="Landscape">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+{% set certificate = frappe.db.get_value("LMS Certificate", doc.name, ["name", "member", "issue_date", "expiry_date", "course"], as_dict=True) %}
+{% set member = frappe.db.get_value("User", certificate.member, ["full_name"], as_dict=True) %}
+{% set course = frappe.db.get_value("LMS Course", certificate.course, ["title", "name", "image"], as_dict=True) %}
+{% set logo_url = frappe.db.get_single_value("Website Settings", "banner_image") %}
+{% set stamp_url = '/files/stamp.png' %}
+{% set participant_name = member.full_name or 'Participant' %}
+{% set course_name = course.title or 'Course' %}
+{% set grade = doc.grade or 'A+' %}
+{% set completion_date = frappe.format_date(certificate.issue_date, "d MMMM, yyyy") %}
+
+<div class="certificate-outer">
+        <div class="certificate-inner">
+            {% if logo_url %}
+                <img src="{{ logo_url }}" class="logo" alt="Logo" />
+            {% endif %}
+
+            <div class="certificate-title">Certificate of Completion</div>
+
+            <p class="certify-text">This is to certify that</p>
+            <div class="certificate-name">{{ participant_name }}</div>
+
+            <p class="certify-text">has successfully completed the certification</p>
+            <div class="certificate-course">{{ course_name }}</div>
+
+            <p class="certify-score">with a score of <strong>{{ grade }}</strong></p>
+
+            <p class="certify-text">dated</p>
+            <div class="certificate-date">{{ completion_date }}</div>
+
+            <div class="certificate-footer">
+                <div class="signature">
+                    <div class="sig-line"></div>
+                    <div class="sig-name">Deepak Kinger</div>
+                    <div class="sig-title">Co-Founder & Director</div>
+                </div>
+                <div class="stamp">
+                    <img src="{{ stamp_url }}" class="stamp-img" alt="Stamp" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+body {
+    background-image: url("{{ frappe.utils.get_url('/files/certificate_bg.jpg') }}");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.certificate-outer {
+  width: 900px;
+  margin: 40px auto;
+  padding: 30px;
+  text-align: center;
+  border: 12px solid #673AB7;
+  background-color: #fff;
+  font-family: 'Inter', serif;
+  position: relative;
+}
+
+.certificate-inner {
+  border: 6px dotted #673AB7;
+  padding: 40px;
+}
+
+.logo {
+  max-height: 60px;
+  margin-bottom: 20px;
+}
+
+.certificate-title {
+  font-size: 40px;
+  font-weight: bold;
+  color: #673AB7;
+  margin-bottom: 20px;
+}
+
+.certify-text {
+  font-size: 20px;
+  font-style: italic;
+  margin: 10px 0;
+}
+
+.certificate-name {
+  font-size: 28px;
+  font-weight: bold;
+  color: #2e7d32;
+  margin: 15px 0;
+}
+
+.certificate-course {
+  font-size: 24px;
+  font-weight: 600;
+  color: #000;
+  margin: 15px 0;
+}
+
+.certify-score {
+  font-size: 20px;
+  margin: 15px 0;
+}
+
+.certificate-date {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+.certificate-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 60px;
+}
+
+.signature {
+  text-align: left;
+  padding-left: 40px;
+}
+
+.sig-line {
+  border-top: 1px solid #000;
+  width: 180px;
+  margin-bottom: 5px;
+}
+
+.sig-name {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.sig-title {
+  font-size: 14px;
+  color: #444;
+}
+
+.stamp-img {
+  height: 100px;
+  padding-right: 40px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="pdfkit-orientation" content="Landscape">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+{% set certificate = frappe.db.get_value("LMS Certificate", doc.name, ["name", "member", "course"], as_dict=True) %}
+{% set member = frappe.db.get_value("User", certificate.member, ["full_name"], as_dict=True) %}
+{% set course = frappe.db.get_value("LMS Course", certificate.course, ["title"], as_dict=True) %}
+{% set participant_name = member.full_name or 'Participant' %}
+{% set course_name = course.title or 'Course' %}
+{% set background_url = '/files/eiqcoursecertificate.png' %}
+
+<div class="certificate" style="background-image: url('{{ background_url }}');">
+  <div class="participant-name">{{ participant_name }}</div>
+  <div class="course-name">{{ course_name }}</div>
+</div>
+
+
+
+
+
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #fff;
+    font-family: 'Inter', sans-serif;
+  }
+
+.certificate {
+  width: 1200px;
+    height: 870px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: relative;
+  box-sizing: border-box;
+}
+ .course-name {
+    position: absolute;
+    top: 450px;
+    width: 100%;
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold; 
+    color: #02316a;
+    
+  }
+.participant-name {
+    position: absolute;
+  top: 320px;                  /* Exact vertical placement */
+  left: 50%;                   /* Horizontal center */
+  transform: translateX(-50%); /* Center horizontally only */
+  text-align: center;
+  font-size: 32px;
+  font-weight: bold;
+  color: #02316a;
+  width: 80%; /* Optional: prevent long names from overflowing */
+  /*position: absolute;*/
+  /*top: 295px;*/
+  /*width: 100%;*/
+  /*text-align: center;*/
+  /*font-size: 32px;*/
+  /*font-weight: bold;*/
+  /*color: #02316a;*/
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+in quize multiple quieze question uploading we need to check with shranbasa and shashank.
+
+certificate is gerating or not we need to check
+
+
+
+
+Let's set up your account
+Full Name
+eiqtest
+full_name
+Email Address (Will be your login ID)
+eiqtest@eiq.com
+email
+Password
+chet@evoluteiq
+
+
+Site administrator credential
+user/pass : administrator / admin
+
+
+http://localhost:8000/lms/courses
+
+
+http://localhost:8000/app/print-format/Course%20Certificate%20lms
+
+http://localhost:8000/app/print-format
+
+
+
+http://localhost:8000/app/file?folder=Home
+
+http://localhost:8000/lms/batches/eiq-test
+
+
+
+
+
+
+<meta name="pdfkit-orientation" content="Landscape">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+{% set certificate = frappe.db.get_value("LMS Certificate", doc.name, ["name", "member", "course"], as_dict=True) %}
+{% set member = frappe.db.get_value("User", certificate.member, ["full_name"], as_dict=True) %}
+{% set course = frappe.db.get_value("LMS Course", certificate.course, ["title"], as_dict=True) %}
+{% set participant_name = member.full_name or 'Participant' %}
+{% set course_name = course.title or 'Course' %}
+{% set background_url = '/files/eiqcoursecertificate.png' %}
+
+<div class="certificate" style="background-image: url('{{ background_url }}');">
+  <div class="participant-name">{{ participant_name }}</div>
+  <div class="course-name">{{ course_name }}</div>
+</div>
+
+
+
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #fff;
+    font-family: 'Inter', sans-serif;
+  }
+
+.certificate {
+  width: 1200px;
+    height: 870px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: relative;
+  box-sizing: border-box;
+}
+ .course-name {
+    position: absolute;
+    top: 450px;
+    width: 100%;
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold; 
+    color: #02316a;
+    
+  }
+.participant-name {
+    position: absolute;
+  top: 320px;                  /* Exact vertical placement */
+  left: 50%;                   /* Horizontal center */
+  transform: translateX(-50%); /* Center horizontally only */
+  text-align: center;
+  font-size: 32px;
+  font-weight: bold;
+  color: #02316a;
+  width: 80%; /* Optional: prevent long names from overflowing */
+  /*position: absolute;*/
+  /*top: 295px;*/
+  /*width: 100%;*/
+  /*text-align: center;*/
+  /*font-size: 32px;*/
+  /*font-weight: bold;*/
+  /*color: #02316a;*/
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

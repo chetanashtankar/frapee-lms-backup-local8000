@@ -1,0 +1,2594 @@
+//files/certificate.png
+
+document.body.innerHTML = `
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <header class="ast-primary-header-bar ast-primary-header main-header-bar site-header-focus-item"
+        data-section="section-primary-header-builder">
+        <div class="site-primary-header-wrap ast-builder-grid-row-container site-header-focus-item ast-container"
+            data-section="section-primary-header-builder">
+            <div class="ast-builder-grid-row ast-builder-grid-row-has-sides ast-builder-grid-row-no-center">
+                <!-- Logo Section -->
+                <div class="site-header-primary-section-left site-header-section ast-flex site-header-section-left">
+                    <div class="ast-builder-layout-element ast-flex site-header-focus-item"
+                        data-section="title_tagline">
+                        <div class="site-branding ast-site-identity" itemtype="https://schema.org/Organization"
+                            itemscope="itemscope">
+                            <span class="site-logo-img">
+                                <a href="https://lms.evoluteiq.info/" class="custom-logo-link" rel="home"
+                                    aria-current="page">
+                                    <img width="200" height="58"
+                                        src="https://lms.evoluteiq.info/wp-content/uploads/2022/02/evoluteIQ.svg"
+                                        class="custom-logo" alt="EvoluteIQ" decoding="async" loading="lazy">
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Menu -->
+                <div class="site-header-primary-section-right site-header-section ast-flex ast-grid-right-section">
+                    <div class="ast-builder-menu-1 ast-builder-menu ast-flex ast-builder-menu-1-focus-item ast-builder-layout-element site-header-focus-item"
+                        data-section="section-hb-menu-1">
+                        <div class="ast-main-header-bar-alignment">
+                            <div class="main-header-bar-navigation">
+                                <nav class="site-navigation ast-flex-grow-1 navigation-accessibility site-header-focus-item"
+                                    id="primary-site-navigation-desktop" aria-label="Main Navigation"
+                                    itemtype="https://schema.org/SiteNavigationElement" itemscope="itemscope">
+                                    <div class="main-navigation ast-inline-flex">
+                                        <ul id="ast-hf-menu-1"
+                                            class="main-header-menu ast-menu-shadow ast-nav-menu ast-flex submenu-with-border astra-menu-animation-slide-up stack-on-mobile ast-mega-menu-enabled">
+                                            <li id="menu-item-1510"
+                                                class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-17 current_page_item menu-item-1510">
+                                                <a href="https://lms.evoluteiq.info/" class="menu-link"
+                                                    aria-current="page">
+                                                    <span class="ast-icon icon-arrow"></span>
+                                                    <span class="menu-text">Home</span>
+                                                </a>
+                                            </li>
+                                            <li id="menu-item-27099"
+                                                class="menu-item menu-item-type-post_type menu-item-object-page menu-item-27099">
+                                                <a href="https://lms.evoluteiq.info/docs/" class="menu-link">
+                                                    <span class="ast-icon icon-arrow"></span>
+                                                    <span class="menu-text">Documentation</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+
+	
+		
+        <section class="slider-section">
+            <div class="slider-container">
+                <div class="slider-wrapper">
+                    <div class="slide active">
+                        <div class="slide-overlay"></div>
+                        <div class="slide-content">
+                            <h2 class="slide-heading">Learn Intelligent Business Automation on the industry-leading EIQ
+                                Platform</h2>
+                            <p class="slide-description">Begin your learning on Intelligent Business Automation, an
+                                emerging approach in digital transformation today!</p>
+                            <a href="https://lms.evoluteiq.info/courses/e-iq-foundation-course-certification/"
+                                class="slide-button">Explore Course</a>
+                        </div>
+                    </div>
+
+                    <div class="slide active">
+                        <div class="slide-overlay"></div>
+                        <div class="slide-content">
+                            <h2 class="slide-heading">Transition Your Career & Be Future Ready</h2>
+                            <p class="slide-description">Explore the course designed by experts that offer professionals
+                                certification, support, career counseling & and much more</p>
+                            <a href="https://lms.evoluteiq.info/courses/e-iq-foundation-course-certification/"
+                                class="slide-button">Explore Course</a>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="slider-nav prev-btn" onclick="previousSlide()" aria-label="Previous slide">
+  <i class="fas fa-chevron-left" aria-hidden="true"></i>
+</button>
+
+<button class="slider-nav next-btn" onclick="nextSlide()" aria-label="Next slide">
+  <i class="fas fa-chevron-right" aria-hidden="true"></i>
+</button>
+
+                <div class="slider-dots">
+                    <span class="dot active" onclick="currentSlide(1)"></span>
+                    <span class="dot" onclick="currentSlide(2)"></span>
+                </div>
+            </div>
+        </section>
+
+
+
+
+        <section data-particle_enable="false" data-particle-mobile-disabled="false"
+            class="elementor-section elementor-top-section elementor-element elementor-element-1e537621 elementor-section-boxed elementor-section-height-default"
+            data-id="1e537621" data-element_type="section" data-settings='{"background_background":"classic"}'>
+            <div class="elementor-container elementor-column-gap-default">
+                <div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-259f3103"
+                    data-id="259f3103" data-element_type="column">
+                    <div class="elementor-widget-wrap elementor-element-populated">
+                        <section data-particle_enable="false" data-particle-mobile-disabled="false"
+                            class="elementor-section elementor-inner-section elementor-element elementor-element-5b4952c1 elementor-section-boxed elementor-section-height-default"
+                            data-id="5b4952c1" data-element_type="section"
+                            data-settings='{"background_background":"classic"}'>
+                            <div class="elementor-container elementor-column-gap-default">
+                                <div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-4fd7f709"
+                                    data-id="4fd7f709" data-element_type="column"
+                                    data-settings='{"background_background":"classic"}'>
+                                    <div class="elementor-widget-wrap elementor-element-populated">
+                                        <div class="elementor-element elementor-element-78697e9 elementor-position-top elementor-widget elementor-widget-image-box"
+                                            data-id="78697e9" data-element_type="widget"
+                                            data-widget_type="image-box.default">
+                                            <div class="elementor-widget-container">
+                                                <div class="elementor-image-box-wrapper">
+                                                    <figure class="elementor-image-box-img certificate-img"></figure>
+
+                                                    <div class="elementor-image-box-content">
+                                                        <h3 class="elementor-image-box-title">EIQ Platform Training</h3>
+                                                        <p class="elementor-image-box-description">Achieve your career
+                                                            goals with industry-recognized learning paths from experts
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-1ce5f945"
+                                    data-id="1ce5f945" data-element_type="column"
+                                    data-settings='{"background_background":"classic"}'>
+                                    <div class="elementor-widget-wrap elementor-element-populated">
+                                        <div class="elementor-element elementor-element-aaaec23 elementor-position-top elementor-widget elementor-widget-image-box"
+                                            data-id="aaaec23" data-element_type="widget"
+                                            data-widget_type="image-box.default">
+                                            <div class="elementor-widget-container">
+                                                <div class="elementor-image-box-wrapper">
+                                                    <figure class="elementor-image-box-img opportunities-img"></figure>
+                                                    <div class="elementor-image-box-content">
+                                                        <h3 class="elementor-image-box-title">EIQ Platform
+                                                            Certifications</h3>
+                                                        <p class="elementor-image-box-description">Gain EIQ Platform
+                                                            certifications to validate your skills &amp; advance your
+                                                            career</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-3c0f7d8a"
+                                    data-id="3c0f7d8a" data-element_type="column"
+                                    data-settings='{"background_background":"classic"}'>
+                                    <div class="elementor-widget-wrap elementor-element-populated">
+                                        <div class="elementor-element elementor-element-09522da elementor-position-top elementor-widget elementor-widget-image-box"
+                                            data-id="09522da" data-element_type="widget"
+                                            data-widget_type="image-box.default">
+                                            <div class="elementor-widget-container">
+                                                <div class="elementor-image-box-wrapper">
+                                                    <figure class="elementor-image-box-img tutorials-img"></figure>
+                                                    <div class="elementor-image-box-content">
+                                                        <h3 class="elementor-image-box-title">Guides &amp; Tutorials
+                                                        </h3>
+                                                        <p class="elementor-image-box-description">Discover EIQ Platform
+                                                            with easy how-to videos and user manuals</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <section class="course-section">
+            <div class="course-container">
+                <div class="course-column">
+                    <a class="course-card" href="../eiq-platform-consultant-certification/">
+                       <div class="course-background training-bg">
+                            <div class="course-overlay"></div>
+                        </div>
+                        <div class="course-content">
+                            <h2 class="course-title">EIQ Platform Certification</h2>
+                            <div class="course-description">For Professionals</div>
+                            <div class="course-button">Explore Course</div>
+                        </div>
+                    </a>
+                </div>
+                <div class="course-column">
+                    <a class="course-card" href="../e-iq-foundation-course-certification/">
+                        <div class="course-background internship-bg">
+                            <div class="course-overlay"></div>
+                        </div>
+                        <div class="course-content">
+                            <h2 class="course-title">EIQ Internship Program</h2>
+                            <div class="course-description">For Students</div>
+                            <div class="course-button">Explore Course</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+
+
+        <section class="elementor-section elementor-top-section elementor-section-boxed">
+            <div class="elementor-container elementor-column-gap-wide">
+                <div class="elementor-column elementor-col-50">
+                    <div class="elementor-widget-wrap">
+                        <div class="elementor-widget elementor-widget-image">
+                            <div class="elementor-widget-container">
+                                <div class="hyperautomation-image"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="elementor-column elementor-col-50">
+                    <div class="elementor-widget-wrap">
+                        <div class="elementor-widget elementor-widget-heading">
+                            <div class="elementor-widget-container">
+                                <h2>New to Intelligent Business Automation?</h2>
+                            </div>
+                        </div>
+                        <div class="elementor-widget elementor-widget-text-editor">
+                            <div class="elementor-widget-container">
+                                <p>Intelligent business automation is a business-driven, disciplined approach that
+                                    organizations use to rapidly identify, vet and automate as many businesses and IT
+                                    processes as possible.</p>
+                                <p>The EIQ Platform foundation course will help you learn about Intelligent business
+                                    automation, the EIQ Platform and its capabilities.</p>
+                            </div>
+                        </div>
+                        <div class="elementor-widget elementor-widget-button">
+                            <div class="elementor-widget-container">
+                                <div class="elementor-button-wrapper">
+                                    <a class="elementor-button" href="https://lms.evoluteiq.info/my-account/">
+                                        <span class="elementor-button-text">Sign up for Free Course</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Testimonials Section -->
+        <section class="reviews-section" aria-labelledby="testimonials-heading">
+            <div class="container">
+                <h2 id="testimonials-heading">Students Reviews</h2>
+
+                <div class="testimonial-carousel">
+                    <div class="testimonial-wrapper" id="testimonialWrapper">
+                        <!-- Testimonial 1 -->
+                        <div class="testimonial-slide" role="group" aria-roledescription="slide" aria-label="1 of 8">
+                            <div class="testimonial">
+                                <blockquote class="testimonial-text">
+                                    "As an intern at EvoluteIQ, I had an amazing and invaluable experience. The company
+                                    provided me with opportunities to learn and grow in a supportive and nurturing
+                                    environment. The mentorship I received from experienced professionals was
+                                    exceptional, and their guidance helped me develop new skills and gain practical
+                                    industry knowledge. I am truly grateful for the opportunity to be part of such a
+                                    great and helpful organization like EvoluteIQ during my internship."
+                                </blockquote>
+                                <div class="testimonial-footer">
+                                   <div class="testimonial-image malyam-reddy"></div>
+
+                                    <span class="testimonial-name">Malyam Reddy Varun</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Testimonial 2 -->
+                        <div class="testimonial-slide" role="group" aria-roledescription="slide" aria-label="2 of 8">
+                            <div class="testimonial">
+                                <blockquote class="testimonial-text">
+                                    "I am able to learn new things and create interesting applications referring the use
+                                    cases provided by our mentors. Mentors were very good and in contact with us while
+                                    learning this platform. They are prompt to reply whenever we ask them any doubts. It
+                                    is great experience learning about Intelligent business automation in this
+                                    platform."
+                                </blockquote>
+                                <div class="testimonial-footer">
+                                    <div class="testimonial-image priyanka"></div>
+
+                                    <span class="testimonial-name">Priyanka R</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Testimonial 3 -->
+                        <div class="testimonial-slide" role="group" aria-roledescription="slide" aria-label="3 of 8">
+                            <div class="testimonial">
+                                <blockquote class="testimonial-text">
+                                    "The internship is going good and we are actually learning a new technology. The
+                                    technology that we are learning is interesting and knowledgeable and I hope this
+                                    will help us in the future."
+                                </blockquote>
+                                <div class="testimonial-footer">
+                                    <div class="testimonial-image priya"></div>
+                                    <span class="testimonial-name">Priya H P</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Testimonial 4 -->
+                        <div class="testimonial-slide" role="group" aria-roledescription="slide" aria-label="4 of 8">
+                            <div class="testimonial">
+                                <blockquote class="testimonial-text">
+                                    "It is helpful for the students to learn new things on the Intelligent business
+                                    automation."
+                                </blockquote>
+                                <div class="testimonial-footer">
+                                     <div class="testimonial-image nischitha"></div>
+                                    <span class="testimonial-name">Nischitha CS</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Testimonial 5 -->
+                        <div class="testimonial-slide" role="group" aria-roledescription="slide" aria-label="5 of 8">
+                            <div class="testimonial">
+                                <blockquote class="testimonial-text">
+                                    "Thank you for considering my feedback on my internship experience at EvoluteIQ.
+                                    It's a good platform to learn a new technology"
+                                </blockquote>
+                                <div class="testimonial-footer">
+                                   <div class="testimonial-image likhith"></div>
+                                    <span class="testimonial-name">Likhith Sai M</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Testimonial 6 -->
+                        <div class="testimonial-slide" role="group" aria-roledescription="slide" aria-label="6 of 8">
+                            <div class="testimonial">
+                                <blockquote class="testimonial-text">
+                                    "It's a new experience for me, but it is actually nice to work on new technologies.
+                                    The team is very impressive and solves our doubts with ease. Team members as well as
+                                    the team lead."
+                                </blockquote>
+                                <div class="testimonial-footer">
+                                    <div class="testimonial-image divya"></div>
+                                    <span class="testimonial-name">Divya B R</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Testimonial 7 -->
+                        <div class="testimonial-slide" role="group" aria-roledescription="slide" aria-label="7 of 8">
+                            <div class="testimonial">
+                                <blockquote class="testimonial-text">
+                                    "Not only did the EIQ platform courses help me understand and learn all about
+                                    Intelligent business automation, it has also helped me grow in my career"
+                                </blockquote>
+                                <div class="testimonial-footer">
+                                   <div class="testimonial-image anusha"></div>
+                                    <span class="testimonial-name">Anusha Santhe</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Testimonial 8 -->
+                        <div class="testimonial-slide" role="group" aria-roledescription="slide" aria-label="8 of 8">
+                            <div class="testimonial">
+                                <blockquote class="testimonial-text">
+                                    "This training was very interactive and engaging."
+                                </blockquote>
+                                <div class="testimonial-footer">
+                                 <div class="testimonial-image inchara"></div>
+                                    <span class="testimonial-name">Inchara A P</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Navigation Buttons -->
+                    <button class="nav-button prev" onclick="prevSlide()" aria-label="Previous testimonial">
+                        <i class="fas fa-chevron-left" aria-hidden="true"></i>
+                    </button>
+                    <button class="nav-button next" onclick="nextSlide()" aria-label="Next testimonial">
+                        <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                    </button>
+                </div>
+
+                <!-- Pagination Dots -->
+                <div class="pagination" id="pagination" role="tablist">
+                    <!-- Dots will be generated by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- Industry Partners Section -->
+        <section class="partners-section" aria-labelledby="partners-heading">
+            <div class="container">
+                <h3 id="partners-heading">Industry Partners</h3>
+
+                <div class="partners-carousel">
+                    <div class="partners-wrapper">
+                        <!-- First set of partners -->
+                        <div class="partner-slide cms"></div>
+                        <div class="partner-slide infovision"></div>
+                        <div class="partner-slide omega-healthcare"></div>
+                        <div class="partner-slide rgp"></div>
+                        <div class="partner-slide wns"></div>
+                        <div class="partner-slide it"></div>
+                        <div class="partner-slide jktech"></div>
+                        <div class="partner-slide medtronic"></div>
+                        <div class="partner-slide southern-water"></div>
+                        <div class="partner-slide tene-ag"></div>
+                        <div class="partner-slide amoga"></div>
+                        <div class="partner-slide xpertnest"></div>
+                        <div class="partner-slide antares"></div>
+			
+			
+                        <!-- Duplicate set for seamless loop -->
+                        <div class="partner-slide cms"></div>
+                        <div class="partner-slide infovision"></div>
+                        <div class="partner-slide omega-healthcare"></div>
+                        <div class="partner-slide rgp"></div>
+                        <div class="partner-slide wns"></div>
+                        <div class="partner-slide it"></div>
+                        <div class="partner-slide jktech"></div>
+                        <div class="partner-slide medtronic"></div>
+                        <div class="partner-slide southern-water"></div>
+                        <div class="partner-slide tene-ag"></div>
+                        <div class="partner-slide amoga"></div>
+                        <div class="partner-slide xpertnest"></div>
+                        <div class="partner-slide antares"></div>
+                        
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="script.js" defer></script>
+
+    <footer class="footer-section">
+        <div class="container">
+            <h2 class="main-heading">Enhance your automation knowledge to the next level</h2>
+
+            <h5 class="sub-heading">EIQ Platform - Intelligent Business Automation and beyond</h5>
+
+            <a href="https://lms.evoluteiq.info/courses/e-iq-foundation-course-certification/" class="cta-button">
+                Start Learning
+            </a>
+
+            <p class="copyright">Copyright © 2025 | EvoluteIQ LMS</p>
+        </div>
+    </footer>
+<!-- LOGIN MODAL POPUP -->
+<div id="login-modal" class="modal-overlay">
+  <div class="modal-content login-modal-flex">
+    
+    <!-- LEFT SIDE IMAGE DIV -->
+    <div class="login-modal-left"></div>
+
+    <!-- RIGHT SIDE (your existing login section) -->
+    <div class="login-modal-right">
+      <span class="modal-close" onclick="document.getElementById('login-modal').style.display='none'">&times;</span>
+      
+      <!-- ORIGINAL LOGIN SECTION -->
+      <div id="page-login" data-path="login">
+        <div class="page-content-wrapper">
+          <div class="page-breadcrumbs"></div>
+
+          <main class="container my-4">
+            <div class="page-header-wrapper">
+              <div class="page-header"></div>
+            </div>
+
+            <div class="page_content">
+              <section class="for-login">
+                <div class="page-card-head">
+                  <img class="app-logo" src="/files/EvoluteIQ-logo-180x51 (1).webp">
+                  <h4>Login to Evoluteiq</h4>
+                </div>
+
+                <div class="login-content page-card">
+                  <form class="form-signin form-login" role="form">
+                    <div class="page-card-body">
+                      <div class="form-group">
+                        <label class="form-label sr-only" for="login_email">Email</label>
+                        <div class="email-field">
+                          <input type="text" id="login_email" class="form-control" placeholder="jane@example.com" required autocomplete="username">
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="form-label sr-only" for="login_password">Password</label>
+                        <div class="password-field">
+                          <input type="password" id="login_password" class="form-control" placeholder="•••••" autocomplete="current-password" required>
+                          <span toggle="#login_password" class="toggle-password text-muted">Show</span>
+                        </div>
+                      </div>
+
+                      <p class="forgot-password-message">
+                        <a href="#forgot">Forgot Password?</a>
+                      </p>
+                    </div>
+
+                    <div class="page-card-actions">
+                      <button class="btn btn-sm btn-primary btn-block btn-login" type="submit">Login</button>
+                    </div>
+
+                    <div class="social-logins text-center">
+                      <p class="text-muted login-divider">or</p>
+                      <div class="social-login-buttons"></div>
+
+                      <div class="login-with-email-link social-login-buttons">
+                        <div class="login-button-wrapper">
+                          <a href="#login-with-email-link" class="btn btn-block btn-default btn-sm btn-login-option btn-login-with-email-link">Login with Email Link</a>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </section>
+            </div>
+
+            <div class="page-footer"></div>
+          </main>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+`;
+
+document.querySelector('.nav-button.next').addEventListener('click', function () {
+    const modal = document.getElementById('login-modal');
+    if (modal) {
+      modal.style.display = 'flex'; // Show modal
+    }
+  });
+
+  // Hide modal on background click
+  window.addEventListener('click', function (e) {
+    const modal = document.getElementById('login-modal');
+    if (e.target === modal) {
+      modal.style.display = 'none';
+    }
+  });
+
+  // Hide modal initially
+  window.addEventListener('DOMContentLoaded', function () {
+    const modal = document.getElementById('login-modal');
+    if (modal) {
+      modal.style.display = 'none';
+    }
+  });
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+ body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+     background-color: #f5f5f5;
+}
+
+
+
+/*setting images here for all*/
+
+/*section 2 */
+.elementor-image-box-img {
+  width: 128px;
+  height: 128px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin: 0 auto; /* ✅ This centers the figure horizontally */
+  display: block; /* ✅ Ensures margin works */
+}
+
+/* Different background images for different classes */
+.certificate-img {
+  background-image: url('../certificate.png');
+}
+
+.opportunities-img {
+  background-image: url('../opportunities-1.png');
+}
+
+.tutorials-img {
+  background-image: url('../online-training.png');
+}
+
+
+.course-background {
+  width: 100%;
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+.training-bg {
+  background-image: url('../training.jpg');
+}
+
+.internship-bg {
+  background-image: url('../internship.jpg');
+}
+
+.course-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3); /* Optional dark overlay */
+}
+
+
+.hyperautomation-image {
+  width: 100%;
+  height: 100%;
+  min-height: 400px; /* Adjust height as needed */
+  background-image: url('../01-what-is-hyperautomation-1024x794.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 8px; /* Optional: rounded corners */
+}
+
+
+
+.testimonial-image {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto; /* Center horizontally */
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin: 0;
+}
+
+/* Individual background-image assignments */
+.malyam-reddy {
+  background-image: url('../malyam-reddy-varun.jpg');
+}
+.priyanka {
+  background-image: url('../priyanka-r.jpg');
+}
+.priya {
+  background-image: url('../priya-hp.jpg');
+}
+.nischitha {
+  background-image: url('../nischitha.jpg');
+}
+.likhith {
+  background-image: url('../likhith.jpg');
+}
+.divya {
+  background-image: url('../divya-br.jpg');
+}
+.anusha {
+  background-image: url('../anusha.jpg');
+}
+.inchara {
+  background-image: url('../inchara.jpg');
+}
+
+
+.partner-slide {
+  width: 100px; /* or adjust as needed */
+  height: 60px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin: 0 12px;
+}
+
+/* Specific partner backgrounds */
+.partner-slide.cms {
+  background-image: url('../cms.png');
+}
+
+.partner-slide.infovision {
+  background-image: url('../infovision.png');
+}
+
+.partner-slide.omega-healthcare {
+  background-image: url('../omega-healthcare.png');
+}
+
+.partner-slide.rgp {
+  background-image: url('../rgp.png');
+}
+
+.partner-slide.wns {
+  background-image: url('../wns.png');
+}
+
+.partner-slide.it {
+  background-image: url('../it.png');
+}
+
+.partner-slide.jktech {
+  background-image: url('../jktech.png');
+}
+
+.partner-slide.medtronic {
+  background-image: url('../medtronic.png');
+}
+
+.partner-slide.southern-water {
+  background-image: url('../southern-water-logo.png');
+}
+
+.partner-slide.tene-ag {
+  background-image: url('../tene-ag.png');
+}
+
+.partner-slide.amoga {
+  background-image: url('../amoga-logo.png');
+}
+
+.partner-slide.xpertnest {
+  background-image: url('../xpertnest-logo.png');
+}
+
+.partner-slide.antares {
+  background-image: url('../the-antares-2.png');
+}
+
+
+a.course-card {
+    color: inherit !important;
+    text-decoration: none !important;
+}
+
+
+
+
+.testimonial-wrapper {
+  
+  animation: slideTestimonials 40s infinite;
+}
+
+
+@keyframes slideTestimonials {
+  0% { transform: translateX(0%); }
+  12.5% { transform: translateX(0%); }
+  
+  14.5% { transform: translateX(-100%); }
+  26.5% { transform: translateX(-100%); }
+  
+  28.5% { transform: translateX(-200%); }
+  40.5% { transform: translateX(-200%); }
+
+  42.5% { transform: translateX(-300%); }
+  54.5% { transform: translateX(-300%); }
+
+  56.5% { transform: translateX(-400%); }
+  68.5% { transform: translateX(-400%); }
+
+  70.5% { transform: translateX(-500%); }
+  82.5% { transform: translateX(-500%); }
+
+  84.5% { transform: translateX(-600%); }
+  96.5% { transform: translateX(-600%); }
+
+  98.5% { transform: translateX(-700%); }
+  100% { transform: translateX(-700%); }
+}
+
+/*----------------*/
+
+
+
+.ast-primary-header-bar {
+    background-color: #f5f5f5;
+    /* Light gray background */
+    padding: 10px 20px;
+    /* Padding around the header */
+}
+
+.site-logo-img {
+    display: inline-block;
+    /* Align logo inline */
+}
+
+.site-branding img {
+    max-width: 100%;
+    /* Responsive logo */
+    height: auto;
+    /* Keep aspect ratio */
+}
+
+.main-header-menu {
+    list-style: none;
+    /* Remove bullet points */
+    padding: 0;
+    /* Remove default padding */
+    margin: 0;
+    /* Remove default margin */
+    display: flex;
+    /* Flexbox layout for horizontal alignment */
+}
+
+.menu-item {
+    margin-right: 20px;
+    /* Space between menu items */
+    border: 0;
+    /* font-size: 100%; */
+    /* font-style: inherit; */
+    /* font-weight: inherit; */
+    /* margin: 0; */
+    /* outline: 0; */
+    padding: 0;
+    vertical-align: baseline;
+}
+
+.menu-item:last-child {
+    margin-right: 0;
+    /* No margin on the last item */
+}
+
+.menu-link {
+    text-decoration: none;
+    /* Remove underline from links */
+    color: #6f6f6f;
+    /* Link color, change as needed */
+    /* font-weight: bold; */
+    /* Bold text */
+}
+
+.menu-link:hover {
+    color: #005177;
+    /* Darker color on hover */
+}
+
+.ast-builder-grid-row.ast-builder-grid-row-has-sides.ast-builder-grid-row-no-center {
+    display: flex;
+    flex-direction: row;
+    align-content: stretch;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+
+ /* body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f5f5f5;
+}  */
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Student Reviews Section */
+.reviews-section {
+    padding: 80px 0;
+    background-color: #fff;
+}
+
+.reviews-section h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 50px;
+    color: #272c6c;
+    font-weight: 600;
+}
+
+.testimonial-carousel {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.testimonial-wrapper {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.testimonial-slide {
+    min-width: 100%;
+}
+
+.testimonial {
+    background: #ffffff;
+    border-radius: 15px;
+    /* padding: 40px 30px; */
+    text-align: center;
+    position: relative;
+    /* box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); */
+}
+
+.testimonial::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 15px solid #f8f9fa;
+}
+
+.testimonial-text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 30px;
+    color: #555;
+    font-style: italic;
+}
+
+.testimonial-footer {
+    
+  
+    align-content: flex-end;
+    justify-content: center;
+    flex-wrap: wrap;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border-top: 1px solid var(--gray-200);
+    padding-top: 2rem;
+    margin-top: auto;
+}
+
+.testimonial-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid #e0e0e0;
+}
+
+.testimonial-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.testimonial-name {
+    font-weight: 600;
+    color: #333;
+    font-size: 1.1rem;
+}
+
+/* Navigation Buttons */
+.nav-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #ffffff;
+    /* color: white; */
+    border: none;
+    width: 69px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    /* z-index: 10; */
+}
+
+.nav-button:hover {
+    background: #005a8a;
+    transform: translateY(-50%) scale(1.1);
+}
+
+.nav-button.prev {
+    left: -25px;
+}
+
+.nav-button.next {
+    right: -25px;
+}
+
+/* Pagination Dots */
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 30px;
+}
+
+.pagination-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #ccc;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.pagination-dot.active {
+    background: #007cba;
+    transform: scale(1.2);
+}
+
+/* Industry Partners Section */
+.partners-section {
+    padding: 80px 0;
+    background: #F2F2F2
+}
+
+.partners-section h3 {
+    text-align: center;
+    font-size: 2.2rem;
+    margin-bottom: 50px;
+    font-weight: 600;
+    color: #272c6c;
+}
+
+.partners-carousel {
+    overflow: hidden;
+    position: relative;
+}
+
+.partners-wrapper {
+    display: flex;
+    animation: scroll 20s linear infinite;
+    gap: 100px;
+}
+
+.partner-slide {
+    min-width: 150px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    border-radius: 10px;
+    padding: 15px;
+
+}
+
+.partner-slide img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+
+    transition: filter 0.3s ease;
+}
+
+.partner-slide:hover img {
+    filter: grayscale(0%);
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .reviews-section h2 {
+        font-size: 2rem;
+    }
+
+    .partners-section h3 {
+        font-size: 1.8rem;
+    }
+
+    .testimonial {
+        padding: 30px 20px;
+    }
+
+    .testimonial-text {
+        font-size: 1rem;
+    }
+
+    .nav-button {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+
+    .nav-button.prev {
+        left: -20px;
+    }
+
+    .nav-button.next {
+        right: -20px;
+    }
+
+    .partners-wrapper {
+        gap: 50px;
+    }
+
+    .partner-slide {
+        min-width: 120px;
+        height: 60px;
+    }
+}
+
+.slider-section {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.slider-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.slider-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+
+}
+
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.slide:nth-child(1) {
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+        url('../01-automation-learning.jpg');
+}
+
+.slide:nth-child(2) {
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+        url('../04-automation-learning.jpg');
+}
+
+.slider-wrapper {
+  display: flex;
+  width: 200%; /* 2 slides, each 100% */
+  animation: slideTwoSlides 10s infinite;
+}
+
+.slide {
+  flex: 0 0 50%; /* 50% of wrapper width = 100% of visible container */
+  position: relative;
+}
+
+@keyframes slideTwoSlides {
+  0%, 45% {
+    transform: translateX(0%);
+  }
+  50%, 95% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+
+@keyframes zoomInOut {
+    0% {
+        background-size: 100%;
+    }
+    100% {
+        background-size: 110%;
+    }
+}
+
+
+.slide.active {
+    opacity: 1;
+    animation: zoomInOut 6s ease-in-out forwards;
+}
+
+.slide-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.slide-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: white;
+    max-width: 1200px;
+    padding: 0 20px;
+    animation: fadeInUp 1s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.slide-heading {
+    /* font-size: 3rem; */
+    /* font-weight: bold; */
+    margin-bottom: 20px;
+    /* line-height: 1.2; */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    font-size: 31px;
+    font-weight: 700;
+    line-height: 45px;
+    /* line-height: 1; */
+    /* display: flex; */
+    /* align-content: stretch; */
+    flex-direction: column;
+    color:#fff;
+}
+
+.slide-description {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    line-height: 1.6;
+    opacity: 0.9;
+}
+
+.slide-button {
+    display: inline-block;
+    /* background: #ff6b6b; */
+    color: white;
+    padding: 15px 30px;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    /* box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3); */
+    background-color: #0274BEAB; /* This will be overridden unless transparent is removed */
+    /* background: transparent; */ /* Uncomment this if you want a transparent background instead */
+    color: inherit;
+    text-decoration: none;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+    border-bottom-left-radius: 50px;
+    padding-top: 15px;
+    padding-right: 40px;
+    padding-bottom: 16px;
+    padding-left: 40px;
+    border-color: 1px solidwhite;
+    border: 2px solid white; /* White border */
+}
+
+.slide-button:hover {
+   
+    transform: translateY(-2px);
+   
+}
+
+.slider-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+    z-index: 10;
+    backdrop-filter: blur(10px);
+}
+
+.slider-nav:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.prev-btn {
+    left: 30px;
+}
+
+.next-btn {
+    right: 30px;
+}
+
+.slider-dots {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 10;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dot.active {
+    background: white;
+    transform: scale(1.2);
+}
+
+@media (max-width: 768px) {
+    .slide-heading {
+        font-size: 2rem;
+    }
+
+    .slide-description {
+        font-size: 1rem;
+    }
+
+    .slide-content {
+        max-width: 90%;
+    }
+
+    .slider-nav {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+
+    .prev-btn {
+        left: 15px;
+    }
+
+    .next-btn {
+        right: 15px;
+    }
+}
+
+
+.elementor-section {
+    padding: 40px 20px;
+    /* background-color: #f9f9f9; */
+    /* Light background for the section */
+}
+
+/* Container Styles */
+.elementor-container {
+    max-width: 1200px;
+    /* Maximum width for the container */
+    margin: 0 auto;
+    /* Center the container */
+    display: flex;
+    /* Use Flexbox for layout */
+    justify-content: center;
+    /* Center items horizontally */
+    flex-wrap: wrap;
+    /* Allow items to wrap to the next line if needed */
+}
+
+/* Column Styles */
+.elementor-column {
+    padding: 10px;
+    /* Padding for each column */
+    flex: 1 1 30%;
+    /* Allow columns to grow and shrink, with a base width of 30% */
+    /* max-width: 30%; */
+    /* Maximum width for each column */
+    /* box-sizing: border-box; */
+    /* Include padding in width calculation */
+    /* transition: background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s; */
+    margin-top: -120px;
+    margin-bottom: 0px;
+    /* padding: 0px 0px 30px 0px; */
+    z-index: 1;
+}
+
+/* Image Box Styles */
+.elementor-image-box-wrapper {
+    text-align: center;
+    /* Center align content in image boxes */
+    background-color: #ffffff;
+    /* White background for image boxes */
+    border-radius: 8px;
+    /* Rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    /* Subtle shadow */
+    padding: 20px;
+    /* Padding inside image boxes */
+    transition: transform 0.3s;
+    /* Smooth transition for hover effect */
+
+}
+
+/* Image Styles */
+.elementor-image-box-img img {
+    max-width: 100%;
+    /* Responsive image */
+    height: auto;
+    /* Maintain aspect ratio */
+}
+
+/* Title Styles */
+p.elementor-image-box-description {
+    border: 0;
+    font-size: 100%;
+    font-style: inherit;
+    font-weight: inherit;
+    margin: 0;
+    outline: 0;
+    padding: 0;
+    vertical-align: baseline;
+    color: black;
+}
+
+h3.elementor-image-box-title {
+    color: #272c6c;
+    font-size: 1.4rem !important;
+}
+
+.elementor-column.elementor-col-50 {
+    margin-top: 0px;
+}
+
+
+
+
+.course-section {
+    display: flex;
+    justify-content: center;
+    /* padding: 20px; */
+    /* max-width: 1140px; */
+    padding: 60px 0px 60px 0px;
+    background: #fff;
+}
+
+.course-container {
+    display: flex;
+    width: 60%;
+    max-width: 1227px;
+}
+
+.course-column {
+    flex: 1;
+    margin: 10px;
+    position: relative;
+    box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s;
+    margin: 20px 20px 20px 20px;
+    --e-column-margin-right: 20px;
+    --e-column-margin-left: 20px;
+    padding: 30px 30px 30px 30px;
+}
+
+.course-card {
+    display: block;
+    text-decoration: none;
+    color: white;
+    border-radius: 8px;
+    overflow: hidden !important;
+    position: relative;
+    border-radius: 10px 10px 10px 10px;
+}
+
+.course-background {
+    height: 300px;
+    background-size: cover;
+    background-position: center;
+}
+
+.course-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* background: rgba(0, 0, 0, 0.5); */
+}
+
+.course-content {
+    position: relative;
+    padding: 20px;
+    text-align: center;
+    background: #fff;
+}
+
+.course-title {
+    font-size: 28px;
+    margin: 10px 0;
+    border-color: #3f444b;
+    color: #3f444b;
+    fill: #3f444b;
+    background: #fff;
+}
+
+.course-description {
+    font-size: 16px;
+    margin-bottom: 20px;
+    border-color: #3f444b;
+    color: #3f444b;
+    fill: #3f444b;
+}
+
+.course-button {
+  background-color: #0274be;
+    color: #ffffff;
+    font-size: 0.9375rem;
+    text-align: center;
+
+    padding: 15px 40px 16px 40px;
+
+    border: 2px solid #ffffff;
+    border-radius: 50px;
+
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+
+    transition: all 0.3s ease;
+    width: max-content; /* You had 'ma', probably meant this */
+
+}
+
+.course-button:hover {
+    background-color: #0056b3;
+}
+
+.course-card:hover .course-background {
+
+    transform: scale(1.05);
+    /* Zoom in */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 123, 255, 0.4);
+    /* Add colored shadow */
+
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+
+
+
+
+
+.elementor-section {
+    padding: 20px;
+    background-color: #fff;
+    /* Example background color */
+    /* display: none; */
+}
+
+.elementor-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.elementor-column {
+    width: 48%;
+    /* Adjusts the width of the columns */
+}
+
+.elementor-widget-image img {
+    max-width: 100%;
+    height: auto;
+}
+
+.elementor-widget-heading h2 {
+    /* font-size: 24px; */
+    /* color: #333; */
+    /* Example text color */
+    color: #272c6c;
+    font-size: 35px;
+    font-size: 2.1875rem;
+    font-weight: 700;
+    font-family: 'Lato', sans-serif;
+    line-height: 1.3em;
+}
+
+.elementor-widget-text-editor p {
+    font-size: 16px;
+    color: #666;
+    /* Example text color */
+}
+
+.elementor-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    /* Example button color */
+    color: #fff;
+    /* Button text color */
+    text-decoration: none;
+    border-radius: 5px;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+    border-bottom-left-radius: 50px;
+    padding-top: 9px;
+    padding-right: 27px;
+    padding-bottom: 9px;
+    padding-left: 27px;
+}
+
+.elementor-button:hover {
+    background-color: #0056b3;
+    /* Darker shade on hover */
+}
+
+/*Footer Section*/
+
+.footer-section {
+    background-color: #0D68AE;
+    padding: 60px 0;
+    text-align: center;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.main-heading {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+    line-height: 1.2;
+    font-family: "Roboto", Sans-serif;
+    font-size: 33px;
+    font-weight: normal;
+    font-style: normal;
+    line-height: 1px;
+    letter-spacing: 0px;
+    word-spacing: 0px;
+    color: #FFFFFF;
+}
+
+.sub-heading {
+    font-size: 1.25rem;
+    /* color: #666; */
+    margin-bottom: 30px;
+    font-weight: normal;
+    color: #FFFFFF;
+    line-height: 3.2em;
+}
+
+.cta-button {
+    display: inline-block;
+    background-color: #007cba;
+    color: white;
+    padding: 12px 30px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+    margin-bottom: 40px;
+    background-color: #FFFFFF;
+    fill: #0D68AE;
+    color: #0D68AE;
+    font-size: 0.9375rem 15px;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+    border-bottom-left-radius: 50px;
+    padding-top: 15px;
+    padding-right: 40px;
+    padding-bottom: 16px;
+    padding-left: 40px;
+}
+
+.cta-button:hover {
+    background-color: #005a87;
+}
+
+.copyright {
+    font-size: 14px;
+    color: #fff;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+    .main-heading {
+        display: none;
+        /* Hidden on mobile as per original */
+    }
+
+    .footer-section {
+        padding: 40px 0;
+    }
+
+    .sub-heading {
+        font-size: 1.1rem;
+    }
+
+    .cta-button {
+        padding: 10px 25px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 15px;
+    }
+
+    .sub-heading {
+        font-size: 1rem;
+        margin-bottom: 25px;
+    }
+}section.elementor-section.elementor-inner-section.elementor-element.elementor-element-5b4952c1.elementor-section-boxed.elementor-section-height-default {
+    background: transparent;
+}
+
+
+/* Flex container for modal */
+.login-modal-flex {
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+  max-width: 900px;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+}
+
+/* Left image side */
+.login-modal-left {
+  flex: 1;
+  min-height: 500px;
+  background-image: url("/files/What_is_Generative_AI_63beafff52.webp");
+  background-size: cover;
+  background-position: center;
+}
+
+/* Right login content */
+.login-modal-right {
+  flex: 1;
+  padding: 20px;
+  position: relative;
+}
+
+/* Optional: Adjust close button positioning */
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* Modal overlay style */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* LOGIN MODAL STYLES */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  background-color: rgba(0, 0, 0, 0.6);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  position: relative;
+  background: #fff;
+  margin: 5% auto;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 893px;
+  width: 90%;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  height: 74%;
+}
+
+/* Close Button */
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 28px;
+  font-weight: bold;
+  color: #888;
+  cursor: pointer;
+}
+
+.modal-close:hover {
+  color: #000;
+}
+
+.login-modal-content {
+  display: flex;
+  width: 90%;
+  max-width: 900px;
+  height: 500px;
+  margin: auto;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.login-image-side {
+  flex: 1;
+  background: url("/files/What_is_Generative_AI_63beafff52.webp") no-repeat center center;
+  background-size: cover;
+}
+
+.login-form-side {
+  flex: 1;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Optional: Responsive */
+@media (max-width: 768px) {
+  .login-modal-content {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .login-image-side {
+    height: 200px;
+  }
+
+  .login-form-side {
+    padding: 20px;
+  }
+}
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  /*----------------------------------------------------------------------------------------------*/
+  
+  
+  
+//files/certificate.png
+
+//files/certificate.png
+
+document.body.innerHTML = `
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <header class="ast-primary-header-bar ast-primary-header main-header-bar site-header-focus-item"
+        data-section="section-primary-header-builder">
+        <div class="site-primary-header-wrap ast-builder-grid-row-container site-header-focus-item ast-container"
+            data-section="section-primary-header-builder">
+            <div class="ast-builder-grid-row ast-builder-grid-row-has-sides ast-builder-grid-row-no-center">
+                <!-- Logo Section -->
+                <div class="site-header-primary-section-left site-header-section ast-flex site-header-section-left">
+                    <div class="ast-builder-layout-element ast-flex site-header-focus-item"
+                        data-section="title_tagline">
+                        <div class="site-branding ast-site-identity" itemtype="https://schema.org/Organization"
+                            itemscope="itemscope">
+                            <span class="site-logo-img">
+                                <a href="https://lms.evoluteiq.info/" class="custom-logo-link" rel="home"
+                                    aria-current="page">
+                                    <img width="200" height="58"
+                                        src="https://lms.evoluteiq.info/wp-content/uploads/2022/02/evoluteIQ.svg"
+                                        class="custom-logo" alt="EvoluteIQ" decoding="async" loading="lazy">
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Menu -->
+                <div class="site-header-primary-section-right site-header-section ast-flex ast-grid-right-section">
+                    <div class="ast-builder-menu-1 ast-builder-menu ast-flex ast-builder-menu-1-focus-item ast-builder-layout-element site-header-focus-item"
+                        data-section="section-hb-menu-1">
+                        <div class="ast-main-header-bar-alignment">
+                            <div class="main-header-bar-navigation">
+                                <nav class="site-navigation ast-flex-grow-1 navigation-accessibility site-header-focus-item"
+                                    id="primary-site-navigation-desktop" aria-label="Main Navigation"
+                                    itemtype="https://schema.org/SiteNavigationElement" itemscope="itemscope">
+                                    <div class="main-navigation ast-inline-flex">
+                                        <ul id="ast-hf-menu-1"
+                                            class="main-header-menu ast-menu-shadow ast-nav-menu ast-flex submenu-with-border astra-menu-animation-slide-up stack-on-mobile ast-mega-menu-enabled">
+                                            <li id="menu-item-1510"
+                                                class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-17 current_page_item menu-item-1510">
+                                                <a href="https://lms.evoluteiq.info/" class="menu-link"
+                                                    aria-current="page">
+                                                    <span class="ast-icon icon-arrow"></span>
+                                                    <span class="menu-text">Home</span>
+                                                </a>
+                                            </li>
+                                            <li id="menu-item-27099"
+                                                class="menu-item menu-item-type-post_type menu-item-object-page menu-item-27099">
+                                                <a href="https://lms.evoluteiq.info/docs/" class="menu-link">
+                                                    <span class="ast-icon icon-arrow"></span>
+                                                    <span class="menu-text">Documentation</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+
+	
+		
+        <section class="slider-section">
+            <div class="slider-container">
+                <div class="slider-wrapper">
+                    <div class="slide active">
+                        <div class="slide-overlay"></div>
+                        <div class="slide-content">
+                            <h2 class="slide-heading">Learn Intelligent Business Automation on the industry-leading EIQ
+                                Platform</h2>
+                            <p class="slide-description">Begin your learning on Intelligent Business Automation, an
+                                emerging approach in digital transformation today!</p>
+                             <a href="javascript:void(0)" class="slide-button open-login-modal">Explore Course</a>
+                        </div>
+                    </div>
+
+                    <div class="slide active">
+                        <div class="slide-overlay"></div>
+                        <div class="slide-content">
+                            <h2 class="slide-heading">Transition Your Career & Be Future Ready</h2>
+                            <p class="slide-description">Explore the course designed by experts that offer professionals
+                                certification, support, career counseling & and much more</p>
+                            <a href="javascript:void(0)" class="slide-button open-login-modal">Explore Course</a>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="slider-nav prev-btn" onclick="previousSlide()" aria-label="Previous slide">
+  <i class="fas fa-chevron-left" aria-hidden="true"></i>
+</button>
+
+<button class="slider-nav next-btn" onclick="nextSlide()" aria-label="Next slide">
+  <i class="fas fa-chevron-right" aria-hidden="true"></i>
+</button>
+
+                <div class="slider-dots">
+                    <span class="dot active" onclick="currentSlide(1)"></span>
+                    <span class="dot" onclick="currentSlide(2)"></span>
+                </div>
+            </div>
+        </section>
+
+
+
+
+        <section data-particle_enable="false" data-particle-mobile-disabled="false"
+            class="elementor-section elementor-top-section elementor-element elementor-element-1e537621 elementor-section-boxed elementor-section-height-default"
+            data-id="1e537621" data-element_type="section" data-settings='{"background_background":"classic"}'>
+            <div class="elementor-container elementor-column-gap-default">
+                <div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-259f3103"
+                    data-id="259f3103" data-element_type="column">
+                    <div class="elementor-widget-wrap elementor-element-populated">
+                        <section data-particle_enable="false" data-particle-mobile-disabled="false"
+                            class="elementor-section elementor-inner-section elementor-element elementor-element-5b4952c1 elementor-section-boxed elementor-section-height-default"
+                            data-id="5b4952c1" data-element_type="section"
+                            data-settings='{"background_background":"classic"}'>
+                            <div class="elementor-container elementor-column-gap-default">
+                                <div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-4fd7f709"
+                                    data-id="4fd7f709" data-element_type="column"
+                                    data-settings='{"background_background":"classic"}'>
+                                    <div class="elementor-widget-wrap elementor-element-populated">
+                                        <div class="elementor-element elementor-element-78697e9 elementor-position-top elementor-widget elementor-widget-image-box"
+                                            data-id="78697e9" data-element_type="widget"
+                                            data-widget_type="image-box.default">
+                                            <div class="elementor-widget-container">
+                                                <div class="elementor-image-box-wrapper">
+                                                    <figure class="elementor-image-box-img certificate-img"></figure>
+
+                                                    <div class="elementor-image-box-content">
+                                                        <h3 class="elementor-image-box-title">EIQ Platform Training</h3>
+                                                        <p class="elementor-image-box-description">Achieve your career
+                                                            goals with industry-recognized learning paths from experts
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-1ce5f945"
+                                    data-id="1ce5f945" data-element_type="column"
+                                    data-settings='{"background_background":"classic"}'>
+                                    <div class="elementor-widget-wrap elementor-element-populated">
+                                        <div class="elementor-element elementor-element-aaaec23 elementor-position-top elementor-widget elementor-widget-image-box"
+                                            data-id="aaaec23" data-element_type="widget"
+                                            data-widget_type="image-box.default">
+                                            <div class="elementor-widget-container">
+                                                <div class="elementor-image-box-wrapper">
+                                                    <figure class="elementor-image-box-img opportunities-img"></figure>
+                                                    <div class="elementor-image-box-content">
+                                                        <h3 class="elementor-image-box-title">EIQ Platform
+                                                            Certifications</h3>
+                                                        <p class="elementor-image-box-description">Gain EIQ Platform
+                                                            certifications to validate your skills &amp; advance your
+                                                            career</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-3c0f7d8a"
+                                    data-id="3c0f7d8a" data-element_type="column"
+                                    data-settings='{"background_background":"classic"}'>
+                                    <div class="elementor-widget-wrap elementor-element-populated">
+                                        <div class="elementor-element elementor-element-09522da elementor-position-top elementor-widget elementor-widget-image-box"
+                                            data-id="09522da" data-element_type="widget"
+                                            data-widget_type="image-box.default">
+                                            <div class="elementor-widget-container">
+                                                <div class="elementor-image-box-wrapper">
+                                                    <figure class="elementor-image-box-img tutorials-img"></figure>
+                                                    <div class="elementor-image-box-content">
+                                                        <h3 class="elementor-image-box-title">Guides &amp; Tutorials
+                                                        </h3>
+                                                        <p class="elementor-image-box-description">Discover EIQ Platform
+                                                            with easy how-to videos and user manuals</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <section class="course-section">
+            <div class="course-container">
+                <div class="course-column">
+                    <a class="course-card" href="../eiq-platform-consultant-certification/">
+                       <div class="course-background training-bg">
+                            <div class="course-overlay"></div>
+                        </div>
+                        <div class="course-content">
+                            <h2 class="course-title">EIQ Platform Certification</h2>
+                            <div class="course-description">For Professionals</div>
+                            <div class="course-button">Explore Course</div>
+                        </div>
+                    </a>
+                </div>
+                <div class="course-column">
+                    <a class="course-card" href="../e-iq-foundation-course-certification/">
+                        <div class="course-background internship-bg">
+                            <div class="course-overlay"></div>
+                        </div>
+                        <div class="course-content">
+                            <h2 class="course-title">EIQ Internship Program</h2>
+                            <div class="course-description">For Students</div>
+                            <div class="course-button">Explore Course</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+
+
+        <section class="elementor-section elementor-top-section elementor-section-boxed">
+            <div class="elementor-container elementor-column-gap-wide">
+                <div class="elementor-column elementor-col-50">
+                    <div class="elementor-widget-wrap">
+                        <div class="elementor-widget elementor-widget-image">
+                            <div class="elementor-widget-container">
+                                <div class="hyperautomation-image"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="elementor-column elementor-col-50">
+                    <div class="elementor-widget-wrap">
+                        <div class="elementor-widget elementor-widget-heading">
+                            <div class="elementor-widget-container">
+                                <h2>New to Intelligent Business Automation?</h2>
+                            </div>
+                        </div>
+                        <div class="elementor-widget elementor-widget-text-editor">
+                            <div class="elementor-widget-container">
+                                <p>Intelligent business automation is a business-driven, disciplined approach that
+                                    organizations use to rapidly identify, vet and automate as many businesses and IT
+                                    processes as possible.</p>
+                                <p>The EIQ Platform foundation course will help you learn about Intelligent business
+                                    automation, the EIQ Platform and its capabilities.</p>
+                            </div>
+                        </div>
+                        <div class="elementor-widget elementor-widget-button">
+                            <div class="elementor-widget-container">
+                                <div class="elementor-button-wrapper">
+                                    <a class="elementor-button" href="https://lms.evoluteiq.info/my-account/">
+                                        <span class="elementor-button-text">Sign up for Free Course</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Testimonials Section -->
+        <section class="reviews-section" aria-labelledby="testimonials-heading">
+            <div class="container">
+                <h2 id="testimonials-heading">Students Reviews</h2>
+
+                <div class="testimonial-carousel">
+                    <div class="testimonial-wrapper" id="testimonialWrapper">
+                        <!-- Testimonial 1 -->
+                        <div class="testimonial-slide" role="group" aria-roledescription="slide" aria-label="1 of 8">
+                            <div class="testimonial">
+                                <blockquote class="testimonial-text">
+                                    "As an intern at EvoluteIQ, I had an amazing and invaluable experience. The company
+                                    provided me with opportunities to learn and grow in a supportive and nurturing
+                                    environment. The mentorship I received from experienced professionals was
+                                    exceptional, and their guidance helped me develop new skills and gain practical
+                                    industry knowledge. I am truly grateful for the opportunity to be part of such a
+                                    great and helpful organization like EvoluteIQ during my internship."
+                                </blockquote>
+                                <div class="testimonial-footer">
+                                   <div class="testimonial-image malyam-reddy"></div>
+
+                                    <span class="testimonial-name">Malyam Reddy Varun</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Testimonial 2 -->
+                        <div class="testimonial-slide" role="group" aria-roledescription="slide" aria-label="2 of 8">
+                            <div class="testimonial">
+                                <blockquote class="testimonial-text">
+                                    "I am able to learn new things and create interesting applications referring the use
+                                    cases provided by our mentors. Mentors were very good and in contact with us while
+                                    learning this platform. They are prompt to reply whenever we ask them any doubts. It
+                                    is great experience learning about Intelligent business automation in this
+                                    platform."
+                                </blockquote>
+                                <div class="testimonial-footer">
+                                    <div class="testimonial-image priyanka"></div>
+
+                                    <span class="testimonial-name">Priyanka R</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Testimonial 3 -->
+                        <div class="testimonial-slide" role="group" aria-roledescription="slide" aria-label="3 of 8">
+                            <div class="testimonial">
+                                <blockquote class="testimonial-text">
+                                    "The internship is going good and we are actually learning a new technology. The
+                                    technology that we are learning is interesting and knowledgeable and I hope this
+                                    will help us in the future."
+                                </blockquote>
+                                <div class="testimonial-footer">
+                                    <div class="testimonial-image priya"></div>
+                                    <span class="testimonial-name">Priya H P</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Testimonial 4 -->
+                        <div class="testimonial-slide" role="group" aria-roledescription="slide" aria-label="4 of 8">
+                            <div class="testimonial">
+                                <blockquote class="testimonial-text">
+                                    "It is helpful for the students to learn new things on the Intelligent business
+                                    automation."
+                                </blockquote>
+                                <div class="testimonial-footer">
+                                     <div class="testimonial-image nischitha"></div>
+                                    <span class="testimonial-name">Nischitha CS</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Testimonial 5 -->
+                        <div class="testimonial-slide" role="group" aria-roledescription="slide" aria-label="5 of 8">
+                            <div class="testimonial">
+                                <blockquote class="testimonial-text">
+                                    "Thank you for considering my feedback on my internship experience at EvoluteIQ.
+                                    It's a good platform to learn a new technology"
+                                </blockquote>
+                                <div class="testimonial-footer">
+                                   <div class="testimonial-image likhith"></div>
+                                    <span class="testimonial-name">Likhith Sai M</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Testimonial 6 -->
+                        <div class="testimonial-slide" role="group" aria-roledescription="slide" aria-label="6 of 8">
+                            <div class="testimonial">
+                                <blockquote class="testimonial-text">
+                                    "It's a new experience for me, but it is actually nice to work on new technologies.
+                                    The team is very impressive and solves our doubts with ease. Team members as well as
+                                    the team lead."
+                                </blockquote>
+                                <div class="testimonial-footer">
+                                    <div class="testimonial-image divya"></div>
+                                    <span class="testimonial-name">Divya B R</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Testimonial 7 -->
+                        <div class="testimonial-slide" role="group" aria-roledescription="slide" aria-label="7 of 8">
+                            <div class="testimonial">
+                                <blockquote class="testimonial-text">
+                                    "Not only did the EIQ platform courses help me understand and learn all about
+                                    Intelligent business automation, it has also helped me grow in my career"
+                                </blockquote>
+                                <div class="testimonial-footer">
+                                   <div class="testimonial-image anusha"></div>
+                                    <span class="testimonial-name">Anusha Santhe</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Testimonial 8 -->
+                        <div class="testimonial-slide" role="group" aria-roledescription="slide" aria-label="8 of 8">
+                            <div class="testimonial">
+                                <blockquote class="testimonial-text">
+                                    "This training was very interactive and engaging."
+                                </blockquote>
+                                <div class="testimonial-footer">
+                                 <div class="testimonial-image inchara"></div>
+                                    <span class="testimonial-name">Inchara A P</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Navigation Buttons -->
+                    <button class="nav-button prev" onclick="prevSlide()" aria-label="Previous testimonial">
+                        <i class="fas fa-chevron-left" aria-hidden="true"></i>
+                    </button>
+                    <button class="nav-button next" onclick="nextSlide()" aria-label="Next testimonial">
+                        <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                    </button>
+                </div>
+
+                <!-- Pagination Dots -->
+                <div class="pagination" id="pagination" role="tablist">
+                    <!-- Dots will be generated by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- Industry Partners Section -->
+        <section class="partners-section" aria-labelledby="partners-heading">
+            <div class="container">
+                <h3 id="partners-heading">Industry Partners</h3>
+
+                <div class="partners-carousel">
+                    <div class="partners-wrapper">
+                        <!-- First set of partners -->
+                        <div class="partner-slide cms"></div>
+                        <div class="partner-slide infovision"></div>
+                        <div class="partner-slide omega-healthcare"></div>
+                        <div class="partner-slide rgp"></div>
+                        <div class="partner-slide wns"></div>
+                        <div class="partner-slide it"></div>
+                        <div class="partner-slide jktech"></div>
+                        <div class="partner-slide medtronic"></div>
+                        <div class="partner-slide southern-water"></div>
+                        <div class="partner-slide tene-ag"></div>
+                        <div class="partner-slide amoga"></div>
+                        <div class="partner-slide xpertnest"></div>
+                        <div class="partner-slide antares"></div>
+			
+			
+                        <!-- Duplicate set for seamless loop -->
+                        <div class="partner-slide cms"></div>
+                        <div class="partner-slide infovision"></div>
+                        <div class="partner-slide omega-healthcare"></div>
+                        <div class="partner-slide rgp"></div>
+                        <div class="partner-slide wns"></div>
+                        <div class="partner-slide it"></div>
+                        <div class="partner-slide jktech"></div>
+                        <div class="partner-slide medtronic"></div>
+                        <div class="partner-slide southern-water"></div>
+                        <div class="partner-slide tene-ag"></div>
+                        <div class="partner-slide amoga"></div>
+                        <div class="partner-slide xpertnest"></div>
+                        <div class="partner-slide antares"></div>
+                        
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="script.js" defer></script>
+
+    <footer class="footer-section">
+        <div class="container">
+            <h2 class="main-heading">Enhance your automation knowledge to the next level</h2>
+
+            <h5 class="sub-heading">EIQ Platform - Intelligent Business Automation and beyond</h5>
+
+            <a href="https://lms.evoluteiq.info/courses/e-iq-foundation-course-certification/" class="cta-button">
+                Start Learning
+            </a>
+
+            <p class="copyright">Copyright © 2025 | EvoluteIQ LMS</p>
+        </div>
+    </footer>
+<!-- LOGIN MODAL POPUP -->
+<div id="login-modal" class="modal-overlay">
+  <div class="modal-content login-modal-flex">
+    
+    <!-- LEFT SIDE IMAGE DIV -->
+    <div class="login-modal-left"></div>
+
+    <!-- RIGHT SIDE (your existing login section) -->
+    <div class="login-modal-right">
+      <span class="modal-close" onclick="document.getElementById('login-modal').style.display='none'">&times;</span>
+      
+      <div id="page-login" data-path="login">
+        <div class="page-content-wrapper">
+          <main class="container my-4">
+            <div class="page_content">
+
+              <!-- LOGIN SECTION -->
+              <section class="for-login">
+                <div class="page-card-head">
+                  <img class="app-logo" src="/files/EvoluteIQ-logo-180x51 (1).webp">
+                  <h4>Login to Evoluteiq</h4>
+                </div>
+                <div class="login-content page-card">
+                  <form class="form-signin form-login" role="form">
+                    <div class="page-card-body">
+                      <div class="form-group">
+                        <label class="form-label sr-only" for="login_email">Email</label>
+                        <div class="email-field">
+                          <input type="text" id="login_email" class="form-control" placeholder="jane@example.com" required autocomplete="username">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label sr-only" for="login_password">Password</label>
+                        <div class="password-field">
+                          <input type="password" id="login_password" class="form-control" placeholder="•••••" autocomplete="current-password" required>
+                          <span toggle="#login_password" class="toggle-password text-muted">Show</span>
+                        </div>
+                      </div>
+                      <p class="forgot-password-message">
+                        <a href="#" id="forgot-password-link">Forgot Password?</a>
+                      </p>
+                    </div>
+                    <div class="page-card-actions">
+                      <button class="btn btn-sm btn-primary btn-block btn-login" type="submit">Login</button>
+                    </div>
+                    <div class="social-logins text-center">
+                      <p class="text-muted login-divider">or</p>
+                      <div class="social-login-buttons"></div>
+                      <div class="login-with-email-link social-login-buttons">
+                        <div class="login-button-wrapper">
+                          <a href="#" id="login-with-email-link" class="btn btn-block btn-default btn-sm btn-login-option btn-login-with-email-link">Login with Email Link</a>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </section>
+
+              <!-- FORGOT PASSWORD SECTION -->
+              <section class="for-forgot" style="display: none;">
+                <div class="page-card-head">
+                  <h4>Reset Your Password</h4>
+                </div>
+                <div class="login-content page-card">
+                  <form class="form-forgot-password">
+                    <div class="page-card-body">
+                      <div class="form-group">
+                        <label for="forgot_email">Enter your email</label>
+                        <input type="email" id="forgot_email" class="form-control" placeholder="you@example.com" required>
+                      </div>
+                      <button type="submit" class="btn btn-primary btn-block">Send Reset Link</button>
+                    </div>
+                  </form>
+                  <p class="text-center mt-3">
+                    <a href="#" id="back-to-login-1">Back to Login</a>
+                  </p>
+                </div>
+              </section>
+
+              <!-- LOGIN WITH EMAIL LINK SECTION -->
+              <section class="for-login-with-email-link" style="display: none;">
+                <div class="page-card-head">
+                  <h4>Login with Email Link</h4>
+                </div>
+                <div class="login-content page-card">
+                  <form class="form-email-link-login">
+                    <div class="page-card-body">
+                      <div class="form-group">
+                        <label for="email_link">Email Address</label>
+                        <input type="email" id="email_link" class="form-control" placeholder="you@example.com" required>
+                      </div>
+                      <button type="submit" class="btn btn-primary btn-block">Send Login Link</button>
+                    </div>
+                  </form>
+                  <p class="text-center mt-3">
+                    <a href="#" id="back-to-login-2">Back to Login</a>
+                  </p>
+                </div>
+              </section>
+
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+`;
+
+document.addEventListener('DOMContentLoaded', function () {
+  const modal = document.getElementById('login-modal');
+  const loginSection = document.querySelector('.for-login');
+  const forgotSection = document.querySelector('.for-forgot');
+  const emailLinkSection = document.querySelector('.for-login-with-email-link');
+
+
+    document.querySelectorAll('.slide-button.open-login-modal').forEach(button => {
+    button.addEventListener('click', function () {
+      if (modal) {
+        modal.style.display = 'flex';
+        showSection('login');
+      }
+    });
+  });
+  // Show modal when .nav-button.next is clicked
+  document.querySelector('.nav-button.next').addEventListener('click', function () {
+    modal.style.display = 'flex';
+    showSection('login');
+  });
+
+  // Close modal when clicking the background
+  window.addEventListener('click', function (e) {
+    const content = document.querySelector('.modal-content');
+    if (e.target === modal && !content.contains(e.target)) {
+      modal.style.display = 'none';
+    }
+  });
+
+  // Close modal on X button click
+  document.querySelector('.modal-close').addEventListener('click', function () {
+    modal.style.display = 'none';
+  });
+
+  // Show "Forgot Password" section
+  document.getElementById('forgot-password-link').addEventListener('click', function (e) {
+    e.preventDefault();
+    showSection('forgot');
+  });
+
+  // Show "Login with Email Link" section
+  document.getElementById('login-with-email-link').addEventListener('click', function (e) {
+    e.preventDefault();
+    showSection('email');
+  });
+
+  // Function to toggle visibility
+  function showSection(section) {
+    loginSection.style.display = section === 'login' ? 'block' : 'none';
+    forgotSection.style.display = section === 'forgot' ? 'block' : 'none';
+    emailLinkSection.style.display = section === 'email' ? 'block' : 'none';
+  }
+
+  // Hide modal initially
+  modal.style.display = 'none';
+});
+
+  
+  
