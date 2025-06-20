@@ -1,0 +1,185 @@
+.page-content-wrapper,
+#page-login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 0;
+    margin: 0;
+    /* width: 194vh; */
+    /* max-width: 100%; */ /* or any width like 1000px, 90% etc. */
+    width: 100%;
+} 
+
+
+.login-wrapper {
+    display: flex;
+    min-height: 88vh !important;
+    font-family: Arial, sans-serif;
+    display: flex;
+    font-family: Arial, sans-serif;
+    /* max-width: 1000px; */
+    width: 100%;
+    min-height: 70vh;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+    width: 100%;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+
+
+body .page-content-wrapper {
+  min-height: calc(121vh - 220px) !important;
+}
+
+
+h4 {
+    display: none;
+}
+
+
+div#page-login {
+  background: url('/files/bg-waves-video.jpg') no-repeat center center !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}
+
+
+/*
+.page-content-wrapper {
+  background: url('/files/bg-waves-video.jpg') no-repeat center center;
+  background-size: cover;
+}
+*/
+
+
+nav.navbar.navbar-light.navbar-expand-lg {
+    display: none;
+}
+/* Left side with background image */
+.login-left {
+  flex: 1;
+  
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Optional overlay for left side */
+.login-left {
+  flex: 1;
+  background-image: url("/files/What_is_Generative_AI_63beafff52.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  background-image: url("/files/What_is_Generative_AI_63beafff52.webp") !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-color: transparent !important; /* Overrides inline background color */
+}
+
+.login-left::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  /* Optional overlay */
+  
+}
+
+
+
+
+
+/* Right side with the login form */
+.login-right {
+  flex: 1;
+  background: #fff;
+  padding: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Form styles */
+.login-right .page-card {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.login-right h4 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+}
+
+
+/* Responsive layout for mobile */
+@media (max-width: 768px) {
+  .login-wrapper {
+    flex-direction: column;
+  }
+
+  .login-left, .login-right {
+    flex: none;
+    width: 100%;
+    min-height: auto;
+  }
+
+  .login-left {
+    height: 200px;
+    background-position: center;
+  }
+}
+
+
+
+
+
+
+
+
+/*JS CODE FOR LOGIN PAGE*/
+
+const pageContent = document.querySelector('.page_content');
+
+// Save the existing login section
+const existingLoginSection = document.querySelector('.for-login');
+
+// Replace the innerHTML with new layout
+pageContent.innerHTML = `
+  <div class="login-wrapper" style="display: flex; min-height: 100vh;">
+    
+    <!-- Left side with image -->
+    <div class="login-left" style="flex: 1; display: flex; align-items: center; justify-content: center; background: #f0f0f0;">
+      <img src="/files/What_is_Generative_AI_63beafff52.webp" alt="Login Image" style="max-width: 100%; height: auto; display: none;">
+
+    </div>
+
+    <!-- Right side with existing login form -->
+    <div class="login-right" style="flex: 1; padding: 40px; display: flex; flex-direction: column; justify-content: center; background: white;">
+      ${existingLoginSection.outerHTML}
+    </div>
+
+  </div>
+`;
+
+
+
+
+
+
+/* url to edit login content */
+
+http://localhost:8000/app/website-theme/LMS%20Certificate%20Theme
+
+
+
+

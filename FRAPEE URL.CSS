@@ -1,0 +1,17 @@
+1. 	http://localhost:8000/app/website-theme/LMS%20Certificate%20Theme   /* FOR LOGIN PAGE AND DASHBOARD HERE WE NEED TO UPDATE CSS AND JS */
+2. 	http://localhost:8000/app/website-settings    /* HERE WE CAN CHANGE TITLE LIKE IT WAS THERE EvoluteIQ LMS */
+3. 	http://localhost:8000/app/file?folder=Home    /* This url is for uploading file image whatevre file we required */
+4. 	http://localhost:8000/app/communication/dblul7u7nr  /* this is for email set up email configuration */
+5. 	http://localhost:8000/app/email-account/Platformiqdemos   /* set up email here */
+   	email address : platformiqdemos@gmail.com
+   	Service : GMail
+   	method : basic
+   	password : cggssnuhbzndqgjb
+6. 	http://localhost:8000/login#login   /* login url */
+7. 	http://localhost:8000/app/email-account  /* for email */
+8. 	http://localhost:8000/app/email-queue /* email management whatevere mail is getting send all details like inbox */
+9. 	http://localhost:8000/app  /* Desk Application */
+10.     http://localhost:8000/login  /* Assign Proper Roles to eiqtest@eiq.com */
+11.	http://localhost:8000/app/role-permission-manager /*  http://localhost:8000/app/role-permission-manager */
+12.	http://localhost:8000/app/print-format  /* Generate Certificate  Settings → Customization → Print Format  */
+13.	http://localhost:8000/app/lms-enrollment/new   /* setup course perticular course perticular person */

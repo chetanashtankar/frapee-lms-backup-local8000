@@ -1,0 +1,265 @@
+DoesNotExistError
+frappe.exceptions.DoesNotExistError: User Administrator not found
+
+Traceback (most recent call last)
+File "/home/chetan/frappe-bench/apps/frappe/frappe/app.py", line 100, in application
+init_request(request)
+File "/home/chetan/frappe-bench/apps/frappe/frappe/app.py", line 184, in init_request
+raise frappe.SessionStopped("Session Stopped")
+During handling of the above exception, another exception occurred:
+File "/home/chetan/frappe-bench/apps/frappe/frappe/website/serve.py", line 20, in get_response
+return renderer_instance.render()
+File "/home/chetan/frappe-bench/apps/frappe/frappe/website/page_renderers/template_page.py", line 84, in render
+html = self.get_html()
+File "/home/chetan/frappe-bench/apps/frappe/frappe/website/utils.py", line 534, in cache_html_decorator
+html = func(*args, **kwargs)
+File "/home/chetan/frappe-bench/apps/frappe/frappe/website/page_renderers/template_page.py", line 92, in get_html
+self.init_context()Open an interactive python shell in this frame
+File "/home/chetan/frappe-bench/apps/frappe/frappe/website/page_renderers/base_template_page.py", line 15, in init_context
+self.context.update(get_website_settings())
+File "/home/chetan/frappe-bench/apps/frappe/frappe/website/doctype/website_settings/website_settings.py", line 263, in get_website_settings
+context.boot = get_boot_data()
+File "/home/chetan/frappe-bench/apps/frappe/frappe/website/utils.py", line 171, in get_boot_data
+apps = get_apps() or []
+File "/home/chetan/frappe-bench/apps/frappe/frappe/utils/typing_validations.py", line 31, in wrapper
+return func(*args, **kwargs)
+
+
+
+
+Solution :- 
+frappe.exceptions.DoesNotExistError: User Administrator not found
+The site was created but the database wasn’t fully initialized.
+The Administrator user record was accidentally deleted or not created during site install.
+
+
+✅ Here's how to fix it:
+1. Check the current site you're using
+Run this:bench use dev.local  (Replace dev.local with the correct site name if yours is different)
+
+2. Check if the site is properly installed
+Run this to verify:ls sites/dev.local
+
+3. Reinstall the site (WARNING: This will delete all data in the site)
+If you're still in early setup, it's best to just reinstall the site: bench --site dev.local reinstall
+
+Then reinstall your custom app on it:bench --site dev.local install-app said_custom
+
+4. Start the server
+
+bench start --port 8080
+Access it at http://localhost:8080
+
+
+/*=========================================================================================================================================================================*/
+
+
+UPDATING
+THE SYSTEM IS BEING UPDATED. PLEASE REFRESH AGAIN AFTER A FEW MOMENTS.
+
+STATUS: 503
+
+
+
+✅ To fix the issue, follow these steps:
+Turn off maintenance mode for your site: bench --site your-site-name set-maintenance-mode off
+
+
+🔁 Replace your-site-name with the name of your site (e.g., site1.local or lms.local).
+
+Example: bench --site lms.local set-maintenance-mode off
+
+
+2. Clear caches and restart:
+
+bench clear-cache
+bench clear-website-cache
+bench restart
+
+
+
+Optional: Check if site name is correct
+ls sites/
+ls sites
+apps.txt  common_site_config.json  currentsite.txt  lms.local  site_config.json
+bench --site lms.local set-maintenance-mode off
+Now run: bench --site lms.local set-maintenance-mode off
+
+🧹 Step 3: Clear cache and restart (just to be safe)
+bench clear-cache
+bench clear-website-cache
+bench restart
+bench --site dev.local set-maintenance-mode off
+After that, reload your browser at http://localhost:8000, 
+
+
+📝 Typical Recovery Flow if 503 Occurs
+
+cd ~/frappe-bench
+bench list-sites
+bench use dev.local                    # or your actual site name
+bench --site dev.local set-maintenance-mode off
+bench --site dev.local migrate
+bench clear-cache
+bench build
+bench restart
+
+/*=========================================================================================================================================================================*/
+
+chetan@ltpchetan:~/frappe-bench$ ls apps/
+erpnext  frappe  frappe-lms-dummy  lms  said_custom
+chetan@ltpchetan:~/frappe-bench$ 
+
+✅ You do have the lms app in your system.
+❌ But it's not yet installed on your site, which is why you're getting "No permission" or "Page not found" errors.
+
+
+✅ What you should do now
+Run this command to install the lms app on your site (dev.local): bench --site dev.local install-app lms
+
+bench restart
+
+
+
+chetan@ltpchetan:~/frappe-bench$ bench list-apps
+
+frappe
+said_custom
+
+chetan@ltpchetan:~/frappe-bench$ ls apps/
+erpnext  frappe  frappe-lms-dummy  lms  said_custom
+chetan@ltpchetan:~/frappe-bench$ bench --site dev.local install-app lms
+
+Installing lms...
+Updating DocTypes for lms           : [========================================] 100%
+Updating Dashboard for lms
+chetan@ltpchetan:~/frappe-bench$ bench restart
+chetan@ltpchetan:~/frappe-bench$ 
+
+
+after this 
+
+Next Steps:
+1. Login to your site:
+	Go to: http://localhost:8000
+
+2.Give roles and permissions:
+
+	Log in as Administrator
+
+	Go to Users (/app/user)
+
+	Open the user (eiqtest@eiq.com)
+
+	Scroll to Roles section and add necessary roles:
+
+		LMS Admin
+
+		System Manager
+
+		Website Manager (if needed)
+
+		Any custom role your lms app uses
+
+3.Assign module access:
+
+	Also in the user profile, check the "Allow Modules" section
+
+	Make sure LMS (or similar) is checked so the user sees it on the sidebar
+
+4.Try these URLs:
+
+	http://localhost:8000/app/lms-course
+
+	http://localhost:8000/lms/courses
+
+	http://localhost:8000/lms/programs
+	
+/*=========================================================================================================================================================================*/
+	
+* how we can genrate certificate in that you have any idea in that
+
+Server Error
+Traceback (most recent call last):
+  File "env/lib/python3.10/site-packages/pdfkit/configuration.py", line 35, in __init__
+    with open(self.wkhtmltopdf) as f:
+FileNotFoundError: [Errno 2] No such file or directory: b''
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "apps/frappe/frappe/app.py", line 115, in application
+    response = frappe.api.handle(request)
+  File "apps/frappe/frappe/api/__init__.py", line 49, in handle
+    data = endpoint(**arguments)
+  File "apps/frappe/frappe/api/v1.py", line 36, in handle_rpc_call
+    return frappe.handler.handle()
+  File "apps/frappe/frappe/handler.py", line 51, in handle
+    data = execute_cmd(cmd)
+  File "apps/frappe/frappe/handler.py", line 84, in execute_cmd
+    return frappe.call(method, **frappe.form_dict)
+  File "apps/frappe/frappe/__init__.py", line 1742, in call
+    return fn(*args, **newargs)
+  File "apps/frappe/frappe/utils/typing_validations.py", line 31, in wrapper
+    return func(*args, **kwargs)
+  File "apps/frappe/frappe/utils/print_format.py", line 244, in download_pdf
+    pdf_file = frappe.get_print(
+  File "apps/frappe/frappe/utils/print_utils.py", line 89, in get_print
+    return get_pdf(html, options=pdf_options, output=output)
+  File "apps/frappe/frappe/utils/pdf.py", line 94, in get_pdf
+    filedata = pdfkit.from_string(html, options=options or {}, verbose=True)
+  File "env/lib/python3.10/site-packages/pdfkit/api.py", line 72, in from_string
+    r = PDFKit(input, 'string', options=options, toc=toc, cover=cover, css=css,
+  File "env/lib/python3.10/site-packages/pdfkit/pdfkit.py", line 45, in __init__
+    self.configuration = (Configuration() if configuration is None
+  File "env/lib/python3.10/site-packages/pdfkit/configuration.py", line 38, in __init__
+    raise IOError('No wkhtmltopdf executable found: "%s"\n'
+OSError: No wkhtmltopdf executable found: "b''"
+If this file exists please check that this process can read it or you can pass path to it man
+
+
+/* This error means that wkhtmltopdf is not installed on your system — and Frappe needs it to generate PDFs (like certificates). */
+
+
+Step 1: Install wkhtmltopdf
+For Ubuntu/Debian (Linux):
+
+sudo apt update
+sudo apt install wkhtmltopdf
+
+
+sudo apt install -y software-properties-common
+sudo add-apt-repository ppa:apt-fast/stable
+sudo apt update
+
+# Download prebuilt wkhtmltopdf package
+wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.focal_amd64.deb
+
+# Install
+sudo apt install ./wkhtmltox_0.12.6-1.focal_amd64.deb
+
+wkhtmltopdf --version
+
+wkhtmltopdf 0.12.6 (with patched qt)
+
+bench restart
+
+
+sudo apt update
+wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.focal_amd64.deb
+sudo apt install ./wkhtmltox_0.12.6-1.focal_amd64.deb
+
+wkhtmltopdf --version
+
+
+wkhtmltopdf 0.12.6 (with patched qt)
+
+
+bench restart
+
+
+/*=========================================================================================================================================================================*/
+
+
+
+
