@@ -2006,6 +2006,7 @@ sudo usermod -aG frappe www-data
 sudo supervisorctl restart all
 sudo systemctl restart nginx
 
+
 4️⃣ Check if assets are accessible
 Try:curl -I http://216.48.181.71/assets/frappe/images/frappe-framework-logo.svg
 

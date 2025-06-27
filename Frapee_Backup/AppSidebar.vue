@@ -632,7 +632,7 @@ watch(userResource, () => {
     if (isAdmin) {
       console.log('Applying admin/sidebar privileged filter')
       sidebarLinks.value = sidebarLinks.value.filter(link =>
-        ['Courses','Programs', 'Batches', 'Certified Members', 'Jobs', 'Statistics', 'Notifications','Quizzes','Assignment'].includes(link.label)
+        ['Courses','Programs', 'Batches', 'Certified Members', 'Jobs', 'Statistics', 'Notifications','Quizzes','Assignments'].includes(link.label)
       )
     } else if (isStudent) {
       console.log('Applying student sidebar filter')
