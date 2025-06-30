@@ -1,0 +1,92 @@
+Great question, Chetan! Since you’re working with the Frappe LMS, which is a frontend app based on Frappe + Vite + Vue3, here's how you can safely modify files like index.css and main.js and understand their structure and workflow.
+
+✅ 1. Location of Files (Path)
+In the Frappe LMS repo (https://github.com/frappe/lms.git), your frontend code is typically located in this folder:
+
+bash
+Copy
+Edit
+~/frappe-bench/apps/lms/frontend/src/
+Inside this src/ folder, you will find:
+
+main.js → This is the entry point of your Vue app.
+
+index.css → This file contains global CSS for your frontend.
+
+components/, pages/ → Your Vue components and routes.
+
+✅ 2. How it works (Basic Flow)
+The frontend in Frappe LMS uses Vite for bundling. When you run:
+
+bash
+Copy
+Edit
+bench build
+or when the frontend is being used in development mode with:
+
+bash
+Copy
+Edit
+bench start
+It compiles the src/main.js, includes your index.css, and generates the final JS/CSS files that your LMS website uses.
+
+✅ 3. How to Modify and Apply Changes
+✔ Steps to Modify:
+Open files you want to edit:
+
+bash
+Copy
+Edit
+nano ~/frappe-bench/apps/lms/frontend/src/index.css
+nano ~/frappe-bench/apps/lms/frontend/src/main.js
+Make your changes and save.
+
+✔ Apply Changes:
+Now, to reflect your changes:
+
+If you are in production mode:
+
+Run:
+
+bash
+Copy
+Edit
+cd ~/frappe-bench
+bench build
+sudo supervisorctl restart all
+This will:
+
+Rebuild frontend assets.
+
+Restart all services to reflect the new frontend.
+
+If you are in development mode with bench start, it hot-reloads, so just refreshing the page is enough.
+
+✅ 4. Quick Recap Commands
+bash
+Copy
+Edit
+# Navigate to frontend folder
+cd ~/frappe-bench/apps/lms/frontend/src
+
+# Edit main.js and index.css
+nano main.js
+nano index.css
+
+# Go to frappe-bench and build assets
+cd ~/frappe-bench
+bench build
+
+# Restart server (only in production)
+sudo supervisorctl restart all
+🔄 Important Notes:
+Yes, in production, you MUST rebuild and restart after changes.
+
+No, you don’t need to restart in development (bench start handles it automatically).
+
+Always check logs if something breaks:
+
+bash
+Copy
+Edit
+tail -f /home/frappe/frappe-bench/logs/web.log
