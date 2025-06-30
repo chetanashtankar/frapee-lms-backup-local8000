@@ -149,6 +149,7 @@ const userDropdownOptions = computed(() => {
 					component: markRaw(Apps),
 					condition: () => {
 						debugger;
+/* here i made a chanegs */
 
 let cookieString = document.cookie;
 
@@ -211,6 +212,7 @@ else return false;
 					onClick: () => {
 						logout.submit().then(() => {
 							isLoggedIn = false
+							 window.location.href = '/login' 
 						})
 					},
 					condition: () => {
