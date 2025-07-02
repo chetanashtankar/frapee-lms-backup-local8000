@@ -1,3 +1,6 @@
+/*/home/chetan/frappe-bench/apps/lms/frontend/src/components/Modals/TakeCertification.vue*/
+/* /home/chetan/frappe-bench/apps/lms/frontend/src/pages/TakeCertification.vue */
+
 <template>
 	<div class="certification-page">
 		<h1 class="page-title">Available Certifications</h1>
