@@ -1,26 +1,51 @@
 /*/home/chetan/frappe-bench/apps/lms/frontend/src/components/Modals/TakeCertification.vue*/
 /* /home/chetan/frappe-bench/apps/lms/frontend/src/pages/TakeCertification.vue */
-
 <template>
 	<div class="certification-page">
 		<h1 class="page-title">Available Certifications</h1>
 
 		<div class="certification-grid">
-			<div
-				v-for="course in javaCertifications"
-				:key="course.id"
-				class="cert-card"
-			>
-				<img :src="course.image" :alt="course.title" class="cert-image" />
+
+			<div class="cert-card">
+				<div class="cert-image java-beginner"></div>
 				<div class="cert-info">
-					<h2 class="cert-title">{{ course.title }}</h2>
-					<p class="cert-description">{{ course.description }}</p>
+					<h2 class="cert-title">Java Beginner</h2>
+					<p class="cert-description">Start your Java journey with core concepts and syntax fundamentals.</p>
 					<button class="cert-btn">Take Certification</button>
 				</div>
 			</div>
+
+			<div class="cert-card">
+				<div class="cert-image java-intermediate"></div>
+				<div class="cert-info">
+					<h2 class="cert-title">Java Intermediate</h2>
+					<p class="cert-description">Master OOP, collections, and error handling in Java.</p>
+					<button class="cert-btn">Take Certification</button>
+				</div>
+			</div>
+
+			<div class="cert-card">
+				<div class="cert-image java-advanced"></div>
+				<div class="cert-info">
+					<h2 class="cert-title">Java Advanced</h2>
+					<p class="cert-description">Deep dive into multithreading, JDBC, and Java I/O.</p>
+					<button class="cert-btn">Take Certification</button>
+				</div>
+			</div>
+
+			<div class="cert-card">
+				<div class="cert-image java-expert"></div>
+				<div class="cert-info">
+					<h2 class="cert-title">Java Expert</h2>
+					<p class="cert-description">Explore Spring Boot, REST APIs, and best practices.</p>
+					<button class="cert-btn">Take Certification</button>
+				</div>
+			</div>
+
 		</div>
 	</div>
 </template>
+
 
 <script setup>
 const javaCertifications = [
@@ -80,14 +105,6 @@ const javaCertifications = [
 .cert-card:hover {
 	transform: translateY(-4px);
 }
-.cert-image {
-	 width: 100%;
-  height: 180px;
-  background-image: url('../ai-certification-image.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
 
 .cert-info {
 	padding: 1rem;
@@ -118,5 +135,31 @@ const javaCertifications = [
 .cert-btn:hover {
 	background-color: #1e40af;
 }
+
+
+.cert-image {
+	width: 100%;
+	height: 180px;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+.java-beginner {
+	background-image: url('../ai-certification-image.png');
+}
+
+.java-intermediate {
+	background-image: url('../ai-certification-image.png');
+}
+
+.java-advanced {
+	background-image: url('../ai-certification-image.png');
+}
+
+.java-expert {
+	background-image: url('../ai-certification-image.png');
+}
+
 </style>
+
 
