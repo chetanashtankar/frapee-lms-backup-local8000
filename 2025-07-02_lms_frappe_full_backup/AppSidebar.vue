@@ -634,7 +634,7 @@ watch(userResource, () => {
     } else if (isStudent) {
       console.log('Applying student sidebar filter')
       sidebarLinks.value = sidebarLinks.value.filter(link =>
-        ['Courses', 'Certified Members','Take Certification'].includes(link.label)
+        ['Courses', 'Certified Members'].includes(link.label)
       )
 
 	  .map(link => {
