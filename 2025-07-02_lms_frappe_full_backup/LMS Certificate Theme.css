@@ -5,6 +5,7 @@
 
 
 
+
 //files/certificate.png
 
 //files/certificate.png
@@ -358,7 +359,7 @@ document.body.innerHTML = `
                     <div class="card-image ai-fundamentals-img"></div>
                     <h3 class="card-title">Citizen Developer</h3>
                     <p class="card-description">Dive into the latest information and AI fundamentals. Perfect for beginners or those looking to solidify their foundational knowledge. Start paving your path to success today!</p>
-                    <button class="card-button" onclick="window.location.href='#';">Start Course</button>
+                    <button class="card-button" onclick="window.location.href='#';">Coming Soon...</button>
                 </div>
 
                 <!-- Card 3: Data Analytics -->
@@ -366,7 +367,7 @@ document.body.innerHTML = `
                     <div class="card-image data-analytics-img"></div>
                     <h3 class="card-title">Developer</h3>
                     <p class="card-description">Dive into the latest information and AI fundamentals. Perfect for beginners or those looking to solidify their foundational knowledge. Start paving your path to success today!</p>
-                    <button class="card-button" onclick="window.location.href='#';">Start Course</button>
+                    <button class="card-button" onclick="window.location.href='#';">Coming Soon...</button>
                 </div>
 
                 <!-- Card 4: Cloud Computing -->
@@ -374,7 +375,7 @@ document.body.innerHTML = `
                     <div class="card-image cloud-computing-img"></div>
                     <h3 class="card-title">Architect</h3>
                     <p class="card-description">Dive into the latest information and AI fundamentals. Perfect for beginners or those looking to solidify their foundational knowledge. Start paving your path to success today!</p>
-                    <button class="card-button" onclick="window.location.href='#';">Start Course</button>
+                    <button class="card-button" onclick="window.location.href='#';">Coming Soon...</button>
                 </div>
             </div>
         </div>
@@ -398,7 +399,7 @@ document.body.innerHTML = `
                     <div class="card-image leadership-program-img"></div>
                     <h3 class="card-title">Citizen Developer</h3>
                     <p class="card-description">Dive into the latest information and AI fundamentals. Perfect for beginners or those looking to solidify their foundational knowledge. Start paving your path to success today!</p>
-                   <button class="card-button" onclick="window.location.href='#';">Get Certification</button>
+                   <button class="card-button" onclick="window.location.href='#';">Coming Soon...</button>
 
                 </div>
 
@@ -407,7 +408,7 @@ document.body.innerHTML = `
                     <div class="card-image leadership-program-img"></div>
                     <h3 class="card-title">Developer</h3>
                     <p class="card-description">Dive into the latest information and AI fundamentals. Perfect for beginners or those looking to solidify their foundational knowledge. Start paving your path to success today!</p>
-                   <button class="card-button" onclick="window.location.href='#';">Get Certification</button>
+                   <button class="card-button" onclick="window.location.href='#';">Coming Soon...</button>
 
                 </div>
 
@@ -416,7 +417,7 @@ document.body.innerHTML = `
                     <div class="card-image leadership-program-img"></div>
                     <h3 class="card-title">Architect</h3>
                     <p class="card-description">Dive into the latest information and AI fundamentals. Perfect for beginners or those looking to solidify their foundational knowledge. Start paving your path to success today!</p>
-                   <button class="card-button" onclick="window.location.href='#';">Get Certification</button>
+                   <button class="card-button" onclick="window.location.href='#';">Coming Soon...</button>
 
                 </div>
             </div>
@@ -2023,16 +2024,12 @@ let currentSlide = 0;
 
 
 
-
-
-
-
-
 /* ===================================================================================================================================================== */
 /* ==================================================================  CSS =================================================================================== */
 
 
 
+/*  Courses In Header SVG Css*/
 /*  Courses In Header SVG Css*/
 
 .menu-item-courses {
@@ -7166,5 +7163,3 @@ body .page-content-wrapper {
     margin-bottom: 80px;
     padding: 0px 41px 0px 41px;
 }
-
-
