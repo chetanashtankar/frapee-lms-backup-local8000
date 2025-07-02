@@ -9,6 +9,9 @@
 //files/certificate.png
 
 //files/certificate.png
+//files/certificate.png
+
+//files/certificate.png
 
 document.body.innerHTML = `
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -342,86 +345,88 @@ document.body.innerHTML = `
 
         <!-- Four card Learning Path -->
 
+
  <!-- Learning Paths Section -->
         <div class="section">
-            <h1 class="section-title">Learning Paths</h1>
-            <div class="learning-paths-grid">
-                <!-- Card 1: Digital Marketing -->
-                <div class="path-card">
-                    <div class="card-image digital-marketing-img"></div>
-                    <h3 class="card-title">Foundation Course</h3>
-                    <p class="card-description">Dive into the latest information and AI fundamentals. Perfect for beginners or those looking to solidify their foundational knowledge. Start paving your path to success today!</p>
-                    <button class="card-button" onclick="window.location.href='#';">Start Course</button>
-                </div>
-
-                <!-- Card 2: AI Fundamentals -->
-                <div class="path-card">
-                    <div class="card-image ai-fundamentals-img"></div>
-                    <h3 class="card-title">Citizen Developer</h3>
-                    <p class="card-description">Dive into the latest information and AI fundamentals. Perfect for beginners or those looking to solidify their foundational knowledge. Start paving your path to success today!</p>
-                    <button class="card-button" onclick="window.location.href='#';">Coming Soon...</button>
-                </div>
-
-                <!-- Card 3: Data Analytics -->
-                <div class="path-card">
-                    <div class="card-image data-analytics-img"></div>
-                    <h3 class="card-title">Developer</h3>
-                    <p class="card-description">Dive into the latest information and AI fundamentals. Perfect for beginners or those looking to solidify their foundational knowledge. Start paving your path to success today!</p>
-                    <button class="card-button" onclick="window.location.href='#';">Coming Soon...</button>
-                </div>
-
-                <!-- Card 4: Cloud Computing -->
-                <div class="path-card">
-                    <div class="card-image cloud-computing-img"></div>
-                    <h3 class="card-title">Architect</h3>
-                    <p class="card-description">Dive into the latest information and AI fundamentals. Perfect for beginners or those looking to solidify their foundational knowledge. Start paving your path to success today!</p>
-                    <button class="card-button" onclick="window.location.href='#';">Coming Soon...</button>
-                </div>
-            </div>
+    <h1 class="section-title">Learning Paths</h1>
+    <div class="learning-paths-grid">
+        <!-- Card 1: Foundation Course (Active) -->
+        <div class="path-card">
+            <div class="card-image digital-marketing-img"></div>
+            <h3 class="card-title">Foundation Course</h3>
+            <p class="card-description">Dive into the latest information and AI fundamentals. Perfect for beginners or those looking to solidify their foundational knowledge. Start paving your path to success today!</p>
+            <button class="card-button" onclick="window.location.href='#';">Start Course</button>
         </div>
 
-        <!-- Certification Paths Section -->
-
-        <div class="section">
-            <h1 class="section-title">Certification Paths</h1>
-            <div class="certification-paths-grid">
-                <!-- Card 1: Advanced AI -->
-                <div class="path-card">
-                    <div class="card-image advanced-ai-img"></div>
-                    <h3 class="card-title">Foundation Course</h3>
-                    <p class="card-description">Dive into the latest information and AI fundamentals. Perfect for beginners or those looking to solidify their foundational knowledge. Start paving your path to success today!</p>
-                   <button class="card-button" onclick="window.location.href='#';">Get Certification</button>
-
-                </div>
-
-                <!-- Card 2: Leadership Program -->
-                <div class="path-card">
-                    <div class="card-image leadership-program-img"></div>
-                    <h3 class="card-title">Citizen Developer</h3>
-                    <p class="card-description">Dive into the latest information and AI fundamentals. Perfect for beginners or those looking to solidify their foundational knowledge. Start paving your path to success today!</p>
-                   <button class="card-button" onclick="window.location.href='#';">Coming Soon...</button>
-
-                </div>
-
-                <!-- Card 3: Leadership Program -->
-                <div class="path-card">
-                    <div class="card-image leadership-program-img"></div>
-                    <h3 class="card-title">Developer</h3>
-                    <p class="card-description">Dive into the latest information and AI fundamentals. Perfect for beginners or those looking to solidify their foundational knowledge. Start paving your path to success today!</p>
-                   <button class="card-button" onclick="window.location.href='#';">Coming Soon...</button>
-
-                </div>
-
-                <!-- Card 4: Leadership Program -->
-                <div class="path-card">
-                    <div class="card-image leadership-program-img"></div>
-                    <h3 class="card-title">Architect</h3>
-                    <p class="card-description">Dive into the latest information and AI fundamentals. Perfect for beginners or those looking to solidify their foundational knowledge. Start paving your path to success today!</p>
-                   <button class="card-button" onclick="window.location.href='#';">Coming Soon...</button>
-
-                </div>
-            </div>
+        <!-- Card 2: Citizen Developer (Coming Soon) -->
+        <div class="path-card coming-soon">
+            <div class="notification-bell"></div>
+            <div class="card-image ai-fundamentals-img"></div>
+            <h3 class="card-title">Citizen Developer</h3>
+            <p class="card-description">Dive into the latest information and AI fundamentals. Perfect for beginners or those looking to solidify their foundational knowledge. Start paving your path to success today!</p>
+            <button class="card-button animated">Coming Soon...</button>
         </div>
+
+        <!-- Card 3: Developer (Coming Soon) -->
+        <div class="path-card coming-soon">
+            <div class="notification-bell"></div>
+            <div class="card-image data-analytics-img"></div>
+            <h3 class="card-title">Developer</h3>
+            <p class="card-description">Dive into the latest information and AI fundamentals. Perfect for beginners or those looking to solidify their foundational knowledge. Start paving your path to success today!</p>
+            <button class="card-button animated">Coming Soon...</button>
+        </div>
+
+        <!-- Card 4: Architect (Coming Soon) -->
+        <div class="path-card coming-soon">
+            <div class="notification-bell"></div>
+            <div class="card-image cloud-computing-img"></div>
+            <h3 class="card-title">Architect</h3>
+            <p class="card-description">Dive into the latest information and AI fundamentals. Perfect for beginners or those looking to solidify their foundational knowledge. Start paving your path to success today!</p>
+            <button class="card-button animated">Coming Soon...</button>
+        </div>
+    </div>
+</div>
+
+<!-- Certification Paths Section -->
+<div class="section">
+    <h1 class="section-title">Certification Paths</h1>
+    <div class="certification-paths-grid">
+        <!-- Card 1: Foundation Course (Active) -->
+        <div class="path-card">
+            <div class="card-image advanced-ai-img"></div>
+            <h3 class="card-title">Foundation Course</h3>
+            <p class="card-description">Dive into the latest information and AI fundamentals. Perfect for beginners or those looking to solidify their foundational knowledge. Start paving your path to success today!</p>
+            <button class="card-button" onclick="window.location.href='#';">Get Certification</button>
+        </div>
+
+        <!-- Card 2: Citizen Developer (Coming Soon) -->
+        <div class="path-card coming-soon">
+            <div class="notification-bell"></div>
+            <div class="card-image leadership-program-img"></div>
+            <h3 class="card-title">Citizen Developer</h3>
+            <p class="card-description">Dive into the latest information and AI fundamentals. Perfect for beginners or those looking to solidify their foundational knowledge. Start paving your path to success today!</p>
+            <button class="card-button animated">Coming Soon...</button>
+        </div>
+
+        <!-- Card 3: Developer (Coming Soon) -->
+        <div class="path-card coming-soon">
+            <div class="notification-bell"></div>
+            <div class="card-image leadership-program-img"></div>
+            <h3 class="card-title">Developer</h3>
+            <p class="card-description">Dive into the latest information and AI fundamentals. Perfect for beginners or those looking to solidify their foundational knowledge. Start paving your path to success today!</p>
+            <button class="card-button animated">Coming Soon...</button>
+        </div>
+
+        <!-- Card 4: Architect (Coming Soon) -->
+        <div class="path-card coming-soon">
+            <div class="notification-bell"></div>
+            <div class="card-image leadership-program-img"></div>
+            <h3 class="card-title">Architect</h3>
+            <p class="card-description">Dive into the latest information and AI fundamentals. Perfect for beginners or those looking to solidify their foundational knowledge. Start paving your path to success today!</p>
+            <button class="card-button animated">Coming Soon...</button>
+        </div>
+    </div>
+</div>
 
 
         <!-- Testimonials Section -->
@@ -2024,12 +2029,12 @@ let currentSlide = 0;
 
 
 
+
+
 /* ===================================================================================================================================================== */
 /* ==================================================================  CSS =================================================================================== */
 
 
-
-/*  Courses In Header SVG Css*/
 /*  Courses In Header SVG Css*/
 
 .menu-item-courses {
@@ -7030,10 +7035,10 @@ body .page-content-wrapper {
 
         .section-title {
             text-align: center;
-            font-size: 32px;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 40px;
+    font-size: 2.5rem;
+    margin-bottom: 50px;
+    color: #083279;
+    font-weight: 600;
         }
 
         .section {
@@ -7163,3 +7168,117 @@ body .page-content-wrapper {
     margin-bottom: 80px;
     padding: 0px 41px 0px 41px;
 }
+/* Base card styles (keep your existing styles) */
+.path-card {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border: 2px solid #e0e0e0;
+    position: relative;
+}
+
+/* Coming Soon Card Modifications */
+.path-card.coming-soon {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border: 2px solid #dee2e6;
+    position: relative;
+    overflow: hidden;
+}
+
+.path-card.coming-soon::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 10px,
+        rgba(108, 117, 125, 0.03) 10px,
+        rgba(108, 117, 125, 0.03) 20px
+    );
+    pointer-events: none;
+    z-index: 1;
+}
+
+.path-card.coming-soon:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+    border-color: #adb5bd;
+}
+
+/* Coming Soon Card Image Overlay */
+.path-card.coming-soon .card-image {
+    position: relative;
+}
+
+.path-card.coming-soon .card-image::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(248, 249, 250, 0.7);
+    backdrop-filter: blur(2px);
+    z-index: 2;
+}
+
+/* Coming Soon Badge */
+
+
+/* Coming Soon Card Content */
+.path-card.coming-soon .card-title {
+    color: #6c757d;
+    position: relative;
+    z-index: 2;
+}
+
+.path-card.coming-soon .card-description {
+    color: #868e96;
+    position: relative;
+    z-index: 2;
+}
+
+/* Coming Soon Button Styles */
+.path-card.coming-soon .card-button {
+    background: linear-gradient(135deg, #6c757d, #495057);
+    color: white;
+    cursor: not-allowed;
+    position: relative;
+    z-index: 2;
+    opacity: 0.8;
+}
+
+.path-card.coming-soon .card-button:hover {
+    background: linear-gradient(135deg, #6c757d, #495057);
+    transform: none;
+    opacity: 0.9;
+}
+
+/* Alternative Coming Soon Button with Animation */
+.path-card.coming-soon .card-button.animated {
+    background: linear-gradient(45deg, #6c757d, #495057, #6c757d);
+    background-size: 200% 200%;
+    animation: shimmer 2s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+
+
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
