@@ -18,6 +18,8 @@ import Table from '@editorjs/table'
 import Plyr from 'plyr'
 import 'plyr/dist/plyr.css'
 
+
+
 const readOnlyMode = window.read_only_mode
 
 export function timeAgo(date) {
@@ -466,6 +468,12 @@ export function getSidebarLinks() {
                 'AssignmentSubmission',
             ],
         },
+		{
+      label: 'Take Certification',
+      icon: 'CheckCircle',
+      to: 'TakeCertification',
+      activeFor: ['TakeCertification'],
+    },
 	]
 }
 export function getFormattedDateRange(
