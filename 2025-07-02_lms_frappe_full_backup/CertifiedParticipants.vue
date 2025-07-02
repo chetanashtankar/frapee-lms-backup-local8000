@@ -147,9 +147,9 @@ const participants = createListResource({
   auto: true,
   filters: filters.value,
   onSuccess(data) {
-	debugger;
-    console.log('--- Received Data ---');
-  	console.log(data); // This shows Proxy(Array)
+	
+  
+  	
 	const realArray = Array.from(data);
 
 	// Assume this variable is set somewhere earlier
@@ -158,9 +158,7 @@ const participants = createListResource({
 	// Find matching user object
 	const userData = realArray.find(item => item.member === userEmail);
 
-	// Log full name or not found message
-	console.log('--- Matching User Full Name ---');
-	console.log(userData ? userData.full_name : 'User not found');  
+	
 
 	const inputBox = document.getElementById('participant-name-input');
 
@@ -175,8 +173,7 @@ if (inputBox) {
     inputBox.dispatchEvent(event);
   } else {
     inputBox.value = '';
-    console.log('User not found');
-    // No event dispatched here
+  
   }
 }
   },
@@ -186,7 +183,7 @@ call('lms.lms.api.get_count_of_certified_members', {
   filters: { member: user.email },
 }).then((data) => {
   memberCount.value = data
-  console.log('[API] Certificate count for user:', data)
+ 
 })
 
 
