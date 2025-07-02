@@ -18,8 +18,10 @@
 	>
 		<div class="flex flex-col md:flex-row justify-between mb-4 px-3">
 			<div class="text-xl font-semibold text-ink-gray-7 mb-4 md:mb-0">
-				{{ memberCount }} {{ __('certified members') }}
-			</div>
+  {{ totalCertificates }} {{ totalCertificates > 1 ? __('certificates') : __('certificate') }}
+
+</div>
+
 			<div class="grid grid-cols-2 gap-2">
 				<FormControl
 					v-model="nameFilter"
@@ -130,7 +132,9 @@ const nameFilter = ref('')
 const { brand, user } = sessionStore()
 nameFilter.value = user.full_name || user.name || user.username
 filters.value.member = user.email
-const memberCount = ref(0)
+//const memberCount = ref(0)
+const certificateCount = ref(0)
+
 const dayjs = inject('$dayjs')
 
 
@@ -147,9 +151,9 @@ const participants = createListResource({
   auto: true,
   filters: filters.value,
   onSuccess(data) {
-	
-  
-  	
+	debugger;
+    console.log('--- Received Data ---');
+  	console.log(data); // This shows Proxy(Array)
 	const realArray = Array.from(data);
 
 	// Assume this variable is set somewhere earlier
@@ -158,7 +162,9 @@ const participants = createListResource({
 	// Find matching user object
 	const userData = realArray.find(item => item.member === userEmail);
 
-	
+	// Log full name or not found message
+	console.log('--- Matching User Full Name ---');
+	console.log(userData ? userData.full_name : 'User not found');  
 
 	const inputBox = document.getElementById('participant-name-input');
 
@@ -173,7 +179,8 @@ if (inputBox) {
     inputBox.dispatchEvent(event);
   } else {
     inputBox.value = '';
-  
+    console.log('User not found');
+    // No event dispatched here
   }
 }
   },
@@ -182,8 +189,8 @@ call('lms.lms.api.get_count_of_certified_members', {
 	
   filters: { member: user.email },
 }).then((data) => {
-  memberCount.value = data
- 
+   certificateCount.value = data
+  console.log('[API] Certificate count for user:', data)
 })
 
 
@@ -231,6 +238,15 @@ usePageMeta(() => {
 		icon: brand.favicon,
 	}
 })
+
+
+debugger;
+const totalCertificates = computed(() => {
+  if (!participants.data) return 0
+  return participants.data.reduce((sum, p) => sum + (p.certificate_count || 0), 0)
+})
+
+
 </script>
 
 <style>
@@ -245,8 +261,10 @@ usePageMeta(() => {
 	overflow: hidden;
 }
 
+
 input#participant-name-input {
     display: none;
 }
+
 
 </style>
