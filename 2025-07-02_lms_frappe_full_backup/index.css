@@ -1,0 +1,96 @@
+@import './assets/Inter/inter.css';
+@import 'frappe-ui/src/style.css';
+
+
+.bg-surface-gray-7 {
+    background-color: #ff4602 !important;
+}
+
+.bg-surface-gray-7:hover {
+    background-color: #ff4602 !important;
+    /* Stays the same on hover */
+}
+
+/*Get certificate BUtton*/
+button.inline-flex.items-center.justify-center.gap-2.transition-colors.focus\:outline-none.text-ink-gray-8.bg-surface-gray-2.hover\:bg-surface-gray-3.active\:bg-surface-gray-4.focus-visible\:ring.focus-visible\:ring-outline-gray-3.h-7.text-base.px-2.rounded {
+    color: white !important;
+    background-color: #ff4602 !important;
+}
+
+/*--Batches Seat availability--*/
+
+.bg-green-100 {
+    --tw-bg-opacity: 1;
+    background-color: var(--surface-blue-2, #E6F4FF) !important;
+}
+
+.text-green-700 {
+    --tw-text-opacity: 1;
+    color: var(--ink-blue-3, #007BE0) !important;
+}
+
+/*Adding new course*/
+
+@media (min-width: 768px) {
+    .md\:grid-cols-\[70\%\,30\%\] {
+        grid-template-columns: auto !important;
+    }
+}
+
+header.sticky.flex.items-center.justify-between.top-0.z-10.border-b.bg-surface-white.px-3.py-2\.5.sm\:px-5 {
+  padding-top: 5.625rem !important;
+  
+}
+
+
+
+
+/*for quize button*/
+
+#prev,
+#next,
+#skip {
+    display: inline-block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+}
+
+
+
+#prev, #skip, #next {
+  display: inline-block !important;
+  visibility: visible !important;
+}
+
+
+
+/* .text-3xl {
+    font-size: 34px;
+    line-height: 1.15;
+    letter-spacing: 0.005em;
+    font-weight: 400;
+}
+
+
+div#scrollContainer {
+  background: radial-gradient(black, transparent);
+}
+
+
+#scrollContainer {
+    background: radial-gradient(black, transparent);
+}
+
+.page-content {
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+  background-color: #f5f5f5 !important;
+}
+
+
+.page-course {
+  border: 2px solid red;
+} */
