@@ -1,5 +1,4 @@
 /*/home/chetan/frappe-bench/apps/lms/frontend/src/utils/index.js*/
-
 import { useTimeAgo } from '@vueuse/core'
 import { Quiz } from '@/utils/quiz'
 import { Assignment } from '@/utils/assignment'
@@ -413,6 +412,12 @@ export function getUserTimezone() {
 
 export function getSidebarLinks() {
 	return [
+		{
+			label: 'Home',
+			icon: 'Home',
+			to: 'Home',
+			activeFor: ['Home'],
+		},
 		{
 			label: 'Courses',
 			icon: 'BookOpen',
