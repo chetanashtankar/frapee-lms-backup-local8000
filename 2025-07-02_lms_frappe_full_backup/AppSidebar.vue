@@ -530,18 +530,18 @@ watch(userResource, () => {
     } else if (isStudent) {
       console.log('Applying student sidebar filter')
       sidebarLinks.value = sidebarLinks.value.filter(link =>
-        ['Courses', 'Certified Members','Certifications'].includes(link.label)
+        ['Home','Courses', 'Certifications'].includes(link.label)
       )
 
-	  .map(link => {
-      if (link.label === 'Certified Members') {
-        return {
-          ...link,
-          label: 'My Certificate'
-        }
-      }
-      return link
-    })
+	//   .map(link => {
+    //   if (link.label === 'Certified Members') {
+    //     return {
+    //       ...link,
+    //       label: 'My Certificate'
+    //     }
+    //   }
+    //   return link
+    // })
 	
     } else {
       console.log('No role-based filtering applied')
@@ -566,7 +566,7 @@ const redirectToWebsite = () => {
 
 .flex.items-center.justify-between.w-full.border-b.bg-surface-menu-bar.px-4.py-2
  {
-    height: 9% !important;
+    height: 4rem !important;
     
 }
 
@@ -588,4 +588,6 @@ div#scrollContainer {
 .flex.items-center.space-x-3.ml-4 {
     display: none;
 }
+
+
 </style>
