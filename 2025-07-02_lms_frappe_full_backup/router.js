@@ -1,6 +1,5 @@
 /*/home/chetan/frappe-bench/apps/lms/frontend/src/router.js*/
 
-
 import { createRouter, createWebHistory } from 'vue-router'
 import { usersStore } from './stores/user'
 import { sessionStore } from './stores/session'
@@ -8,6 +7,13 @@ import { useSettings } from './stores/settings'
 
 let defaultRoute = '/courses'
 const routes = [
+	{
+    path: '/home',
+    name: 'Home',
+    beforeEnter() {
+      window.location.href = '/home';
+    }
+  },
 	{
 		path: '/',
 		redirect: {
@@ -254,4 +260,3 @@ router.beforeEach(async (to, from, next) => {
 })
 
 export default router
-
