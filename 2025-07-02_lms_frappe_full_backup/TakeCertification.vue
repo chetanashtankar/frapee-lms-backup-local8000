@@ -2,7 +2,7 @@
 /* /home/chetan/frappe-bench/apps/lms/frontend/src/pages/TakeCertification.vue */
 <template>
 	<div class="certification-page">
-		<h1 class="page-title">Available Certifications</h1>
+		<h1 class="page-title">Certifications</h1>
 
 		<div class="certification-grid">
 
@@ -11,7 +11,7 @@
 				<div class="cert-info">
 					<h2 class="cert-title">Java Beginner</h2>
 					<p class="cert-description">Start your Java journey with core concepts and syntax fundamentals.</p>
-					<button class="cert-btn">Take Certification</button>
+					<button class="cert-btn">Get Certification</button>
 				</div>
 			</div>
 
@@ -20,7 +20,7 @@
 				<div class="cert-info">
 					<h2 class="cert-title">Java Intermediate</h2>
 					<p class="cert-description">Master OOP, collections, and error handling in Java.</p>
-					<button class="cert-btn">Take Certification</button>
+					<button class="cert-btn">Get Certification</button>
 				</div>
 			</div>
 
@@ -29,7 +29,7 @@
 				<div class="cert-info">
 					<h2 class="cert-title">Java Advanced</h2>
 					<p class="cert-description">Deep dive into multithreading, JDBC, and Java I/O.</p>
-					<button class="cert-btn">Take Certification</button>
+					<button class="cert-btn">Get Certification</button>
 				</div>
 			</div>
 
@@ -38,7 +38,7 @@
 				<div class="cert-info">
 					<h2 class="cert-title">Java Expert</h2>
 					<p class="cert-description">Explore Spring Boot, REST APIs, and best practices.</p>
-					<button class="cert-btn">Take Certification</button>
+					<button class="cert-btn">Get Certification</button>
 				</div>
 			</div>
 
@@ -145,21 +145,35 @@ const javaCertifications = [
 	background-repeat: no-repeat;
 }
 .java-beginner {
-	background-image: url('../ai-certification-image.png');
+	background-image: url('/files/DigitalMarketingMastery.png');
 }
 
 .java-intermediate {
-	background-image: url('../ai-certification-image.png');
+	background-image: url('/files/AIFundamentalsProgram.png');
 }
 
 .java-advanced {
-	background-image: url('../ai-certification-image.png');
+	background-image: url('/files/CloudComputingEssentials.png');
 }
 
 .java-expert {
-	background-image: url('../ai-certification-image.png');
+	background-image: url('/files/ai-certification-image.png');
 }
 
+.certification-page {
+    padding: 5rem 1.25rem 1.25rem 1.25rem;
+}
+
+
+.page-title {
+    
+    margin-bottom: 1.5rem;
+    font-size: 16px;
+    line-height: 1.15;
+    letter-spacing: .02em;
+    font-weight: 600;
+}
 </style>
+
 
 
