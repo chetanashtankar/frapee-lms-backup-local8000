@@ -566,7 +566,7 @@ const redirectToWebsite = () => {
 
 .flex.items-center.justify-between.w-full.border-b.bg-surface-menu-bar.px-4.py-2
  {
-    height: 61% !important;
+    height: 9% !important;
     
 }
 
