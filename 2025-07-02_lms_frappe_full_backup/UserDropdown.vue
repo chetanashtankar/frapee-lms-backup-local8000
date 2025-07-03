@@ -83,11 +83,15 @@ import {
 	Settings,
 	Sun,
 	Zap,
+	GraduationCap
 } from 'lucide-vue-next'
 
 const router = useRouter()
 const { logout, branding } = sessionStore()
 let { userResource } = usersStore()
+const { currentUser } = usersStore()
+const username = computed(() => userResource.data?.username || '')
+console.log(username)
 const settingsStore = useSettings()
 let { isLoggedIn } = sessionStore()
 const showSettingsModal = ref(false)
@@ -138,7 +142,8 @@ const userDropdownOptions = computed(() => {
 						return isLoggedIn
 					},
 				},
-				
+
+
 				// {
 				// 	icon: theme.value === 'light' ? Moon : Sun,
 				// 	label: 'Toggle Theme',
@@ -146,29 +151,28 @@ const userDropdownOptions = computed(() => {
 				// 		toggleTheme()
 				// 	},
 				// },
-
 				{
 					component: markRaw(Apps),
 					condition: () => {
 						debugger;
 
-let cookieString = document.cookie;
+						let cookieString = document.cookie;
 
-// Add this check before parsing cookies
-if (cookieString.includes('LMS%20Student') || cookieString.includes('LMS Student')) {
-    var system_user = 'no';
-} else {
-    let cookies = new URLSearchParams(cookieString.split('; ').join('&'));
-    var system_user = cookies.get('system_user');
-}
+						// Add this check before parsing cookies
+						if (cookieString.includes('LMS%20Student') || cookieString.includes('LMS Student')) {
+							var system_user = 'no';
+						} else {
+							let cookies = new URLSearchParams(cookieString.split('; ').join('&'));
+							var system_user = cookies.get('system_user');
+						}
 
-console.log(system_user);
+						console.log(system_user);
 
-if (system_user === 'yes') return true;
-else return false;
+						if (system_user === 'yes') return true;
+						else return false;
 
-					},
-				},
+											},
+										},
 				{
 					icon: Settings,
 					label: 'Settings',
@@ -208,6 +212,14 @@ else return false;
 					},
 				},
 				{
+					icon: GraduationCap,
+					label: 'My Certificate',
+					onClick: () => router.push(`/user/${username.value}/certificates`),
+					condition: () => {
+						return isLoggedIn
+					},
+				},
+				{
 					icon: LogOut,
 					label: 'Log out',
 					onClick: () => {
@@ -220,6 +232,7 @@ else return false;
 						return isLoggedIn
 					},
 				},
+				
 				{
 					icon: LogIn,
 					label: 'Log in',
