@@ -1,5 +1,4 @@
 /*/home/chetan/frappe-bench/apps/lms/frontend/src/router.js*/
-
 import { createRouter, createWebHistory } from 'vue-router'
 import { usersStore } from './stores/user'
 import { sessionStore } from './stores/session'
