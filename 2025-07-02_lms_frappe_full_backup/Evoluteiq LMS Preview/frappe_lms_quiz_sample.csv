@@ -1,0 +1,5 @@
+quiz,question,question_type,options,correct_option,points
+Python Basics,What is the output of print(2 + 2)?,Multiple Choice,"2,3,4,5",4,1
+Python Basics,Which of the following is a valid variable name?,Multiple Choice,"2var,var_name,var-name,var name",var_name,1
+Python Basics,What keyword is used to define a function in Python?,Multiple Choice,"func,function,def,define",def,1
+Python Basics,Python is an interpreted language.,True/False,"True,False",True,1
