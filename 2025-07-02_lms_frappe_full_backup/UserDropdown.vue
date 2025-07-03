@@ -225,7 +225,7 @@ const userDropdownOptions = computed(() => {
 					onClick: () => {
 						logout.submit().then(() => {
 							isLoggedIn = false
-							 window.location.href = '/login' 
+							window.location.href = '/login' 
 						})
 					},
 					condition: () => {
