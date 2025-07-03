@@ -1,181 +1,77 @@
 <template>
-	<div
-		class="flex h-full flex-col justify-between transition-all duration-300 ease-in-out border-r bg-surface-menu-bar"
-		:class="sidebarStore.isSidebarCollapsed ? 'w-14' : 'w-56'"
-	>
-		<div
-			class="flex flex-col overflow-hidden"
-			:class="sidebarStore.isSidebarCollapsed ? 'items-center' : ''"
-		>
-			<UserDropdown :isCollapsed="sidebarStore.isSidebarCollapsed" />
-			<div class="flex flex-col" v-if="sidebarSettings.data">
-				<SidebarLink
-					v-for="link in sidebarLinks"
-					:link="link"
-					:isCollapsed="sidebarStore.isSidebarCollapsed"
-					class="mx-2 my-0.5"
-				/>
-			</div>
-			<div
-				v-if="sidebarSettings.data?.web_pages?.length || isModerator"
-				class="mt-4"
-			>
-				<div
-					class="flex items-center justify-between pr-2 cursor-pointer"
-					:class="sidebarStore.isSidebarCollapsed ? 'pl-3' : 'pl-4'"
-					@click="toggleWebPages"
-				>
-					<div
-						v-if="!sidebarStore.isSidebarCollapsed"
-						class="flex items-center text-sm text-ink-gray-5 my-1"
-					>
-						<span class="grid h-5 w-6 flex-shrink-0 place-items-center">
-							<ChevronRight
-								class="h-4 w-4 stroke-1.5 text-ink-gray-9 transition-all duration-300 ease-in-out"
-								:class="{ 'rotate-90': !sidebarStore.isWebpagesCollapsed }"
-							/>
-						</span>
-						<span class="ml-2">
-							{{ __('More') }}
-						</span>
-					</div>
-					<Button
-						v-if="isModerator && !readOnlyMode"
-						variant="ghost"
-						@click="openPageModal()"
-					>
-						<template #icon>
-							<Plus class="h-4 w-4 text-ink-gray-7 stroke-1.5" />
-						</template>
-					</Button>
-				</div>
-				<div
-					v-if="sidebarSettings.data?.web_pages?.length"
-					class="flex flex-col transition-all duration-300 ease-in-out"
-					:class="!sidebarStore.isWebpagesCollapsed ? 'block' : 'hidden'"
-				>
-					<SidebarLink
-						v-for="link in sidebarSettings.data.web_pages"
-						:link="link"
-						:isCollapsed="sidebarStore.isSidebarCollapsed"
-						class="mx-2 my-0.5"
-						:showControls="isModerator ? true : false"
-						@openModal="openPageModal"
-						@deletePage="deletePage"
-					/>
-				</div>
-			</div>
-		</div>
-		<div class="m-2 flex flex-col gap-1">
-			<div
-				v-if="readOnlyMode && !sidebarStore.isSidebarCollapsed"
-				class="z-10 m-2 bg-surface-modal py-2.5 px-3 text-xs text-ink-gray-7 leading-5 rounded-md"
-			>
-				{{
-					__(
-						'This site is being updated. You will not be able to make any changes. Full access will be restored shortly.'
-					)
-				}}
-			</div>
-			<TrialBanner
-				v-if="
-					userResource.data?.is_system_manager && userResource.data?.is_fc_site
-				"
-				:isSidebarCollapsed="sidebarStore.isSidebarCollapsed"
-			/>
-			<GettingStartedBanner
-				v-if="showOnboarding && !isOnboardingStepsCompleted"
-				:isSidebarCollapsed="sidebarStore.isSidebarCollapsed"
-				appName="learning"
-			/>
+  <!-- Header/Navigation Bar -->
+  <div
+    class="flex items-center justify-between w-full border-b bg-surface-menu-bar px-4 py-2"
+    style="height: 56px; position: fixed; top: 0; left: 0; right: 0; z-index: 1000;"
+  >
+    <!-- Left side - Logo only -->
+    <div class="logo-container"></div>
 
-			<div
-				class="flex items-center mt-4"
-				:class="
-					sidebarStore.isSidebarCollapsed ? 'flex-col space-y-3' : 'flex-row'
-				"
-			>
-				<div
-					class="flex items-center flex-1"
-					:class="
-						sidebarStore.isSidebarCollapsed
-							? 'flex-col space-y-3'
-							: 'flex-row space-x-3'
-					"
-				>
-					<Tooltip v-if="readOnlyMode && sidebarStore.isSidebarCollapsed">
-						<CircleAlert
-							class="size-4 stroke-1.5 text-ink-gray-7 cursor-pointer"
-						/>
-						<template #body>
-							<div
-								class="max-w-[30ch] rounded bg-surface-gray-7 px-2 py-1 text-center text-p-xs text-ink-white shadow-xl"
-							>
-								{{
-									__(
-										'This site is being updated. You will not be able to make any changes. Full access will be restored shortly.'
-									)
-								}}
-							</div>
-						</template>
-					</Tooltip>
-					<Tooltip :text="__('Powered by Learning')">
-						<Zap
-							class="size-4 stroke-1.5 text-ink-gray-7 cursor-pointer"
-							@click="redirectToWebsite()"
-						/>
-					</Tooltip>
-					<Tooltip v-if="showOnboarding" :text="__('Help')">
-						<CircleHelp
-							class="size-4 stroke-1.5 text-ink-gray-7 cursor-pointer"
-							@click="
-								() => {
-									showHelpModal = minimize ? true : !showHelpModal
-									minimize = !showHelpModal
-								}
-							"
-						/>
-					</Tooltip>
-				</div>
-				<Tooltip
-					:text="
-						sidebarStore.isSidebarCollapsed ? __('Expand') : __('Collapse')
-					"
-				>
-					<CollapseSidebar
-						class="size-4 text-ink-gray-7 duration-300 stroke-1.5 ease-in-out cursor-pointer"
-						:class="{
-							'[transform:rotateY(180deg)]': sidebarStore.isSidebarCollapsed,
-						}"
-						@click="toggleSidebar()"
-					/>
-				</Tooltip>
-			</div>
-		</div>
-		<HelpModal
-			v-if="showOnboarding && showHelpModal"
-			v-model="showHelpModal"
-			v-model:articles="articles"
-			appName="learning"
-			title="Frappe Learning"
-			:logo="LMSLogo"
-			:afterSkip="(step) => capture('onboarding_step_skipped_' + step)"
-			:afterSkipAll="() => capture('onboarding_steps_skipped')"
-			:afterReset="(step) => capture('onboarding_step_reset_' + step)"
-			:afterResetAll="() => capture('onboarding_steps_reset')"
-			docsLink="https://docs.frappe.io/learning"
-		/>
-		<IntermediateStepModal
-			v-model="showIntermediateModal"
-			:currentStep="currentStep"
-		/>
-	</div>
-	<PageModal
-		v-model="showPageModal"
-		v-model:reloadSidebar="sidebarSettings"
-		:page="pageToEdit"
-	/>
+    <!-- Right side - Navigation Links, Tools, and then User Dropdown at the end -->
+    <div class="flex items-center space-x-4">
+      <!-- Navigation Links -->
+      <div class="flex space-x-4">
+        <SidebarLink
+          v-for="link in sidebarLinks"
+          :key="link.label"
+          :link="link"
+          :isCollapsed="false"
+          class="py-2"
+        />
+      </div>
+
+      <!-- Tools and Status Icons -->
+      <div class="flex items-center space-x-3  ml-4">
+        <Tooltip v-if="readOnlyMode">
+          <CircleAlert
+            class="size-4 stroke-1.5 text-ink-gray-7 cursor-pointer"
+          />
+          <template #body>
+            <div
+              class="max-w-[30ch] rounded bg-surface-gray-7 px-2 py-1 text-center text-p-xs text-ink-white shadow-xl"
+            >
+              {{
+                __(
+                  'This site is being updated. You will not be able to make any changes. Full access will be restored shortly.'
+                )
+              }}
+            </div>
+          </template>
+        </Tooltip>
+
+        <Tooltip :text="__('Powered by Learning')">
+          <Zap
+            class="size-4 stroke-1.5 text-ink-gray-7 cursor-pointer"
+            @click="redirectToWebsite()"
+          />
+        </Tooltip>
+
+        <Tooltip v-if="showOnboarding" :text="__('Help')">
+          <CircleHelp
+            class="size-4 stroke-1.5 text-ink-gray-7 cursor-pointer"
+            @click="
+              () => {
+                showHelpModal = minimize ? true : !showHelpModal
+                minimize = !showHelpModal
+              }
+            "
+          />
+        </Tooltip>
+      </div>
+
+   
+      <UserDropdown :isCollapsed="false" />
+    </div>
+  </div>
+
+  <!-- Keep your existing modal -->
+  <PageModal
+    v-model="showPageModal"
+    v-model:reloadSidebar="sidebarSettings"
+    :page="pageToEdit"
+  />
 </template>
+
 
 <script setup>
 import UserDropdown from '@/components/UserDropdown.vue'
@@ -634,7 +530,7 @@ watch(userResource, () => {
     } else if (isStudent) {
       console.log('Applying student sidebar filter')
       sidebarLinks.value = sidebarLinks.value.filter(link =>
-        ['Courses', 'Certified Members'].includes(link.label)
+        ['Courses', 'Certified Members','Take Certification'].includes(link.label)
       )
 
 	  .map(link => {
@@ -660,9 +556,33 @@ watch(userResource, () => {
 
 
 
-
-
 const redirectToWebsite = () => {
 	window.open('https://frappe.io/learning', '_blank')
 }
 </script>
+
+
+<style scoped>
+
+.flex.items-center.justify-between.w-full.border-b.bg-surface-menu-bar.px-4.py-2
+ {
+    height: 55px !important;
+    
+}
+
+.logo-container {
+  width: 165px;
+  height: 30px;
+  background-image: url("/files/EvoluteIQ-logo-180x51 (1).webp");
+  background-size: cover;
+  background-position: center;
+  flex-shrink: 1;
+}
+
+div#scrollContainer {
+    margin-top: 26px !important;
+}
+.mx-auto.w-full.max-w-4xl.pt-6.pb-10 {
+    margin-top: 2rem !important;
+}
+</style>
