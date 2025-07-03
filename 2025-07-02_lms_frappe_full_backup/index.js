@@ -471,7 +471,7 @@ export function getSidebarLinks() {
             ],
         },
 		{
-      label: 'Take Certification',
+      label: 'Certifications',
       icon: 'CheckCircle',
       to: 'TakeCertification',
       activeFor: ['TakeCertification'],
