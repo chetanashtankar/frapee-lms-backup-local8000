@@ -476,11 +476,18 @@ export function getSidebarLinks() {
             ],
         },
 		{
+      label: 'FoundationCourse',
+      icon: 'BookOpen',
+      to: 'FoundationCourses',
+      activeFor: ['FoundationCourses'],
+    },
+		{
       label: 'Certifications',
       icon: 'CheckCircle',
       to: 'TakeCertification',
       activeFor: ['TakeCertification'],
     },
+	
 	]
 }
 export function getFormattedDateRange(
@@ -594,3 +601,4 @@ export const openSettings = (category, close) => {
 	settingsStore.activeTab = category
 	settingsStore.isSettingsOpen = true
 }
+
