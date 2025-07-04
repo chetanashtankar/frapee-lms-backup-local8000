@@ -530,18 +530,18 @@ watch(userResource, () => {
     } else if (isStudent) {
       console.log('Applying student sidebar filter')
       sidebarLinks.value = sidebarLinks.value.filter(link =>
-        ['Home','Courses', 'Certifications'].includes(link.label)
+        ['Home','FoundationCourse', 'Certifications'].includes(link.label)
       )
 
-	//   .map(link => {
-    //   if (link.label === 'Certified Members') {
-    //     return {
-    //       ...link,
-    //       label: 'My Certificate'
-    //     }
-    //   }
-    //   return link
-    // })
+	  .map(link => {
+      if (link.label === 'FoundationCourse') {
+        return {
+          ...link,
+          label: 'Course'
+        }
+      }
+      return link
+    })
 	
     } else {
       console.log('No role-based filtering applied')
@@ -571,8 +571,8 @@ const redirectToWebsite = () => {
 }
 
 .logo-container {
-  width: 176px;
-  height: 48px;
+ width: 112px;
+    height: 30px;
   background-image: url("/files/EvoluteIQ-logo-180x51 (1).webp");
   background-size: cover;
   background-position: center;
