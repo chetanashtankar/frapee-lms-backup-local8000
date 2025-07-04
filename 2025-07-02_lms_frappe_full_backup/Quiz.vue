@@ -878,14 +878,4 @@ div#headlessui-disclosure-panel-v-17 {
   margin-left: 0;
 }
 
-button[aria-controls^="headlessui-disclosure-panel-"][data-headlessui-state],
-div[data-headlessui-state][id^="headlessui-disclosure-panel-"] {
-  display: none !important;
-}
-.flex.flex-col.md\:flex-row.md\:items-center.justify-between {
-    display: none;
-}
-.bg-surface-blue-2.space-y-1.py-2.px-2.mb-4.rounded-md.text-sm.text-ink-blue-3 {
-    display: none;
-}
 </style>
