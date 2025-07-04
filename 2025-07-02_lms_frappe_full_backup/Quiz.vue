@@ -846,4 +846,46 @@ div#headlessui-disclosure-panel-v-17 {
     display: none !important;
 }
 
+p {
+	line-height: 1.5rem;
+}
+
+
+button#headlessui-disclosure-button-v-16 {
+    display: none !IMPORTANT;
+}
+
+
+div#headlessui-disclosure-panel-v-17 {
+    display: none !important;
+}
+.avatar-group {
+  display: inline-flex;
+  align-items: center;
+}
+
+.avatar-group.overlap .avatar:not(:first-child) {
+  margin-left: -12px;
+  border: 2px solid white;
+  border-radius: 9999px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05);
+  transition: margin 0.2s ease-in-out;
+  z-index: 0;
+}
+
+.avatar-group.overlap .avatar:hover {
+  z-index: 10;
+  margin-left: 0;
+}
+
+button[aria-controls^="headlessui-disclosure-panel-"][data-headlessui-state],
+div[data-headlessui-state][id^="headlessui-disclosure-panel-"] {
+  display: none !important;
+}
+.flex.flex-col.md\:flex-row.md\:items-center.justify-between {
+    display: none;
+}
+.bg-surface-blue-2.space-y-1.py-2.px-2.mb-4.rounded-md.text-sm.text-ink-blue-3 {
+    display: none;
+}
 </style>
