@@ -9,67 +9,65 @@
 			<div class="cert-card">
 				<div class="cert-image java-beginner"></div>
 				<div class="cert-info">
-					<h2 class="cert-title">Java Beginner</h2>
-					<p class="cert-description">Start your Java journey with core concepts and syntax fundamentals.</p>
-					<button class="cert-btn">Get Certification</button>
+					<h2 class="cert-title">Foundation Certification</h2>
+					<p class="cert-description">Master the fundamentals of intelligent business automation with our Foundation Certification Program. The EIQ Foundation equips you with essential platform skills.</p>
+					<button class="cert-btn">Get Certified</button>
 				</div>
 			</div>
 
-			<div class="cert-card">
+			<div class="cert-card coming-soon">
 				<div class="cert-image java-intermediate"></div>
 				<div class="cert-info">
-					<h2 class="cert-title">Java Intermediate</h2>
-					<p class="cert-description">Master OOP, collections, and error handling in Java.</p>
-					<button class="cert-btn">Get Certification</button>
+					<h2 class="cert-title">Citizen Developer</h2>
+					<p class="cert-description">Build powerful applications using our intuitive no-code tools. Learn to automate workflows and integrate systems—no programming required.</p>
+					<button class="cert-btn-disabled" disabled>Coming Soon</button>
 				</div>
 			</div>
 
-			<div class="cert-card">
+			<div class="cert-card coming-soon">
 				<div class="cert-image java-advanced"></div>
 				<div class="cert-info">
-					<h2 class="cert-title">Java Advanced</h2>
-					<p class="cert-description">Deep dive into multithreading, JDBC, and Java I/O.</p>
-					<button class="cert-btn">Get Certification</button>
+					<h2 class="cert-title">Developer</h2>
+					<p class="cert-description">Advance your skills with low-code and pro-code features. Learn to create robust apps using JavaScript, Python, APIs, and platform scripting.</p>
+					<button class="cert-btn-disabled" disabled>Coming Soon</button>
 				</div>
 			</div>
 
-			<div class="cert-card">
+			<div class="cert-card coming-soon">
 				<div class="cert-image java-expert"></div>
 				<div class="cert-info">
-					<h2 class="cert-title">Java Expert</h2>
-					<p class="cert-description">Explore Spring Boot, REST APIs, and best practices.</p>
-					<button class="cert-btn">Get Certification</button>
+					<h2 class="cert-title">Architect</h2>
+					<p class="cert-description">Design scalable, secure enterprise solutions using the full EIQ stack. Master architecture, integrations, and AI-driven automation.</p>
+					<button class="cert-btn-disabled" disabled>Coming Soon</button>
 				</div>
 			</div>
-
 		</div>
 	</div>
 </template>
-
 
 <script setup>
 const javaCertifications = [
 	{
 		id: 1,
-		title: 'Java Beginner',
+		title: 'Foundation Certification',
 		description: 'Start your Java journey with core concepts and syntax fundamentals.',
 		image: '/ai-certification-image.png',
 	},
 	{
 		id: 2,
-		title: 'Java Intermediate',
+		title: 'Citizen Developer',
 		description: 'Master OOP, collections, and error handling in Java.',
 		image: '/ai-certification-image.png',
 	},
 	{
 		id: 3,
-		title: 'Java Advanced',
+		title: 'Developer',
 		description: 'Deep dive into multithreading, JDBC, and Java I/O.',
 		image: '/ai-certification-image.png',
 	},
 	{
 		id: 4,
-		title: 'Java Expert',
+		title: 'Architect',
 		description: 'Explore Spring Boot, REST APIs, and best practices.',
 		image: '/ai-certification-image.png',
 	},
@@ -78,13 +76,15 @@ const javaCertifications = [
 
 <style scoped>
 .certification-page {
-	padding: 2rem;
+	padding: 5rem 1.25rem 1.25rem 1.25rem;
 }
 
 .page-title {
-	font-size: 2rem;
-	font-weight: bold;
 	margin-bottom: 1.5rem;
+	font-size: 16px;
+	line-height: 1.15;
+	letter-spacing: .02em;
+	font-weight: 600;
 }
 
 .certification-grid {
@@ -106,8 +106,41 @@ const javaCertifications = [
 	transform: translateY(-4px);
 }
 
+/* Coming Soon Cards Styling */
+.cert-card.coming-soon {
+	opacity: 0.7;
+	position: relative;
+}
+
+.cert-card.coming-soon::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(255, 255, 255, 0.3);
+	backdrop-filter: blur(1px);
+	z-index: 1;
+}
+
+.cert-card.coming-soon:hover {
+	transform: none;
+}
+
+.cert-card.coming-soon .cert-image {
+	filter: grayscale(50%);
+}
+
+.cert-card.coming-soon .cert-title,
+.cert-card.coming-soon .cert-description {
+	color: #888;
+}
+
 .cert-info {
 	padding: 1rem;
+	position: relative;
+	z-index: 2;
 }
 
 .cert-title {
@@ -136,6 +169,20 @@ const javaCertifications = [
 	background-color: #1e40af;
 }
 
+/* Disabled Button Styling */
+.cert-btn-disabled {
+	background-color: #d1d5db;
+	color: #6b7280;
+	padding: 0.5rem 1rem;
+	border: none;
+	border-radius: 6px;
+	cursor: not-allowed;
+	transition: none;
+}
+
+.cert-btn-disabled:hover {
+	background-color: #d1d5db;
+}
 
 .cert-image {
 	width: 100%;
@@ -144,35 +191,23 @@ const javaCertifications = [
 	background-position: center;
 	background-repeat: no-repeat;
 }
+
 .java-beginner {
-	background-image: url('/files/DigitalMarketingMastery.png');
+	background-image: url('/files/certification1.jpeg');
 }
 
 .java-intermediate {
-	background-image: url('/files/AIFundamentalsProgram.png');
+	background-image: url('/files/certification2.png');
 }
 
 .java-advanced {
-	background-image: url('/files/CloudComputingEssentials.png');
+	background-image: url('/files/certification3.png');
 }
 
 .java-expert {
-	background-image: url('/files/ai-certification-image.png');
+	background-image: url('/files/certification4.png');
 }
 
-.certification-page {
-    padding: 5rem 1.25rem 1.25rem 1.25rem;
-}
-
-
-.page-title {
-    
-    margin-bottom: 1.5rem;
-    font-size: 16px;
-    line-height: 1.15;
-    letter-spacing: .02em;
-    font-weight: 600;
-}
 </style>
 
 
