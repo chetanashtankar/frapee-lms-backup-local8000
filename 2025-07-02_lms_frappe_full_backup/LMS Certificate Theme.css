@@ -4,11 +4,6 @@
 */
 
 
-
-
-//files/certificate.png
-
-//files/certificate.png
 //files/certificate.png
 
 //files/certificate.png
@@ -345,88 +340,80 @@ document.body.innerHTML = `
 
         <!-- Four card Learning Path -->
 
-
- <!-- Learning Paths Section -->
-        <div class="section">
-    <h1 class="section-title">Learning Paths</h1>
-    <div class="learning-paths-grid">
-        <!-- Card 1: Foundation Course (Active) -->
-        <div class="path-card">
-            <div class="card-image digital-marketing-img"></div>
-            <h3 class="card-title">Foundation Course</h3>
-            <p class="card-description">Dive into the latest information and AI fundamentals. Perfect for beginners or those looking to solidify their foundational knowledge. Start paving your path to success today!</p>
-            <button class="card-button" onclick="window.location.href='#';">Start Course</button>
-        </div>
-
-        <!-- Card 2: Citizen Developer (Coming Soon) -->
-        <div class="path-card coming-soon">
-            <div class="notification-bell"></div>
-            <div class="card-image ai-fundamentals-img"></div>
-            <h3 class="card-title">Citizen Developer</h3>
-            <p class="card-description">Dive into the latest information and AI fundamentals. Perfect for beginners or those looking to solidify their foundational knowledge. Start paving your path to success today!</p>
-            <button class="card-button animated">Coming Soon...</button>
-        </div>
-
-        <!-- Card 3: Developer (Coming Soon) -->
-        <div class="path-card coming-soon">
-            <div class="notification-bell"></div>
-            <div class="card-image data-analytics-img"></div>
-            <h3 class="card-title">Developer</h3>
-            <p class="card-description">Dive into the latest information and AI fundamentals. Perfect for beginners or those looking to solidify their foundational knowledge. Start paving your path to success today!</p>
-            <button class="card-button animated">Coming Soon...</button>
-        </div>
-
-        <!-- Card 4: Architect (Coming Soon) -->
-        <div class="path-card coming-soon">
-            <div class="notification-bell"></div>
-            <div class="card-image cloud-computing-img"></div>
-            <h3 class="card-title">Architect</h3>
-            <p class="card-description">Dive into the latest information and AI fundamentals. Perfect for beginners or those looking to solidify their foundational knowledge. Start paving your path to success today!</p>
-            <button class="card-button animated">Coming Soon...</button>
-        </div>
+<!-- Learning Paths Section -->
+<div class="section">
+  <h1 class="section-title">Learning Paths</h1>
+  <div class="learning-paths-grid">
+    <div class="path-card">
+      <div class="card-image learning-foundation-img"></div>
+      <h3 class="card-title">Foundation Course</h3>
+      <p class="card-description">Master the fundamentals of intelligent business automation with our Foundation Certification Program. The EIQ Foundation equips you with essential platform skills.</p>
+      <button class="card-button" onclick="window.location.href='#';">Start Course</button>
     </div>
+
+    <div class="path-card coming-soon">
+      <div class="notification-bell"></div>
+      <div class="card-image learning-citizen-developer-img"></div>
+      <h3 class="card-title">Citizen Developer</h3>
+      <p class="card-description">Build powerful applications using our intuitive no-code tools. Learn to automate workflows and integrate systems—no programming required</p>
+      <button class="card-button animated">Coming Soon...</button>
+    </div>
+
+    <div class="path-card coming-soon">
+      <div class="notification-bell"></div>
+      <div class="card-image learning-developer-img"></div>
+      <h3 class="card-title">Developer</h3>
+      <p class="card-description">Advance your skills with low-code and pro-code features. Learn to create robust apps using JavaScript, Python, APIs, and platform scripting.</p>
+      <button class="card-button animated">Coming Soon...</button>
+    </div>
+
+    <div class="path-card coming-soon">
+      <div class="notification-bell"></div>
+      <div class="card-image learning-architect-img"></div>
+      <h3 class="card-title">Architect</h3>
+      <p class="card-description">Design scalable, secure enterprise solutions using the full EIQ stack. Master architecture, integrations, and AI-driven automation.</p>
+      <button class="card-button animated">Coming Soon...</button>
+    </div>
+  </div>
 </div>
 
 <!-- Certification Paths Section -->
 <div class="section">
-    <h1 class="section-title">Certification Paths</h1>
-    <div class="certification-paths-grid">
-        <!-- Card 1: Foundation Course (Active) -->
-        <div class="path-card">
-            <div class="card-image advanced-ai-img"></div>
-            <h3 class="card-title">Foundation Course</h3>
-            <p class="card-description">Dive into the latest information and AI fundamentals. Perfect for beginners or those looking to solidify their foundational knowledge. Start paving your path to success today!</p>
-            <button class="card-button" onclick="window.location.href='#';">Get Certification</button>
-        </div>
-
-        <!-- Card 2: Citizen Developer (Coming Soon) -->
-        <div class="path-card coming-soon">
-            <div class="notification-bell"></div>
-            <div class="card-image leadership-program-img"></div>
-            <h3 class="card-title">Citizen Developer</h3>
-            <p class="card-description">Dive into the latest information and AI fundamentals. Perfect for beginners or those looking to solidify their foundational knowledge. Start paving your path to success today!</p>
-            <button class="card-button animated">Coming Soon...</button>
-        </div>
-
-        <!-- Card 3: Developer (Coming Soon) -->
-        <div class="path-card coming-soon">
-            <div class="notification-bell"></div>
-            <div class="card-image leadership-program-img"></div>
-            <h3 class="card-title">Developer</h3>
-            <p class="card-description">Dive into the latest information and AI fundamentals. Perfect for beginners or those looking to solidify their foundational knowledge. Start paving your path to success today!</p>
-            <button class="card-button animated">Coming Soon...</button>
-        </div>
-
-        <!-- Card 4: Architect (Coming Soon) -->
-        <div class="path-card coming-soon">
-            <div class="notification-bell"></div>
-            <div class="card-image leadership-program-img"></div>
-            <h3 class="card-title">Architect</h3>
-            <p class="card-description">Dive into the latest information and AI fundamentals. Perfect for beginners or those looking to solidify their foundational knowledge. Start paving your path to success today!</p>
-            <button class="card-button animated">Coming Soon...</button>
-        </div>
+  <h1 class="section-title">Certification Paths</h1>
+  <div class="certification-paths-grid">
+    <div class="path-card">
+      <div class="card-image cert-foundation-img"></div>
+      <h3 class="card-title">Foundation Certification</h3>
+      <p class="card-description">Master the fundamentals of intelligent business automation with our Foundation Certification Program. The EIQ Foundation equips you with essential platform skills.</p>
+      <button class="card-button" onclick="window.location.href='#';">Get Certified</button>
     </div>
+
+    <div class="path-card coming-soon">
+      <div class="notification-bell"></div>
+      <div class="card-image cert-citizen-developer-img"></div>
+      <h3 class="card-title">Citizen Developer</h3>
+      <p class="card-description">Build powerful applications using our intuitive no-code tools. Learn to automate workflows and integrate systems—no programming required.</p>
+      <button class="card-button animated">Coming Soon...</button>
+    </div>
+
+    <div class="path-card coming-soon">
+      <div class="notification-bell"></div>
+      <div class="card-image cert-developer-img"></div>
+      <h3 class="card-title">Developer</h3>
+      <p class="card-description">Advance your skills with low-code and pro-code features. Learn to create robust apps using JavaScript, Python, APIs, and platform scripting.</p>
+      <button class="card-button animated">Coming Soon...</button>
+    </div>
+
+    <div class="path-card coming-soon">
+      <div class="notification-bell"></div>
+      <div class="card-image cert-architect-img"></div>
+      <h3 class="card-title">Architect</h3>
+      <p class="card-description">Design scalable, secure enterprise solutions using the full EIQ stack. Master architecture, integrations, and AI-driven automation.</p>
+      <button class="card-button animated">Coming Soon...</button>
+    </div>
+  </div>
 </div>
+
 
 
         <!-- Testimonials Section -->
@@ -1460,13 +1447,13 @@ document.body.innerHTML = `
                       <div class="form-group">
                         <label class="form-label" for="login_email">Username</label>
                         <div class="email-field">
-                          <input type="text" id="login_email" class="form-control" placeholder="chetan.a@evoluteiq.com" required autocomplete="username">
+                          <input type="text" id="login_email" class="form-control" placeholder="Enter your username" required autocomplete="username">
                         </div>
                       </div>
                       <div class="form-group">
                           <label class="form-label" for="login_password">Password</label>
                           <div class="password-field">
-                            <input type="password" id="login_password" class="form-control" placeholder="•••••" autocomplete="current-password" required="">
+                            <input type="password" id="login_password" class="form-control" placeholder="Enter your password" autocomplete="current-password" required="">
                             <span toggle="#login_password" class="toggle-password text-muted">Show</span>
                           </div>
                         </div>
@@ -2019,23 +2006,8 @@ let currentSlide = 0;
         }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-/* ===================================================================================================================================================== */
-/* ==================================================================  CSS =================================================================================== */
-
-
-/*  Courses In Header SVG Css*/
+/*========================================================================= CSS ==================*/
+            /*  Courses In Header SVG Css*/
 
 .menu-item-courses {
     position: relative;
@@ -7000,6 +6972,13 @@ label.form-label {
 }
 
 
+p.forgot-password-message {
+    display: none;
+}
+
+.social-logins.text-center {
+    display: none;
+}
 
 
 /* RIGHT SIDE LOGIN SECTION CSS */
@@ -7025,150 +7004,38 @@ body .page-content-wrapper {
 
 
 /*-----------------------------*/
+/* Container Styles */
+.main-container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
 
+.section {
+    margin-bottom: 80px;
+    padding: 0px 41px;
+    margin-top: 50px;
+}
 
-/*Four card Learning Path*/
- .main-container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            text-align: center;
+.section-title {
+    text-align: center;
     font-size: 2.5rem;
     margin-bottom: 50px;
     color: #083279;
     font-weight: 600;
-        }
-
-        .section {
-            margin-bottom: 80px;
-             margin-top: 50px;
-        }
-
-        /* Learning Paths Grid - 4 cards in one row */
-        .learning-paths-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 40px;
-            max-width: 90%;
-            margin: 0 auto;
-        }
-
-
-        /* Certification Paths Grid - 2 cards in one row, centered */
-        .certification-paths-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 40px;
-            max-width: 90%;
-            margin: 0 auto;
-        }
-
-        .path-card {
-            background: white;
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            border: 2px solid #e0e0e0;
-        }
-
-        .path-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-            border-color: #ccc;
-        }
-
-        .card-image {
-            width: 100%;
-            height: 150px;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-size: cover;
-            background-position: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Learning Path Card Images */
-        .digital-marketing-img {
-            background-image: url('../DigitalMarketingMastery.png');
-        }
-
-        .ai-fundamentals-img {
-             background-image: url('../AIFundamentalsProgram.png');
-        }
-
-        .data-analytics-img {
-            background-image: url('../DataAnalyticsBootcamp.png');
-        }
-
-        .cloud-computing-img {
-            background-image: url('../CloudComputingEssentials.png');
-        }
-
-        /* Certification Path Card Images */
-        .advanced-ai-img {
-             background-image: url('../AdvancedAICertification.png');
-        }
-
-        .leadership-program-img {
-             background-image: url('../ExecutiveLeadershipProgram.png');
-        }
-
-        .card-image::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(1px);
-        }
-
-        .card-title {
-            font-size: 18px;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 10px;
-            line-height: 1.3;
-        }
-
-        .card-description {
-            font-size: 14px;
-            color: #666;
-            line-height: 1.5;
-            margin-bottom: 20px;
-        }
-
-        .card-button {
-            width: 100%;
-            background: #1e4a72;
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .card-button:hover {
-            background: #2d5a8a;
-            transform: scale(1.02);
-        }
-.section
- {
-    margin-bottom: 80px;
-    padding: 0px 41px 0px 41px;
 }
-/* Base card styles (keep your existing styles) */
+
+/* Grid Layout */
+.learning-paths-grid,
+.certification-paths-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+    max-width: 90%;
+    margin: 0 auto;
+    align-items: stretch; /* Ensures all cards stretch equally */
+}
+
+/* Card Base Style */
 .path-card {
     background: white;
     border-radius: 15px;
@@ -7177,9 +7044,116 @@ body .page-content-wrapper {
     transition: all 0.3s ease;
     border: 2px solid #e0e0e0;
     position: relative;
+
+    /* Flex layout for equal height */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-/* Coming Soon Card Modifications */
+/* On Hover */
+.path-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    border-color: #ccc;
+}
+
+/* Card Image Styles */
+.card-image {
+    width: 100%;
+    height: 150px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.card-image::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(1px);
+}
+
+/* Learning Path Card Images */
+.learning-foundation-img {
+	background-image: url('../learning1.jpeg');
+}
+
+.learning-citizen-developer-img {
+	background-image: url('../learning2.jpeg');
+}
+
+.learning-developer-img {
+	background-image: url('../learning3.jpeg');
+}
+
+.learning-architect-img {
+	background-image: url('../learning4.jpeg');
+}
+
+/* Certification Path Card Images */
+.cert-foundation-img {
+	background-image: url('../certification1.jpeg');
+}
+
+.cert-citizen-developer-img {
+	background-image: url('../certification2.png');
+}
+
+.cert-developer-img {
+	background-image: url('../certification3.png');
+}
+
+.cert-architect-img {
+	background-image: url('../certification4.png');
+}
+
+
+/* Card Text */
+.card-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+    line-height: 1.3;
+}
+
+.card-description {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    flex-grow: 1; /* Helps stretch the card evenly */
+}
+
+/* Button Style */
+.card-button {
+    width: 100%;
+    background: #1e4a72;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: auto;
+}
+
+.card-button:hover {
+    background: #2d5a8a;
+    transform: scale(1.02);
+}
+
+/* Coming Soon Cards */
 .path-card.coming-soon {
     background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
     border: 2px solid #dee2e6;
@@ -7205,17 +7179,6 @@ body .page-content-wrapper {
     z-index: 1;
 }
 
-.path-card.coming-soon:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
-    border-color: #adb5bd;
-}
-
-/* Coming Soon Card Image Overlay */
-.path-card.coming-soon .card-image {
-    position: relative;
-}
-
 .path-card.coming-soon .card-image::after {
     content: '';
     position: absolute;
@@ -7228,30 +7191,20 @@ body .page-content-wrapper {
     z-index: 2;
 }
 
-/* Coming Soon Badge */
-
-
-/* Coming Soon Card Content */
-.path-card.coming-soon .card-title {
+.path-card.coming-soon .card-title,
+.path-card.coming-soon .card-description {
     color: #6c757d;
     position: relative;
     z-index: 2;
 }
 
-.path-card.coming-soon .card-description {
-    color: #868e96;
-    position: relative;
-    z-index: 2;
-}
-
-/* Coming Soon Button Styles */
 .path-card.coming-soon .card-button {
     background: linear-gradient(135deg, #6c757d, #495057);
     color: white;
     cursor: not-allowed;
+    opacity: 0.8;
     position: relative;
     z-index: 2;
-    opacity: 0.8;
 }
 
 .path-card.coming-soon .card-button:hover {
@@ -7260,7 +7213,7 @@ body .page-content-wrapper {
     opacity: 0.9;
 }
 
-/* Alternative Coming Soon Button with Animation */
+/* Optional animated version */
 .path-card.coming-soon .card-button.animated {
     background: linear-gradient(45deg, #6c757d, #495057, #6c757d);
     background-size: 200% 200%;
@@ -7273,12 +7226,4 @@ body .page-content-wrapper {
     100% { background-position: 0% 50%; }
 }
 
-
-
-
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-    100% { transform: scale(1); }
-}
-
+            
