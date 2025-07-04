@@ -3,7 +3,6 @@
     http://localhost:8000/app/website-theme/LMS%20Certificate%20Theme
 */
 
-
 //files/certificate.png
 
 //files/certificate.png
@@ -348,7 +347,10 @@ document.body.innerHTML = `
       <div class="card-image learning-foundation-img"></div>
       <h3 class="card-title">Foundation Course</h3>
       <p class="card-description">Master the fundamentals of intelligent business automation with our Foundation Certification Program. The EIQ Foundation equips you with essential platform skills.</p>
-      <button class="card-button" onclick="window.location.href='#';">Start Course</button>
+      <button class="card-button"
+  data-slug="foundation-certification"
+  onclick="goToCourse(this)">
+  Start Course </button>
     </div>
 
     <div class="path-card coming-soon">
@@ -1619,6 +1621,11 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
+function goToCourse(button) {
+  const slug = button.getAttribute('data-slug');
+  const path = `/lms/courses/eiq-agentic-automation-platform-${slug}`;
+  window.location.href = path;
+}
 
 /* Clicking on link Open pages */
 
@@ -2004,6 +2011,7 @@ let currentSlide = 0;
                 }
             }
         }
+
 
 
 /*========================================================================= CSS ==================*/
