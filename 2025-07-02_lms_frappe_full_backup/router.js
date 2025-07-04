@@ -228,6 +228,11 @@ const routes = [
   name: 'TakeCertification',
   component: () => import('@/pages/TakeCertification.vue'),
 },
+{
+  path: '/foundation-course',
+  name: 'FoundationCourses',
+  component: () => import('@/pages/FoundationCourses.vue'),
+},
 ]
 
 let router = createRouter({
@@ -259,3 +264,4 @@ router.beforeEach(async (to, from, next) => {
 })
 
 export default router
+
