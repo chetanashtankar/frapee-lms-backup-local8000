@@ -1,5 +1,4 @@
 /* /home/chetan/frappe-bench/apps/lms/frontend/src/components/Modals/ChapterModal.vue */
-
 <template>
 	<Dialog
 		v-model="show"
@@ -221,3 +220,4 @@ const validateFile = (file) => {
 	}
 }
 </script>
+
