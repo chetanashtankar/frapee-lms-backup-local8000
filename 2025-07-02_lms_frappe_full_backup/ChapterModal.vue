@@ -1,156 +1,223 @@
 /* /home/chetan/frappe-bench/apps/lms/frontend/src/components/Modals/ChapterModal.vue */
 
+<template>
+	<Dialog
+		v-model="show"
+		:options="{
+			title: chapterDetail ? __('Edit Chapter') : __('Add Chapter'),
+			size: 'lg',
+			actions: [
+				{
+					label: chapterDetail ? __('Edit') : __('Create'),
+					variant: 'solid',
+					onClick: (close) =>
+						chapterDetail ? editChapter(close) : addChapter(close),
+				},
+			],
+		}"
+	>
+		<template #body-content>
+			<div class="space-y-4 text-base">
+				<FormControl label="Title" v-model="chapter.title" :required="true" />
+				<Switch
+					size="sm"
+					:label="__('SCORM Package')"
+					:description="
+						__(
+							'Enable this only if you want to upload a SCORM package as a chapter.'
+						)
+					"
+					v-model="chapter.is_scorm_package"
+				/>
+				<div v-if="chapter.is_scorm_package">
+					<FileUploader
+						v-if="!chapter.scorm_package"
+						:fileTypes="['.zip']"
+						:validateFile="validateFile"
+						@success="(file) => (chapter.scorm_package = file)"
+					>
+						<template v-slot="{ file, progress, uploading, openFileSelector }">
+							<div class="mb-4">
+								<Button @click="openFileSelector" :loading="uploading">
+									{{
+										uploading ? `Uploading ${progress}%` : 'Upload an ZIP file'
+									}}
+								</Button>
+							</div>
+						</template>
+					</FileUploader>
+					<div v-else class="">
+						<div class="flex items-center">
+							<div class="border rounded-md p-2 mr-2">
+								<FileText class="h-5 w-5 stroke-1.5 text-ink-gray-7" />
+							</div>
+							<div class="flex flex-col">
+								<span>
+									{{ chapter.scorm_package.file_name }}
+								</span>
+								<span class="text-sm text-ink-gray-4 mt-1">
+									{{ getFileSize(chapter.scorm_package.file_size) }}
+								</span>
+							</div>
+							<X
+								@click="() => (chapter.scorm_package = null)"
+								class="bg-surface-gray-3 rounded-md cursor-pointer stroke-1.5 w-5 h-5 p-1 ml-4"
+							/>
+						</div>
+					</div>
+				</div>
+			</div>
+		</template>
+	</Dialog>
+</template>
+<script setup>
+import {
+	Button,
+	createResource,
+	Dialog,
+	FileUploader,
+	FormControl,
+	Switch,
+	toast,
+} from 'frappe-ui'
+import { reactive, watch, inject } from 'vue'
+import { getFileSize } from '@/utils/'
+import { capture } from '@/telemetry'
+import { FileText, X } from 'lucide-vue-next'
+import { useOnboarding } from 'frappe-ui/frappe'
 
-import call from '../../src/utils/call'
-import { createResource } from '../../src/resources'
-import { minimize } from '../Help/help'
-import { useStorage } from '@vueuse/core'
-import { computed, reactive } from 'vue'
+const show = defineModel()
+const outline = defineModel('outline')
+const user = inject('$user')
+const { updateOnboardingStep } = useOnboarding('learning')
 
-const onboardings = reactive({})
-const onboardingStatus = useStorage('onboardingStatus', {})
+const props = defineProps({
+	course: {
+		type: String,
+		required: true,
+	},
+	chapterDetail: {
+		type: Object,
+	},
+})
 
-export function useOnboarding(appName) {
-  const isOnboardingStepsCompleted = useStorage(
-    'isOnboardingStepsCompleted' + appName,
-    false,
-  )
+const chapter = reactive({
+	title: '',
+	is_scorm_package: 0,
+	scorm_package: null,
+})
 
-  const onboardingSteps = computed(
-    () => onboardingStatus.value?.[appName + '_onboarding_status'] || [],
-  )
+const chapterResource = createResource({
+	url: 'lms.lms.api.upsert_chapter',
+	makeParams(values) {
+		return {
+			title: chapter.title,
+			course: props.course,
+			is_scorm_package: chapter.is_scorm_package,
+			scorm_package: chapter.scorm_package,
+			name: props.chapterDetail?.name,
+		}
+	},
+})
 
-  if (!onboardingSteps.value.length && !isOnboardingStepsCompleted.value) {
-    createResource({
-      url: 'frappe.onboarding.get_onboarding_status',
-      cache: 'onboarding_status',
-      auto: true,
-      onSuccess: (data) => {
-        onboardingStatus.value = data
-        syncStatus()
-      },
-    })
-  }
+const chapterReference = createResource({
+	url: 'frappe.client.insert',
+	makeParams(values) {
+		return {
+			doc: {
+				doctype: 'Chapter Reference',
+				chapter: values.name,
+				parent: props.course,
+				parenttype: 'LMS Course',
+				parentfield: 'chapters',
+			},
+		}
+	},
+})
 
-  const stepsCompleted = computed(
-    () => onboardings[appName]?.filter((step) => step.completed).length || 0,
-  )
-  const totalSteps = computed(() => onboardings[appName]?.length || 0)
+const addChapter = async (close) => {
+	chapterResource.submit(
+		{},
+		{
+			validate() {
+				return validateChapter()
+			},
+			onSuccess: (data) => {
+				if (user.data?.is_system_manager)
+					updateOnboardingStep('create_first_chapter')
 
-  const completedPercentage = computed(() =>
-    Math.floor((stepsCompleted.value / totalSteps.value) * 100),
-  )
-
-  function skip(step, callback = null) {
-    updateOnboardingStep(step, true, true, callback)
-  }
-
-  function skipAll(callback = null) {
-    updateAll(true, callback)
-  }
-
-  function reset(step, callback = null) {
-    updateOnboardingStep(step, false, false, callback)
-  }
-
-  function resetAll(callback = null) {
-    updateAll(false, callback)
-  }
-
-  function updateOnboardingStep(
-    step,
-    value = true,
-    skipped = false,
-    callback = null,
-  ) {
-    if (isOnboardingStepsCompleted.value) return
-
-    if (!onboardingSteps.value.length) {
-      onboardingStatus.value[appName + '_onboarding_status'] = onboardings[
-        appName
-      ].map((s) => {
-        return { name: s.name, completed: false }
-      })
-    }
-
-    let index = onboardingSteps.value.findIndex((s) => s.name === step)
-    if (index !== -1) {
-      onboardingSteps.value[index].completed = value
-      onboardings[appName][index].completed = value
-    }
-
-    updateUserOnboardingStatus(onboardingSteps.value)
-
-    callback?.(step, skipped)
-
-    minimize.value = false
-  }
-
-  function updateAll(value, callback = null) {
-    if (isOnboardingStepsCompleted.value && value) return
-
-    if (!onboardingSteps.value.length) {
-      onboardingStatus.value[appName + '_onboarding_status'] = onboardings[
-        appName
-      ].map((s) => {
-        return { name: s.name, completed: value }
-      })
-    } else {
-      onboardingSteps.value.forEach((step) => {
-        step.completed = value
-      })
-    }
-
-    onboardings[appName].forEach((step) => {
-      step.completed = value
-    })
-
-    updateUserOnboardingStatus(onboardingSteps.value)
-
-    callback?.(value)
-  }
-
-  function updateUserOnboardingStatus(steps) {
-    call('frappe.onboarding.update_user_onboarding_status', {
-      steps: JSON.stringify(steps),
-      appName,
-    })
-  }
-
-  function syncStatus() {
-    if (isOnboardingStepsCompleted.value) return
-
-    if (onboardingSteps.value.length) {
-      let _steps = onboardingSteps.value
-      _steps.forEach((step, index) => {
-        onboardings[appName][index].completed = step.completed
-      })
-      isOnboardingStepsCompleted.value = _steps.every((step) => step.completed)
-    } else {
-      isOnboardingStepsCompleted.value = false
-    }
-  }
-
-  function setUp(steps) {
-    if (onboardings[appName]) return
-
-    onboardings[appName] = steps
-    syncStatus()
-  }
-
-  return {
-    steps: onboardings[appName],
-    stepsCompleted,
-    totalSteps,
-    completedPercentage,
-    isOnboardingStepsCompleted,
-    updateOnboardingStep,
-    skip,
-    skipAll,
-    reset,
-    resetAll,
-    setUp,
-    syncStatus,
-  }
+				capture('chapter_created')
+				chapterReference.submit(
+					{ name: data.name },
+					{
+						onSuccess(data) {
+							cleanChapter()
+							outline.value.reload()
+							toast.success(__('Chapter added successfully'))
+						},
+						onError(err) {
+							toast.error(err.messages?.[0] || err)
+						},
+					}
+				)
+				close()
+			},
+			onError(err) {
+				toast.error(err.messages?.[0] || err)
+			},
+		}
+	)
 }
 
+const validateChapter = () => {
+	if (!chapter.title) {
+		return __('Title is required')
+	}
+	if (chapter.is_scorm_package && !chapter.scorm_package) {
+		return __('Please upload a SCORM package')
+	}
+}
+
+const cleanChapter = () => {
+	chapter.title = ''
+	chapter.is_scorm_package = 0
+	chapter.scorm_package = null
+}
+
+const editChapter = (close) => {
+	chapterResource.submit(
+		{},
+		{
+			validate() {
+				if (!chapter.title) {
+					return 'Title is required'
+				}
+			},
+			onSuccess() {
+				outline.value.reload()
+				toast.success(__('Chapter updated successfully'))
+				close()
+			},
+			onError(err) {
+				toast.error(err.messages?.[0] || err)
+			},
+		}
+	)
+}
+
+watch(
+	() => props.chapterDetail,
+	(newChapter) => {
+		chapter.title = newChapter?.title
+		chapter.is_scorm_package = newChapter?.is_scorm_package
+		chapter.scorm_package = newChapter?.scorm_package
+	}
+)
+
+const validateFile = (file) => {
+	let extension = file.name.split('.').pop().toLowerCase()
+	if (extension !== 'zip') {
+		return __('Only zip files are allowed')
+	}
+}
+</script>
