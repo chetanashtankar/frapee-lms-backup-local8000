@@ -1,5 +1,4 @@
 /*/home/chetan/frappe-bench/apps/lms/node_modules/frappe-ui/frappe/Onboarding/onboarding.js*/
-
 import call from '../../src/utils/call'
 import { createResource } from '../../src/resources'
 import { minimize } from '../Help/help'
@@ -56,34 +55,40 @@ export function useOnboarding(appName) {
     updateAll(false, callback)
   }
 
+
   function updateOnboardingStep(
-    step,
-    value = true,
-    skipped = false,
-    callback = null,
-  ) {
-    if (isOnboardingStepsCompleted.value) return
+  step,
+  value = true,
+  skipped = false,
+  callback = null,
+) {
+  if (isOnboardingStepsCompleted.value) return
 
-    if (!onboardingSteps.value.length) {
-      onboardingStatus.value[appName + '_onboarding_status'] = onboardings[
-        appName
-      ].map((s) => {
-        return { name: s.name, completed: false }
-      })
-    }
+  if (!onboardingSteps.value.length) {
+    if (!onboardings[appName]) return // <- ✅ prevent crash
+    onboardingStatus.value[appName + '_onboarding_status'] = onboardings[appName].map((s) => ({
+      name: s.name,
+      completed: false,
+    }))
+  }
 
-    let index = onboardingSteps.value.findIndex((s) => s.name === step)
-    if (index !== -1) {
-      onboardingSteps.value[index].completed = value
+  const index = onboardingSteps.value.findIndex((s) => s.name === step)
+  if (index !== -1) {
+    onboardingSteps.value[index].completed = value
+
+    // ✅ Prevent crash if onboardings[appName] or [index] is missing
+    if (onboardings[appName] && onboardings[appName][index]) {
       onboardings[appName][index].completed = value
     }
-
-    updateUserOnboardingStatus(onboardingSteps.value)
-
-    callback?.(step, skipped)
-
-    minimize.value = false
   }
+
+  updateUserOnboardingStatus(onboardingSteps.value)
+  callback?.(step, skipped)
+  minimize.value = false
+}
+
+
+
 
   function updateAll(value, callback = null) {
     if (isOnboardingStepsCompleted.value && value) return
@@ -159,4 +164,5 @@ export function useOnboarding(appName) {
     syncStatus,
   }
 }
+
 
