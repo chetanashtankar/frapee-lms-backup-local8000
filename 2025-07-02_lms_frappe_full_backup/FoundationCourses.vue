@@ -1,4 +1,5 @@
 /* /home/chetan/frappe-bench/apps/lms/frontend/src/pages/FoundationCourses.vue */
+
 <template>
 	<div class="certification-page">
 		<h1 class="page-title">Courses</h1>
@@ -93,7 +94,8 @@ export default {
     getProgress(course) {
       if (course.totalLessons === 0) return 0;
       return Math.round((course.completedLessons / course.totalLessons) * 100);
-    },startCourse() {
+    }
+	,startCourse() {
     window.location.href = this.coursePath; // or this.$router.push(this.coursePath) if using Vue Router
   }
   },
