@@ -12,10 +12,17 @@
 					<p class="cert-description">Master the fundamentals of intelligent business automation with our Foundation Certification Program. The EIQ Foundation equips you with essential platform skills.</p>
 					<!-- Progress Bar here -->
 					<div class="progress-bar-wrapper">
-					<ProgressBar :progress="foundationProgress" />
-					<p>{{ foundationProgress }}% Complete</p>
+					<template v-if="foundationProgress > 0">
+						<ProgressBar :progress="foundationProgress" />
+						<p>{{ foundationProgress }}% Complete</p>
+					</template>
+					<template v-else>
+						<p>Not Started</p>
+					</template>
 					</div>
-					<button class="cert-btn">Get Certified</button>
+
+					
+					<button class="cert-btn" @click="startCourse">Get Certified</button>
 				</div>
 			</div>
 
@@ -58,10 +65,11 @@ export default {
   },
   data() {
     return {
+      courseSlug: 'eiq-platform-consultant-certification',
       certifications: [
         {
           id: 1,
-          course_id: 'eiq-agentic-automation-platform-foundation-certification',
+          course_id: 'eiq-platform-consultant-certification',
           title: 'Foundation Certification',
           description: 'Master the fundamentals...',
           image: '/files/certification1.jpeg',
@@ -69,95 +77,47 @@ export default {
           totalLessons: 0
         }
       ],
-	  foundationProgress: 0  // 👈 ADD THIS
+      foundationProgress: 0
+    }
+  },
+  computed: {
+    coursePath() {
+      return `/lms/courses/${this.courseSlug}`;
     }
   },
   methods: {
     getProgress(course) {
       if (course.totalLessons === 0) return 0;
       return Math.round((course.completedLessons / course.totalLessons) * 100);
+    },
+    startCourse() {
+      window.location.href = this.coursePath;
     }
   },
   mounted() {
-    console.log('Component mounted, fetching CSRF token...');
-    fetch('/api/method/lms.lms.utils.get_csrf_token')
-      .then(res => res.json())
-      .then(data => {
-        const csrfToken = data.message;
-        console.log('✅ CSRF Token from server:', csrfToken);
+    const quizKey = 'eiq test quize'; // LocalStorage key for quiz answers
+    const activeQuestionKey = `${quizKey}-active-question`; // key for current question
+    const totalQuestions = 11; // ✅ Set this to your actual total
 
-        // 1️⃣ Fetch the course outline
-        return fetch('/api/method/lms.lms.utils.get_course_outline', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-Frappe-CSRF-Token': csrfToken
-          },
-          body: JSON.stringify({
-            course: 'eiq-agentic-automation-platform-foundation-certification',
-            progress: false
-          })
-        })
-        .then(res => res.json())
-        .then(outlineRes => {
-          console.log('✅ Course Outline API response:', outlineRes);
-          const message = outlineRes.message || [];
+    const answersRaw = localStorage.getItem(quizKey);
+    const answered = answersRaw ? JSON.parse(answersRaw).length : 0;
 
-          // Count total lessons
-          const total = message.reduce((acc, section) => acc + (section.lessons?.length || 0), 0);
-          console.log('✅ Total lessons:', total);
+    const activeQuestion = parseInt(localStorage.getItem(activeQuestionKey), 10) || 0;
 
-          // Find the first lesson
-          let firstLessonName = null;
-          for (const section of message) {
-            if (section.lessons && section.lessons.length > 0) {
-              firstLessonName = section.lessons[0].name;
-              break;
-            }
-          }
+    const progressPercentage = totalQuestions > 0
+      ? Math.round((answered / totalQuestions) * 100)
+      : 0;
 
-          if (!firstLessonName) {
-            console.warn(' No lessons found in course outline.');
-            return;
-          }
+    console.log(`✅ Quiz Key: ${quizKey}`);
+    console.log(`🧠 Questions Answered: ${answered} / ${totalQuestions}`);
+    console.log(`📍 Current Active Question Index: ${activeQuestion}`);
+    console.log(`📊 Progress: ${progressPercentage}%`);
 
-          console.log(' First lesson name:', firstLessonName);
-
-          // 2️⃣ Call save_progress with course + lesson
-          return fetch('/api/method/lms.lms.doctype.course_lesson.course_lesson.save_progress', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'X-Frappe-CSRF-Token': csrfToken
-            },
-            body: JSON.stringify({
-              course: 'eiq-agentic-automation-platform-foundation-certification',
-              lesson: firstLessonName
-            })
-          })
-          .then(res => res.json())
-          .then(progressRes => {
-            console.log('✅ Progress API response:', progressRes);
-            const progressPercent = Math.round(progressRes.message);
-            console.log(`✅ Rounded Progress: ${progressPercent}%`);
-  this.foundationProgress = isNaN(progressPercent) ? 0 : progressPercent;
-            // 3️⃣ Update local certification data
-            this.certifications.forEach(cert => {
-              if (cert.course_id === 'eiq-agentic-automation-platform-foundation-certification') {
-                cert.totalLessons = total;
-                cert.completedLessons = Math.round(progressPercent * total / 100);
-                console.log('✅ Updated certification:', cert);
-              }
-            });
-          });
-        });
-      })
-      .catch(err => {
-        console.error('❌ Error in mounted flow:', err);
-      });
+    this.foundationProgress = isNaN(progressPercentage) ? 0 : progressPercentage;
   }
 }
 </script>
+
 
 
 
@@ -296,4 +256,3 @@ export default {
 }
 
 </style>
-
