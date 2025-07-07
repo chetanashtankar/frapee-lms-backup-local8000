@@ -1,6 +1,9 @@
 @import './assets/Inter/inter.css';
 @import 'frappe-ui/src/style.css';
 
+@import './assets/Inter/inter.css';
+@import 'frappe-ui/src/style.css';
+
 
 .bg-surface-gray-7 {
     background-color: #ff4602 !important;
@@ -63,8 +66,19 @@ header.sticky.flex.items-center.justify-between.top-0.z-10.border-b.bg-surface-w
   visibility: visible !important;
 }
 
+.py-2\.5 {
+    padding-top: 4.625rem !important;
+    padding-bottom: 0.625rem !important;
+}
 
-
+/*css for course learning page inside frapee */
+.cert-container .cert-description ul {
+  list-style-type: disc !important;
+  margin-left: 60px !important;
+}
+.space-y-4 {
+    display: none !important;
+}
 /* .text-3xl {
     font-size: 34px;
     line-height: 1.15;
