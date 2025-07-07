@@ -1,5 +1,4 @@
 /*/home/chetan/frappe-bench/apps/lms/frontend/src/pages/CourseDetail.vue*/
-
 <template>
   <div v-if="course.data">
     <!-- CERTIFICATE LANDING PAGE STYLE -->
@@ -69,9 +68,50 @@
       />
     </div>
   </div>
-</div>
 
   </div>
+  <div class="hidden md:block md:w-1/3">
+  <CourseCardOverlay :course="course" />
+
+  <!-- New Additional Info Block -->
+  <div class="mt-6 p-5 rounded-lg border bg-white shadow space-y-4">
+    <router-link
+      :to="`/lms/courses/${course.data.name}`"
+      class="block w-full text-center bg-surface-gray-7 text-ink-white py-2 rounded hover:bg-surface-gray-6 active:bg-surface-gray-5 transition"
+    >
+      Start Learning
+    </router-link>
+
+    <router-link
+      :to="`/lms/courses/${course.data.name}/edit`"
+      class="block w-full text-center bg-surface-gray-2 text-ink-gray-8 py-2 rounded hover:bg-surface-gray-3 active:bg-surface-gray-4 transition"
+    >
+      Edit
+    </router-link>
+
+    <div class="space-y-2 mt-4">
+      <div class="font-medium text-ink-gray-9">This course has:</div>
+      <div class="flex items-center text-ink-gray-9">
+        <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+          <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+        </svg>
+        <span>{{ course.data.lesson_count || 0 }} Lessons</span>
+      </div>
+      <div class="flex items-center text-ink-gray-9">
+        <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+          <circle cx="9" cy="7" r="4"></circle>
+          <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+        </svg>
+        <span>{{ course.data.enrollment_count || 0 }} Enrolled Students</span>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
 </template>
 
 <script setup>
@@ -149,7 +189,7 @@ usePageMeta(() => {
 }
 
 .cert-header {
- background-image: url('/files/certification3.png');
+ background-image: url('/files/explorecourse.png');
  background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -282,11 +322,12 @@ usePageMeta(() => {
 
 .cert-overview h2 {
   font-size: 2rem;
-  color: #4f46e5;
+  color: #083279;
   margin-bottom: 15px;
   display: flex;
   align-items: center;
   gap: 10px;
+  font-weight: 600;
 }
 
 .cert-description {
@@ -300,16 +341,17 @@ usePageMeta(() => {
   background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
   padding: 20px;
   border-radius: 10px;
-  border-left: 4px solid #4f46e5;
+  border-left: 4px solid #083279;
   margin-top: 20px;
 }
 
 .cert-prereqs h3 {
-  color: #4f46e5;
+  color: #083279;
   margin-bottom: 10px;
   display: flex;
   align-items: center;
   gap: 8px;
+  font-weight: 600;
 }
 
 .cert-highlight {
@@ -322,11 +364,12 @@ usePageMeta(() => {
 
 .cert-topics h3 {
   font-size: 1.5rem;
-  color: #4f46e5;
+  color: #083279;
   margin-bottom: 20px;
   display: flex;
   align-items: center;
   gap: 10px;
+  font-weight: 600;
 }
 
 .cert-topic-grid {
@@ -346,6 +389,7 @@ usePageMeta(() => {
   font-size: 1.1rem;
   font-weight: 600;
   color: #333;
+  font-weight: 600;
 }
 
 .cert-topic-list {
@@ -373,9 +417,19 @@ usePageMeta(() => {
 
 .cert-instructors h3 {
   font-size: 1.5rem;
-  color: #4f46e5;
+  color: #083279;
   margin-bottom: 15px;
 }
 
+.cert-container .cert-description ul {
+  list-style-type: disc !important;
+  margin-left: 60px !important;
+}
+
+
+.mt-6.p-5.rounded-lg.border.bg-white.shadow.space-y-4 {
+    display: none;
+}
 </style>
+
 
