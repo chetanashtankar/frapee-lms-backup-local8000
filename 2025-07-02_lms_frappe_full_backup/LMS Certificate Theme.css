@@ -6,6 +6,9 @@
 //files/certificate.png
 
 //files/certificate.png
+//files/certificate.png
+
+//files/certificate.png
 
 document.body.innerHTML = `
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -340,13 +343,13 @@ document.body.innerHTML = `
         <!-- Four card Learning Path -->
 
 <!-- Learning Paths Section -->
-<div class="section">
+<div class="section" id="learning-paths">
   <h1 class="section-title">Learning Paths</h1>
   <div class="learning-paths-grid">
     <div class="path-card">
       <div class="card-image learning-foundation-img"></div>
       <h3 class="card-title">Foundation Course</h3>
-      <p class="card-description">Master the fundamentals of intelligent business automation with our Foundation Certification Program. The EIQ Foundation equips you with essential platform skills.</p>
+      <p class="card-description">Master the fundamentals of intelligent business automation with our Foundation Course. The EIQ Foundation equips you with essential platform skills.</p>
       <button class="card-button"
   data-slug="foundation-certification"
   onclick="goToCourse(this)">
@@ -386,8 +389,14 @@ document.body.innerHTML = `
     <div class="path-card">
       <div class="card-image cert-foundation-img"></div>
       <h3 class="card-title">Foundation Certification</h3>
-      <p class="card-description">Master the fundamentals of intelligent business automation with our Foundation Certification Program. The EIQ Foundation equips you with essential platform skills.</p>
-      <button class="card-button" onclick="window.location.href='#';">Get Certified</button>
+      <p class="card-description">Master the fundamentals of intelligent business automation with our Foundation Certification. The EIQ Foundation equips you with essential platform skills.</p>
+      <button
+  class="card-button"
+  onclick="goToCertification()"
+>
+  Get Certified
+</button>
+
     </div>
 
     <div class="path-card coming-soon">
@@ -1532,7 +1541,38 @@ document.body.innerHTML = `
 
 `;
 
+
+
+setTimeout(() => {
+  // Fully unbind any previous click handler if it was added globally
+  const exploreButtons = document.querySelectorAll('.slide-button');
+ 
+  exploreButtons.forEach(button => {
+    // Clone the button and replace it (removes old handlers)
+    const newBtn = button.cloneNode(true);
+    button.parentNode.replaceChild(newBtn, button);
+ 
+    newBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+ 
+      const target = document.getElementById('learning-paths');
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+}, 200);
+
+/*==================*/
+
+
+
 /* For Opening Login Section */
+
+
+
+
 document.addEventListener('DOMContentLoaded', function () {
   const modal = document.getElementById('login-modal');
   const loginSection = document.querySelector('.for-login');
@@ -1540,51 +1580,38 @@ document.addEventListener('DOMContentLoaded', function () {
   const emailLinkSection = document.querySelector('.for-login-with-email-link');
 
 
-    document.querySelectorAll('.slide-button.open-login-modal').forEach(button => {
-    button.addEventListener('click', function () {
-      if (modal) {
-        modal.style.display = 'flex';
-        showSection('login');
+    function isUserLoggedIn() {
+      return document.cookie.includes('system_user=yes');
+    }
+    
+    function handleOpenLogin(e) {
+        if (isUserLoggedIn()) {
+          alert('You are already logged in. Please explore courses.');
+          if (e) e.preventDefault();
+          return;
+        }
+        if (modal) {
+          modal.style.display = 'flex';
+          showSection('login');
+        }
       }
-    });
-  });
-  
-   document.querySelectorAll('#professionalCourse, #studentCourse').forEach(item => {
-    item.addEventListener('click', function (e) {
-      e.preventDefault();
-      if (modal) {
-        modal.style.display = 'flex';
-        showSection('login');
-      }
-    });
-  });
-  
-  
-   document.querySelectorAll('.signup-free-btn, .explore-course-btn,  .slide-button, .cert-cta-button').forEach(button => {
-    button.addEventListener('click', function () {
-      if (modal) {
-        modal.style.display = 'flex';
-        showSection('login');
-      }
-    });
-  });
-  
-  
-  // Updated selector to include all open-login-modal buttons
-  document.querySelectorAll('.open-login-modal').forEach(button => {
-    button.addEventListener('click', function (e) {
-      e.preventDefault(); // Prevent default link behavior
-      if (modal) {
-        modal.style.display = 'flex';
-        showSection('login');
-      }
-    });
-  });
-  
-  // Show modal when .nav-button.next is clicked
-  
 
-  // Close modal when clicking the background
+    document.querySelectorAll('.slide-button.open-login-modal').forEach(button => {
+    button.addEventListener('click', handleOpenLogin);
+  });
+
+  document.querySelectorAll('#professionalCourse, #studentCourse').forEach(item => {
+    item.addEventListener('click', handleOpenLogin);
+  });
+
+  document.querySelectorAll('.signup-free-btn, .explore-course-btn , .cert-cta-button').forEach(button => {
+    button.addEventListener('click', handleOpenLogin);
+  });
+
+  document.querySelectorAll('.open-login-modal').forEach(button => {
+    button.addEventListener('click', handleOpenLogin);
+  });
+
   window.addEventListener('click', function (e) {
     const content = document.querySelector('.modal-content');
     if (e.target === modal && !content.contains(e.target)) {
@@ -1592,33 +1619,29 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
-  // Close modal on X button click
   document.querySelector('.modal-close').addEventListener('click', function () {
     modal.style.display = 'none';
   });
 
-  // Show "Forgot Password" section
   document.getElementById('forgot-password-link').addEventListener('click', function (e) {
     e.preventDefault();
     showSection('forgot');
   });
 
-  // Show "Login with Email Link" section
   document.getElementById('login-with-email-link').addEventListener('click', function (e) {
     e.preventDefault();
     showSection('email');
   });
 
-  // Function to toggle visibility
   function showSection(section) {
     loginSection.style.display = section === 'login' ? 'block' : 'none';
     forgotSection.style.display = section === 'forgot' ? 'block' : 'none';
     emailLinkSection.style.display = section === 'email' ? 'block' : 'none';
   }
 
-  // Hide modal initially
   modal.style.display = 'none';
 });
+
 
 
 function goToCourse(button) {
@@ -1626,6 +1649,61 @@ function goToCourse(button) {
   const path = `/lms/courses/eiq-agentic-automation-platform-${slug}`;
   window.location.href = path;
 }
+
+
+function isUserLoggedIn() {
+  return document.cookie.includes('system_user=yes');
+}
+
+function goToCourse(button) {
+  if (isUserLoggedIn()) {
+    const slug = button.getAttribute('data-slug');
+    const path = `/lms/courses/eiq-agentic-automation-platform-${slug}`;
+    window.location.href = path;
+  } else {
+    alert('Please login to explore the course');
+    if (document.getElementById('login-modal')) {
+      document.getElementById('login-modal').style.display = 'flex';
+      if (typeof showSection === 'function') showSection('login');
+    }
+  }
+}
+
+function goToCertification() {
+  if (isUserLoggedIn()) {
+    window.location.href = '/lms/courses/eiq-platform-consultant-certification';
+  } else {
+    alert('Please login to explore the course');
+    if (document.getElementById('login-modal')) {
+      document.getElementById('login-modal').style.display = 'flex';
+      if (typeof showSection === 'function') showSection('login');
+    }
+  }
+}
+
+/* ✅ NEW FUNCTION: Change button text on load if user is logged in */
+function updateCourseButtonsForLoggedInUser() {
+  if (isUserLoggedIn()) {
+    document.querySelectorAll('.card-button').forEach(button => {
+      const btnText = button.textContent.trim().toLowerCase();
+
+      if (btnText === 'start course') {
+        button.textContent = 'Continue...';
+      }
+
+      if (btnText === 'get certified') {
+        button.textContent = 'Continue...';
+      }
+    });
+  }
+}
+
+/* ✅ Call after DOM is loaded */
+document.addEventListener('DOMContentLoaded', function () {
+  updateCourseButtonsForLoggedInUser();
+});
+
+
 
 /* Clicking on link Open pages */
 
