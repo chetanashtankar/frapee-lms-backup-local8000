@@ -34,16 +34,6 @@
         Fixed schedule - Complete when ready
       </p>
     </div>
-
-    <div class="cert-status-item">
-      <span class="cert-status-label">Current Status</span>
-      <span
-        class="cert-badge"
-        :class="course.data.is_enrolled ? 'cert-enrolled' : 'cert-not-enrolled'"
-      >
-        {{ course.data.is_enrolled ? 'Enrolled' : 'Not Enrolled' }}
-      </span>
-    </div>
   </div>
 
   <!-- Description / Overview -->
@@ -62,9 +52,10 @@
     <div class="cert-topics">
       <h3>Exam Topics Covered:</h3>
       <CourseOutline
-        :title="__('Course Outline')"
+        :title="__('Course Content')"
         :courseName="course.data.name"
         :showOutline="true"
+        :getProgress="true"
       />
     </div>
   </div>
@@ -88,26 +79,6 @@
     >
       Edit
     </router-link>
-
-    <div class="space-y-2 mt-4">
-      <div class="font-medium text-ink-gray-9">This course has:</div>
-      <div class="flex items-center text-ink-gray-9">
-        <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-          <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
-        </svg>
-        <span>{{ course.data.lesson_count || 0 }} Lessons</span>
-      </div>
-      <div class="flex items-center text-ink-gray-9">
-        <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
-          <circle cx="9" cy="7" r="4"></circle>
-          <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
-          <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-        </svg>
-        <span>{{ course.data.enrollment_count || 0 }} Enrolled Students</span>
-      </div>
-    </div>
   </div>
 </div>
 </div>
@@ -195,6 +166,9 @@ usePageMeta(() => {
     background-repeat: no-repeat;
 }
 
+.space-y-4 {
+    display: none !important;
+}
 /* CERTIFICATE PAGE STYLE */
 
 .cert-container {
