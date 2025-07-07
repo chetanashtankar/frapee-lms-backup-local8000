@@ -2094,6 +2094,7 @@ let currentSlide = 0;
 
 /*========================================================================= CSS ==================*/
             /*  Courses In Header SVG Css*/
+/*  Courses In Header SVG Css*/
 
 .menu-item-courses {
     position: relative;
@@ -3556,7 +3557,7 @@ section.elementor-section.elementor-inner-section.elementor-element.elementor-el
 .signup-free-btn {
     background: #ff6b35;
     color: white;
-    border: none;
+    border: 2px solid #ff6b35;
     padding: 12px 24px;
     border-radius: 6px;
     font-size: 16px;
@@ -3566,10 +3567,11 @@ section.elementor-section.elementor-inner-section.elementor-element.elementor-el
     text-transform: none;
     align-self: flex-start;
 }
-
+ 
 .explore-course-btn:hover,
 .signup-free-btn:hover {
     background: #e55a2b;
+    border-color: #e55a2b;
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
 }
@@ -7311,5 +7313,6 @@ body .page-content-wrapper {
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
 }
+
 
             
