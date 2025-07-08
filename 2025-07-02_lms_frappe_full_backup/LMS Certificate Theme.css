@@ -5,6 +5,9 @@
 //files/certificate.png
 
 //files/certificate.png
+//files/certificate.png
+
+//files/certificate.png
 
 document.body.innerHTML = `
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -1432,123 +1435,210 @@ document.body.innerHTML = `
         </div>
     </footer>
 
-
 <!-- LOGIN MODAL POPUP -->
 <div id="login-modal" class="modal-overlay">
-  <div class="modal-content login-modal-flex">
-    
-    <!-- LEFT SIDE IMAGE DIV -->
-    <div class="login-modal-left"></div>
-
+<div class="modal-content login-modal-flex">
+<!-- LEFT SIDE IMAGE DIV -->
+<div class="login-modal-left"></div>
+ 
     <!-- RIGHT SIDE (your existing login section) -->
-    <div class="login-modal-right">
-      <span class="modal-close" onclick="document.getElementById('login-modal').style.display='none'">&times;</span>
-      
-      <div id="page-login" data-path="login">
-        <div class="page-content-wrapper">
-          <main class="container my-4">
-            <div class="page_content">
-
+<div class="login-modal-right">
+<span class="modal-close" onclick="document.getElementById('login-modal').style.display='block'">&times;</span>
+<div id="page-login" data-path="login">
+<div class="page-content-wrapper">
+<main class="container my-4">
+<div class="page_content">
+ 
               <!-- LOGIN SECTION -->
-              <section class="for-login">
-                <div class="page-card-head">
-                 <div style="text-align: center;">
-  <img width="200" height="58" 
+<section class="for-login">
+<div class="page-card-head">
+<div style="text-align: center;">
+<img width="200" height="58" 
+
        src="https://lms.evoluteiq.info/wp-content/uploads/2022/02/evoluteIQ.svg" 
+
        alt="EvoluteIQ" 
+
        decoding="async" 
+
        loading="lazy">
 </div>
-
+ 
                   
-                </div>
-
-                <div class="login-content page-card"> <!-- page-card-head -->
-                  <form class="form-signin form-login" role="form">
-                    <div class="page-card-body">
-                      <div class="form-group">
-                        <label class="form-label" for="login_email">Username</label>
-                        <div class="email-field">
-                          <input type="text" id="login_email" class="form-control" placeholder="Enter your username" required autocomplete="username">
-                        </div>
-                      </div>
-                      <div class="form-group">
-                          <label class="form-label" for="login_password">Password</label>
-                          <div class="password-field">
-                            <input type="password" id="login_password" class="form-control" placeholder="Enter your password" autocomplete="current-password" required="">
-                            <span toggle="#login_password" class="toggle-password text-muted">Show</span>
-                          </div>
-                        </div>
-
-                      <p class="forgot-password-message">
-                        <a href="#" id="forgot-password-link">Forgot Password?</a>
-                      </p>
-                    </div>
-                    <div class="page-card-actions">
-                      <button class="btn btn-sm btn-primary btn-block btn-login" type="submit">Login</button>
-                    </div>
-                    <div class="social-logins text-center">
-                      <p class="text-muted login-divider">or</p>
-                      <div class="social-login-buttons"></div>
-                      <div class="login-with-email-link social-login-buttons">
-                        <div class="login-button-wrapper">
-                          <a href="#" id="login-with-email-link" class="btn btn-block btn-default btn-sm btn-login-option btn-login-with-email-link">Login with Email Link</a>
-                        </div>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </section>
-
-              <!-- FORGOT PASSWORD SECTION -->
-              <section class="for-forgot" style="display: none;">
-                <div class="page-card-head">
-                  <h4>Reset Your Password</h4>
-                </div>
-                <div class="login-content page-card">
-                  <form class="form-forgot-password">
-                    <div class="page-card-body">
-                      <div class="form-group">
-                        <label for="forgot_email">Enter your email</label>
-                        <input type="email" id="forgot_email" class="form-control" placeholder="you@example.com" required>
-                      </div>
-                      <button type="submit" class="btn btn-primary btn-block">Send Reset Link</button>
-                    </div>
-                  </form>
-                  <p class="text-center mt-3">
-                    <a href="#" id="back-to-login-1">Back to Login</a>
-                  </p>
-                </div>
-              </section>
-
-              <!-- LOGIN WITH EMAIL LINK SECTION -->
-              <section class="for-login-with-email-link" style="display: none;">
-                <div class="page-card-head">
-                  <h4>Login with Email Link</h4>
-                </div>
-                <div class="login-content page-card">
-                  <form class="form-email-link-login">
-                    <div class="page-card-body">
-                      <div class="form-group">
-                        <label for="email_link">Email Address</label>
-                        <input type="email" id="email_link" class="form-control" placeholder="you@example.com" required>
-                      </div>
-                      <button type="submit" class="btn btn-primary btn-block">Send Login Link</button>
-                    </div>
-                  </form>
-                  <p class="text-center mt-3">
-                    <a href="#" id="back-to-login-2">Back to Login</a>
-                  </p>
-                </div>
-              </section>
-
-            </div>
-          </main>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
+ 
+                <!-- Add this in your <head> if not already included -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+ 
+<!-- LOGIN SECTION -->
+<div class="login-content page-card">
+<form class="form-signin form-login" role="form">
+<div class="page-card-body">
+<!-- Username -->
+<div class="form-group">
+<label class="form-label" for="login_email">Username</label>
+<div class="input-icon-group">
+<i class="fas fa-user"></i>
+<input
+
+      type="text"
+
+      id="login_email"
+
+      class="form-control input-with-icon"
+
+      placeholder="Enter your username"
+
+      required
+
+      autocomplete="username"
+
+    />
+</div>
+</div>
+ 
+<!-- Password -->
+<div class="form-group">
+<label class="form-label" for="login_password">Password</label>
+<div class="input-icon-group">
+<i class="fas fa-lock"></i>
+<input
+
+      type="password"
+
+      id="login_password"
+
+      class="form-control input-with-icon"
+
+      placeholder="Enter your password"
+
+      autocomplete="current-password"
+
+      required
+
+    />
+</div>
+</div>
+ 
+ 
+      <!-- Forgot Password -->
+<p class="forgot-password-message">
+<a href="#" id="forgot-password-link">Forgot Password?</a>
+</p>
+</div>
+ 
+    <!-- Login Button -->
+<div class="page-card-actions">
+<button class="btn btn-sm btn-primary btn-block btn-login" type="submit">
+
+        Login
+</button>
+</div>
+ 
+    <!-- Social Login -->
+<div class="social-logins text-center">
+<p class="text-muted login-divider">or</p>
+<div class="social-login-buttons"></div>
+<div class="login-with-email-link social-login-buttons">
+<div class="login-button-wrapper">
+<a
+
+            href="#"
+
+            id="login-with-email-link"
+
+            class="btn btn-block btn-default btn-sm btn-login-option btn-login-with-email-link"
+>
+
+            Login with Email Link
+</a>
+</div>
+</div>
+</div>
+</form>
+</div>
+ 
+<!-- FORGOT PASSWORD SECTION -->
+<section class="for-forgot" style="display: none;">
+<div class="page-card-head">
+<h4>Reset Your Password</h4>
+</div>
+<div class="login-content page-card">
+<form class="form-forgot-password">
+<div class="page-card-body">
+<div class="form-group">
+<label for="forgot_email">Enter your email</label>
+<input
+
+            type="email"
+
+            id="forgot_email"
+
+            class="form-control"
+
+            placeholder="you@example.com"
+
+            required
+
+          />
+</div>
+<button type="submit" class="btn btn-primary btn-block">
+
+          Send Reset Link
+</button>
+</div>
+</form>
+<p class="text-center mt-3">
+<a href="#" id="back-to-login-1">Back to Login</a>
+</p>
+</div>
+</section>
+ 
+<!-- LOGIN WITH EMAIL LINK SECTION -->
+<section class="for-login-with-email-link" style="display: none;">
+<div class="page-card-head">
+<h4>Login with Email Link</h4>
+</div>
+<div class="login-content page-card">
+<form class="form-email-link-login">
+<div class="page-card-body">
+<div class="form-group">
+<label for="email_link">Email Address</label>
+<input
+
+            type="email"
+
+            id="email_link"
+
+            class="form-control"
+
+            placeholder="you@example.com"
+
+            required
+
+          />
+</div>
+<button type="submit" class="btn btn-primary btn-block">
+
+          Send Login Link
+</button>
+</div>
+</form>
+<p class="text-center mt-3">
+<a href="#" id="back-to-login-2">Back to Login</a>
+</p>
+</div>
+</section>
+ 
+ 
+            </div>
+</main>
+</div>
+</div>
+</div>
+</div>
+</div>
+ 
 
 `;
 
@@ -1730,6 +1820,7 @@ function updateCourseButtonsForLoggedInUser() {
 
         if (res.ok) {
            
+                window.location.href = '/login#login';
 
           // Change button text back to Login
           loginMenuText.textContent = 'Login';
@@ -2158,8 +2249,19 @@ let currentSlide = 0;
 
 
 
-/*========================================================================= CSS ==================*/
-            /*  Courses In Header SVG Css*/
+
+
+
+
+
+
+
+
+
+
+/*=================================================================================================================*/
+
+
 /*  Courses In Header SVG Css*/
 
 .menu-item-courses {
@@ -5425,6 +5527,11 @@ button.btn.btn-sm.btn-primary.btn-block.btn-login:hover {
     flex: 1;
     padding: 0px;
     position: relative;
+    display: flex;
+  
+    align-content: stretch;
+    justify-content: center;
+
 }
 
 /* Optional: Adjust close button positioning */
@@ -7379,6 +7486,43 @@ body .page-content-wrapper {
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
 }
+
+
+/*css for icon login section */
+
+.input-icon-group {
+  position: relative;
+}
+ 
+.input-icon-group i {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  color: #888;
+  font-size: 14px;
+  pointer-events: none;
+  z-index: 2;
+}
+ 
+.input-with-icon {
+  padding-left: 36px !important; /* Make space for the icon */
+  height: 38px; /* Optional: match your form-control size */
+  box-sizing: border-box;
+}
+label {
+    display: inline-block;
+    margin-bottom: revert;
+}
+.modal-close {
+  color: #888 !important;      /* Set the cross color to black */
+  font-size: 30px !important;   /* Adjust the font size if needed */
+  display: block !important;    /* Ensure it is displayed */
+  cursor: pointer;             /* Change the cursor to a pointer on hover */
+  background: transparent;     /* Ensure no background behind the cross */
+  border: none;                /* Remove any border */
+}
+
 
 
             
