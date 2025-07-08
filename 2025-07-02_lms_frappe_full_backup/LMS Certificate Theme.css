@@ -2,10 +2,6 @@
 
     http://localhost:8000/app/website-theme/LMS%20Certificate%20Theme
 */
-
-//files/certificate.png
-
-//files/certificate.png
 //files/certificate.png
 
 //files/certificate.png
@@ -60,6 +56,21 @@ document.body.innerHTML = `
                                                 </a>
                                             </li>
 
+                                    <!-- Course -->
+                                    <li id="menu-item-course" class="menu-item">
+                                      <a class="menu-link" id="courseLink" href="javascript:void(0)">
+                                        <span class="ast-icon icon-arrow"></span>
+                                        <span class="menu-text">Course</span>
+                                      </a>
+                                    </li>
+                                    
+                                    <!-- Certification -->
+                                    <li id="menu-item-certification" class="menu-item">
+                                      <a class="menu-link" id="certificationLink" href="javascript:void(0)">
+                                        <span class="ast-icon icon-arrow"></span>
+                                        <span class="menu-text">Certification</span>
+                                      </a>
+                                    </li>
 
 
                                             <li id="menu-item-courses" class="menu-item menu-item-courses" style="display: none;">
@@ -1542,7 +1553,7 @@ document.body.innerHTML = `
 `;
 
 
-
+/* for going smoothly downside on click on explore course button */
 setTimeout(() => {
   // Fully unbind any previous click handler if it was added globally
   const exploreButtons = document.querySelectorAll('.slide-button');
@@ -1586,7 +1597,7 @@ document.addEventListener('DOMContentLoaded', function () {
     
     function handleOpenLogin(e) {
         if (isUserLoggedIn()) {
-          alert('You are already logged in. Please explore courses.');
+         
           if (e) e.preventDefault();
           return;
         }
@@ -1644,16 +1655,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-function goToCourse(button) {
-  const slug = button.getAttribute('data-slug');
-  const path = `/lms/courses/eiq-agentic-automation-platform-${slug}`;
-  window.location.href = path;
-}
 
+/*  for changing name after logout login and  and hitiing login api in this */
 
-function isUserLoggedIn() {
-  return document.cookie.includes('system_user=yes');
-}
 
 function goToCourse(button) {
   if (isUserLoggedIn()) {
@@ -1661,27 +1665,33 @@ function goToCourse(button) {
     const path = `/lms/courses/eiq-agentic-automation-platform-${slug}`;
     window.location.href = path;
   } else {
-    alert('Please login to explore the course');
-    if (document.getElementById('login-modal')) {
-      document.getElementById('login-modal').style.display = 'flex';
+   
+    const loginModal = document.getElementById('login-modal');
+    if (loginModal) {
+      loginModal.style.display = 'flex';
       if (typeof showSection === 'function') showSection('login');
     }
   }
+}
+
+function isUserLoggedIn() {
+  return document.cookie.includes('system_user=yes');
 }
 
 function goToCertification() {
   if (isUserLoggedIn()) {
     window.location.href = '/lms/courses/eiq-platform-consultant-certification';
   } else {
-    alert('Please login to explore the course');
-    if (document.getElementById('login-modal')) {
-      document.getElementById('login-modal').style.display = 'flex';
+    
+    const loginModal = document.getElementById('login-modal');
+    if (loginModal) {
+      loginModal.style.display = 'flex';
       if (typeof showSection === 'function') showSection('login');
     }
   }
 }
 
-/* ✅ NEW FUNCTION: Change button text on load if user is logged in */
+/* NEW FUNCTION: Change button text on load if user is logged in */
 function updateCourseButtonsForLoggedInUser() {
   if (isUserLoggedIn()) {
     document.querySelectorAll('.card-button').forEach(button => {
@@ -1694,14 +1704,69 @@ function updateCourseButtonsForLoggedInUser() {
       if (btnText === 'get certified') {
         button.textContent = 'Continue...';
       }
+
+     
     });
+
+    const loginMenuText = document.querySelector('#menu-item-login .menu-text');
+    const loginLink = document.getElementById('loginLink');
+
+    if (loginMenuText && loginMenuText.textContent.trim().toLowerCase() === 'login') {
+        
+      loginMenuText.textContent = 'Logout';
+
+      loginLink.addEventListener('click', async function (e) {
+        e.preventDefault();
+
+        const csrf = frappe.csrf_token;
+        const res = await fetch('/api/method/logout', {
+          method: 'POST',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Frappe-CSRF-Token': csrf,
+          },
+        });
+
+        if (res.ok) {
+           
+
+          // Change button text back to Login
+          loginMenuText.textContent = 'Login';
+
+          // Optional: Close login modal if it's open
+          const modal = document.getElementById('login-modal');
+          if (modal) {
+            modal.style.display = 'none';
+          }
+
+        } else {
+          console.error('Logout failed:', res.status, await res.text());
+        }
+      });
+    }
+
+  } else {
+    // In case user is logged out, ensure login opens modal
+    const loginLink = document.getElementById('loginLink');
+    if (loginLink) {
+      loginLink.onclick = function (e) {
+        e.preventDefault();
+        showLoginPrompt();
+      };
+    }
   }
 }
 
-/* ✅ Call after DOM is loaded */
 document.addEventListener('DOMContentLoaded', function () {
   updateCourseButtonsForLoggedInUser();
 });
+
+
+
+
+
+
 
 
 
@@ -2089,6 +2154,7 @@ let currentSlide = 0;
                 }
             }
         }
+
 
 
 
