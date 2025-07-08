@@ -1,287 +1,261 @@
 <template>
 	<div v-if="quiz.data">
+		<!-- Intro Section -->
 		<div class="bg-surface-blue-2 space-y-1 py-2 px-2 mb-4 rounded-md text-sm text-ink-blue-3">
 			<div class="leading-5">
-				{{
-					__('This quiz consists of {0} questions.').format(questions.length)
-				}}
+				{{ __('This quiz consists of {0} questions.').format(questions.length) }}
 			</div>
 			<div v-if="quiz.data?.duration" class="leading-5">
-				{{
-					__(
-						'Please ensure that you complete all the questions in {0} minutes.'
-					).format(quiz.data.duration)
-				}}
+				{{ __('Please ensure that you complete all the questions in {0} minutes.').format(quiz.data.duration) }}
 			</div>
 			<div v-if="quiz.data?.duration" class="leading-5">
-				{{
-					__(
-						'If you fail to do so, the quiz will be automatically submitted when the timer ends.'
-					)
-				}}
+				{{ __('If you fail to do so, the quiz will be automatically submitted when the timer ends.') }}
 			</div>
 			<div v-if="quiz.data.passing_percentage" class="leading-relaxed">
-				{{
-					__(
-						'You will have to get {0}% correct answers in order to pass the quiz.'
-					).format(quiz.data.passing_percentage)
-				}}
+				{{ __('You will have to get {0}% correct answers in order to pass the quiz.').format(quiz.data.passing_percentage) }}
 			</div>
 			<div v-if="quiz.data.max_attempts" class="leading-5">
-				{{
-					__('You can attempt this quiz {0}.').format(
-						quiz.data.max_attempts == 1
-							? '1 time'
-							: `${quiz.data.max_attempts} times`
-					)
-				}}
+				{{ __('You can attempt this quiz {0}.').format(
+					quiz.data.max_attempts == 1 ? '1 time' : `${quiz.data.max_attempts} times`
+				) }}
 			</div>
 		</div>
 
+		<!-- Timer & Progress -->
 		<div v-if="quiz.data.duration" class="flex flex-col space-x-1 my-4">
 			<div class="mb-2">
-				<span class=""> {{ __('Time') }}: </span>
-				<span class="font-semibold">
-					{{ formatTimer(timer) }}
-				</span>
+				<span>{{ __('Time') }}:</span>
+				<span class="font-semibold">{{ formatTimer(timer) }}</span>
 			</div>
 			<ProgressBar :progress="(answeredQuestions.length / questions.length) * 100" />
-
 		</div>
-		
+
+		<!-- Start Screen -->
 		<div v-if="activeQuestion == 0">
 			<div class="border text-center p-20 rounded-md">
 				<div class="font-semibold text-lg text-ink-gray-9">
 					{{ quiz.data.title }}
 				</div>
-				<Button v-if="
-					!quiz.data.max_attempts ||
-					attempts.data?.length < quiz.data.max_attempts
-				" @click="startQuiz" class="mt-2">
-					<span>
-						{{ __('Start') }}
-					</span>
+				<Button v-if="!quiz.data.max_attempts || attempts.data?.length < quiz.data.max_attempts" @click="startQuiz" class="mt-2">
+					<span>{{ __('Start') }}</span>
 				</Button>
 				<div v-else class="leading-5 text-ink-gray-7">
-					{{
-						__(
-							'You have already exceeded the maximum number of attempts allowed for this quiz.'
-						)
-					}}
+					{{ __('You have already exceeded the maximum number of attempts allowed for this quiz.') }}
 				</div>
 			</div>
 		</div>
-		
+
+		<!-- Question Screen -->
 		<div v-else-if="!quizSubmission.data">
 			<div v-for="(question, qtidx) in questions">
 				<div v-if="qtidx == activeQuestion - 1 && questionDetails.data" class="border rounded-md p-5">
+					<!-- Question Header -->
 					<div class="flex justify-between">
 						<div class="text-sm text-ink-gray-5">
-							<span class="mr-2">
-								{{ __('Question {0}').format(activeQuestion) }}:
-							</span>
-							<span>
-								{{ getInstructions(questionDetails.data) }}
-							</span>
+							<span class="mr-2">{{ __('Question {0}').format(activeQuestion) }}:</span>
+							<span>{{ getInstructions(questionDetails.data) }}</span>
 						</div>
 						<div class="text-ink-gray-9 text-sm font-semibold item-left">
 							{{ question.marks }}
 							{{ question.marks == 1 ? __('Mark') : __('Marks') }}
 						</div>
 					</div>
-					<div class="text-ink-gray-9 font-semibold mt-2 leading-5" v-html="questionDetails.data.question">
-					</div>
-					<div v-if="questionDetails.data.type == 'Choices'" v-for="index in 4">
-						<label v-if="questionDetails.data[`option_${index}`]"
-							class="flex items-center bg-surface-gray-3 rounded-md p-3 mt-4 w-full cursor-pointer focus:border-blue-600">
-							<input
-								v-if="!showAnswers.length && !questionDetails.data.multiple"
-								type="radio"
-								:name="encodeURIComponent(questionDetails.data.question)"
-								class="w-3.5 h-3.5 text-ink-gray-9 focus:ring-outline-gray-modals"
-								@change="markAnswer(index)"
-								:checked="selectedOptions[index - 1]"
-								/>
 
+					<!-- Question Body -->
+					<div class="text-ink-gray-9 font-semibold mt-2 leading-5" v-html="questionDetails.data.question"></div>
+
+
+					<!-- Choices -->
+					<!-- Choices -->
+					<div v-if="questionDetails.data.type == 'Choices'">
+						<div v-for="index in 4" :key="index">
+							<!-- ANSWERING -->
+							<label
+								v-if="!showAnswers.length && questionDetails.data[`option_${index}`]"
+								class="flex items-center bg-surface-gray-3 rounded-md p-3 mt-4 w-full cursor-pointer">
+								
 								<input
-								v-else-if="!showAnswers.length && questionDetails.data.multiple"
-								type="checkbox"
-								:name="encodeURIComponent(questionDetails.data.question)"
-								class="w-3.5 h-3.5 text-ink-gray-9 rounded-sm focus:ring-outline-gray-modals"
-								@change="markAnswer(index)"
-								:checked="selectedOptions[index - 1]"
+									v-if="!questionDetails.data.multiple"
+									type="radio"
+									:name="encodeURIComponent(questionDetails.data.question)"
+									class="w-3.5 h-3.5 text-ink-gray-9"
+									@change="markAnswer(index)"
+									:checked="selectedOptions[index - 1]"
 								/>
+								
+								<input
+									v-else
+									type="checkbox"
+									:name="encodeURIComponent(questionDetails.data.question)"
+									class="w-3.5 h-3.5 text-ink-gray-9 rounded-sm"
+									@change="markAnswer(index)"
+									:checked="selectedOptions[index - 1]"
+								/>
+								
+								<span class="ml-2" v-html="questionDetails.data[`option_${index}`]"></span>
+							</label>
 
-							<div v-else-if="quiz.data.show_answers" v-for="(answer, idx) in showAnswers">
-								<div v-if="index - 1 == idx">
-									<CheckCircle v-if="answer == 1" class="w-4 h-4 text-ink-green-2" />
-									<MinusCircle v-else-if="answer == 2" class="w-4 h-4 text-ink-green-2" />
-									<XCircle v-else-if="answer == 0" class="w-4 h-4 text-ink-red-3" />
+							<!-- REVIEWING / SHOW ANSWERS -->
+							<div
+								v-else-if="showAnswers.length && questionDetails.data[`option_${index}`]"
+								class="flex items-center bg-surface-gray-3 rounded-md p-3 mt-4 w-full">
+								
+								<span class="mr-2">
+									<CheckCircle v-if="showAnswers[index - 1] == 1" class="w-4 h-4 text-ink-green-2" />
+									<MinusCircle v-else-if="showAnswers[index - 1] == 2" class="w-4 h-4 text-ink-green-2" />
+									<XCircle v-else-if="showAnswers[index - 1] == 0" class="w-4 h-4 text-ink-red-3" />
 									<MinusCircle v-else class="w-4 h-4" />
-								</div>
+								</span>
+								
+								<span v-html="questionDetails.data[`option_${index}`]"></span>
 							</div>
-							<span class="ml-2" v-html="questionDetails.data[`option_${index}`]">
-							</span>
-						</label>
-						<div v-if="questionDetails.data[`explanation_${index}`]" class="mt-2 text-xs"
-							v-show="showAnswers.length">
-							{{ questionDetails.data[`explanation_${index}`] }}
+
+							<!-- Explanation -->
+							<div
+								v-if="questionDetails.data[`explanation_${index}`]"
+								class="mt-2 text-xs"
+								v-show="showAnswers.length">
+								{{ questionDetails.data[`explanation_${index}`] }}
+							</div>
 						</div>
 					</div>
+
+
+					<!-- User Input -->
 					<div v-else-if="questionDetails.data.type == 'User Input'">
-						<FormControl v-model="possibleAnswer" type="textarea"
-							:disabled="showAnswers.length ? true : false" class="my-2" />
+						<FormControl v-model="possibleAnswer" type="textarea" :disabled="!!showAnswers.length" class="my-2" />
 						<div v-if="showAnswers.length">
 							<Badge v-if="showAnswers[0]" :label="__('Correct')" theme="green">
-								<template #prefix>
-									<CheckCircle class="w-4 h-4 text-ink-green-2 mr-1" />
-								</template>
+								<template #prefix><CheckCircle class="w-4 h-4 text-ink-green-2 mr-1" /></template>
 							</Badge>
 							<Badge v-else theme="red" :label="__('Incorrect')">
-								<template #prefix>
-									<XCircle class="w-4 h-4 text-ink-red-3 mr-1" />
-								</template>
+								<template #prefix><XCircle class="w-4 h-4 text-ink-red-3 mr-1" /></template>
 							</Badge>
 						</div>
 					</div>
+
+					<!-- Open Ended -->
 					<div v-else>
-						<TextEditor class="mt-4" :content="possibleAnswer" @change="(val) => (possibleAnswer = val)"
-							:editable="true" :fixedMenu="true"
-							editorClass="prose-sm max-w-none border-b border-x bg-surface-gray-2 rounded-b-md py-1 px-2 min-h-[7rem]" />
+						<TextEditor class="mt-4" :content="possibleAnswer" @change="(val) => (possibleAnswer = val)" :editable="true" :fixedMenu="true" editorClass="prose-sm max-w-none border-b border-x bg-surface-gray-2 rounded-b-md py-1 px-2 min-h-[7rem]" />
 					</div>
 
-
-
-					<!-- <div class="flex items-center justify-between mt-4">
-						<div class="text-sm text-ink-gray-5">
-							{{
-								__('Question {0} of {1}').format(
-									activeQuestion,
-									questions.length
-								)
-							}}
-						</div>
-						<Button
-							v-if="
-								quiz.data.show_answers &&
-								!showAnswers.length &&
-								questionDetails.data.type != 'Open Ended'
-							"
-							@click="checkAnswer()"
-						>
-							<span>
-								{{ __('Check') }}
-							</span>
-						</Button>
-						<Button
-							v-else-if="activeQuestion != questions.length"
-							@click="nextQuestion()"
-						>
-							<span>
-								{{ __('Next') }}
-							</span>
-						</Button>
-						<Button v-else @click="submitQuiz()">
-							<span>
-								{{ __('Submit') }}
-							</span>
-						</Button>
-					</div> -->
-
+					<!-- Navigation Buttons -->
 					<div class="flex items-center justify-between mt-4">
 						<div class="text-sm text-ink-gray-5">
 							{{ __('Question {0} of {1}').format(activeQuestion, questions.length) }}
 						</div>
-
 						<div class="flex space-x-2">
-							<Button @click="resetQuiz" variant="outline">
-							<span>{{ __('Start Over') }}</span>
-							</Button>
-
 							<Button v-if="activeQuestion > 1" @click="prevQuestion" variant="outline">
 								<span>{{ __('Previous') }}</span>
 							</Button>
-
 							<Button v-if="activeQuestion < questions.length" @click="skipQuestion" variant="outline">
 								<span>{{ __('Skip') }}</span>
 							</Button>
-
 							<Button
 								v-if="quiz.data.show_answers && !showAnswers.length && questionDetails.data.type != 'Open Ended'"
-								@click="checkAnswer()">
+								@click="checkAnswer">
 								<span>{{ __('Check') }}</span>
 							</Button>
-
 							<Button v-else-if="activeQuestion != questions.length" @click="nextQuestion()">
 								<span>{{ __('Next') }}</span>
 							</Button>
-
 							<Button v-else @click="submitQuiz()">
 								<span>{{ __('Submit') }}</span>
 							</Button>
 						</div>
 					</div>
-
-
 				</div>
 			</div>
 		</div>
+
+		<!-- Quiz Summary -->
 		<div v-else class="border rounded-md p-20 text-center space-y-2">
 			<div class="text-lg font-semibold text-ink-gray-9">
 				{{ __('Quiz Summary') }}
 			</div>
 			<div v-if="quizSubmission.data.is_open_ended" class="leading-5 text-ink-gray-7">
-				{{ __('Your submission has been successfully saved. The instructor will review and grade it shortly, and ' +
-      'you\'ll be notified of your final result.') }}
-
+				{{ __('Your submission has been successfully saved. The instructor will review and grade it shortly, and you\'ll be notified of your final result.') }}
 			</div>
-
 			<div v-else>
-				{{
-					__(
-						'You got {0}% correct answers with a score of {1} out of {2}'
-					).format(
-						Math.ceil(quizSubmission.data.percentage),
-						quizSubmission.data.score,
-						quizSubmission.data.score_out_of
-					)
-				}}
-			</div>
-			<Button @click="resetQuiz()" class="mt-2" v-if="
-				!quiz.data.max_attempts ||
-				attempts?.data.length < quiz.data.max_attempts
-			">
-				<span>
-					{{ __('Try Again') }}
-				</span>
-			</Button>
-		</div>
-		<div v-if="
-			quiz.data.show_submission_history &&
-			attempts?.data &&
-			attempts.data.length > 0
-		" class="mt-10">
-			<ListView :columns="getSubmissionColumns()" :rows="attempts?.data" row-key="name" :options="{
-				selectable: false,
-				showTooltip: false,
-				emptyState: { title: __('No Quiz submissions found') },
-			}">
-			</ListView>
-		</div>
-	</div>
-	<div class="flex flex-wrap mb-4">
-  <div
-    v-for="(q, i) in questions"
-    :key="q.question"
-    class="flex items-center mr-2 mb-2 px-2 py-1 rounded border text-sm"
-    :class="answeredQuestions.includes(q.question) ? 'bg-green-50 border-green-400 text-green-800' : 'bg-gray-100 border-gray-300 text-gray-800'"
+				<template v-if="isPassed">
+					<div class="font-semibold text-ink-green-7">
+						🎉
+						{{ __('Congratulations! You got {0}% correct answers with a score of {1} out of {2}.').format(
+							Math.ceil(quizSubmission.data.percentage),
+							quizSubmission.data.score,
+							quizSubmission.data.score_out_of
+						) }}
+					</div>
+
+					<div class="mt-2">
+					<Button
+					v-if="certification.data && certification.data.certificate"
+					@click="downloadCertificate"
+					>
+					<template #prefix>
+						<GraduationCap class="size-4 stroke-1.5" />
+					</template>
+					{{ __('View Certificate') }}
+					</Button>
+
+
+  <router-link
+    v-else-if="certification?.data?.membership && certification?.data?.paid_certificate && user?.data?.is_student && !certification.data.membership.purchased_certificate"
+    :to="{ name: 'Billing', params: { type: 'certificate', name: courseName } }"
   >
-    {{ i + 1 }}
-    <CheckCircle v-if="answeredQuestions.includes(q.question)" class="w-4 h-4 ml-1 text-green-500" />
-  </div>
+    <Button>
+      <span>{{ __('Get Certified') }}</span>
+    </Button>
+  </router-link>
+
+  <router-link
+    v-else-if="certification?.data?.membership && certification?.data?.paid_certificate && user?.data?.is_student && !certification.data.membership.certificate"
+    :to="{ name: 'CourseCertification', params: { courseName: courseName } }"
+  >
+    <Button>
+      <span>{{ __('Get Certified') }}</span>
+    </Button>
+  </router-link>
 </div>
 
+
+
+				</template>
+				<template v-else>
+					<div class="text-ink-red-6">
+						{{ __('You got {0}% correct answers with a score of {1} out of {2}.').format(
+							Math.ceil(quizSubmission.data.percentage),
+							quizSubmission.data.score,
+							quizSubmission.data.score_out_of
+						) }}
+					</div>
+					<div class="mt-1 text-sm text-ink-gray-7">
+						{{ __('Try again, you are not eligible for the certificate.') }}
+					</div>
+					<Button @click="resetQuiz()" class="mt-2" v-if="!quiz.data.max_attempts || attempts?.data.length < quiz.data.max_attempts">
+						<span>{{ __('Try Again') }}</span>
+					</Button>
+				</template>
+			</div>
+		</div>
+
+		<!-- Submission History -->
+		<div v-if="quiz.data.show_submission_history && attempts?.data && attempts.data.length > 0" class="mt-10">
+			<ListView
+				:columns="getSubmissionColumns()"
+				:rows="attempts?.data"
+				row-key="name"
+				:options="{
+					selectable: false,
+					showTooltip: false,
+					emptyState: { title: __('No Quiz submissions found') },
+				}"
+			/>
+		</div>
+	</div>
 </template>
+
+
 <script setup>
 import {
 	Badge,
@@ -294,7 +268,7 @@ import {
 	toast,
 } from 'frappe-ui'
 import { ref, watch, reactive, inject, computed } from 'vue'
-import { CheckCircle, XCircle, MinusCircle } from 'lucide-vue-next'
+import { CheckCircle, XCircle, MinusCircle ,GraduationCap} from 'lucide-vue-next'
 import { timeAgo } from '@/utils'
 import { useRouter } from 'vue-router'
 import ProgressBar from '@/components/ProgressBar.vue'
@@ -539,7 +513,7 @@ const getAnswers = () => {
 const checkAnswer = () => {
 	let answers = getAnswers()
 	if (!answers.length) {
-		toast.warn(__('Please select an option'))
+		toast.error(__('Please select an option'))
 		return
 	}
 
@@ -579,6 +553,12 @@ const addToLocalStorage = () => {
   let parsedData = quizData ? JSON.parse(quizData) : []
 
   const answer = getAnswers().join().trim()
+
+
+if (!answer) {
+  console.log('Skipping save for empty answer!');
+  return;
+}
 
   let questionData = {
     question_name: currentQuestion.value,
@@ -832,19 +812,63 @@ const getSubmissionColumns = () => {
 		},
 	]
 }
+/* for getting certifictae if got more than 60% else not */
+
+// Assuming you want to use quiz.data.passing_percentage dynamically
+const isPassed = computed(() => {
+  if (!quizSubmission.data || !quiz.data) return false;
+  const userPercentage = quizSubmission.data.percentage;
+  const requiredPercentage = quiz.data.passing_percentage || 80;
+
+  console.log('DEBUG isPassed:', {
+    userPercentage,
+    requiredPercentage,
+    result: userPercentage >= requiredPercentage
+  });
+
+  return userPercentage >= requiredPercentage;
+});
+
+// Example: Check if the user already has a certificate
+// Replace with your actual field if available!
+const hasCertificate = computed(() => {
+  console.log('DEBUG certificateIssued:', quizSubmission.data?.certificate_issued);
+  return !!quizSubmission.data?.certificate_issued;
+});
+
+
+
+
+// Inject user
+
+
+
+
+// 👇 Dynamic params with reactive binding!
+const certification = createResource({
+  url: 'lms.lms.api.get_certification_details',
+  params: computed(() => ({
+    course: props.courseName
+  })),
+  auto: user.data ? true : false,
+  cache: ['certificationData', user.data?.name]
+})
+
+// Download button action
+const downloadCertificate = () => {
+  if (!certification.data?.certificate) {
+    console.warn('No certificate found!');
+    return;
+  }
+
+  const cert = certification.data.certificate;
+  const url = `/api/method/frappe.utils.print_format.download_pdf?doctype=LMS+Certificate&name=${cert.name}&format=${encodeURIComponent(cert.template)}`;
+  window.open(url);
+}
+
+
 </script>
 <style>
-p {
-	line-height: 1.5rem;
-}
-
-button#headlessui-disclosure-button-v-16 {
-    display: none !IMPORTANT;
-}
-
-div#headlessui-disclosure-panel-v-17 {
-    display: none !important;
-}
 
 p {
 	line-height: 1.5rem;
