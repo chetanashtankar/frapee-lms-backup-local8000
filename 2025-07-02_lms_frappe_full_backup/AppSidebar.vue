@@ -564,6 +564,29 @@ const redirectToWebsite = () => {
 
 <style scoped>
 
+/* Target active button only in the header */
+.bg-surface-menu-bar .bg-surface-selected {
+   background-color: #ff4602 !important;
+  color: #fff !important;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15); /* subtle elevation */
+  border-radius: 6px; /* slight rounding */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+.bg-surface-menu-bar .bg-surface-selected[data-v-bb4b9da0]:hover {
+  background-color: #e24400 !important; /* darker orange on hover */
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2); /* stronger shadow */
+}
+/* Ensure icons and text are white and bold inside active button */
+.bg-surface-menu-bar .bg-surface-selected svg,
+.bg-surface-menu-bar .bg-surface-selected span {
+  color: white !important;
+  stroke: white !important;
+  fill: white !important;
+  font-weight: 600 !important;
+}
+
+
 .flex.items-center.justify-between.w-full.border-b.bg-surface-menu-bar.px-4.py-2
  {
     height: 4rem !important;
