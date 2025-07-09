@@ -1,9 +1,6 @@
 @import './assets/Inter/inter.css';
 @import 'frappe-ui/src/style.css';
 
-@import './assets/Inter/inter.css';
-@import 'frappe-ui/src/style.css';
-
 
 .bg-surface-gray-7 {
     background-color: #ff4602 !important;
@@ -41,8 +38,8 @@ button.inline-flex.items-center.justify-center.gap-2.transition-colors.focus\:ou
 }
 
 header.sticky.flex.items-center.justify-between.top-0.z-10.border-b.bg-surface-white.px-3.py-2\.5.sm\:px-5 {
-  padding-top: 5.625rem !important;
-  
+    padding-top: 5.625rem !important;
+
 }
 
 
@@ -61,9 +58,11 @@ header.sticky.flex.items-center.justify-between.top-0.z-10.border-b.bg-surface-w
 
 
 
-#prev, #skip, #next {
-  display: inline-block !important;
-  visibility: visible !important;
+#prev,
+#skip,
+#next {
+    display: inline-block !important;
+    visibility: visible !important;
 }
 
 .py-2\.5 {
@@ -73,12 +72,27 @@ header.sticky.flex.items-center.justify-between.top-0.z-10.border-b.bg-surface-w
 
 /*css for course learning page inside frapee */
 .cert-container .cert-description ul {
-  list-style-type: disc !important;
-  margin-left: 60px !important;
+    list-style-type: disc !important;
+    margin-left: 60px !important;
 }
-.space-y-4 {
-    display: none !important;
+
+.border-2.rounded-md.min-w-80 .space-y-4 {
+    display: none;
 }
+
+/* removing header in quize.vue*/
+
+.bg-surface-blue-2.space-y-1.py-2.px-2.mb-4.rounded-md.text-sm.text-ink-blue-3 {
+    display: none;
+}
+
+.bg-surface-menu-bar button.bg-surface-selected svg {
+    stroke: white !important;
+    color: white !important;
+
+}
+
+
 /* .text-3xl {
     font-size: 34px;
     line-height: 1.15;
