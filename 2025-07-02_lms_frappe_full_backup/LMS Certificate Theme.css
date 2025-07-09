@@ -5,6 +5,9 @@
 //files/certificate.png
 
 //files/certificate.png
+//files/certificate.png
+
+//files/certificate.png
 
 document.body.innerHTML = `
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -394,6 +397,7 @@ document.body.innerHTML = `
   </div>
 </div>
 
+
 <!-- Certification Paths Section -->
 <div class="section">
   <h1 class="section-title">Certification Paths</h1>
@@ -402,39 +406,46 @@ document.body.innerHTML = `
       <div class="card-image cert-foundation-img"></div>
       <h3 class="card-title">Foundation Certification</h3>
       <p class="card-description">Master the fundamentals of intelligent business automation with our Foundation Certification. The EIQ Foundation equips you with essential platform skills.</p>
-      <button
-  class="card-button"
-  onclick="goToCertification()"
->
-  Get Certified
-</button>
-
+      <button class="card-button" onclick="goToCertification()">Get Certified</button>
     </div>
 
-    <div class="path-card coming-soon">
-      <div class="notification-bell"></div>
-      <div class="card-image cert-citizen-developer-img"></div>
-      <h3 class="card-title">Citizen Developer</h3>
-      <p class="card-description">Build powerful applications using our intuitive no-code tools. Learn to automate workflows and integrate systems—no programming required.</p>
-      <button class="card-button animated">Coming Soon...</button>
-    </div>
+    <!-- Card 2: Citizen Developer (Coming Soon) -->
+                <div class="path-card">
+                    <div class="card-image leadership-program-img"></div>
+                    <h3 class="card-title">Consultant Certification</h3>
+                    <p class="card-description">The EIQ Platform Consultant Certification validates a professional’s expertise in designing, building, and managing intelligent automation solutions using the EIQ Platform</p>
+                    <button class="card-button"onclick="goToCertification()">Get Certified</button>
+                </div>
 
-    <div class="path-card coming-soon">
-      <div class="notification-bell"></div>
-      <div class="card-image cert-developer-img"></div>
-      <h3 class="card-title">Developer</h3>
-      <p class="card-description">Advance your skills with low-code and pro-code features. Learn to create robust apps using JavaScript, Python, APIs, and platform scripting.</p>
-      <button class="card-button animated">Coming Soon...</button>
-    </div>
+                <!-- Card 3: Developer (Coming Soon) -->
+                <div class="path-card coming-soon">
+                    <div class="card-image developer-img"></div>
+                    <h3 class="card-title">Developer</h3>
+                    <p class="card-description">Dive into the latest information and AI fundamentals. Perfect for beginners or those looking to solidify their foundational knowledge. Start paving your path to success today!</p>
+                    <button class="card-button animated">Coming Soon...</button>
+                </div>
 
-    <div class="path-card coming-soon">
-      <div class="notification-bell"></div>
-      <div class="card-image cert-architect-img"></div>
-      <h3 class="card-title">Architect</h3>
-      <p class="card-description">Design scalable, secure enterprise solutions using the full EIQ stack. Master architecture, integrations, and AI-driven automation.</p>
-      <button class="card-button animated">Coming Soon...</button>
-    </div>
+                <!-- Second Row: 2 Cards (Centered) -->
+                <div class="second-row">
+                    <!-- Card 4: Architect (Coming Soon) -->
+                    <div class="path-card coming-soon">
+                        <div class="card-image architect-img"></div>
+                        <h3 class="card-title">Architect</h3>
+                        <p class="card-description">Dive into the latest information and AI fundamentals. Perfect for beginners or those looking to solidify their foundational knowledge. Start paving your path to success today!</p>
+                        <button class="card-button animated">Coming Soon...</button>
+                    </div>
+
+                    <!-- Card 5: Expert (Coming Soon) -->
+                    <div class="path-card coming-soon">
+                        <div class="card-image expert-img"></div>
+                        <h3 class="card-title">Expert</h3>
+                        <p class="card-description">Dive into the latest information and AI fundamentals. Perfect for beginners or those looking to solidify their foundational knowledge. Start paving your path to success today!</p>
+                        <button class="card-button animated">Coming Soon...</button>
+                    </div>
+                </div>
+    
   </div>
+  
 </div>
 
 
@@ -2246,10 +2257,7 @@ let currentSlide = 0;
 
 
 
-		/*=================================== css ========================================*/
-
-
-		/*  Courses In Header SVG Css*/
+/*  Css*/
 
 .menu-item-courses {
     position: relative;
@@ -7253,37 +7261,38 @@ body .page-content-wrapper {
 
 /*-----------------------------*/
 /* Container Styles */
+
+
+
+/* Learning Path CSS */
 .main-container {
     max-width: 1400px;
     margin: 0 auto;
 }
 
-.section {
-    margin-bottom: 80px;
-    padding: 0px 41px;
-    margin-top: 50px;
-}
-
 .section-title {
     text-align: center;
-    font-size: 2.5rem;
-    margin-bottom: 50px;
-    color: #083279;
-    font-weight: 600;
+    font-size: 32px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 40px;
 }
 
-/* Grid Layout */
-.learning-paths-grid,
-.certification-paths-grid {
+.section {
+    margin-bottom: 80px;
+    margin-top: 50px;
+    padding: 0px 41px 0px 41px;
+}
+
+/* Learning Paths Grid - 4 cards in one row */
+.learning-paths-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 40px;
     max-width: 90%;
     margin: 0 auto;
-    align-items: stretch; /* Ensures all cards stretch equally */
 }
 
-/* Card Base Style */
 .path-card {
     background: white;
     border-radius: 15px;
@@ -7292,26 +7301,22 @@ body .page-content-wrapper {
     transition: all 0.3s ease;
     border: 2px solid #e0e0e0;
     position: relative;
-
-    /* Flex layout for equal height */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
 }
 
-/* On Hover */
 .path-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
     border-color: #ccc;
 }
 
-/* Card Image Styles */
 .card-image {
     width: 100%;
     height: 150px;
     border-radius: 10px;
     margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-size: cover;
     background-position: center;
     position: relative;
@@ -7329,42 +7334,6 @@ body .page-content-wrapper {
     backdrop-filter: blur(1px);
 }
 
-/* Learning Path Card Images */
-.learning-foundation-img {
-	background-image: url('../learning1.jpeg');
-}
-
-.learning-citizen-developer-img {
-	background-image: url('../learning2.jpeg');
-}
-
-.learning-developer-img {
-	background-image: url('../learning3.jpeg');
-}
-
-.learning-architect-img {
-	background-image: url('../learning4.jpeg');
-}
-
-/* Certification Path Card Images */
-.cert-foundation-img {
-	background-image: url('../certification1.jpeg');
-}
-
-.cert-citizen-developer-img {
-	background-image: url('../certification2.png');
-}
-
-.cert-developer-img {
-	background-image: url('../certification3.png');
-}
-
-.cert-architect-img {
-	background-image: url('../certification4.png');
-}
-
-
-/* Card Text */
 .card-title {
     font-size: 18px;
     font-weight: bold;
@@ -7378,10 +7347,8 @@ body .page-content-wrapper {
     color: #666;
     line-height: 1.5;
     margin-bottom: 20px;
-    flex-grow: 1; /* Helps stretch the card evenly */
 }
 
-/* Button Style */
 .card-button {
     width: 100%;
     background: #1e4a72;
@@ -7393,7 +7360,6 @@ body .page-content-wrapper {
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s ease;
-    margin-top: auto;
 }
 
 .card-button:hover {
@@ -7401,7 +7367,138 @@ body .page-content-wrapper {
     transform: scale(1.02);
 }
 
-/* Coming Soon Cards */
+/* Responsive Design for Learning Paths */
+@media (max-width: 1200px) {
+    .learning-paths-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .learning-paths-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .section {
+        padding: 0px 20px;
+    }
+}
+
+
+/* Certification Path CSS */
+.main-container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.section-title {
+   text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 50px;
+    color: #083279;
+    font-weight: 600;
+}
+
+.section {
+    margin-bottom: 80px;
+    margin-top: 50px;
+    padding: 0px 41px 0px 41px;
+}
+
+/* Certification Paths Grid - 5 cards (3+2 layout) */
+.certification-paths-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    max-width: 68%;
+    margin: 0 auto;
+}
+
+/* Second row with 2 cards centered */
+.certification-paths-grid .second-row {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+    max-width: 66.67%; /* 2/3 of the width to center 2 cards */
+    margin: 0 auto;
+}
+
+.path-card {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border: 2px solid #e0e0e0;
+    position: relative;
+}
+
+.path-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    border-color: #ccc;
+}
+
+.card-image {
+    width: 100%;
+    height: 150px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.card-image::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(1px);
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+    line-height: 1.3;
+}
+
+.card-description {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.card-button {
+    width: 100%;
+    background: #1e4a72;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.card-button:hover {
+    background: #2d5a8a;
+    transform: scale(1.02);
+}
+
+/* Coming Soon Card Modifications */
 .path-card.coming-soon {
     background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
     border: 2px solid #dee2e6;
@@ -7427,6 +7524,13 @@ body .page-content-wrapper {
     z-index: 1;
 }
 
+.path-card.coming-soon:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+    border-color: #adb5bd;
+}
+
+/* Coming Soon Card Image Overlay */
 .path-card.coming-soon .card-image::after {
     content: '';
     position: absolute;
@@ -7439,20 +7543,27 @@ body .page-content-wrapper {
     z-index: 2;
 }
 
-.path-card.coming-soon .card-title,
-.path-card.coming-soon .card-description {
+/* Coming Soon Card Content */
+.path-card.coming-soon .card-title {
     color: #6c757d;
     position: relative;
     z-index: 2;
 }
 
+.path-card.coming-soon .card-description {
+    color: #868e96;
+    position: relative;
+    z-index: 2;
+}
+
+/* Coming Soon Button Styles */
 .path-card.coming-soon .card-button {
     background: linear-gradient(135deg, #6c757d, #495057);
     color: white;
     cursor: not-allowed;
-    opacity: 0.8;
     position: relative;
     z-index: 2;
+    opacity: 0.8;
 }
 
 .path-card.coming-soon .card-button:hover {
@@ -7461,7 +7572,7 @@ body .page-content-wrapper {
     opacity: 0.9;
 }
 
-/* Optional animated version */
+/* Alternative Coming Soon Button with Animation */
 .path-card.coming-soon .card-button.animated {
     background: linear-gradient(45deg, #6c757d, #495057, #6c757d);
     background-size: 200% 200%;
@@ -7473,6 +7584,95 @@ body .page-content-wrapper {
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
 }
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+/* Responsive Design for Certification Paths */
+@media (max-width: 1200px) {
+    .certification-paths-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .certification-paths-grid .second-row {
+        grid-template-columns: 1fr;
+        max-width: 50%;
+    }
+}
+
+@media (max-width: 768px) {
+    .certification-paths-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .certification-paths-grid .second-row {
+        grid-template-columns: 1fr;
+        max-width: 100%;
+    }
+    
+    .section {
+        padding: 0px 20px;
+    }
+}
+
+
+/*==================================*/
+
+
+
+
+
+/* Learning Path Card Images */
+.learning-foundation-img {
+	background-image: url('../learning1.jpeg');
+}
+
+.learning-citizen-developer-img {
+	background-image: url('../learning2.jpeg');
+}
+
+.learning-developer-img {
+	background-image: url('../learning3.jpeg');
+}
+
+.learning-architect-img {
+	background-image: url('../learning4.jpeg');
+}
+
+/* Certification Path Card Images */
+
+
+
+/* Certification Path Card Images */
+.advanced-ai-img {
+   background-image: url('../certification1.jpeg');
+}
+
+.leadership-program-img {
+     	background-image: url('../certification5.png');
+}
+
+.developer-img {
+   background-image: url('../certification3.png');
+}
+
+.architect-img {
+    background-image: url('../certification4.png');
+}
+
+.expert-img {
+    background-image: url('../certification2.png');
+}
+
+
+
+.cert-foundation-img {
+	background-image: url('../certification1.jpeg');
+}
+
 
 
 /*css for icon login section */
@@ -7509,7 +7709,6 @@ label {
   background: transparent;     /* Ensure no background behind the cross */
   border: none;                /* Remove any border */
 }
-
 
 
             
