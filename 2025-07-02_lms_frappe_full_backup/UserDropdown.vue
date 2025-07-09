@@ -111,7 +111,21 @@ onMounted(() => {
 	if (['light', 'dark'].includes(theme.value)) {
 		document.documentElement.setAttribute('data-theme', theme.value)
 	}
+	console.log('USER RESOURCE DATA:', userResource.data)
+
 })
+
+
+// Watch for userResource data loading and log roles
+watch(userResource, () => {
+  if (userResource.data) {
+    const rawRoles = userResource.data.roles || []
+    const roles = rawRoles.map(r => r.trim().toLowerCase())
+    console.log('User Roles User Dropdown(normalized):', roles)
+  }
+}, { immediate: true })
+
+
 
 watch(
 	() => settingsStore.isSettingsOpen,
@@ -119,6 +133,8 @@ watch(
 		showSettingsModal.value = value
 	}
 )
+
+
 
 const toggleTheme = () => {
 	const currentTheme = document.documentElement.getAttribute('data-theme')
@@ -152,27 +168,12 @@ const userDropdownOptions = computed(() => {
 				// 	},
 				// },
 				{
-					component: markRaw(Apps),
-					condition: () => {
-						debugger;
+				component: markRaw(Apps),
+				condition: () => {
+					return userResource.data?.is_moderator === true
+				},
+			},
 
-						let cookieString = document.cookie;
-
-						// Add this check before parsing cookies
-						if (cookieString.includes('LMS%20Student') || cookieString.includes('LMS Student')) {
-							var system_user = 'no';
-						} else {
-							let cookies = new URLSearchParams(cookieString.split('; ').join('&'));
-							var system_user = cookies.get('system_user');
-						}
-
-						console.log(system_user);
-
-						if (system_user === 'yes') return true;
-						else return false;
-
-											},
-										},
 				{
 					icon: Settings,
 					label: 'Settings',
