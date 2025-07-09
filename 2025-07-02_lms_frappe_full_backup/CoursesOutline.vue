@@ -1,5 +1,4 @@
 /*/home/chetan/frappe-bench/apps/lms/frontend/src/components/CourseOutline.vue*/
-
 <template>
   <div>
     <!-- Section Header (Optional Title) -->
@@ -49,12 +48,26 @@
 
 
          <div
-				class="chapter-title"
-				@click="redirectToChapter(chapter)"
-				>
+			class="chapter-title flex items-center gap-2"
+			@click="redirectToChapter(chapter)"
+			>
+			{{ chapter.title }}
+			<span
+				v-if="getChapterStatus(chapter) === 'complete'"
+				class="text-green-600 text-xs font-medium px-2 py-0.5 bg-green-100 rounded"
+			>
+				Completed
+			</span>
 
-            {{ chapter.title }}
-          </div>
+			<span
+				v-else-if="getChapterStatus(chapter) === 'in-progress'"
+				class="text-yellow-500 text-xs font-medium px-2 py-0.5 bg-yellow-100 rounded"
+			>
+				In Progress
+			</span>
+			</div>
+
+
           <div class="action-icons">
             <Tooltip :text="__('Edit Chapter')" placement="bottom">
               <FilePenLine
@@ -85,10 +98,15 @@
             :data-chapter="chapter.name"
           >
             <template #item="{ element: lesson }">
-              <div
-					class="accordion-lesson"
-					:class="{ 'active-lesson': isActiveLesson(lesson.number) }"
-					>
+             <div
+			class="accordion-lesson"
+			:class="{
+				'active-lesson': isActiveLesson(lesson.number),
+				'continue-highlight': isContinueLesson(chapter, lesson)
+			}"
+			>
+
+
 
                 <router-link
                   :to="{
@@ -121,7 +139,8 @@
                     />
                     <Check
                       v-if="lesson.is_complete"
-                      class="h-4 w-4 text-green-700 ml-2"
+                      :stroke-width="3"
+						class="h-4 w-4 text-green-500 ml-2"
                     />
                   </div>
                 </router-link>
@@ -348,9 +367,67 @@ const isActiveLesson = (lessonNumber) => {
 		route.params.lessonNumber == lessonNumber.split('.')[1]
 	)
 }
+
+const getChapterStatus = (chapter) => {
+  if (!chapter.lessons || chapter.lessons.length === 0) return ''
+
+  const total = chapter.lessons.length
+  const completed = chapter.lessons.filter(l => l.is_complete).length
+
+  if (completed === 0) {
+    return ''  // Nothing
+  } else if (completed === total) {
+    return 'complete'
+  } else {
+    return 'in-progress'
+  }
+}
+
+// Helper: returns 'complete', 'in-progress', or 'not-started' for a lesson
+const getLessonStatus = (lesson) => {
+  if (lesson.is_complete) return 'complete'
+  if (lesson.attempts && lesson.attempts > 0) return 'in-progress'
+  return 'not-started'
+}
+
+// Helper: returns the first lesson in a chapter that is not complete
+const getNextLessonToContinue = (chapter) => {
+  return chapter.lessons.find((lesson) => !lesson.is_complete)
+}
+
+// Adds highlight class if this is the next lesson to continue
+const getLessonHighlightClass = (lesson, chapter) => {
+  const nextLesson = getNextLessonToContinue(chapter)
+  if (nextLesson && nextLesson.name === lesson.name) {
+    return 'highlight-next-lesson'
+  }
+  return ''
+}
+
+const isContinueLesson = (chapter, lesson) => {
+  // Find first incomplete lesson in this chapter
+  const firstIncomplete = chapter.lessons.find(l => !l.is_complete)
+  if (!firstIncomplete) return false
+
+  // Only mark *this* lesson
+  return lesson.name === firstIncomplete.name
+}
+
+
 </script>
 
 <style>
+
+.continue-highlight {
+  background-color: #fef9c3;
+  border-left: 4px solid #facc15;
+}
+
+
+.highlight-next-lesson {
+  background-color: #ecfdf5;    /* Very light green highlight */
+  border-left: 4px solid #10b981; /* Emerald green bar */
+}
 
 
 .accordion-header {
@@ -566,3 +643,4 @@ const isActiveLesson = (lessonNumber) => {
 }
 
 </style>
+
