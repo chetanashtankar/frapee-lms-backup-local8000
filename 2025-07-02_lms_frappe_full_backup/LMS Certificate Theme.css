@@ -5,9 +5,6 @@
 //files/certificate.png
 
 //files/certificate.png
-//files/certificate.png
-
-//files/certificate.png
 
 document.body.innerHTML = `
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -59,21 +56,22 @@ document.body.innerHTML = `
                                                 </a>
                                             </li>
 
-                                    <!-- Course -->
-                                    <li id="menu-item-course" class="menu-item">
-                                      <a class="menu-link" id="courseLink" href="javascript:void(0)">
-                                        <span class="ast-icon icon-arrow"></span>
-                                        <span class="menu-text">Course</span>
-                                      </a>
-                                    </li>
-                                    
-                                    <!-- Certification -->
-                                    <li id="menu-item-certification" class="menu-item">
-                                      <a class="menu-link" id="certificationLink" href="javascript:void(0)">
-                                        <span class="ast-icon icon-arrow"></span>
-                                        <span class="menu-text">Certification</span>
-                                      </a>
-                                    </li>
+                                   <!-- Course -->
+<li id="menu-item-course" class="menu-item">
+  <a class="menu-link" id="courseLink" href="javascript:void(0)" onclick="goToCourse(this)">
+    <span class="ast-icon icon-arrow"></span>
+    <span class="menu-text">Course</span>
+  </a>
+</li>
+
+<!-- Certification -->
+<li id="menu-item-certification" class="menu-item">
+  <a class="menu-link" id="certificationLink" href="javascript:void(0)" onclick="goToCertification()">
+    <span class="ast-icon icon-arrow"></span>
+    <span class="menu-text">Certification</span>
+  </a>
+</li>
+
 
 
                                             <li id="menu-item-courses" class="menu-item menu-item-courses" style="display: none;">
@@ -1752,7 +1750,7 @@ document.addEventListener('DOMContentLoaded', function () {
 function goToCourse(button) {
   if (isUserLoggedIn()) {
     const slug = button.getAttribute('data-slug');
-    const path = `/lms/courses/eiq-agentic-automation-platform-${slug}`;
+    const path = `/lms/courses/eiq-agentic-automation-platform-foundation-certification`;
     window.location.href = path;
   } else {
    
@@ -2248,21 +2246,10 @@ let currentSlide = 0;
 
 
 
+		/*=================================== css ========================================*/
 
 
-
-
-
-
-
-
-
-
-
-/*=================================================================================================================*/
-
-
-/*  Courses In Header SVG Css*/
+		/*  Courses In Header SVG Css*/
 
 .menu-item-courses {
     position: relative;
