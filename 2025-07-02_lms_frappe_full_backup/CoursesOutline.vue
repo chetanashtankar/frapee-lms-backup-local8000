@@ -41,12 +41,13 @@
     'accordion-header mb-4',
     !isChapterUnlocked(index) ? 'locked-chapter' : ''
   ]"
-  @click="handleChapterClick(index, close)"
+ @click="(event) => handleChapterClick(event, chapter, index, close)"
+
 >
   <div
     class="chapter-title"
     @click="redirectToChapter(chapter, index)"
-  >
+	>
     {{ chapter.title }}
   </div>
 
@@ -383,12 +384,47 @@ watch(outline, () => {
 
 
 
-const handleChapterClick = (index, closeDisclosure) => {
+const handleChapterClick = (event, chapter, index, closeDisclosure) => {
   if (!isChapterUnlocked(index)) {
-    
-    closeDisclosure?.()  // force close if clicked accidentally
+    // Block Disclosure toggle
+    event.preventDefault()
+    event.stopPropagation()
+
+    $dialog({
+      title: __('Chapter Locked'),
+      message: __('Please complete the previous chapter before accessing this one.'),
+      actions: [
+        {
+          label: __('Got It'),
+          theme: 'primary',
+          variant: 'solid',
+          class: 'custom-dialog-button'
+        }
+      ],
+      class: 'custom-dialog-box'
+    })
+
+    // Optionally close if open
+    closeDisclosure?.()
+    return
+  }
+
+  // If SCORM chapter (non-edit mode), route
+  if (chapter.is_scorm_package && !props.allowEdit) {
+    if (!user.data) {
+      toast.success(__('Please enroll for this course to view this lesson'))
+      return
+    }
+    router.push({
+      name: 'SCORMChapter',
+      params: {
+        courseName: props.courseName,
+        chapterName: chapter.name,
+      },
+    })
   }
 }
+
 
 
 const isActiveLesson = (lessonNumber) => {
