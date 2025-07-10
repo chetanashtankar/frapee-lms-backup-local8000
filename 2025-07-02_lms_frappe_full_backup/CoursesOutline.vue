@@ -18,6 +18,17 @@
       <Button size="sm" v-if="allowEdit" @click="openChapterModal()">
         {{ __('Add Chapter') }}
       </Button>
+
+	  <Button
+	size="sm"
+	class="expand-button"
+	v-if="outline.data?.length"
+	@click="toggleExpandAll"
+	>
+	{{ expandAll ? __('Collapse All') : __('Expand All') }}
+	</Button>
+
+
     </div>
 
     <!-- Accordion Container -->
@@ -28,11 +39,13 @@
 >
 
       <Disclosure
-		v-slot="{ open, close }"
-		v-for="(chapter, index) in outline.data"
-		:key="chapter.name"
-		:defaultOpen="openChapterDetail(chapter.idx)"
-		>
+			as="div"
+			v-slot="{ open, close }"
+			v-for="(chapter, index) in outline.data"
+			:key="expandAll + '-' + chapter.name"
+  			:default-open="expandAll"
+			>
+
 
 
         <!-- Accordion Header -->
@@ -156,7 +169,7 @@
 
 <script setup>
 import { Button, createResource, Tooltip, toast } from 'frappe-ui'
-import { getCurrentInstance, inject, ref ,watch} from 'vue'
+import { getCurrentInstance, inject, ref ,watch ,computed} from 'vue'
 import Draggable from 'vuedraggable'
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
 import {
@@ -175,6 +188,7 @@ const route = useRoute()
 const router = useRouter()
 const user = inject('$user')
 const showChapterModal = ref(false)
+
 const currentChapter = ref(null)
 const app = getCurrentInstance()
 const { $dialog } = app.appContext.config.globalProperties
@@ -384,6 +398,11 @@ watch(outline, () => {
 
 
 
+
+
+
+
+
 const handleChapterClick = (event, chapter, index, closeDisclosure) => {
   if (!isChapterUnlocked(index)) {
     // Block Disclosure toggle
@@ -423,6 +442,49 @@ const handleChapterClick = (event, chapter, index, closeDisclosure) => {
       },
     })
   }
+}
+
+
+
+// === Define openStates first ===
+const openStates = ref([])
+
+// === Define expandAll next ===
+const expandAll = computed({
+  get() {
+    if (!openStates.value.length) return false
+    return openStates.value.every(Boolean)
+  },
+  set(value) {
+    if (outline.data?.length) {
+      openStates.value = outline.data.map(() => value)
+    }
+  }
+})
+
+// === Define watchers last ===
+watch(expandAll, (newVal) => {
+  if (outline.data?.length) {
+    openStates.value = outline.data.map(() => newVal)
+  }
+})
+
+watch(outline, () => {
+
+  if (outline.data?.length && !openStates.value.length) {
+    openStates.value = outline.data.map((_, i) =>
+      expandAll.value ? true : openChapterDetail(i + 1)
+
+    )
+  }
+})
+
+
+
+
+const toggleExpandAll = () => {
+ 	expandAll.value = !expandAll.value
+
 }
 
 
@@ -507,6 +569,9 @@ svg.lucide.lucide-monitor-play-icon.h-4.w-4.stroke-1.mr-2
   opacity: 0.6;
  
 }
+button.ml-2 {
+  margin-left: 0.5rem;
+}
 
 
 .custom-dialog-box {
@@ -580,7 +645,6 @@ svg.lucide.lucide-monitor-play-icon.h-4.w-4.stroke-1.mr-2
     align-items: center;
     gap: 6px;
     padding: 4px 12px;
-    border: 2px solid #ff4602;
     border-radius: 9999px;
     background-color: #fff;
     font-size: 14px;
@@ -591,8 +655,10 @@ svg.lucide.lucide-monitor-play-icon.h-4.w-4.stroke-1.mr-2
 }
 
 .expand-button:hover {
-  background-color: #f9fafb;
-  border-color: #ff4602;
+  	background-color: #f9fafb;
+  	border-color: #ff4602;
+	border: 2px solid #ff4602;
+    border-radius: 9999px;
 }
 
 .chevron-icon {
