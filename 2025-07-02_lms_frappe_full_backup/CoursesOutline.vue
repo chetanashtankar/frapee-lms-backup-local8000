@@ -28,15 +28,22 @@
 >
 
       <Disclosure
-        v-slot="{ open }"
-        v-for="(chapter, index) in outline.data"
-        :key="chapter.name"
-        :defaultOpen="openChapterDetail(chapter.idx)"
-      >
+		v-slot="{ open, close }"
+		v-for="(chapter, index) in outline.data"
+		:key="chapter.name"
+		:defaultOpen="openChapterDetail(chapter.idx)"
+		>
+
+
         <!-- Accordion Header -->
-        <DisclosureButton
-			class="accordion-header mb-4"
+       <DisclosureButton
+			:class="[
+				'accordion-header mb-4',
+				!isChapterUnlocked(index) ? 'locked-chapter' : ''
+			]"
+			@click="handleChapterClick(index, close)"
 			>
+
 
           <ChevronRight
 			:class="{
@@ -49,8 +56,9 @@
 
          <div
 			class="chapter-title flex items-center gap-2"
-			@click="redirectToChapter(chapter)"
+			@click="redirectToChapter(chapter, index)"
 			>
+
 			{{ chapter.title }}
 			<span
 				v-if="getChapterStatus(chapter) === 'complete'"
@@ -180,7 +188,7 @@
 
 <script setup>
 import { Button, createResource, Tooltip, toast } from 'frappe-ui'
-import { getCurrentInstance, inject, ref } from 'vue'
+import { getCurrentInstance, inject, ref ,watch} from 'vue'
 import Draggable from 'vuedraggable'
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
 import {
@@ -343,23 +351,63 @@ const trashChapter = (chapterName) => {
 	})
 }
 
-const redirectToChapter = (chapter) => {
-	if (!chapter.is_scorm_package) return
-	event.preventDefault()
-	if (props.allowEdit) return
-	if (!user.data) {
-		toast.success(__('Please enroll for this course to view this lesson'))
-		return
-	}
+//Helper Method to Check Chapter Unlock
 
-	router.push({
-		name: 'SCORMChapter',
-		params: {
-			courseName: props.courseName,
-			chapterName: chapter.name,
-		},
-	})
+const isChapterUnlocked = (index) => {
+  // Always unlock the first chapter
+  if (index === 0) return true;
+
+  // Get previous chapter
+  const previousChapter = outline.data[index - 1];
+  if (!previousChapter || !previousChapter.lessons) return false;
+
+  // Check if all lessons in previous chapter are complete
+  return previousChapter.lessons.every((lesson) => lesson.is_complete);
+};
+
+
+const redirectToChapter = (chapter, index) => {
+  if (!isChapterUnlocked(index)) {
+    toast.error(__('Please complete the previous chapter first.'));
+    return;
+  }
+
+  if (!chapter.is_scorm_package) return;
+  event.preventDefault();
+  if (props.allowEdit) return;
+
+  if (!user.data) {
+    toast.success(__('Please enroll for this course to view this lesson'));
+    return;
+  }
+
+  router.push({
+    name: 'SCORMChapter',
+    params: {
+      courseName: props.courseName,
+      chapterName: chapter.name,
+    },
+  });
+};
+
+
+const lockedChapters = ref([])
+
+watch(outline, () => {
+  if (outline.data?.length) {
+    lockedChapters.value = outline.data.map((_, index) => !isChapterUnlocked(index));
+  }
+})
+
+
+
+const handleChapterClick = (index, closeDisclosure) => {
+  if (!isChapterUnlocked(index)) {
+    toast.error(__('Please complete the previous chapter first.'))
+    closeDisclosure?.()  // force close if clicked accidentally
+  }
 }
+
 
 const isActiveLesson = (lessonNumber) => {
 	return (
@@ -417,6 +465,32 @@ const isContinueLesson = (chapter, lesson) => {
 </script>
 
 <style>
+
+svg.lucide.lucide-circle-help-icon.h-4.w-4.stroke-1.mr-2 {
+    color: #ff4602 !important;
+}
+
+
+svg.lucide.lucide-file-text-icon.h-4.w-4.text-ink-gray-9.stroke-1.mr-2
+ {
+    color: #ff4602 !important;
+}
+svg.lucide.lucide-monitor-play-icon.h-4.w-4.stroke-1.mr-2
+ {
+    color: #ff4602 !important;
+}
+
+.text-sm {
+    font-size: 16px !important;
+}
+
+
+.locked-chapter {
+  opacity: 0.6;
+  pointer-events: none; 
+  cursor: not-allowed;
+}
+
 
 .continue-highlight {
   background-color: #fef9c3;
@@ -551,7 +625,7 @@ const isContinueLesson = (chapter, lesson) => {
 
 /* Chapter Title */
 .chapter-title {
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 500;
   color: #374151;
   margin-left: 12px;
@@ -643,4 +717,3 @@ const isContinueLesson = (chapter, lesson) => {
 }
 
 </style>
-
