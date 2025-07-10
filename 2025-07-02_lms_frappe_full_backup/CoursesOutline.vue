@@ -184,6 +184,8 @@
     :course="courseName"
     :chapterDetail="getCurrentChapter()"
   />
+
+
 </template>
 
 <script setup>
@@ -366,9 +368,24 @@ const isChapterUnlocked = (index) => {
 };
 
 
+
+
 const redirectToChapter = (chapter, index) => {
   if (!isChapterUnlocked(index)) {
-    toast.error(__('Please complete the previous chapter first.'));
+		$dialog({
+			title: __('Chapter Locked'),
+			message: __('Please complete the previous chapter before accessing this one.'),
+			actions: [
+				{
+				label: __('Got It'),
+				theme: 'primary',
+				variant: 'solid',
+				class: 'custom-dialog-button'
+				}
+			],
+			class: 'custom-dialog-box'
+			});
+
     return;
   }
 
@@ -403,7 +420,7 @@ watch(outline, () => {
 
 const handleChapterClick = (index, closeDisclosure) => {
   if (!isChapterUnlocked(index)) {
-    toast.error(__('Please complete the previous chapter first.'))
+    
     closeDisclosure?.()  // force close if clicked accidentally
   }
 }
@@ -487,9 +504,42 @@ svg.lucide.lucide-monitor-play-icon.h-4.w-4.stroke-1.mr-2
 
 .locked-chapter {
   opacity: 0.6;
-  pointer-events: none; 
-  cursor: not-allowed;
+ 
 }
+
+
+.custom-dialog-box {
+  font-family: 'Inter', sans-serif;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+.custom-dialog-box .frappe-dialog-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1f2937; /* text-gray-800 */
+  margin-bottom: 0.75rem;
+}
+
+.custom-dialog-box .frappe-dialog-message {
+  font-size: 15px;
+  color: #4b5563; /* text-gray-600 */
+}
+
+.custom-dialog-button {
+  background-color: #ff4602 !important; /* indigo-600 */
+  border-radius: 6px !important;
+  padding: 0.4rem 1.2rem !important;
+  font-weight: 500 !important;
+  font-size: 14px !important;
+  color: white !important;
+}
+
+.custom-dialog-button:hover {
+  background-color: #4338ca !important; /* indigo-700 */
+}
+
 
 
 .continue-highlight {
@@ -566,7 +616,7 @@ svg.lucide.lucide-monitor-play-icon.h-4.w-4.stroke-1.mr-2
   display: block;
   margin: 16px 0 16px 32px;
   padding: 8px 16px;
-  background-color: #4f46e5;
+  background-color: #ff4602;
   color: #fff;
   border-radius: 6px;
   text-align: center;
@@ -703,7 +753,7 @@ svg.lucide.lucide-monitor-play-icon.h-4.w-4.stroke-1.mr-2
   display: block;
   margin: 16px 0 16px 32px;
   padding: 8px 16px;
-  background-color: #4f46e5;
+  background-color: #ff4602;
   color: #fff;
   border-radius: 6px;
   text-align: center;
