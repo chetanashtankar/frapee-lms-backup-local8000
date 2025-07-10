@@ -1,5 +1,4 @@
 /* /home/chetan/frappe-bench/apps/lms/frontend/src/pages/FoundationCourses.vue */
-
 <template>
 	<div class="certification-page">
 		<h1 class="page-title">Courses</h1>
@@ -57,6 +56,10 @@
 			</div>
 
 		</div>
+		<!-- Footer -->
+		<footer class="footer">
+			<p class="copyright">Copyright © 2025 | EvoluteIQ LMS</p>
+		</footer>
 	</div>
 </template>
 <script>
@@ -192,6 +195,21 @@ export default {
 
 
 <style scoped>
+
+.footer {
+	margin-top: 40px;
+	text-align: center;
+	padding: 20px;
+	color: #666;
+    font-size: 14px;
+    border-top: 2px solid #f1f1f1;
+}
+
+.copyright {
+	margin: 0;
+}
+
+
 .certification-page {
 	padding: 5rem 1.25rem 1.25rem 1.25rem;
 }
@@ -220,7 +238,9 @@ export default {
 }
 
 .cert-card:hover {
-	transform: translateY(-4px);
+	transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .15);
+    border-color: #ff6b35;
 }
 
 /* Coming Soon Cards Styling */
