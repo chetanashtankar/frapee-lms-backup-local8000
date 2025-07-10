@@ -36,63 +36,28 @@
 
 
         <!-- Accordion Header -->
-       <DisclosureButton
-			:class="[
-				'accordion-header mb-4',
-				!isChapterUnlocked(index) ? 'locked-chapter' : ''
-			]"
-			@click="handleChapterClick(index, close)"
-			>
+<DisclosureButton
+  :class="[
+    'accordion-header mb-4',
+    !isChapterUnlocked(index) ? 'locked-chapter' : ''
+  ]"
+  @click="handleChapterClick(index, close)"
+>
+  <div
+    class="chapter-title"
+    @click="redirectToChapter(chapter, index)"
+  >
+    {{ chapter.title }}
+  </div>
 
+  <div class="expand-button">
+    <span>{{ open ? 'Collapse' : 'Expand' }}</span>
+    <ChevronRight
+      :class="['chevron-icon', { open }]"
+    />
+  </div>
+</DisclosureButton>
 
-          <ChevronRight
-			:class="{
-				'chevron-icon': true,
-				'open': open,
-				'hidden': chapter.is_scorm_package,
-			}"
-			/>
-
-
-         <div
-			class="chapter-title flex items-center gap-2"
-			@click="redirectToChapter(chapter, index)"
-			>
-
-			{{ chapter.title }}
-			<span
-				v-if="getChapterStatus(chapter) === 'complete'"
-				class="text-green-600 text-xs font-medium px-2 py-0.5 bg-green-100 rounded"
-			>
-				Completed
-			</span>
-
-			<span
-				v-else-if="getChapterStatus(chapter) === 'in-progress'"
-				class="text-yellow-500 text-xs font-medium px-2 py-0.5 bg-yellow-100 rounded"
-			>
-				In Progress
-			</span>
-			</div>
-
-
-          <div class="action-icons">
-            <Tooltip :text="__('Edit Chapter')" placement="bottom">
-              <FilePenLine
-                v-if="allowEdit"
-                @click.prevent="openChapterModal(chapter)"
-                class="h-4 w-4 text-ink-gray-9 invisible group-hover:visible"
-              />
-            </Tooltip>
-            <Tooltip :text="__('Delete Chapter')" placement="bottom">
-              <Trash2
-                v-if="allowEdit"
-                @click.prevent="trashChapter(chapter.name)"
-                class="h-4 w-4 text-ink-red-3 invisible group-hover:visible"
-              />
-            </Tooltip>
-          </div>
-        </DisclosureButton>
 
         <!-- Accordion Panel -->
         <DisclosurePanel v-if="!chapter.is_scorm_package">
@@ -555,16 +520,18 @@ svg.lucide.lucide-monitor-play-icon.h-4.w-4.stroke-1.mr-2
 
 
 .accordion-header {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  padding: 12px 16px;
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-  margin-bottom: 16px;
-  transition: background-color 0.2s ease, box-shadow 0.2s ease;
-  cursor: pointer;
+    display: flex;
+    width: 100%;
+    padding: 12px 16px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px #00000014;
+    margin-bottom: 16px;
+    transition: background-color .2s ease, box-shadow .2s ease;
+    cursor: pointer;
+    flex-direction: row;
+    align-content: stretch;
+    justify-content: space-between;
 }
 
 .accordion-header:hover {
@@ -572,10 +539,30 @@ svg.lucide.lucide-monitor-play-icon.h-4.w-4.stroke-1.mr-2
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
 }
 
+.expand-button {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    border: 2px solid #ff4602;
+    border-radius: 9999px;
+    background-color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    color: #ff4602;
+    cursor: pointer;
+    transition: background-color .2s ease, border-color .2s ease;
+}
+
+.expand-button:hover {
+  background-color: #f9fafb;
+  border-color: #ff4602;
+}
+
 .chevron-icon {
-  width: 16px;
-  height: 16px;
-  stroke: #4b5563;
+  width: 20px;
+  height: 20px;
+  stroke: #ff4602;
   transition: transform 0.3s ease;
 }
 
@@ -641,17 +628,7 @@ svg.lucide.lucide-monitor-play-icon.h-4.w-4.stroke-1.mr-2
 }
 
 /* Accordion Header (DisclosureButton) */
-.accordion-header {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  padding: 12px;
-  cursor: pointer;
-  border-bottom: 1px solid #e2e7ed;
-  background-color: #fff;
-  transition: background-color 0.2s ease;
-  border-radius: 6px;
-}
+
 
 .accordion-header:last-child {
   border-bottom: none;
@@ -662,12 +639,7 @@ svg.lucide.lucide-monitor-play-icon.h-4.w-4.stroke-1.mr-2
 }
 
 /* Chevron Icon Rotation */
-.chevron-icon {
-  width: 16px;
-  height: 16px;
-  stroke: #4b5563;
-  transition: transform 0.3s ease;
-}
+
 
 .chevron-icon.open {
   transform: rotate(90deg);
