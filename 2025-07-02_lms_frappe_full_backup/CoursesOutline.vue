@@ -829,7 +829,7 @@ button.ml-2 {
 
 /* Lesson Item */
 .accordion-lesson {
-  padding: 10px 16px 10px 32px;
+  
   border-bottom: 1px solid #e5e7eb;
   background-color: #fff;
   transition: background-color 0.2s ease;
