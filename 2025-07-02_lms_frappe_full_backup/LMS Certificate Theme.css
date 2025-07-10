@@ -8,6 +8,9 @@
 //files/certificate.png
 
 //files/certificate.png
+//files/certificate.png
+
+//files/certificate.png
 
 document.body.innerHTML = `
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -2257,7 +2260,10 @@ let currentSlide = 0;
 
 
 
-/*  Css*/
+		/*======================================================*/
+
+
+		/*  Courses In Header SVG Css*/
 
 .menu-item-courses {
     position: relative;
@@ -5563,6 +5569,12 @@ button.btn.btn-sm.btn-primary.btn-block.btn-login:hover {
 
     justify-content: center;
     align-items: center;
+      /* semi-transparent dark background */
+  background: rgba(0, 0, 0, 0.4);
+
+  /* this applies the blur to whatever is behind the overlay */
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px); /* Safari support */
 
 }
 
@@ -7301,6 +7313,9 @@ body .page-content-wrapper {
     transition: all 0.3s ease;
     border: 2px solid #e0e0e0;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .path-card:hover {
@@ -7347,6 +7362,7 @@ body .page-content-wrapper {
     color: #666;
     line-height: 1.5;
     margin-bottom: 20px;
+    flex-grow: 1;
 }
 
 .card-button {
@@ -7360,6 +7376,7 @@ body .page-content-wrapper {
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s ease;
+     margin-top: auto;
 }
 
 .card-button:hover {
@@ -7478,6 +7495,7 @@ body .page-content-wrapper {
     color: #666;
     line-height: 1.5;
     margin-bottom: 20px;
+    flex-grow: 1;
 }
 
 .card-button {
@@ -7491,6 +7509,7 @@ body .page-content-wrapper {
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s ease;
+     margin-top: auto;
 }
 
 .card-button:hover {
