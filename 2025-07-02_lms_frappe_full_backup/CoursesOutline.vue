@@ -19,72 +19,64 @@
         {{ __('Add Chapter') }}
       </Button>
 
-	  <Button
-	size="sm"
-	class="expand-button"
-	v-if="outline.data?.length"
-	@click="toggleExpandAll"
-	>
-	{{ expandAll ? __('Collapse All') : __('Expand All') }}
-	</Button>
-
-
+      <Button
+        size="sm"
+        class="expand-button"
+        v-if="outline.data?.length"
+        @click="toggleExpandAll"
+      >
+        {{ expandAll ? __('Collapse All') : __('Expand All') }}
+      </Button>
     </div>
 
     <!-- Accordion Container -->
     <div
-  :class="{
-    'accordion-container': showOutline && outline.data?.length,
-  }"
->
-
+      :class="{
+        'accordion-container': showOutline && outline.data?.length,
+      }"
+    >
       <Disclosure
-			as="div"
-			v-slot="{ open, close }"
-			v-for="(chapter, index) in outline.data"
-			:key="expandAll + '-' + chapter.name"
-  			:default-open="expandAll"
-			>
-
-
-
+        as="div"
+        v-slot="{ open, close }"
+        v-for="(chapter, index) in outline.data"
+        :key="expandAll + '-' + chapter.name"
+        :default-open="expandAll"
+      >
         <!-- Accordion Header -->
-<DisclosureButton
-  :class="[
-    'accordion-header mb-4',
-    !isChapterUnlocked(index) ? 'locked-chapter' : ''
-  ]"
- @click="(event) => handleChapterClick(event, chapter, index, close)"
+        <DisclosureButton
+          :class="[
+            'accordion-header mb-4',
+            !isChapterUnlocked(index) ? 'locked-chapter' : ''
+          ]"
+          @click="(event) => handleChapterClick(event, chapter, index, close)"
+        >
+          <div
+            class="chapter-title"
+            @click="redirectToChapter(chapter, index)"
+          >
+            {{ chapter.title }}
+            <span
+              v-if="getChapterStatus(chapter) === 'complete'"
+              class="text-green-600 text-xs font-medium px-2 py-0.5 bg-green-100 rounded"
+            >
+              Completed
+            </span>
 
->
-  <div
-    class="chapter-title"
-    @click="redirectToChapter(chapter, index)"
-	>
-   {{ chapter.title }}
-      <span
-        v-if="getChapterStatus(chapter) === 'complete'"
-        class="text-green-600 text-xs font-medium px-2 py-0.5 bg-green-100 rounded"
-      >
-        Completed
-      </span>
- 
-      <span
-        v-else-if="getChapterStatus(chapter) === 'in-progress'"
-        class="text-yellow-500 text-xs font-medium px-2 py-0.5 bg-yellow-100 rounded"
-      >
-        In Progress
-      </span>
-  </div>
+            <span
+              v-else-if="getChapterStatus(chapter) === 'in-progress'"
+              class="text-yellow-500 text-xs font-medium px-2 py-0.5 bg-yellow-100 rounded"
+            >
+              In Progress
+            </span>
+          </div>
 
-  <div class="expand-button">
-    <span>{{ open ? 'Collapse' : 'Expand' }}</span>
-    <ChevronRight
-      :class="['chevron-icon', { open }]"
-    />
-  </div>
-</DisclosureButton>
-
+          <div class="expand-button">
+            <span>{{ open ? 'Collapse' : 'Expand' }}</span>
+            <ChevronRight
+              :class="['chevron-icon', { open }]"
+            />
+          </div>
+        </DisclosureButton>
 
         <!-- Accordion Panel -->
         <DisclosurePanel v-if="!chapter.is_scorm_package">
@@ -98,58 +90,55 @@
             :data-chapter="chapter.name"
           >
             <template #item="{ element: lesson }">
-             <div
-			class="accordion-lesson"
-			:class="{
-				'active-lesson': isActiveLesson(lesson.number),
-				'continue-highlight': isContinueLesson(chapter, lesson)
-			}"
-			>
+              <div
+                class="accordion-lesson"
+                :class="{
+                  'active-lesson': isActiveLesson(lesson.number),
+                  'continue-highlight': isContinueLesson(chapter, lesson),
+                  'locked-lesson': !isChapterUnlocked(index)
+                }"
+              >
+                <div @click="handleLessonClick(chapter, index, lesson)">
+                  <div class="flex items-center justify-between text-sm leading-5 group w-full">
+                    <!-- LEFT side -->
+                    <div class="flex items-center">
+                      <MonitorPlay
+                        v-if="lesson.icon === 'icon-youtube'"
+                        class="h-4 w-4 stroke-1 mr-2"
+                      />
+                      <HelpCircle
+                        v-else-if="lesson.icon === 'icon-quiz'"
+                        class="h-4 w-4 stroke-1 mr-2"
+                      />
+                      <FileText
+                        v-else-if="lesson.icon === 'icon-list'"
+                        class="h-4 w-4 text-ink-gray-9 stroke-1 mr-2"
+                      />
+                      <span>{{ lesson.title }}</span>
+                    </div>
 
-
-
-                <router-link
-                  :to="{
-                    name: allowEdit ? 'LessonForm' : 'Lesson',
-                    params: {
-                      courseName: courseName,
-                      chapterNumber: lesson.number.split('.')[0],
-                      lessonNumber: lesson.number.split('.')[1]
-                    }
-                  }"
-                >
-                  <div class="flex items-center text-sm leading-5 group">
-                    <MonitorPlay
-                      v-if="lesson.icon === 'icon-youtube'"
-                      class="h-4 w-4 stroke-1 mr-2"
-                    />
-                    <HelpCircle
-                      v-else-if="lesson.icon === 'icon-quiz'"
-                      class="h-4 w-4 stroke-1 mr-2"
-                    />
-                    <FileText
-                      v-else-if="lesson.icon === 'icon-list'"
-                      class="h-4 w-4 text-ink-gray-9 stroke-1 mr-2"
-                    />
-                    {{ lesson.title }}
-                    <Trash2
-                      v-if="allowEdit"
-                      @click.prevent="trashLesson(lesson.name, chapter.name)"
-                      class="h-4 w-4 text-ink-red-3 ml-auto invisible group-hover:visible"
-                    />
-                    <Check
-                      v-if="lesson.is_complete"
-                      :stroke-width="3"
-						class="h-4 w-4 text-green-500 ml-2"
-                    />
+                    <!-- RIGHT side -->
+                    <div class="flex items-center space-x-2">
+                      <Trash2
+                        v-if="allowEdit"
+                        @click.prevent="trashLesson(lesson.name, chapter.name)"
+                        class="h-4 w-4 text-ink-red-3 invisible group-hover:visible"
+                      />
+                      <Check
+                        v-if="lesson.is_complete && user.data"
+                        :stroke-width="3"
+                        class="h-4 w-4 text-green-500"
+                      />
+                    </div>
                   </div>
-                </router-link>
+                </div>
               </div>
             </template>
           </Draggable>
+
           <div v-if="allowEdit">
-            <router-link class="add-lesson-button"
-              v-if="!chapter.is_scorm_package"
+            <router-link
+              class="add-lesson-button"
               :to="{
                 name: 'LessonForm',
                 params: {
@@ -176,9 +165,8 @@
     :course="courseName"
     :chapterDetail="getCurrentChapter()"
   />
-
-
 </template>
+
 
 <script setup>
 import { Button, createResource, Tooltip, toast } from 'frappe-ui'
@@ -193,6 +181,7 @@ import {
 	HelpCircle,
 	MonitorPlay,
 	Trash2,
+    Lock,
 } from 'lucide-vue-next'
 import { useRoute, useRouter } from 'vue-router'
 import ChapterModal from '@/components/Modals/ChapterModal.vue'
@@ -410,6 +399,57 @@ watch(outline, () => {
 })
 
 
+const handleLessonClick = (chapter, chapterIndex, lesson) => {
+  // If chapter is locked, show the same dialog and block
+  if (!isChapterUnlocked(chapterIndex)) {
+    $dialog({
+      title: __('Lesson Completion Required'),
+      message: __('You need to complete the previous lesson before proceeding to this one'),
+      actions: [
+        {
+          label: __('Got It'),
+          theme: 'primary',
+          variant: 'solid',
+          class: 'custom-dialog-button'
+        }
+      ],
+      class: 'custom-dialog-box'
+    })
+    return
+  }
+
+  // Only allow view if not editing
+  if (props.allowEdit) {
+    openLessonModal(lesson, chapter) // optional for editing
+    return
+  }
+
+  // Check if SCORM chapter — use SCORM view
+  if (chapter.is_scorm_package) {
+    if (!user.data) {
+      toast.success(__('Please enroll for this course to view this lesson'))
+      return
+    }
+    router.push({
+      name: 'SCORMChapter',
+      params: {
+        courseName: props.courseName,
+        chapterName: chapter.name,
+      },
+    })
+    return
+  }
+
+  // Normal lesson redirect
+  router.push({
+    name: 'Lesson',
+    params: {
+      courseName: props.courseName,
+      chapterNumber: lesson.number.split('.')[0],
+      lessonNumber: lesson.number.split('.')[1],
+    },
+  })
+}
 
 
 
@@ -423,7 +463,7 @@ const handleChapterClick = (event, chapter, index, closeDisclosure) => {
     event.stopPropagation()
 
     $dialog({
-      title: __('Chapter Locked'),
+      title: __('Chapter Completion Required'),
       message: __('Please complete the previous chapter before accessing this one.'),
       actions: [
         {
@@ -580,8 +620,13 @@ svg.lucide.lucide-monitor-play-icon.h-4.w-4.stroke-1.mr-2
 
 .locked-chapter {
   opacity: 0.6;
- 
 }
+
+.locked-lesson {
+  opacity: 0.5;
+}
+
+
 button.ml-2 {
   margin-left: 0.5rem;
 }
@@ -700,7 +745,7 @@ button.ml-2 {
 }
 
 .accordion-lesson {
-  padding: 10px 16px 10px 32px;
+  padding: 10px 32px 10px 32px;
   border-bottom: 1px solid #e5e7eb;
   background-color: #fff;
   transition: background-color 0.2s ease;
