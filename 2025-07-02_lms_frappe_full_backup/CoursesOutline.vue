@@ -61,7 +61,20 @@
     class="chapter-title"
     @click="redirectToChapter(chapter, index)"
 	>
-    {{ chapter.title }}
+   {{ chapter.title }}
+      <span
+        v-if="getChapterStatus(chapter) === 'complete'"
+        class="text-green-600 text-xs font-medium px-2 py-0.5 bg-green-100 rounded"
+      >
+        Completed
+      </span>
+ 
+      <span
+        v-else-if="getChapterStatus(chapter) === 'in-progress'"
+        class="text-yellow-500 text-xs font-medium px-2 py-0.5 bg-yellow-100 rounded"
+      >
+        In Progress
+      </span>
   </div>
 
   <div class="expand-button">
