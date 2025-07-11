@@ -1,5 +1,6 @@
 /* /home/chetan/frappe-bench/apps/lms/frontend/src/pages/FoundationCourses.vue */
 <template>
+	  <div class="page-wrapper">
 	<div class="certification-page">
 		<h1 class="page-title">Courses</h1>
 
@@ -56,11 +57,20 @@
 			</div>
 
 		</div>
-		<!-- Footer -->
-		<footer class="footer">
-			<p class="copyright">Copyright © 2025 | EvoluteIQ LMS</p>
-		</footer>
+		
 	</div>
+	<!-- Footer -->
+		
+		<footer class="footer-section">
+				<div class="container-line">
+					<h2 class="main-heading">Enhance your automation knowledge to the next level</h2>
+
+					<h5 class="sub-heading">EIQ Platform - Intelligent Business Automation and beyond</h5>
+					
+					<p class="copyright">Copyright © 2025 | EvoluteIQ LMS</p>
+				</div>
+			</footer>
+			</div>
 </template>
 <script>
 import ProgressBar from '@/components/ProgressBar.vue';
@@ -196,17 +206,153 @@ export default {
 
 <style scoped>
 
-.footer {
-	margin-top: 40px;
-	text-align: center;
-	padding: 20px;
-	color: #666;
-    font-size: 14px;
-    border-top: 2px solid #f1f1f1;
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* ensures full height of viewport */
+}
+
+.certification-page {
+  flex-grow: 1; /* this makes the main content stretch to fill space */
+}
+
+/* Existing footer styles */
+.footer-section {
+  background-color: #083279;
+  padding: 60px 0;
+  text-align: center;
+}
+
+/* Update this class name to match your template */
+.container-line {
+  max-width: 70%;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.main-heading {
+  font-size: 2.5rem;
+  font-weight: 600;
+  font-style: normal;
+  line-height: 1.2;
+  letter-spacing: 0px;
+  word-spacing: 0px;
+  color: #FFFFFF;
+  margin-bottom: 20px;
+  font-family: "Roboto", Sans-serif;
+}
+
+.sub-heading {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #FFFFFF;
+  line-height: 1.2em;
+  margin-bottom: 30px;
 }
 
 .copyright {
-	margin: 0;
+  font-size: 14px;
+  color: #fff;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #ddd;
+}
+
+
+.footer-section {
+    background-color: #083279;
+    padding: 60px 0;
+    text-align: center;
+}
+
+.container {
+    max-width: 70%;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.main-heading {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+    line-height: 1.2;
+    font-family: "Roboto", Sans-serif;
+    font-size: 33px;
+    font-weight: 600;
+    font-style: normal;
+    line-height: 1px;
+    letter-spacing: 0px;
+    word-spacing: 0px;
+    color: #FFFFFF;
+}
+
+.sub-heading {
+    font-size: 1.25rem;
+    /* color: #666; */
+    margin-bottom: 30px;
+    font-weight: 500;
+    color: #FFFFFF;
+    line-height: 1.2em;
+}
+
+.cta-button {
+    display: inline-block;
+    background-color: #007cba;
+    color: white;
+    padding: 12px 30px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+    margin-bottom: 40px;
+    background-color: #FFFFFF;
+    fill: #0D68AE;
+    color: #0D68AE;
+    font-size: 0.9375rem 15px;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+    border-bottom-left-radius: 50px;
+    padding-top: 15px;
+    padding-right: 40px;
+    padding-bottom: 16px;
+    padding-left: 40px;
+    display: inline-block;
+    /* background: #ff6b6b; */
+    color: white;
+    padding: 15px 30px;
+    text-decoration: none;
+    /* border-radius: 50px; */
+    font-weight: bold;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    /* box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3); */
+    background-color: #ff6b35;
+    /* background: transparent; */
+    /* color: inherit; */
+    text-decoration: none;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    padding-top: 15px;
+    padding-right: 40px;
+    padding-bottom: 16px;
+    padding-left: 40px;
+}
+
+/* .cta-button:hover {
+    background-color: #005a87;
+} */
+
+.copyright {
+    font-size: 14px;
+    color: #fff;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
 }
 
 
@@ -263,6 +409,7 @@ export default {
 
 .cert-card.coming-soon:hover {
 	transform: none;
+	border-color: inherit; 
 }
 
 .cert-card.coming-soon .cert-image {
