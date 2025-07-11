@@ -1,6 +1,6 @@
 /* /home/chetan/frappe-bench/apps/lms/frontend/src/pages/FoundationCourses.vue */
 <template>
-	  <div class="page-wrapper">
+   <div class="page-wrapper">
 	<div class="certification-page">
 		<h1 class="page-title">Courses</h1>
 
@@ -59,18 +59,16 @@
 		</div>
 		
 	</div>
-	<!-- Footer -->
-		
-		<footer class="footer-section">
-				<div class="container-line">
-					<h2 class="main-heading">Enhance your automation knowledge to the next level</h2>
+	<footer class="footer-section">
+        <div class="container-line">
+            <h2 class="main-heading">Enhance your automation knowledge to the next level</h2>
 
-					<h5 class="sub-heading">EIQ Platform - Intelligent Business Automation and beyond</h5>
-					
-					<p class="copyright">Copyright © 2025 | EvoluteIQ LMS</p>
-				</div>
-			</footer>
-			</div>
+            <h5 class="sub-heading">EIQ Platform - Intelligent Business Automation and beyond</h5>
+            
+            <p class="copyright">Copyright © 2025 | EvoluteIQ LMS</p>
+        </div>
+    </footer>
+    </div>
 </template>
 <script>
 import ProgressBar from '@/components/ProgressBar.vue';
@@ -205,7 +203,6 @@ export default {
 
 
 <style scoped>
-
 .page-wrapper {
   display: flex;
   flex-direction: column;
@@ -231,7 +228,7 @@ export default {
 }
 
 .main-heading {
-  font-size: 2.5rem;
+  font-size: 2.0rem;
   font-weight: 600;
   font-style: normal;
   line-height: 1.2;
@@ -258,7 +255,6 @@ export default {
   border-top: 1px solid #ddd;
 }
 
-
 .footer-section {
     background-color: #083279;
     padding: 60px 0;
@@ -271,21 +267,6 @@ export default {
     padding: 0 20px;
 }
 
-.main-heading {
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 20px;
-    line-height: 1.2;
-    font-family: "Roboto", Sans-serif;
-    font-size: 33px;
-    font-weight: 600;
-    font-style: normal;
-    line-height: 1px;
-    letter-spacing: 0px;
-    word-spacing: 0px;
-    color: #FFFFFF;
-}
 
 .sub-heading {
     font-size: 1.25rem;
