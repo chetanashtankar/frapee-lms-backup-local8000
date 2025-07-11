@@ -10,8 +10,8 @@
 			<div class="cert-card">
 				<div class="cert-image java-beginner"></div>
 				<div class="cert-info">
-					<h2 class="cert-title">Foundation Certification</h2>
-					<p class="cert-description">Master the fundamentals of intelligent business automation with our Foundation Certification Program. The EIQ Foundation equips you with essential platform skills.</p>
+					<h2 class="cert-title">Consultant Certification</h2>
+					<p class="cert-description">Master the fundamentals of intelligent business automation with our Consultant Certification Program. The EIQ Foundation equips you with essential platform skills.</p>
 					<!-- Progress Bar here -->
 					<div class="progress-bar-wrapper">
 					<template v-if="foundationProgress > 0">
@@ -83,7 +83,7 @@ export default {
         {
           id: 1,
           course_id: 'eiq-platform-consultant-certification',
-          title: 'Foundation Certification',
+          title: 'Consultant Certification',
           description: 'Master the fundamentals...',
           image: '/files/certification1.jpeg',
           completedLessons: 0,
@@ -135,6 +135,7 @@ export default {
 
 
 <style scoped>
+
 .page-wrapper {
   display: flex;
   flex-direction: column;
@@ -160,7 +161,7 @@ export default {
 }
 
 .main-heading {
-  font-size: 2.5rem;
+  font-size: 2.0rem;
   font-weight: 600;
   font-style: normal;
   line-height: 1.2;
@@ -187,6 +188,7 @@ export default {
   border-top: 1px solid #ddd;
 }
 
+
 .footer-section {
     background-color: #083279;
     padding: 60px 0;
@@ -199,21 +201,7 @@ export default {
     padding: 0 20px;
 }
 
-.main-heading {
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 20px;
-    line-height: 1.2;
-    font-family: "Roboto", Sans-serif;
-    font-size: 33px;
-    font-weight: 600;
-    font-style: normal;
-    line-height: 1px;
-    letter-spacing: 0px;
-    word-spacing: 0px;
-    color: #FFFFFF;
-}
+
 
 .sub-heading {
     font-size: 1.25rem;
