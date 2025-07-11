@@ -2,6 +2,7 @@
 
     http://localhost:8000/app/website-theme/LMS%20Certificate%20Theme
 */
+
 //files/certificate.png
 
 //files/certificate.png
@@ -360,7 +361,7 @@ document.body.innerHTML = `
 <div class="section" id="learning-paths">
   <h1 class="section-title">Learning Paths</h1>
   <div class="learning-paths-grid">
-    <div class="path-card">
+    <div class="path-card animate-on-scroll">
       <div class="card-image learning-foundation-img"></div>
       <h3 class="card-title">Foundation Course</h3>
       <p class="card-description">Master the fundamentals of intelligent business automation with our Foundation Course. The EIQ Foundation equips you with essential platform skills.</p>
@@ -370,28 +371,28 @@ document.body.innerHTML = `
   Start Course </button>
     </div>
 
-    <div class="path-card coming-soon">
+    <div class="path-card coming-soon animate-on-scroll">
       <div class="notification-bell"></div>
       <div class="card-image learning-citizen-developer-img"></div>
       <h3 class="card-title">Citizen Developer</h3>
       <p class="card-description">Build powerful applications using our intuitive no-code tools. Learn to automate workflows and integrate systems—no programming required</p>
-      <button class="card-button animated">Coming Soon...</button>
+      <button class="card-button animated">Coming Soon</button>
     </div>
 
-    <div class="path-card coming-soon">
+    <div class="path-card coming-soon animate-on-scroll">
       <div class="notification-bell"></div>
       <div class="card-image learning-developer-img"></div>
       <h3 class="card-title">Developer</h3>
       <p class="card-description">Advance your skills with low-code and pro-code features. Learn to create robust apps using JavaScript, Python, APIs, and platform scripting.</p>
-      <button class="card-button animated">Coming Soon...</button>
+      <button class="card-button animated">Coming Soon</button>
     </div>
 
-    <div class="path-card coming-soon">
+    <div class="path-card coming-soon animate-on-scroll">
       <div class="notification-bell"></div>
       <div class="card-image learning-architect-img"></div>
       <h3 class="card-title">Architect</h3>
       <p class="card-description">Design scalable, secure enterprise solutions using the full EIQ stack. Master architecture, integrations, and AI-driven automation.</p>
-      <button class="card-button animated">Coming Soon...</button>
+      <button class="card-button animated">Coming Soon</button>
     </div>
   </div>
 </div>
@@ -401,7 +402,7 @@ document.body.innerHTML = `
 <div class="section">
   <h1 class="section-title">Certification Paths</h1>
   <div class="certification-paths-grid">
-    <div class="path-card">
+    <div class="path-card animate-on-scroll">
       <div class="card-image cert-foundation-img"></div>
       <h3 class="card-title">Foundation Certification</h3>
       <p class="card-description">Master the fundamentals of intelligent business automation with our Foundation Certification. The EIQ Foundation equips you with essential platform skills.</p>
@@ -409,7 +410,7 @@ document.body.innerHTML = `
     </div>
 
     <!-- Card 2: Citizen Developer (Coming Soon) -->
-                <div class="path-card">
+                <div class="path-card animate-on-scroll">
                     <div class="card-image leadership-program-img"></div>
                     <h3 class="card-title">Consultant Certification</h3>
                     <p class="card-description">The EIQ Platform Consultant Certification validates a professional’s expertise in designing, building, and managing intelligent automation solutions using the EIQ Platform</p>
@@ -417,29 +418,29 @@ document.body.innerHTML = `
                 </div>
 
                 <!-- Card 3: Developer (Coming Soon) -->
-                <div class="path-card coming-soon">
+                <div class="path-card coming-soon animate-on-scroll">
                     <div class="card-image developer-img"></div>
                     <h3 class="card-title">Developer</h3>
                     <p class="card-description">Dive into the latest information and AI fundamentals. Perfect for beginners or those looking to solidify their foundational knowledge. Start paving your path to success today!</p>
-                    <button class="card-button animated">Coming Soon...</button>
+                    <button class="card-button animated">Coming Soon</button>
                 </div>
 
                 <!-- Second Row: 2 Cards (Centered) -->
                 <div class="second-row">
                     <!-- Card 4: Architect (Coming Soon) -->
-                    <div class="path-card coming-soon">
+                    <div class="path-card coming-soon animate-on-scroll">
                         <div class="card-image architect-img"></div>
                         <h3 class="card-title">Architect</h3>
                         <p class="card-description">Dive into the latest information and AI fundamentals. Perfect for beginners or those looking to solidify their foundational knowledge. Start paving your path to success today!</p>
-                        <button class="card-button animated">Coming Soon...</button>
+                        <button class="card-button animated">Coming Soon</button>
                     </div>
 
                     <!-- Card 5: Expert (Coming Soon) -->
-                    <div class="path-card coming-soon">
+                    <div class="path-card coming-soon animate-on-scroll">
                         <div class="card-image expert-img"></div>
                         <h3 class="card-title">Expert</h3>
                         <p class="card-description">Dive into the latest information and AI fundamentals. Perfect for beginners or those looking to solidify their foundational knowledge. Start paving your path to success today!</p>
-                        <button class="card-button animated">Coming Soon...</button>
+                        <button class="card-button animated">Coming Soon</button>
                     </div>
                 </div>
     
@@ -1668,6 +1669,8 @@ setTimeout(() => {
       const target = document.getElementById('learning-paths');
       if (target) {
         target.scrollIntoView({ behavior: 'smooth' });
+        
+        
       }
     });
   });
@@ -1796,11 +1799,11 @@ function updateCourseButtonsForLoggedInUser() {
       const btnText = button.textContent.trim().toLowerCase();
 
       if (btnText === 'start course') {
-        button.textContent = 'Continue...';
+        button.textContent = 'Continue';
       }
 
       if (btnText === 'get certified') {
-        button.textContent = 'Continue...';
+        button.textContent = 'Continue';
       }
 
      
@@ -2253,13 +2256,33 @@ let currentSlide = 0;
                 }
             }
         }
+        
+        
+        
+        /* ================================================================================== */
+        
+       
+       function initScrollAnimations() {
+    var elements = document.querySelectorAll(".animate-on-scroll");
 
+    var observer = new IntersectionObserver(function (entries) {
+      for (var i = 0; i < entries.length; i++) {
+        if (entries[i].isIntersecting) {
+          entries[i].target.classList.add("in-view");
+          // observer.unobserve(entries[i].target); // Uncomment for one-time animation
+        }
+      }
+    }, { threshold: 0.1 });
 
+    for (var j = 0; j < elements.length; j++) {
+      observer.observe(elements[j]);
+    }
+  }
 
-
-/*====================================================================================================================*/
-
-		/*  Courses In Header SVG Css*/
+  // Run immediately (if script is at bottom of HTML)
+  initScrollAnimations();
+       
+/*===================================================== css ====================================================*/
 /*  Courses In Header SVG Css*/
 
 .menu-item-courses {
@@ -3008,6 +3031,9 @@ body {
 
 .slide-button:hover {
 
+    background: linear-gradient(135deg, #cfcfcf, #ff6b35);
+    background-size: 200% 200%;
+    animation: shimmer 2s ease-in-out infinite;
     transform: translateY(-2px);
 
 }
@@ -7290,6 +7316,19 @@ body .page-content-wrapper {
     animation: fadeInDown 1s ease-out forwards;
 }
 
+
+.section-title.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(-30px);
+   transition: all 1.5s ease; /* Slowed down */
+}
+
+.section-title.animate-on-scroll.in-view {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
 .section {
     margin-bottom: 80px;
     margin-top: 50px;
@@ -7319,7 +7358,7 @@ body .page-content-wrapper {
     overflow: hidden;
     opacity: 0;
     transform: translateY(50px) scale(0.95);
-    animation: cardSlideIn 0.8s ease-out forwards;
+    //animation: cardSlideIn 0.8s ease-out forwards;
 }
 
 
@@ -7380,7 +7419,7 @@ body .page-content-wrapper {
 .path-card.animate-on-scroll {
     opacity: 0;
     transform: translateY(50px);
-    transition: all 0.6s ease;
+    transition: all 1.5s ease;
 }
 
 .path-card.animate-on-scroll.in-view {
@@ -7496,7 +7535,7 @@ body .page-content-wrapper {
     overflow: hidden;
     opacity: 0;
     transform: translateY(50px) scale(0.95);
-    animation: cardSlideIn 0.8s ease-out forwards;
+    //animation: cardSlideIn 0.8s ease-out forwards;
 }
 
 /* Staggered animation delays for cards */
@@ -7918,4 +7957,5 @@ label {
   color: white;
   text-align: center;
 }
+
 
