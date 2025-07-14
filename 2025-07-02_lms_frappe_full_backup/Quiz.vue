@@ -1,5 +1,4 @@
 /* /home/chetan/frappe-bench/apps/lms/frontend/src/components/Quiz.vue */
-
 <template>
 	<div v-if="quiz.data">
 		<!-- Intro Section -->
@@ -401,6 +400,9 @@ watch(
   () => quiz.data,
   () => {
     if (quiz.data) {
+		
+		localStorage.setItem('quizTitle', quiz.data.title);
+    console.log('✅ Saved quizTitle to localStorage:', quiz.data.title);
       populateQuestions();
 	
 	  let savedAnswers = JSON.parse(localStorage.getItem(`${quiz.data.title}_${user.data?.name}`) || '[]');
@@ -478,13 +480,14 @@ watch(
 
 
 const startQuiz = () => {
-  let quizData = JSON.parse(localStorage.getItem(quiz.data.title) || '[]')
+  let quizData = JSON.parse(localStorage.getItem(`${quiz.data.title}_${user.data.name}`) || '[]')
   if (quizData.length && quizData.length < questions.length) {
     activeQuestion.value = quizData.length + 1
     console.log(`Resuming at question ${activeQuestion.value}`)
   } else {
     activeQuestion.value = 1
-    localStorage.removeItem(quiz.data.title)
+    localStorage.removeItem(`${quiz.data.title}_${user.data.name}`)
+    localStorage.removeItem(`${quiz.data.title}_${user.data.name}-active-question`)
     console.log('Starting fresh at question 1')
   }
   if (quiz.data.duration) startTimer()
@@ -676,13 +679,6 @@ const nextQuestion = () => {
 
   saveProgressToServer();
 }
-
-
-
-
-
-
-
 
 
 
@@ -908,3 +904,4 @@ div#headlessui-disclosure-panel-v-17 {
 }
 
 </style>
+
