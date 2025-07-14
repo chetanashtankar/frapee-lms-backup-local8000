@@ -27,8 +27,8 @@
       >
         {{ expandAll ? __('Collapse All') : __('Expand All') }}
       </Button>
-    </div>
 
+    </div>
     <!-- Accordion Container -->
     <div
       :class="{
@@ -157,6 +157,24 @@
       </Disclosure>
     </div>
   </div>
+
+  <!-- NEW container for Continue Learning button -->
+    <div class="continue-learning-container" v-if="outline.data && !expandAll && getNextLessonOverall()">
+      <Button
+        size="sm"
+        @click="continueLearning"
+        class="continue-learning-button"
+      >
+        <span class="continue-learning-inner">
+          <svg class="continue-learning-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 12l2 2 4-4"></path>
+            <path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9c2.89 0 5.52 1.37 7.2 3.5"></path>
+          </svg>
+          <span class="continue-learning-text">{{ __('Continue Learning') }}</span>
+        </span>
+    </Button>
+
+    </div>
 
   <ChapterModal
     v-if="user.data"
@@ -595,9 +613,59 @@ const isContinueLesson = (chapter, lesson) => {
 }
 
 
+
+
+const getNextLessonOverall = () => {
+  debugger;
+  if (!outline.data) return null;
+
+  for (const chapter of outline.data) {
+    const nextLesson = chapter.lessons.find(lesson => !lesson.is_complete);
+    if (nextLesson) {
+      return { chapter, lesson: nextLesson };
+    }
+  }
+  return null; // All lessons complete
+};
+
+const continueLearning = () => {
+  const next = getNextLessonOverall();
+  if (!next) {
+    toast.success(__('You have completed all lessons!'));
+    return;
+  }
+
+  // Check if chapter is unlocked
+  const chapterIndex = outline.data.findIndex(c => c.name === next.chapter.name);
+  if (!isChapterUnlocked(chapterIndex)) {
+    $dialog({
+      title: __('Chapter Locked'),
+      message: __('Please complete the previous chapter before continuing learning.'),
+      actions: [{ label: __('Got It'), theme: 'primary', variant: 'solid' }],
+    });
+    return;
+  }
+
+  router.push({
+    name: 'Lesson',
+    params: {
+      courseName: props.courseName,
+      chapterNumber: next.lesson.number.split('.')[0],
+      lessonNumber: next.lesson.number.split('.')[1],
+    },
+  });
+};
+
+
+
 </script>
 
 <style>
+
+.continue-learning-container {
+    display: flex;
+    flex-direction: row-reverse;
+}
 
 svg.lucide.lucide-circle-help-icon.h-4.w-4.stroke-1.mr-2 {
     color: #ff4602 !important;
@@ -897,5 +965,84 @@ button.ml-2 {
 .add-lesson-button:hover {
   background-color: #4338ca;
 }
+
+
+
+  .continue-learning-container {
+          display: flex;
+         
+          margin: 24px 0;
+        }
+
+        .continue-learning-button {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 19px 30px;
+          background: linear-gradient(135deg, #ff4602 0%, #d73a00 100%); /* Updated background color */
+          color: white;
+          border: none;
+          border-radius: 8px;
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+          font-size: 14px; 
+          font-weight: 600;
+          text-decoration: none;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+          /* position: relative; */
+          /* overflow: hidden; */
+          display: flex;
+        }
+
+        .continue-learning-button::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+          transition: left 0.5s ease;
+        }
+
+        .continue-learning-button:hover::before {
+          left: 100%;
+        }
+
+        .continue-learning-button:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+         background: linear-gradient(135deg, #e54c1b 0%, #d73a00 100%); /* Darker shade on hover */
+        }
+
+        .continue-learning-button:active {
+          transform: translateY(0);
+          box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+        }
+
+        .continue-learning-button:focus {
+          outline: none;
+          box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.5);
+        }
+
+        .continue-learning-icon {
+          width: 20px;
+          height: 20px;
+          flex-shrink: 0;
+        }
+
+        .continue-learning-text {
+          white-space: nowrap;
+        }
+
+        .continue-learning-button span {
+            display: flex;
+            gap: inherit; /* Inherit the gap from the parent .continue-learning-button */
+            align-items: center; /* Align items horizontally */
+        }
+
+
+
 
 </style>
