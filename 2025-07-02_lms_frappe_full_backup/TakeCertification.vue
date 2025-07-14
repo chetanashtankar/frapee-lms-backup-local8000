@@ -10,8 +10,28 @@
 			<div class="cert-card">
 				<div class="cert-image java-beginner"></div>
 				<div class="cert-info">
-					<h2 class="cert-title">Consultant Certification</h2>
+					<h2 class="cert-title">Foundation Certification</h2>
 					<p class="cert-description">Master the fundamentals of intelligent business automation with our Consultant Certification Program. The EIQ Foundation equips you with essential platform skills.</p>
+					<!-- Progress Bar here -->
+					<div class="progress-bar-wrapper">
+					<template v-if="foundationProgress > 0">
+						<ProgressBar :progress="foundationProgress" />
+						<p>{{ foundationProgress }}% Complete</p>
+					</template>
+					<template v-else>
+						<p>Not Started</p>
+					</template>
+					</div>
+					
+					<button class="cert-btn" @click="startCourse">Get Certified</button>
+				</div>
+			</div>
+
+			<div class="cert-card">
+				<div class="cert-image Consultant-Certification"></div>
+				<div class="cert-info">
+					<h2 class="cert-title">Consultant Certification</h2>
+					<p class="cert-description">The EIQ Platform Consultant Certification validates a professional’s expertise in designing, building, and managing intelligent automation solutions using the EIQ Platform</p>
 					<!-- Progress Bar here -->
 					<div class="progress-bar-wrapper">
 					<template v-if="foundationProgress > 0">
@@ -27,6 +47,7 @@
 					<button class="cert-btn" @click="startCourse">Get Certified</button>
 				</div>
 			</div>
+
 
 			<div class="cert-card coming-soon">
 				<div class="cert-image java-intermediate"></div>
@@ -79,6 +100,8 @@ export default {
   data() {
     return {
       courseSlug: 'eiq-platform-consultant-certification',
+      quiz: { title: '' },
+      user: { name: '' },
       certifications: [
         {
           id: 1,
@@ -108,25 +131,59 @@ export default {
     }
   },
   mounted() {
-    const quizKey = 'eiq test quize'; // LocalStorage key for quiz answers
-    const activeQuestionKey = `${quizKey}-active-question`; // key for current question
-    const totalQuestions = 11; // ✅ Set this to your actual total
+    // ✅ Fetch CSRF Token first
+    fetch('/api/method/lms.lms.utils.get_csrf_token')
+      .then(res => res.json())
+      .then(data => {
+        const csrfToken = data.message;
+        console.log('✅ CSRF Token from server:', csrfToken);
 
-    const answersRaw = localStorage.getItem(quizKey);
-    const answered = answersRaw ? JSON.parse(answersRaw).length : 0;
+        // ✅ Now call get_user_info API with CSRF
+        return fetch('/api/method/lms.lms.api.get_user_info', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Frappe-CSRF-Token': csrfToken
+          },
+          body: JSON.stringify({})
+        });
+      })
+      .then(res => res.json())
+      .then(data => {
+        console.log('✅ User Info Response:', data);
 
-    const activeQuestion = parseInt(localStorage.getItem(activeQuestionKey), 10) || 0;
+        if (data && data.message && data.message.email) {
+          this.user.name = data.message.email;
+          console.log(`✅ User Email set to: ${this.user.name}`);
+        } else {
+          console.warn('⚠️ Email not found in response.');
+          this.user.name = '';
+        }
 
-    const progressPercentage = totalQuestions > 0
-      ? Math.round((answered / totalQuestions) * 100)
-      : 0;
+        // ✅ Hardcode quiz title
+        this.quiz.title = localStorage.getItem('quizTitle') || 'default-quiz';
 
-    console.log(`✅ Quiz Key: ${quizKey}`);
-    console.log(`🧠 Questions Answered: ${answered} / ${totalQuestions}`);
-    console.log(`📍 Current Active Question Index: ${activeQuestion}`);
-    console.log(`📊 Progress: ${progressPercentage}%`);
 
-    this.foundationProgress = isNaN(progressPercentage) ? 0 : progressPercentage;
+        // ✅ Use dynamic email in quizKey
+        const quizKey = `${this.quiz.title}_${this.user.name}`;
+        const activeQuestionKey = `${quizKey}-active-question`;
+        const totalQuestions = 11;
+
+        const activeQuestion = parseInt(localStorage.getItem(activeQuestionKey), 10) || 0;
+
+        const progressPercentage = totalQuestions > 0
+          ? Math.round((activeQuestion / totalQuestions) * 100)
+          : 0;
+
+        console.log(`✅ Quiz Key: ${quizKey}`);
+        console.log(`📍 Current Active Question Index: ${activeQuestion}`);
+        console.log(`📊 Progress: ${progressPercentage}%`);
+
+        this.foundationProgress = isNaN(progressPercentage) ? 0 : progressPercentage;
+      })
+      .catch(error => {
+        console.error('❌ Error:', error);
+      });
   }
 }
 </script>
@@ -135,7 +192,6 @@ export default {
 
 
 <style scoped>
-
 .page-wrapper {
   display: flex;
   flex-direction: column;
@@ -155,7 +211,7 @@ export default {
 
 /* Update this class name to match your template */
 .container-line {
-  max-width: 70%;
+  
   margin: 0 auto;
   padding: 0 20px;
 }
@@ -188,7 +244,6 @@ export default {
   border-top: 1px solid #ddd;
 }
 
-
 .footer-section {
     background-color: #083279;
     padding: 60px 0;
@@ -200,7 +255,6 @@ export default {
     margin: 0 auto;
     padding: 0 20px;
 }
-
 
 
 .sub-heading {
@@ -405,6 +459,10 @@ export default {
 
 .java-expert {
 	background-image: url('/files/certification4.png');
+}
+
+.Consultant-Certification{
+  background-image: url('/files/certification5.png');
 }
 
 </style>
