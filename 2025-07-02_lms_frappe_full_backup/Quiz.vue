@@ -1,3 +1,5 @@
+/* /home/chetan/frappe-bench/apps/lms/frontend/src/components/Quiz.vue */
+
 <template>
 	<div v-if="quiz.data">
 		<!-- Intro Section -->
@@ -390,7 +392,7 @@ const attempts = createResource({
 })
 
 const answeredQuestions = computed(() => {
-  const saved = JSON.parse(localStorage.getItem(quiz.data?.title) || '[]');
+  const saved = JSON.parse(localStorage.getItem(`${quiz.data?.title}_${user.data?.name}`) || '[]');
   return saved.map(q => q.question_name);
 });
 
@@ -401,8 +403,9 @@ watch(
     if (quiz.data) {
       populateQuestions();
 	
-	  let savedAnswers = JSON.parse(localStorage.getItem(quiz.data.title) || '[]');
-      let lastIndex = parseInt(localStorage.getItem(`${quiz.data.title}-active-question`) || '0');
+	  let savedAnswers = JSON.parse(localStorage.getItem(`${quiz.data.title}_${user.data?.name}`) || '[]');
+let lastIndex = parseInt(localStorage.getItem(`${quiz.data.title}_${user.data?.name}-active-question`) || '0');
+
 if (lastIndex && lastIndex > 0 && lastIndex <= questions.length) {
   activeQuestion.value = lastIndex;
   console.log(`Resuming at question ${activeQuestion.value}`);
@@ -449,7 +452,8 @@ watch(activeQuestion, (value) => {
 		currentQuestion.value = quiz.data.questions[value - 1].question
 		questionDetails.reload()
 		 // NEW: Save active question to localStorage
-    localStorage.setItem(`${quiz.data.title}-active-question`, value);
+    localStorage.setItem(`${quiz.data.title}_${user.data.name}-active-question`, value);
+
 	}
 })
 
@@ -573,14 +577,14 @@ if (!answer) {
     parsedData.push(questionData)
   }
 
-  localStorage.setItem(quiz.data.title, JSON.stringify(parsedData))
+  localStorage.setItem(`${quiz.data.title}_${user.data.name}`, JSON.stringify(parsedData))
   console.log('Saved to localStorage', parsedData)
 }
 
 
 
 const loadSavedAnswer = () => {
-  const quizDataRaw = localStorage.getItem(quiz.data?.title);
+  const quizDataRaw = localStorage.getItem(`${quiz.data?.title}_${user.data?.name}`);
   if (!quizDataRaw) return;
 
   const quizData = JSON.parse(quizDataRaw);
@@ -611,7 +615,8 @@ const loadSavedAnswer = () => {
 
 
 const saveProgressToServer = () => {
-  let quizData = localStorage.getItem(quiz.data.title)
+ let quizData = localStorage.getItem(`${quiz.data.title}_${user.data.name}`)
+
   if (!quizData) {
     console.log('No quiz data in localStorage. Nothing to save.')
     return
@@ -761,8 +766,8 @@ const resetQuiz = () => {
   selectedOptions.splice(0, selectedOptions.length, ...[0, 0, 0, 0])
   showAnswers.length = 0
   quizSubmission.reset()
-  localStorage.removeItem(quiz.data.title);
-  localStorage.removeItem(`${quiz.data.title}-active-question`);
+  localStorage.removeItem(`${quiz.data.title}_${user.data.name}`);
+localStorage.removeItem(`${quiz.data.title}_${user.data.name}-active-question`);
   populateQuestions();
   setupTimer();
 };
