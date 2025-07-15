@@ -1,94 +1,61 @@
 /*/home/chetan/frappe-bench/apps/lms/frontend/src/components/Modals/TakeCertification.vue*/
 /* /home/chetan/frappe-bench/apps/lms/frontend/src/pages/TakeCertification.vue */
 <template>
+  <div class="page-wrapper">
+    <meta name="csrf-token" content="{{ frappe.csrf_token }}">
+    <div class="certification-page">
+      <h1 class="page-title">Certifications</h1>
+      <div class="certification-grid">
+        <div
+          v-for="cert in certifications"
+          :key="cert.id"
+          :class="['cert-card', { 'coming-soon': !cert.enabled }]"
+        >
+          <div :class="['cert-image', cert.imageClass]"></div>
+          <div class="cert-info">
+            <h2 class="cert-title">{{ cert.title }}</h2>
+            <p class="cert-description">{{ cert.description }}</p>
 
- <div class="page-wrapper">
-	<meta name="csrf-token" content="{{ frappe.csrf_token }}">
-	<div class="certification-page">
-		<h1 class="page-title">Certifications</h1>
-		<div class="certification-grid">
-			<div class="cert-card">
-				<div class="cert-image java-beginner"></div>
-				<div class="cert-info">
-					<h2 class="cert-title">Foundation Certification</h2>
-					<p class="cert-description">Master the fundamentals of intelligent business automation with our Consultant Certification Program. The EIQ Foundation equips you with essential platform skills.</p>
-					<!-- Progress Bar here -->
-					<div class="progress-bar-wrapper">
-					<template v-if="foundationProgress > 0">
-						<ProgressBar :progress="foundationProgress" />
-						<p>{{ foundationProgress }}% Complete</p>
-					</template>
-					<template v-else>
-						<p>Not Started</p>
-					</template>
-					</div>
-					
-					<button class="cert-btn" @click="startCourse">Get Certified</button>
-				</div>
-			</div>
-
-			<div class="cert-card">
-				<div class="cert-image Consultant-Certification"></div>
-				<div class="cert-info">
-					<h2 class="cert-title">Consultant Certification</h2>
-					<p class="cert-description">The EIQ Platform Consultant Certification validates a professional’s expertise in designing, building, and managing intelligent automation solutions using the EIQ Platform</p>
-					<!-- Progress Bar here -->
-					<div class="progress-bar-wrapper">
-					<template v-if="foundationProgress > 0">
-						<ProgressBar :progress="foundationProgress" />
-						<p>{{ foundationProgress }}% Complete</p>
-					</template>
-					<template v-else>
-						<p>Not Started</p>
-					</template>
-					</div>
-
-					
-					<button class="cert-btn" @click="startCourse">Get Certified</button>
-				</div>
-			</div>
-
-
-			<div class="cert-card coming-soon">
-				<div class="cert-image java-intermediate"></div>
-				<div class="cert-info">
-					<h2 class="cert-title">Citizen Developer</h2>
-					<p class="cert-description">Build powerful applications using our intuitive no-code tools. Learn to automate workflows and integrate systems—no programming required.</p>
-					<button class="cert-btn-disabled" disabled>Coming Soon</button>
-				</div>
-			</div>
-
-			<div class="cert-card coming-soon">
-				<div class="cert-image java-advanced"></div>
-				<div class="cert-info">
-					<h2 class="cert-title">Developer</h2>
-					<p class="cert-description">Advance your skills with low-code and pro-code features. Learn to create robust apps using JavaScript, Python, APIs, and platform scripting.</p>
-					<button class="cert-btn-disabled" disabled>Coming Soon</button>
-				</div>
-			</div>
-
-			<div class="cert-card coming-soon">
-				<div class="cert-image java-expert"></div>
-				<div class="cert-info">
-					<h2 class="cert-title">Architect</h2>
-					<p class="cert-description">Design scalable, secure enterprise solutions using the full EIQ stack. Master architecture, integrations, and AI-driven automation.</p>
-					<button class="cert-btn-disabled" disabled>Coming Soon</button>
-				</div>
-			</div>
-		</div>
-		
-	</div>
-	<footer class="footer-section">
-        <div class="container-line">
-            <h2 class="main-heading">Enhance your automation knowledge to the next level</h2>
-
-            <h5 class="sub-heading">EIQ Platform - Intelligent Business Automation and beyond</h5>
-            
-            <p class="copyright">Copyright © 2025 | EvoluteIQ LMS</p>
+            <div class="progress-bar-wrapper" v-if="cert.enabled">
+          <template v-if="cert.progress < 100">
+            <ProgressBar :progress="cert.progress" />
+            <p>{{ cert.progress }}% Complete</p>
+          </template>
+          <p v-else class="completed-text">Completed</p>
         </div>
+
+
+           <button
+				v-if="cert.enabled"
+				class="cert-btn"
+				@click="startCourse(cert)"
+				>
+				{{ cert.progress === 100 ? 'View Certificate' : (cert.progress > 0 ? 'Resume Test' : 'Get Certified') }}
+				</button>
+
+
+            <button
+              v-else
+              class="cert-btn-disabled"
+              disabled
+            >
+              Coming Soon
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer-section">
+      <div class="container-line">
+        <h2 class="main-heading">Enhance your automation knowledge to the next level</h2>
+        <h5 class="sub-heading">EIQ Platform - Intelligent Business Automation and beyond</h5>
+        <p class="copyright">Copyright © 2025 | EvoluteIQ LMS</p>
+      </div>
     </footer>
-	</div>
+  </div>
 </template>
+
 <script>
 import ProgressBar from '@/components/ProgressBar.vue'
 
@@ -99,36 +66,127 @@ export default {
   },
   data() {
     return {
-      courseSlug: 'eiq-platform-consultant-certification',
-      quiz: { title: '' },
-      user: { name: '' },
+      user: {
+        name: '',
+        roles: []
+      },
       certifications: [
         {
           id: 1,
-          course_id: 'eiq-platform-consultant-certification',
+          title: 'Foundation Certification',
+          key: 'foundation',
+          enabled: false,
+          progress: 0,
+          description: 'Master the fundamentals of intelligent business automation with our Consultant Certification Program. The EIQ Foundation equips you with essential platform skills.',
+          imageClass: 'java-beginner',
+          courseSlug: 'eiq-platform-foundation-certification',
+        },
+        {
+          id: 2,
           title: 'Consultant Certification',
-          description: 'Master the fundamentals...',
-          image: '/files/certification1.jpeg',
-          completedLessons: 0,
-          totalLessons: 0
+          key: 'consultant',
+          enabled: false,
+          progress: 0,
+          description: 'The EIQ Platform Consultant Certification validates a professional’s expertise in designing, building, and managing intelligent automation solutions using the EIQ Platform.',
+          imageClass: 'Consultant-Certification',
+           courseSlug: 'eiq-platform-consultant-certification',
+        },
+        {
+          id: 3,
+          title: 'Developer',
+          key: 'developer',
+          enabled: false,
+          progress: 0,
+          description: 'Advance your skills with low-code and pro-code features. Learn to create robust apps using JavaScript, Python, APIs, and platform scripting.',
+          imageClass: 'java-advanced',
+          courseSlug: 'eiq-platform-developer-certification',
+        },
+        {
+          id: 4,
+          title: 'Citizen Developer',
+          key: 'citizen',
+          enabled: false,
+          progress: 0,
+          description: 'Build powerful applications using our intuitive no-code tools. Learn to automate workflows and integrate systems—no programming required.',
+          imageClass: 'java-intermediate',
+          courseSlug: 'eiq-platform-citizen-developer-certification',
+        },
+        {
+          id: 5,
+          title: 'Architect',
+          key: 'architect',
+          enabled: false,
+          progress: 0,
+          description: 'Design scalable, secure enterprise solutions using the full EIQ stack. Master architecture, integrations, and AI-driven automation.',
+          imageClass: 'java-expert',
+          courseSlug: 'eiq-platform-citizen-architect-certification',
         }
-      ],
-      foundationProgress: 0
-    }
-  },
-  computed: {
-    coursePath() {
-      return `/lms/courses/${this.courseSlug}`;
+      ]
     }
   },
   methods: {
-    getProgress(course) {
-      if (course.totalLessons === 0) return 0;
-      return Math.round((course.completedLessons / course.totalLessons) * 100);
+    startCourse(cert) {
+     
+   window.location.href = `/lms/courses/${cert.courseSlug}`;
     },
-    startCourse() {
-      window.location.href = this.coursePath;
+
+    setEnabledCardsBasedOnRoles() {
+  const roles = this.user.roles.map(r => r.toLowerCase());
+  let targetKey = null;
+
+  // Assign multiple certification keys to 'lms student'
+  if (roles.includes('lms student'.toLowerCase())) {
+    targetKey = ['foundation', 'consultant'];  // Enable both Foundation and Consultant
+  } else if (roles.includes('it consultant'.toLowerCase())) {
+    targetKey = ['consultant'];  // Enable only Consultant for IT Consultant
+  } else if (roles.includes('developer'.toLowerCase())) {
+    targetKey = ['developer'];  // Enable only Developer for Developer
+  }
+
+  this.certifications.forEach(cert => {
+    // Check if the cert.key is included in the targetKey array (for multiple keys)
+    cert.enabled = targetKey.includes(cert.key);
+
+    if (cert.enabled) {
+      cert.progress = this.getProgressFromLocalStorage(cert.key);
+    } else {
+      cert.progress = 0;
     }
+  });
+
+  console.log('✅ Enabled certifications:', this.certifications);
+},
+
+    getProgressFromLocalStorage(certKey) {
+    try {
+    // 👇 Set the quizTitle manually per certKey
+    let quizTitle = '';
+    if (certKey === 'foundation') {
+      quizTitle = 'Foundation Certification quize';
+    } else if (certKey === 'consultant') {
+      quizTitle = 'Consultant Certification quiz';
+    } else {
+      // fallback for other types
+      quizTitle = localStorage.getItem('quizTitle') || 'default-quiz';
+    }
+
+    // 👇 Compose the quizKey using this manual quizTitle
+    const quizKey = `${quizTitle}_${this.user.name}`;
+    const activeQuestionKey = `${quizKey}-active-question`;
+    const totalQuestions = 11;
+
+    const activeQuestion = parseInt(localStorage.getItem(activeQuestionKey), 10) || 0;
+    const progressPercentage = totalQuestions > 0
+      ? Math.round((activeQuestion / totalQuestions) * 100)
+      : 0;
+
+    console.log(`📊 Progress for ${certKey} (quizTitle: ${quizTitle}):`, progressPercentage);
+    return isNaN(progressPercentage) ? 0 : progressPercentage;
+  } catch (error) {
+    console.error('❌ Error reading progress from localStorage for', certKey, error);
+    return 0;
+  }
+},
   },
   mounted() {
     // ✅ Fetch CSRF Token first
@@ -152,34 +210,16 @@ export default {
       .then(data => {
         console.log('✅ User Info Response:', data);
 
-        if (data && data.message && data.message.email) {
-          this.user.name = data.message.email;
-          console.log(`✅ User Email set to: ${this.user.name}`);
+        if (data && data.message) {
+          this.user.name = data.message.email || '';
+          this.user.roles = data.message.roles || [];
+          console.log('✅ User Email:', this.user.name);
+          console.log('✅ User Roles:', this.user.roles);
+
+          this.setEnabledCardsBasedOnRoles();
         } else {
-          console.warn('⚠️ Email not found in response.');
-          this.user.name = '';
+          console.warn('⚠️ No user info found in response.');
         }
-
-        // ✅ Hardcode quiz title
-        this.quiz.title = localStorage.getItem('quizTitle') || 'default-quiz';
-
-
-        // ✅ Use dynamic email in quizKey
-        const quizKey = `${this.quiz.title}_${this.user.name}`;
-        const activeQuestionKey = `${quizKey}-active-question`;
-        const totalQuestions = 11;
-
-        const activeQuestion = parseInt(localStorage.getItem(activeQuestionKey), 10) || 0;
-
-        const progressPercentage = totalQuestions > 0
-          ? Math.round((activeQuestion / totalQuestions) * 100)
-          : 0;
-
-        console.log(`✅ Quiz Key: ${quizKey}`);
-        console.log(`📍 Current Active Question Index: ${activeQuestion}`);
-        console.log(`📊 Progress: ${progressPercentage}%`);
-
-        this.foundationProgress = isNaN(progressPercentage) ? 0 : progressPercentage;
       })
       .catch(error => {
         console.error('❌ Error:', error);
@@ -191,7 +231,39 @@ export default {
 
 
 
+
 <style scoped>
+
+.progress-bar.completed {
+  background-color: green;
+}
+
+.progress-bar-container {
+  width: 100%;
+  background-color: #e5e7eb;
+  border-radius: 4px;
+  overflow: hidden;
+  height: 12px;
+}
+
+.progress-bar {
+  height: 100%;
+  transition: width 0.3s ease;
+  background-color: #2563eb; /* default blue */
+}
+
+.progress-bar.completed {
+  background-color: green;
+}
+
+.completed-text {
+  color: green;
+  font-weight: bold;
+  font-size: 1rem;     /* optional, adjust size if you want */
+  margin-top: 0.5rem;  /* optional, add some spacing */
+}
+
+
 .page-wrapper {
   display: flex;
   flex-direction: column;
@@ -211,7 +283,6 @@ export default {
 
 /* Update this class name to match your template */
 .container-line {
-  
   margin: 0 auto;
   padding: 0 20px;
 }
@@ -443,6 +514,7 @@ export default {
 	background-size: cover;
 	background-position: center;
 	background-repeat: no-repeat;
+
 }
 
 .java-beginner {
