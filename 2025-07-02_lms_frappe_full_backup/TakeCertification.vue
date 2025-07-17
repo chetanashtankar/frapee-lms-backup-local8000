@@ -159,7 +159,7 @@ export default {
 
     getProgressFromLocalStorage(certKey) {
     try {
-    // 👇 Set the quizTitle manually per certKey
+    
     let quizTitle = '';
     if (certKey === 'foundation') {
       quizTitle = 'Foundation Certification quize';
