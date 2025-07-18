@@ -88,7 +88,7 @@ import { Button, createResource, Tooltip } from 'frappe-ui'
 import PageModal from '@/components/Modals/PageModal.vue'
 import { capture } from '@/telemetry'
 import LMSLogo from '@/components/Icons/LMSLogo.vue'
-import { useRouter } from 'vue-router'
+import { useRouter,useRoute } from 'vue-router'
 import InviteIcon from './Icons/InviteIcon.vue'
 import {
 	BookOpen,
@@ -131,6 +131,7 @@ const showOnboarding = ref(false)
 const showIntermediateModal = ref(false)
 const currentStep = ref({})
 const router = useRouter()
+const route = useRoute()
 let onboardingDetails
 let isOnboardingStepsCompleted = false
 const readOnlyMode = window.read_only_mode
@@ -510,45 +511,54 @@ const setUpOnboarding = () => {
 	}
 }
 
+
+const hasRedirected = localStorage.getItem('hasRedirected')
 watch(userResource, () => {
-	debugger;
   if (userResource.data) {
     const rawRoles = userResource.data.roles || []
     const roles = rawRoles.map(r => r.trim().toLowerCase())
     console.log('User Roles (normalized):', roles)
 
-    const adminRoles = ['administrator', 'system manager', 'moderator', 'senior engineer', 'batch evaluator', 'moderator', 'course creator', 'translator', 'maintenance user', 'sales master manager', 'sales manager', 'maintenance manager', 'purchase master manager', 'purchase manager', 'purchase user', 'sales user', 'accounts user', 'accounts manager', 'knowledge base editor', 'knowledge base contributor', 'blogger', 'newsletter manager', 'inbox user', 'prepared report user', 'script manager', 'report manager', 'workspace manager', 'dashboard manager', 'website manager', 'system manager', 'administrator']
+    const adminRoles = ['administrator', 'system manager', 'moderator', 'senior engineer', 'batch evaluator', 'course creator', 'translator', 'maintenance user', 'sales master manager', 'sales manager', 'maintenance manager', 'purchase master manager', 'purchase manager', 'purchase user', 'sales user', 'accounts user', 'accounts manager', 'knowledge base editor', 'knowledge base contributor', 'blogger', 'newsletter manager', 'inbox user', 'prepared report user', 'script manager', 'report manager', 'workspace manager', 'dashboard manager', 'website manager']
     const studentRoles = ['student', 'lms student', 'eiq student']
+    const consultanceRoles = ['it consultant']
+    const developerRoles = ['developer']
 
-    // Check if user has admin role
     const isAdmin = roles.some(r => adminRoles.includes(r))
     const isStudent = roles.some(r => studentRoles.includes(r))
+    const isConsultant = roles.some(r => consultanceRoles.includes(r))
+    const isDeveloper = roles.some(r => developerRoles.includes(r))
 
+    // Admin: no filtering
     if (isAdmin) {
-       console.log('Admin user detected: showing all sidebar links');
-	       return;
-    } else if (isStudent) {
-      console.log('Applying student sidebar filter')
-      sidebarLinks.value = sidebarLinks.value.filter(link =>
-        ['Home','FoundationCourse', 'Certifications'].includes(link.label)
-      )
+      console.log('Admin user detected: showing all sidebar links')
+      return
+    }
 
-	  .map(link => {
-      if (link.label === 'FoundationCourse') {
-        return {
-          ...link,
-          label: 'Course'
-        }
+    // Student: filter sidebar
+    if (isStudent) {
+      console.log('Applying student sidebar filter')
+      sidebarLinks.value = sidebarLinks.value
+        .filter(link => ['Home', 'FoundationCourse', 'Certifications'].includes(link.label))
+        .map(link => link.label === 'FoundationCourse' ? { ...link, label: 'Courses' } : link)
+    }
+
+    // Consultant / Developer: filter + redirect ONCE
+    if (isConsultant || isDeveloper) {
+      console.log(`Applying ${isConsultant ? 'Consultant' : 'Developer'} sidebar filter`)
+
+  	sidebarLinks.value = sidebarLinks.value
+    .filter(link => ['Home', 'FoundationCourse', 'Certifications'].includes(link.label))
+    .map(link => link.label === 'FoundationCourse' ? { ...link, label: 'Courses' } : link)
+
+      
+      if (localStorage.getItem('hasRedirected') !== 'true' && route.path !== '/take-certification') {
+        localStorage.setItem('hasRedirected', 'true')
+        router.push('/take-certification')
       }
-      return link
-    })
-	
-    } else {
-      console.log('No role-based filtering applied')
     }
   }
-})
-
+}, { immediate: true })
 
 
 
