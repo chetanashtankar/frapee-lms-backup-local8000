@@ -17,7 +17,6 @@
       <Button size="sm" v-if="allowEdit" @click="openChapterModal()">
         {{ __('Add Chapter') }}
       </Button>
-
       <Button
         size="sm"
         class="expand-button"
@@ -26,10 +25,35 @@
       >
         {{ expandAll ? __('Collapse All') : __('Expand All') }}
       </Button>
-
     </div>
-    <!-- Accordion Container -->
+
+    <!-- ✅ NEW: Flat Lesson View for Specific Courses -->
+    <div v-if="onlyShowLessons">
+      <div v-for="chapter in outline.data" :key="chapter.name">
+        <div
+          v-for="lesson in chapter.lessons"
+          :key="lesson.name"
+          class="accordion-lesson"
+          @click="handleLessonClick(chapter, 0, lesson)"
+        >
+          <div class="flex items-center justify-between text-sm leading-5 group w-full">
+            <div class="flex items-center">
+              <MonitorPlay v-if="lesson.icon === 'icon-youtube'" class="h-4 w-4 stroke-1 mr-2" />
+              <HelpCircle v-else-if="lesson.icon === 'icon-quiz'" class="h-4 w-4 stroke-1 mr-2" />
+              <FileText v-else-if="lesson.icon === 'icon-list'" class="h-4 w-4 text-ink-gray-9 stroke-1 mr-2" />
+              <span>{{ lesson.title }}</span>
+            </div>
+            <div class="flex items-center space-x-2">
+              <Check v-if="lesson.is_complete && user.data" :stroke-width="3" class="h-4 w-4 text-green-500" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ✅ Existing Chapter Accordion (Hidden when onlyShowLessons is true) -->
     <div
+      v-if="!onlyShowLessons"
       :class="{
         'accordion-container': showOutline && outline.data?.length,
       }"
@@ -60,7 +84,6 @@
             >
               Completed
             </span>
-
             <span
               v-else-if="getChapterStatus(chapter) === 'in-progress'"
               class="text-yellow-500 text-xs font-medium px-2 py-0.5 bg-yellow-100 rounded"
@@ -68,12 +91,9 @@
               In Progress
             </span>
           </div>
-
           <div class="expand-button">
             <span>{{ open ? 'Collapse' : 'Expand' }}</span>
-            <ChevronRight
-              :class="['chevron-icon', { open }]"
-            />
+            <ChevronRight :class="['chevron-icon', { open }]" />
           </div>
         </DisclosureButton>
 
@@ -99,24 +119,12 @@
               >
                 <div @click="handleLessonClick(chapter, index, lesson)">
                   <div class="flex items-center justify-between text-sm leading-5 group w-full">
-                    <!-- LEFT side -->
                     <div class="flex items-center">
-                      <MonitorPlay
-                        v-if="lesson.icon === 'icon-youtube'"
-                        class="h-4 w-4 stroke-1 mr-2"
-                      />
-                      <HelpCircle
-                        v-else-if="lesson.icon === 'icon-quiz'"
-                        class="h-4 w-4 stroke-1 mr-2"
-                      />
-                      <FileText
-                        v-else-if="lesson.icon === 'icon-list'"
-                        class="h-4 w-4 text-ink-gray-9 stroke-1 mr-2"
-                      />
+                      <MonitorPlay v-if="lesson.icon === 'icon-youtube'" class="h-4 w-4 stroke-1 mr-2" />
+                      <HelpCircle v-else-if="lesson.icon === 'icon-quiz'" class="h-4 w-4 stroke-1 mr-2" />
+                      <FileText v-else-if="lesson.icon === 'icon-list'" class="h-4 w-4 text-ink-gray-9 stroke-1 mr-2" />
                       <span>{{ lesson.title }}</span>
                     </div>
-
-                    <!-- RIGHT side -->
                     <div class="flex items-center space-x-2">
                       <Trash2
                         v-if="allowEdit"
@@ -157,24 +165,20 @@
     </div>
   </div>
 
-  <!-- NEW container for Continue Learning button -->
-    <div class="continue-learning-container" v-if="outline.data && !expandAll && getNextLessonOverall()">
-      <Button
-        size="sm"
-        @click="continueLearning"
-        class="continue-learning-button"
-      >
-        <span class="continue-learning-inner">
-          <svg class="continue-learning-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M9 12l2 2 4-4"></path>
-            <path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9c2.89 0 5.52 1.37 7.2 3.5"></path>
-          </svg>
-          <span class="continue-learning-text">{{ __('Continue Learning') }}</span>
-        </span>
+  <!-- Continue Learning Button -->
+  <div class="continue-learning-container" v-if="outline.data && !expandAll && getNextLessonOverall()">
+    <Button size="sm" @click="continueLearning" class="continue-learning-button">
+      <span class="continue-learning-inner">
+        <svg class="continue-learning-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 12l2 2 4-4"></path>
+          <path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9c2.89 0 5.52 1.37 7.2 3.5"></path>
+        </svg>
+        <span class="continue-learning-text">{{ __('Continue Learning') }}</span>
+      </span>
     </Button>
+  </div>
 
-    </div>
-
+  <!-- Chapter Modal -->
   <ChapterModal
     v-if="user.data"
     v-model="showChapterModal"
@@ -187,7 +191,7 @@
 
 <script setup>
 import { Button, createResource, Tooltip, toast } from 'frappe-ui'
-import { getCurrentInstance, inject, ref ,watch ,computed} from 'vue'
+import { getCurrentInstance, inject, ref ,watch ,computed,watchEffect} from 'vue'
 import Draggable from 'vuedraggable'
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
 import {
@@ -206,8 +210,9 @@ import ChapterModal from '@/components/Modals/ChapterModal.vue'
 const route = useRoute()
 const router = useRouter()
 const user = inject('$user')
+const course = inject('course') // or createResource / prop, depending on where it should come from
 const showChapterModal = ref(false)
-
+const onlyShowLessons = ref(false)
 const currentChapter = ref(null)
 const app = getCurrentInstance()
 const { $dialog } = app.appContext.config.globalProperties
@@ -234,6 +239,14 @@ const props = defineProps({
 		default: false,
 	},
 })
+const learningStatus = computed(() => {
+  if (!outline.data || !outline.data.length) return 'start'
+
+  const allLessons = outline.data.flatMap(chapter => chapter.lessons || [])
+  const completed = allLessons.filter(lesson => lesson.is_complete).length
+
+  return completed === 0 ? 'start' : 'continue'
+})
 
 const outline = createResource({
 	url: 'lms.lms.utils.get_course_outline',
@@ -244,6 +257,7 @@ const outline = createResource({
 	},
 	auto: true,
 })
+const isLessonPage = computed(() => route.path.includes('/learn/'))
 
 const deleteLesson = createResource({
 	url: 'lms.lms.api.delete_lesson',
@@ -655,6 +669,22 @@ const continueLearning = () => {
   });
 };
 
+watchEffect(() => {
+  if (!outline.data || outline.data.length === 0) {
+    console.log('⛔ Course data not ready yet');
+    return;
+  }
+
+  const courseItem = outline.data[0];
+  const title = courseItem?.title?.trim().toLowerCase() || '';
+  console.log('🔍 Course Title:', title);
+
+  const lastWord = title.split(' ').pop();
+  console.log('🔍 Last Word:', lastWord);
+
+  onlyShowLessons.value = lastWord === 'certification';
+  console.log('✅ onlyShowLessons:', onlyShowLessons.value);
+});
 
 
 </script>
@@ -752,13 +782,19 @@ button.ml-2 {
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 1px 3px #00000014;
-    margin-bottom: 16px;
+    margin-bottom: 4px;
     transition: background-color .2s ease, box-shadow .2s ease;
     cursor: pointer;
     flex-direction: row;
     align-content: stretch;
     justify-content: space-between;
 }
+
+/* Add spacing ONLY between chapters */
+.accordion-container > div + div {
+  margin-top: 24px; /* Or any space you want between chapters */
+}
+
 
 .accordion-header:hover {
   background-color: #f9fafb;
