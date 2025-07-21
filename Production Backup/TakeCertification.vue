@@ -350,14 +350,18 @@ return 0;
 
         // Step 3: Otherwise, use local progress
         const localProgress = this.getProgressFromLocalStorage(certKey, quizTitle, totalQuestions);
-         return Math.min(localProgress, 98);
-      } catch (err) {
-        console.error(`❌ Error calculating final progress for ${certKey}`, err);
-        return 0;
-      }
-    }
+         const finalProgress = Math.min(localProgress, 98);
 
-
+        // If it's exactly 98 and >= 80, return 0
+        if (finalProgress === 98 && localProgress >= 80) {
+          return 0;
+        }
+        return finalProgress;
+              } catch (err) {
+                console.error(`❌ Error calculating final progress for ${certKey}`, err);
+                return 0;
+              }
+            }
   },
   mounted() {
     // ✅ Fetch CSRF Token first
@@ -367,7 +371,7 @@ return 0;
         const csrfToken = data.message;
         console.log('✅ CSRF Token from server:', csrfToken);
 
-        // ✅ Now call get_user_info API with CSRF
+        // ✅ Now call get_user_info API with CSRFroot
         return fetch('/api/method/lms.lms.api.get_user_info', {
           method: 'POST',
           headers: {
