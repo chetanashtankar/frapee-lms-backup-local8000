@@ -174,32 +174,38 @@ export default {
 
 
 
-   async setEnabledCardsBasedOnRoles() {
-  const roles = this.user.roles.map(r => r.toLowerCase());
-  let targetKeys = [];
+  async setEnabledCardsBasedOnRoles() {
+    const roles = this.user.roles.map(r => r.toLowerCase());
+    let targetKeys = [];
 
-  if (roles.includes('lms student')) {
-    targetKeys = ['foundation', 'consultant'];
-  } else if (roles.includes('it consultant')) {
-    targetKeys = ['foundation', 'consultant'];
-  } else if (roles.includes('developer')) {
-    targetKeys = ['foundation', 'consultant'];
-  }
+    if (roles.includes('lms student')) {
+      targetKeys = ['foundation', 'consultant'];
+    } else if (roles.includes('it consultant')) {
+      targetKeys = ['foundation', 'consultant'];
+    } else if (roles.includes('developer')) {
+      targetKeys = ['foundation', 'consultant'];
+    }
 
-  for (const cert of this.certifications) {
-    cert.enabled = targetKeys.includes(cert.key);
+    for (const cert of this.certifications) {
+      cert.enabled = targetKeys.includes(cert.key);
 
-    if (cert.enabled) {
-      try {
-        const progress = await this.fetchProgressFromAPI(cert.courseSlug);
-        cert.progress = progress;
-      } catch (err) {
-        console.error(`❌ Error fetching progress for ${cert.title}:`, err);
+      if (cert.enabled) {
+        try {
+           const apiProgressRaw = await this.fetchProgressFromAPI(cert.courseSlug);
+
+          const quizMeta = await this.fetchQuizMetadata(cert.key);
+          const quizTitle = quizMeta.title;
+          const totalQuestions = quizMeta.totalQuestions;
+
+          const finalProgress = this.getFinalProgress(cert.key, quizTitle, totalQuestions, apiProgressRaw);
+          cert.progress = finalProgress;
+        } catch (err) {
+          console.error(`❌ Error fetching progress for ${cert.title}:`, err);
+          cert.progress = 0;
+        }
+      } else {
         cert.progress = 0;
       }
-    } else {
-      cert.progress = 0;
-    }
   }
 
   console.log('✅ Updated certifications with API progress:', this.certifications);
@@ -281,49 +287,76 @@ return 0;
         return 0;
       }
 },
-async fetchQuizMetadata(certKey) {
-  const quizNameMap = {
-    foundation: 'foundation-certification-quiz',
-    consultant: 'consultant-certification-quiz',
-    developer: 'developer-certification-quiz',
-    citizen: 'citizen-developer-certification-quiz',
-    architect: 'architect-certification-quiz'
-  };
+  async fetchQuizMetadata(certKey) {
+    const quizNameMap = {
+      foundation: 'foundation-certification-quiz',
+      consultant: 'consultant-certification-quiz',
+      developer: 'developer-certification-quiz',
+      citizen: 'citizen-developer-certification-quiz',
+      architect: 'architect-certification-quiz'
+    };
 
-  const quizDocName = quizNameMap[certKey];
-  if (!quizDocName) throw new Error(`Quiz name not found for certKey: ${certKey}`);
+    const quizDocName = quizNameMap[certKey];
+    if (!quizDocName) throw new Error(`Quiz name not found for certKey: ${certKey}`);
 
-  // Step 1: Get CSRF Token
-  const csrfRes = await fetch('/api/method/lms.lms.utils.get_csrf_token');
-  const csrfData = await csrfRes.json();
-  const csrfToken = csrfData.message;
+    // Step 1: Get CSRF Token
+    const csrfRes = await fetch('/api/method/lms.lms.utils.get_csrf_token');
+    const csrfData = await csrfRes.json();
+    const csrfToken = csrfData.message;
 
-  // Step 2: Get Quiz Data
-  const quizRes = await fetch('/api/method/frappe.client.get', {
-    method: 'POST',
-    credentials: 'include',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      'X-Frappe-CSRF-Token': csrfToken
-    },
-    body: JSON.stringify({
-      doctype: "LMS Quiz",
-      name: quizDocName
-    })
-  });
+    // Step 2: Get Quiz Data
+    const quizRes = await fetch('/api/method/frappe.client.get', {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'X-Frappe-CSRF-Token': csrfToken
+      },
+      body: JSON.stringify({
+        doctype: "LMS Quiz",
+        name: quizDocName
+      })
+    });
 
-  const data = await quizRes.json();
+    const data = await quizRes.json();
 
-  if (!data.message || !Array.isArray(data.message.questions)) {
-    throw new Error(`Invalid quiz data for ${quizDocName}`);
+    if (!data.message || !Array.isArray(data.message.questions)) {
+      throw new Error(`Invalid quiz data for ${quizDocName}`);
   }
 
   return {
     title: data.message.title || `${certKey} quiz`,
     totalQuestions: data.message.questions.length
   };
-}
+},
+
+
+    getFinalProgress(certKey, quizTitle, totalQuestions, apiProgressRaw) {
+      try {
+        // Step 1: Parse API progress
+        let apiProgress = 0;
+        if (typeof apiProgressRaw === 'number') {
+          apiProgress = apiProgressRaw;
+        } else if (typeof apiProgressRaw === 'string') {
+          const parsed = parseInt(apiProgressRaw.replace('%', ''), 10);
+          apiProgress = isNaN(parsed) ? 0 : parsed;
+        }
+
+        // Step 2: If API is 100%, trust it
+        if (apiProgress === 100) {
+          return 100;
+        }
+
+        // Step 3: Otherwise, use local progress
+        const localProgress = this.getProgressFromLocalStorage(certKey, quizTitle, totalQuestions);
+         return Math.min(localProgress, 98);
+      } catch (err) {
+        console.error(`❌ Error calculating final progress for ${certKey}`, err);
+        return 0;
+      }
+    }
+
 
   },
   mounted() {
