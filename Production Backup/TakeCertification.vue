@@ -901,9 +901,15 @@ return finalProgress;
 }
 
 .cert-info {
-	padding: 1rem;
-	position: relative;
-	z-index: 2;
+	 padding: 1rem;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 1rem;
+    position: relative;
+    z-index: 2;
 }
 
 .cert-title {
@@ -926,6 +932,7 @@ return finalProgress;
 	border-radius: 6px;
 	cursor: pointer;
 	transition: background-color 0.2s ease;
+  width: fit-content;
 }
 
 .cert-btn:hover {
@@ -941,6 +948,7 @@ return finalProgress;
 	border-radius: 6px;
 	cursor: not-allowed;
 	transition: none;
+  width: fit-content;
 }
 
 .cert-btn-disabled:hover {
