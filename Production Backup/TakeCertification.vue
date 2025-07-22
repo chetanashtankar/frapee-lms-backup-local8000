@@ -46,6 +46,17 @@
       </div>
     </div>
 
+
+     <!-- HTML structure (add classes accordingly) -->
+      <div v-if="showFoundationModal" class="modal-overlay">
+        <div class="modal-box warning">
+         
+          <h2>Complete Foundation Course First</h2>
+          <p>Please complete the Foundation course before proceeding to this certification.</p>
+          <button class="modal-btn" @click="showFoundationModal = false">OK</button>
+        </div>
+      </div>
+
     <footer class="footer-section">
       <div class="container-line">
         <h2 class="main-heading">Enhance your automation knowledge to the next level</h2>
@@ -55,15 +66,7 @@
     </footer>
 
     <!-- Modal -->
-   <!-- HTML structure (add classes accordingly) -->
-      <div v-if="showFoundationModal" class="modal-overlay">
-        <div class="modal-box warning">
-         
-          <h2>Complete Foundation Course First</h2>
-          <p>Please complete the Foundation course before proceeding to this certification.</p>
-          <button class="modal-btn" @click="showFoundationModal = false">OK</button>
-        </div>
-      </div>
+  
 
 
 
@@ -246,20 +249,25 @@ async fetchCourseProgress() {
 },
 
 
-      handleStartClick(cert) {
-          if (cert.progress === 100) {
-            this.viewCertificate(cert.courseSlug);
-          } else if (cert.key === 'foundation' || cert.key === 'consultant') {
-            if (cert.progress >= 70) {
-              this.startCourse(cert);
-            } else {
-              this.showFoundationModal = true; // 👈 show modal
-              // Or you can trigger a custom modal here if you want
-            }
-          } else {
+      async handleStartClick(cert) {
+        debugger;
+        if (cert.progress === 100) {
+          this.viewCertificate(cert.courseSlug);
+        } else if (cert.key === 'foundation' || cert.key === 'consultant') {
+          // Manually check foundation course progress
+          await this.fetchCourseProgress('eiq-agentic-automation-platform-foundation-certification');
+
+          console.log(`📊 Foundation Course progress: ${this.courseProgress}%`);
+
+          if (this.courseProgress >= 100) {
             this.startCourse(cert);
+          } else {
+            this.showFoundationModal = true; // show modal
           }
-        },
+        } else {
+          this.startCourse(cert);
+        }
+      },
 
 
       async setEnabledCardsBasedOnRoles() {
