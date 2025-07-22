@@ -36,7 +36,7 @@
 				<div class="font-semibold text-lg text-ink-gray-9">
 					{{ quiz.data.title }}
 				</div>
-				<Button v-if="!quiz.data.max_attempts || attempts.data?.length < quiz.data.max_attempts" @click="startQuiz" class="mt-2">
+				<Button v-if="!quiz.data.max_attempts || attempts.data?.length < quiz.data.max_attempts" @click="startQuiz" class="mt-2 course-nav-btn" >
 					<span>{{ __('Start') }}</span>
 				</Button>
 				<div v-else class="leading-5 text-ink-gray-7">
@@ -145,21 +145,23 @@
 							{{ __('Question {0} of {1}').format(activeQuestion, questions.length) }}
 						</div>
 						<div class="flex space-x-2">
-							<Button v-if="activeQuestion > 1" @click="prevQuestion" variant="outline">
+							<Button v-if="activeQuestion > 1" @click="prevQuestion" variant="outline" class="course-nav-btn">
 								<span>{{ __('Previous') }}</span>
 							</Button>
-							<Button v-if="activeQuestion < questions.length" @click="skipQuestion" variant="outline">
+							<Button v-if="activeQuestion < questions.length" @click="skipQuestion" variant="outline" class="course-nav-btn">
 								<span>{{ __('Skip') }}</span>
 							</Button>
 							<Button
 								v-if="quiz.data.show_answers && !showAnswers.length && questionDetails.data.type != 'Open Ended'"
-								@click="checkAnswer">
+								@click="checkAnswer"
+								class="course-nav-btn"
+								>
 								<span>{{ __('Check') }}</span>
 							</Button>
-							<Button v-else-if="activeQuestion != questions.length" @click="nextQuestion()">
+							<Button v-else-if="activeQuestion != questions.length" @click="nextQuestion()" class="course-nav-btn">
 								<span>{{ __('Next') }}</span>
 							</Button>
-							<Button v-else @click="submitQuiz()">
+							<Button v-else @click="submitQuiz()" class="course-nav-btn">
 								<span>{{ __('Submit') }}</span>
 							</Button>
 						</div>
@@ -171,7 +173,7 @@
 		<!-- Quiz Summary -->
 		<div v-else class="border rounded-md p-20 text-center space-y-2">
 			<div class="text-lg font-semibold text-ink-gray-9">
-				{{ __('Quiz Summary') }}
+				<!-- {{ __('Quiz Summary') }} -->
 			</div>
 			<div v-if="quizSubmission.data.is_open_ended" class="leading-5 text-ink-gray-7">
 				{{ __('Your submission has been successfully saved. The instructor will review and grade it shortly, and you\'ll be notified of your final result.') }}
@@ -891,6 +893,23 @@ const downloadCertificate = () => {
 </script>
 
 <style>
+
+
+.course-nav-btn {
+	background-color: #ff4602 !important;
+	color: #fff !important;
+	font-weight: 600;
+	box-shadow: 0 2px 6px #00000026;
+	border-radius: 6px;
+	transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.course-nav-btn:hover {
+	background-color: #e04300 !important; /* slightly darker orange */
+	box-shadow: 0 4px 10px #00000040; /* stronger shadow on hover */
+}
+
+
 /* Hides the avatar group when inside .flex.items-center.mt-2 */
 .flex.items-center.mt-2 span.h-6.mr-1.avatar-group.overlap {
     display: none;
@@ -950,6 +969,8 @@ div#headlessui-disclosure-panel-v-17 {
   margin-left: 0;
 }
 
+
+
 .results-container {
             background-color: #f8f9fa;
             border-radius: 12px;
@@ -997,7 +1018,7 @@ div#headlessui-disclosure-panel-v-17 {
         }
         
         .certificate-button {
-            background-color: #3b82f6;
+            background-color: #ff4602;
             color: white;
             border: none;
             padding: 10px 20px;
@@ -1017,4 +1038,9 @@ div#headlessui-disclosure-panel-v-17 {
         .button-icon {
             font-size: 16px;
         }
+
+.relative.inline-block.shrink-0.w-6.h-6.rounded-full.avatar.border.border-outline-gray-2.cursor-auto
+ {
+    display: none;
+}
 </style>
