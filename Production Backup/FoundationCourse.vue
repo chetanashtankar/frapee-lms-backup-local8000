@@ -393,12 +393,20 @@ export default {
 }
 
 .cert-card {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 	border: 1px solid #e0e0e0;
 	border-radius: 12px;
 	overflow: hidden;
 	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 	transition: transform 0.2s ease;
 	background: white;
+}
+
+.cert-btn,
+.cert-btn-disabled {
+	margin-top: auto; /* pushes it to the bottom */
 }
 
 .cert-card:hover {
