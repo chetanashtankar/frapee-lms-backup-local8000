@@ -24,13 +24,13 @@
 
 
            <button
-            v-if="cert.enabled"
-            class="cert-btn"
-            @click="cert.progress === 100 ? viewCertificate(cert.courseSlug) : startCourse(cert)"
+          v-if="cert.enabled"
+          class="cert-btn"
+          @click="handleStartClick(cert)"
+        >
+          {{ cert.progress === 100 ? 'View Certificate' : (cert.progress > 0 ? 'Resume Test' : 'Get Certified') }}
+        </button>
 
-          >
-            {{ cert.progress === 100 ? 'View Certificate' : (cert.progress > 0 ? 'Resume Test' : 'Get Certified') }}
-          </button>
 
 
 
@@ -53,6 +53,20 @@
         <p class="copyright">Copyright © 2025 | EvoluteIQ LMS</p>
       </div>
     </footer>
+
+    <!-- Modal -->
+   <!-- HTML structure (add classes accordingly) -->
+      <div v-if="showFoundationModal" class="modal-overlay">
+        <div class="modal-box warning">
+         
+          <h2>Complete Foundation Course First</h2>
+          <p>Please complete the Foundation course before proceeding to this certification.</p>
+          <button class="modal-btn" @click="showFoundationModal = false">OK</button>
+        </div>
+      </div>
+
+
+
   </div>
 </template>
 
@@ -71,6 +85,7 @@ export default {
         roles: []
       },
       courseProgress: 0,
+      showFoundationModal: false,
       certifications: [
         {
           id: 1,
@@ -231,26 +246,40 @@ async fetchCourseProgress() {
 },
 
 
+      handleStartClick(cert) {
+          if (cert.progress === 100) {
+            this.viewCertificate(cert.courseSlug);
+          } else if (cert.key === 'foundation' || cert.key === 'consultant') {
+            if (cert.progress >= 70) {
+              this.startCourse(cert);
+            } else {
+              this.showFoundationModal = true; // 👈 show modal
+              // Or you can trigger a custom modal here if you want
+            }
+          } else {
+            this.startCourse(cert);
+          }
+        },
 
-  async setEnabledCardsBasedOnRoles() {
-     await this.fetchCourseProgress(); // fetch progress first
-    const roles = this.user.roles.map(r => r.toLowerCase());
-    let targetKeys = [];
 
-    if (roles.includes('lms student')) {
-      targetKeys = ['foundation', 'consultant'];
-    } else if (roles.includes('it consultant')) {
-      targetKeys = ['foundation', 'consultant'];
-    } else if (roles.includes('developer')) {
-      targetKeys = ['foundation', 'consultant'];
-    }
+      async setEnabledCardsBasedOnRoles() {
+       
+        const roles = this.user.roles.map(r => r.toLowerCase());
+        let targetKeys = [];
+
+        if (roles.includes('lms student')) {
+          targetKeys = ['foundation', 'consultant'];
+        } else if (roles.includes('it consultant')) {
+          targetKeys = ['foundation', 'consultant'];
+        } else if (roles.includes('developer')) {
+          targetKeys = ['foundation', 'consultant'];
+        }
 
     for (const cert of this.certifications) {
       cert.enabled = targetKeys.includes(cert.key);
 
-      const progressSufficient = this.courseProgress >= 100;
+      
 
-      cert.enabled = targetKeys.includes(cert.key) && progressSufficient;
 
       if (cert.enabled) {
         try {
@@ -269,6 +298,7 @@ async fetchCourseProgress() {
       } else {
         cert.progress = 0;
       }
+
   }
 
   console.log('✅ Updated certifications with API progress:', this.certifications);
@@ -476,6 +506,157 @@ return finalProgress;
 
 
 <style scoped>
+
+ .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+
+        /* Fade in animation */
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Scale in animation for modal box */
+        @keyframes slideUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Modal Box - The actual modal content */
+        .modal-box {
+            background: white;
+            border-radius: 12px;
+            padding: 32px;
+            max-width: 450px;
+            width: 90%;
+            max-height: 90vh;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+            position: relative;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        /* Modal Header */
+        .modal-box h2 {
+            margin: 0 0 16px 0;
+            font-size: 24px;
+            font-weight: 600;
+            color: #1f2937;
+            line-height: 1.3;
+        }
+
+        /* Modal Text */
+        .modal-box p {
+            margin: 0 0 24px 0;
+            color: #6b7280;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        /* Modal Button */
+        .modal-btn {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-width: 100px;
+            display: block;
+            margin-left: auto;
+        }
+
+        .modal-btn:hover {
+            background: linear-gradient(135deg, #2563eb, #1e40af);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        .modal-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(59, 130, 246, 0.2);
+        }
+
+        .modal-btn:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+
+        /* Responsive design */
+        @media (max-width: 640px) {
+            .modal-box {
+                padding: 24px;
+                margin: 20px;
+            }
+
+            .modal-box h2 {
+                font-size: 20px;
+            }
+
+            .modal-btn {
+                width: 100%;
+                margin-left: 0;
+            }
+        }
+
+        /* Close button alternative (if you want to add one) */
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #9ca3af;
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 4px;
+            transition: color 0.2s ease;
+        }
+
+        .modal-close:hover {
+            color: #6b7280;
+            background: #f3f4f6;
+        }
+
+        /* Warning/Alert variant styles */
+        .modal-box.warning {
+            border-left: 4px solid #f59e0b;
+        }
+
+        .modal-box.warning h2 {
+            color: #92400e;
+        }
+
+        .modal-box.warning .modal-btn {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+        }
+
+        .modal-box.warning .modal-btn:hover {
+            background: linear-gradient(135deg, #d97706, #b45309);
+        }
 
 .progress-bar.completed {
   background-color: green;
