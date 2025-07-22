@@ -70,6 +70,7 @@ export default {
         name: '',
         roles: []
       },
+      courseProgress: 0,
       certifications: [
         {
           id: 1,
@@ -172,9 +173,67 @@ export default {
 },
 
 
+async fetchCourseProgress() {
+  try {
+    // Step 1: Get CSRF token
+    const csrfRes = await fetch('/api/method/lms.lms.utils.get_csrf_token');
+    const csrfData = await csrfRes.json();
+    const csrfToken = csrfData.message;
+
+    // Step 2: Get course outline
+    const outlineRes = await fetch('/api/method/lms.lms.utils.get_course_outline', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Frappe-CSRF-Token': csrfToken
+      },
+      body: JSON.stringify({
+        course: 'eiq-agentic-automation-platform-foundation-certification',
+        progress: false
+      })
+    });
+    const outlineData = await outlineRes.json();
+    const message = outlineData.message || [];
+
+    // Step 3: Get first lesson name
+    let firstLessonName = null;
+    for (const section of message) {
+      if (section.lessons && section.lessons.length > 0) {
+        firstLessonName = section.lessons[0].name;
+        break;
+      }
+    }
+    if (!firstLessonName) return;
+
+    // Step 4: Save progress for that lesson
+    const progressRes = await fetch('/api/method/lms.lms.doctype.course_lesson.course_lesson.save_progress', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Frappe-CSRF-Token': csrfToken
+      },
+      body: JSON.stringify({
+        course: 'eiq-agentic-automation-platform-foundation-certification',
+        lesson: firstLessonName
+      })
+    });
+    const progressData = await progressRes.json();
+
+    // Step 5: Store and log progress
+    const progress = Math.round(progressData.message);
+    this.courseProgress = isNaN(progress) ? 0 : progress;
+    console.log(`📊 Course progress: ${this.courseProgress}%`);
+
+  } catch (err) {
+    console.error('❌ Error fetching course progress:', err);
+    this.courseProgress = 0;
+  }
+},
+
 
 
   async setEnabledCardsBasedOnRoles() {
+     await this.fetchCourseProgress(); // fetch progress first
     const roles = this.user.roles.map(r => r.toLowerCase());
     let targetKeys = [];
 
@@ -188,6 +247,10 @@ export default {
 
     for (const cert of this.certifications) {
       cert.enabled = targetKeys.includes(cert.key);
+
+      const progressSufficient = this.courseProgress >= 100;
+
+      cert.enabled = targetKeys.includes(cert.key) && progressSufficient;
 
       if (cert.enabled) {
         try {
@@ -210,6 +273,9 @@ export default {
 
   console.log('✅ Updated certifications with API progress:', this.certifications);
 },
+
+
+
 
 
 
@@ -286,7 +352,9 @@ return 0;
         console.error('❌ Error reading progress from localStorage for', certKey, error);
         return 0;
       }
-},
+  },
+
+
   async fetchQuizMetadata(certKey) {
     const quizNameMap = {
       foundation: 'foundation-certification-quiz',
@@ -352,16 +420,16 @@ return 0;
         const localProgress = this.getProgressFromLocalStorage(certKey, quizTitle, totalQuestions);
          const finalProgress = Math.min(localProgress, 98);
 
-        // If it's exactly 98 and >= 80, return 0
-        if (finalProgress === 98 && localProgress >= 80) {
-          return 0;
-        }
-        return finalProgress;
-              } catch (err) {
-                console.error(`❌ Error calculating final progress for ${certKey}`, err);
-                return 0;
-              }
-            }
+// If it's exactly 98 and >= 80, return 0
+if (finalProgress === 98 && localProgress >= 80) {
+  return 0;
+}
+return finalProgress;
+      } catch (err) {
+        console.error(`❌ Error calculating final progress for ${certKey}`, err);
+        return 0;
+      }
+    }
   },
   mounted() {
     // ✅ Fetch CSRF Token first
