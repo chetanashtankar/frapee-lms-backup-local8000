@@ -166,17 +166,20 @@
   </div>
 
   <!-- Continue Learning Button -->
-  <div class="continue-learning-container" v-if="outline.data && !expandAll && getNextLessonOverall()">
-    <Button size="sm" @click="continueLearning" class="continue-learning-button">
-      <span class="continue-learning-inner">
-        <svg class="continue-learning-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M9 12l2 2 4-4"></path>
-          <path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9c2.89 0 5.52 1.37 7.2 3.5"></path>
-        </svg>
-        <span class="continue-learning-text">{{ __('Continue Learning') }}</span>
-      </span>
-    </Button>
-  </div>
+  <!-- Continue Learning Button -->
+<div class="continue-learning-container" 
+     v-if="outline.data && !expandAll && getNextLessonOverall() && !isLessonPage">
+  <Button size="sm" @click="continueLearning" class="continue-learning-button">
+    <span class="continue-learning-inner">
+      <svg class="continue-learning-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 12l2 2 4-4"></path>
+        <path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9c2.89 0 5.52 1.37 7.2 3.5"></path>
+      </svg>
+      <span class="continue-learning-text">{{ __('Continue Learning') }}</span>
+    </span>
+  </Button>
+</div>
+
 
   <!-- Chapter Modal -->
   <ChapterModal
@@ -658,7 +661,6 @@ const continueLearning = () => {
     });
     return;
   }
-
   router.push({
     name: 'Lesson',
     params: {
@@ -668,7 +670,6 @@ const continueLearning = () => {
     },
   });
 };
-
 watchEffect(() => {
   if (!outline.data || outline.data.length === 0) {
     console.log('⛔ Course data not ready yet');
