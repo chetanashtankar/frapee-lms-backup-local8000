@@ -140,10 +140,11 @@
 					</div>
 
 					<!-- Navigation Buttons -->
-					<div class="flex items-center justify-between mt-4">
-						<div class="text-sm text-ink-gray-5">
-							{{ __('Question {0} of {1}').format(activeQuestion, questions.length) }}
-						</div>
+					<div class="question-count-text flex items-center justify-between mt-4">
+						<div class="question-count-text text-sm text-ink-gray-5">
+						{{ __('Question {0} of {1}').format(activeQuestion, questions.length) }}
+					</div>
+
 						<div class="flex space-x-2">
 							<Button v-if="activeQuestion > 1" @click="prevQuestion" variant="outline" class="course-nav-btn">
 								<span>{{ __('Previous') }}</span>
@@ -894,6 +895,12 @@ const downloadCertificate = () => {
 
 <style>
 
+.question-count-text {
+	color: #ff4602 !important;
+	font-weight: 600;
+	font-size: 14px;
+}
+
 
 .course-nav-btn {
 	background-color: #ff4602 !important;
@@ -968,6 +975,34 @@ div#headlessui-disclosure-panel-v-17 {
   z-index: 10;
   margin-left: 0;
 }
+html,
+body {
+    overflow: hidden !important;
+    height: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Make sure your Vue app wrapper or root container stretches fully */
+#app, 
+[v-cloak], 
+.quiz-container {
+    height: 100% !important;
+    overflow: hidden !important;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Optional: Prevent scrolling inside internal elements */
+* {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+}
+
+*::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+}
+
 
 
 
