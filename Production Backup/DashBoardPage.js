@@ -53,20 +53,27 @@ document.body.innerHTML = `
                                             </li>
 
                                    <!-- Course -->
-                            <li id="menu-item-course" class="menu-item">
-                              <a class="menu-link" id="courseLink" href="javascript:void(0)" onclick="goToCourse(this)">
-                                <span class="ast-icon icon-arrow"></span>
-                                <span class="menu-text">Course</span>
-                              </a>
-                            </li>
-                            
-                            <!-- Certification -->
-                            <li id="menu-item-certification" class="menu-item">
-                              <a class="menu-link" id="certificationLink" href="javascript:void(0)" onclick="goToCertification()">
-                                <span class="ast-icon icon-arrow"></span>
-                                <span class="menu-text">Certification</span>
-                              </a>
-                            </li>
+                                    <li id="menu-item-course" class="menu-item">
+                                      <a class="menu-link" id="courseLink" href="javascript:void(0)" onclick="goToCourse(this)">
+                                        <span class="ast-icon icon-arrow"></span>
+                                        <span class="menu-text">Course</span>
+                                      </a>
+                                    </li>
+                                    
+                                    
+                                   <!-- Certification -->
+                                <li id="menu-item-certification" class="menu-item">
+                                  <a
+                                    class="menu-link"
+                                    id="certificationLink"
+                                    href="javascript:void(0)"
+                                    onclick="goToCertification()"
+                                  >
+                                    <span class="ast-icon icon-arrow"></span>
+                                    <span class="menu-text">Certification</span>
+                                  </a>
+                                </li>
+
 
 
 
@@ -350,6 +357,8 @@ document.body.innerHTML = `
         </section>
 
 
+
+
         <!-- Four card Learning Path -->
 
 <!-- Learning Paths Section -->
@@ -450,6 +459,7 @@ document.body.innerHTML = `
   </div>
   
 </div>
+
 
 
 
@@ -1762,6 +1772,8 @@ document.addEventListener('DOMContentLoaded', function () {
 /*  for changing name after logout login and  and hitiing login api in this */
 
 
+
+
 function goToCourse(button) {
   if (isUserLoggedIn()) {
     //const slug = button.getAttribute('data-slug');
@@ -1781,28 +1793,40 @@ function isUserLoggedIn() {
   return document.cookie.includes('system_user=yes');
 }
 
-function goToCertification(button) {
-  if (isUserLoggedIn()) {
-    let path = '';
+function goToCertification(button = null) {
+  if (!isUserLoggedIn()) {
+    // Update URL without redirecting
+    const redirectURL = 'http://216.48.181.71/login?redirect-to=/lms/take-certification';
+    window.history.pushState({}, '', redirectURL);
 
-    if (button.id === 'foundation-btn') {
-      path = '/lms/courses/eiq-platform-foundation-certification';
-    } else if (button.id === 'consultant-btn') {
-      path = '/lms/courses/eiq-platform-consultant-certification';
-    } else {
-      console.warn('Unrecognized certification button:', button.id);
-      return;
-    }
-
-    window.location.href = path;
-  } else {
+    // Show modal
     const loginModal = document.getElementById('login-modal');
     if (loginModal) {
       loginModal.style.display = 'flex';
       if (typeof showSection === 'function') showSection('login');
     }
+    return;
   }
+
+  // User is logged in, proceed to certification page
+  let path = '/lms/take-certification';
+
+  if (button && button.id) {
+    if (button.id === 'foundation-btn' || button.id === 'consultant-btn') {
+      path = '/lms/take-certification';
+    } else {
+      console.warn('Unrecognized certification button:', button.id);
+      return;
+    }
+  }
+
+  window.location.href = path;
 }
+
+
+
+
+
 
 
 /* NEW FUNCTION: Change button text on load if user is logged in */
