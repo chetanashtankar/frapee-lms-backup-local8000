@@ -604,13 +604,9 @@ const getLessonStatus = (lesson) => {
   if (lesson.attempts && lesson.attempts > 0) return 'in-progress'
   return 'not-started'
 }
-
-// Helper: returns the first lesson in a chapter that is not complete
 const getNextLessonToContinue = (chapter) => {
   return chapter.lessons.find((lesson) => !lesson.is_complete)
 }
-
-// Adds highlight class if this is the next lesson to continue
 const getLessonHighlightClass = (lesson, chapter) => {
   const nextLesson = getNextLessonToContinue(chapter)
   if (nextLesson && nextLesson.name === lesson.name) {
@@ -618,23 +614,14 @@ const getLessonHighlightClass = (lesson, chapter) => {
   }
   return ''
 }
-
 const isContinueLesson = (chapter, lesson) => {
-  // Find first incomplete lesson in this chapter
   const firstIncomplete = chapter.lessons.find(l => !l.is_complete)
   if (!firstIncomplete) return false
-
-  // Only mark *this* lesson
   return lesson.name === firstIncomplete.name
 }
-
-
-
-
 const getNextLessonOverall = () => {
   debugger;
   if (!outline.data) return null;
-
   for (const chapter of outline.data) {
     const nextLesson = chapter.lessons.find(lesson => !lesson.is_complete);
     if (nextLesson) {
@@ -643,15 +630,12 @@ const getNextLessonOverall = () => {
   }
   return null; // All lessons complete
 };
-
 const continueLearning = () => {
   const next = getNextLessonOverall();
   if (!next) {
     toast.success(__('You have completed all lessons!'));
     return;
   }
-
-  // Check if chapter is unlocked
   const chapterIndex = outline.data.findIndex(c => c.name === next.chapter.name);
   if (!isChapterUnlocked(chapterIndex)) {
     $dialog({
@@ -853,10 +837,12 @@ button.ml-2 {
   border-bottom: 1px solid #e5e7eb;
   background-color: #fff;
   transition: background-color 0.2s ease;
+  cursor: pointer; /* 👈 Add this line */
 }
 
 .accordion-lesson:hover {
   background-color: #f9fafb;
+  cursor: pointer; /* 👈 Add this line */
 }
 
 .active-lesson {
