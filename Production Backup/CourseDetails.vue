@@ -26,7 +26,7 @@
     <div class="cert-status-item">
       <span class="cert-status-label">Proficiency Level</span>
       <p class="cert-status-description">
-            {{ certificationOrCourse === 'Certification' ? 'Intermediate' : 'No prior experience required.' }}
+           {{ proficiencyLevel }}
           </p>
     </div>
 
@@ -52,13 +52,17 @@
 
     <!-- Topics from Outline -->
     <div class="cert-topics">
-      <h3>Topics Covered:</h3>
+      <template v-if="!hideTopicsLabel">
+    <h3>Topics Covered:</h3>
+  </template>
+  
       <CourseOutline
-        :title="__('Course Content')"
+       :title="showCourseContentTitle ? __('Course Content') : ''"
         :courseName="course.data.name"
         :showOutline="true"
         :getProgress="true"
       />
+      
     </div>
   </div>
 
@@ -69,7 +73,7 @@
   <!-- New Additional Info Block -->
   <div class="mt-6 p-5 rounded-lg border bg-white shadow space-y-4">
     <router-link
-      :to="`/lms/courses/${course.data.name}`"
+      :to="`  courses/${course.data.name}`"
       class="block w-full text-center bg-surface-gray-7 text-ink-white py-2 rounded hover:bg-surface-gray-6 active:bg-surface-gray-5 transition"
     >
       Start Learning
@@ -161,10 +165,46 @@ const certificationOrCourse = computed(() => {
   const lastWord = title.split(' ').pop()
   return lastWord === 'Certification' ? 'Certification' : 'Course'
 })
+
+const proficiencyLevel = computed(() => {
+  const title = course?.data?.title || ''
+
+  if (title.endsWith('Foundation Certification')) {
+    return 'Beginner'
+  } else if (title.endsWith('Consultant Certification')) {
+    return 'Intermediate'
+  } else if (title.endsWith('Certification')) {
+    return 'Intermediate'
+  } else {
+    return 'No prior experience required.'
+  }
+})
+
+
+
+const title = computed(() => course?.data?.title || '')
+
+const hideTopicsLabel = computed(() => {
+  return (
+    title.value.endsWith('Foundation Certification') ||
+    title.value.endsWith('Consultant Certification') ||
+    title.value.endsWith('Foundation Course')
+  )
+})
+
+const showCourseContentTitle = computed(() => {
+  return !(
+    title.value.endsWith('Foundation Certification') ||
+    title.value.endsWith('Consultant Certification')
+  )
+})
+
+
+
+
 </script>
 
 <style scoped>
-
 
 .footer-section {
     background-color: #083279;
