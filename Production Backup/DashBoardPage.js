@@ -359,7 +359,7 @@ document.body.innerHTML = `
 
 
 
-        <!-- Four card Learning Path -->
+<!-- Four card Learning Path -->
 
 <!-- Learning Paths Section -->
 <div class="section" id="learning-paths">
@@ -1442,13 +1442,30 @@ document.body.innerHTML = `
 
     <script src="script.js" defer></script>
 
+/* show modal  on click on foundation certification button */
+
+<div id="foundation-warning-modal" class="modal-overlay" style="display: none;">
+  <div class="modal-box warning">
+    <h2>Complete Foundation Course First</h2>
+    <p>Please complete the Foundation course before proceeding to this certification.</p>
+    <button class="modal-btn" onclick="document.getElementById('foundation-warning-modal').style.display = 'none';">OK</button>
+  </div>
+</div>
+
+
+
+/*  footer section */
+
     <footer class="footer-section">
         <div class="container-line">
             <h2 class="main-heading">Enhance your automation knowledge to the next level</h2>
 
             <h5 class="sub-heading">EIQ Platform - Intelligent Business Automation and beyond</h5>
 
-            <a href="#" class="cta-button open-login-modal">
+            <a href="#" 
+            class="cta-button open-login-modal"
+            onclick="handleStartLearning(event)"
+            >
                 Start Learning
             </a>
 
@@ -1661,6 +1678,8 @@ document.body.innerHTML = `
 </div>
 </div>
  
+ 
+ 
 
 `;
 
@@ -1688,11 +1707,29 @@ setTimeout(() => {
   });
 }, 200);
 
+
 /*==================*/
 
 
 
 /* For Opening Login Section */
+
+function handleStartLearning(event) {
+  event.preventDefault();
+
+  if (isUserLoggedIn()) {
+    // Redirect directly if user is logged in
+    window.location.href = '/lms/courses/eiq-agentic-automation-platform-foundation-certification';
+  } else {
+    // Show login modal
+    const loginModal = document.getElementById('login-modal');
+    if (loginModal) {
+      loginModal.style.display = 'flex';
+      if (typeof showSection === 'function') showSection('login');
+    }
+  }
+}
+
 
 
 
@@ -1789,17 +1826,25 @@ function goToCourse(button) {
   }
 }
 
+
+
 function isUserLoggedIn() {
   return document.cookie.includes('system_user=yes');
 }
 
+
+
+// Function to check Foundation Course Progress and act accordingly
+
+
 function goToCertification(button = null) {
+  const isFoundation = button && button.id === 'foundation-btn';
+   const isConsultant = button && button.id === 'consultant-btn';
+
   if (!isUserLoggedIn()) {
-    // Update URL without redirecting
     const redirectURL = 'http://216.48.181.71/login?redirect-to=/lms/take-certification';
     window.history.pushState({}, '', redirectURL);
 
-    // Show modal
     const loginModal = document.getElementById('login-modal');
     if (loginModal) {
       loginModal.style.display = 'flex';
@@ -1808,20 +1853,83 @@ function goToCertification(button = null) {
     return;
   }
 
-  // User is logged in, proceed to certification page
-  let path = '/lms/take-certification';
 
-  if (button && button.id) {
-    if (button.id === 'foundation-btn' || button.id === 'consultant-btn') {
-      path = '/lms/take-certification';
-    } else {
-      console.warn('Unrecognized certification button:', button.id);
-      return;
-    }
+if (isConsultant) {
+    window.location.href = '/lms/courses/eiq-platform-consultant-certification';
+    return;
   }
+// User is logged in
+ 
 
-  window.location.href = path;
+  fetch('/api/method/lms.lms.utils.get_csrf_token')
+    .then(res => res.json())
+    .then(data => {
+      const csrfToken = data.message;
+
+      return fetch('/api/method/lms.lms.utils.get_course_outline', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Frappe-CSRF-Token': csrfToken
+        },
+        body: JSON.stringify({
+          course: 'eiq-agentic-automation-platform-foundation-certification',
+          progress: false
+        })
+      })
+        .then(res => res.json())
+        .then(outlineRes => {
+          const message = outlineRes.message || [];
+          let firstLessonName = null;
+
+          for (const section of message) {
+            if (section.lessons && section.lessons.length > 0) {
+              firstLessonName = section.lessons[0].name;
+              break;
+            }
+          }
+
+          if (!firstLessonName) return;
+
+          return fetch('/api/method/lms.lms.doctype.course_lesson.course_lesson.save_progress', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-Frappe-CSRF-Token': csrfToken
+            },
+            body: JSON.stringify({
+              course: 'eiq-agentic-automation-platform-foundation-certification',
+              lesson: firstLessonName
+            })
+          })
+            .then(res => res.json())
+            .then(progressRes => {
+              const progress = Math.round(progressRes.message);
+              console.log(`Course progress: ${isNaN(progress) ? 0 : progress}%`);
+
+
+                // ✅ Update button text
+  if (button && button.id === 'foundation-btn') {
+    button.innerText = progress >= 100 ? 'Continue' : 'Get Certified';
+  }
+                
+
+              if (progress >= 100) {
+                window.location.href = '/lms/take-certification';
+              } else if (isFoundation) {
+                const modal = document.querySelector('.modal-overlay');
+                if (modal) modal.style.display = 'flex';
+              }
+            });
+        });
+    })
+    .catch(err => {
+      console.error('Error:', err);
+    });
 }
+
+
+
 
 
 
