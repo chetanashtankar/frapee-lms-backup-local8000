@@ -61,18 +61,19 @@ document.body.innerHTML = `
                                     </li>
                                     
                                     
-                                   <!-- Certification -->
+                                  <!-- Certification -->
                                 <li id="menu-item-certification" class="menu-item">
                                   <a
                                     class="menu-link"
                                     id="certificationLink"
-                                    href="javascript:void(0)"
-                                    onclick="goToCertification()"
+                                    href="#"
+                                    onclick="handleCertifcationlink(event)"
                                   >
                                     <span class="ast-icon icon-arrow"></span>
                                     <span class="menu-text">Certification</span>
                                   </a>
                                 </li>
+
 
 
 
@@ -1442,7 +1443,7 @@ document.body.innerHTML = `
 
     <script src="script.js" defer></script>
 
-/* show modal  on click on foundation certification button */
+
 
 <div id="foundation-warning-modal" class="modal-overlay" style="display: none;">
   <div class="modal-box warning">
@@ -1454,7 +1455,7 @@ document.body.innerHTML = `
 
 
 
-/*  footer section */
+
 
     <footer class="footer-section">
         <div class="container-line">
@@ -1482,7 +1483,7 @@ document.body.innerHTML = `
  
     <!-- RIGHT SIDE (your existing login section) -->
 <div class="login-modal-right">
-<span class="modal-close" onclick="document.getElementById('login-modal').style.display='block'">&times;</span>
+<span class="modal-close" onclick="document.getElementById('login-modal').style.display='none'">&times;</span>
 <div id="page-login" data-path="login">
 <div class="page-content-wrapper">
 <main class="container my-4">
@@ -1731,6 +1732,23 @@ function handleStartLearning(event) {
 }
 
 
+function handleCertifcationlink(event) {
+    event.preventDefault();
+
+    if (typeof isUserLoggedIn === 'function' && isUserLoggedIn()) {
+      // Redirect if user is logged in
+      window.location.href = '/lms/take-certification';
+    } else {
+      // Show login modal
+      const loginModal = document.getElementById('login-modal');
+      if (loginModal) {
+        loginModal.style.display = 'flex';
+        if (typeof showSection === 'function') showSection('login');
+      } else {
+        console.warn('Login modal not found.');
+      }
+    }
+  }
 
 
 
@@ -1840,6 +1858,7 @@ function isUserLoggedIn() {
 function goToCertification(button = null) {
   const isFoundation = button && button.id === 'foundation-btn';
    const isConsultant = button && button.id === 'consultant-btn';
+   
 
   if (!isUserLoggedIn()) {
     const redirectURL = 'http://216.48.181.71/login?redirect-to=/lms/take-certification';
@@ -1947,7 +1966,7 @@ function updateCourseButtonsForLoggedInUser() {
         button.textContent = 'Continue';
       }
 
-      if (btnText === 'get certified') {
+      if (btnText === 'get certified' && button.id === 'consultant-btn') {
         button.textContent = 'Continue';
       }
 
