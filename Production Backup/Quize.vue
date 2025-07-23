@@ -243,7 +243,7 @@
 					<div class="mt-1 text-sm text-ink-gray-7">
 						{{ __('Unfortunately,this does not meet the passing criteria for the certifciate') }}
 					</div>
-					<Button @click="resetQuiz()" class="mt-2" v-if="!quiz.data.max_attempts || attempts?.data.length < quiz.data.max_attempts">
+					<Button @click="resetQuiz()" class="mt-2 course-nav-btn" v-if="!quiz.data.max_attempts || attempts?.data.length < quiz.data.max_attempts">
 						<span>{{ __('Try Again') }}</span>
 					</Button>
 					</div>
