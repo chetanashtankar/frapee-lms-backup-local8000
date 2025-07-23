@@ -47,7 +47,9 @@
     </div>
 
 
-     <!-- HTML structure (add classes accordingly) -->
+
+     <!-- Modal -->
+   <!-- HTML structure (add classes accordingly) -->
       <div v-if="showFoundationModal" class="modal-overlay">
         <div class="modal-box warning">
          
@@ -57,6 +59,20 @@
         </div>
       </div>
 
+    <div v-if="showCertPendingModal" class="modal-overlay">
+      <div class="modal-box warning">
+        <button class="modal-close" @click="showCertPendingModal = false">&times;</button>
+        <h2>Certificate Pending</h2>
+        <p>
+          You’ve successfully completed this course. Your certificate is under review and will be issued by an administrator shortly.
+          Please check back later to download it.
+        </p>
+        <button class="modal-btn" @click="showCertPendingModal = false">Okay</button>
+      </div>
+  </div>
+
+
+
     <footer class="footer-section">
       <div class="container-line">
         <h2 class="main-heading">Enhance your automation knowledge to the next level</h2>
@@ -65,8 +81,7 @@
       </div>
     </footer>
 
-    <!-- Modal -->
-  
+   
 
 
 
@@ -89,6 +104,7 @@ export default {
       },
       courseProgress: 0,
       showFoundationModal: false,
+      showCertPendingModal: false,
       certifications: [
         {
           id: 1,
@@ -176,7 +192,7 @@ export default {
     const certId = certData.message?.certificate?.name;
  
     if (!certId) {
-      alert("❌ Certificate not found for this course.");
+      this.showCertPendingModal = true;
       return;
     }
  
@@ -268,6 +284,7 @@ async fetchCourseProgress() {
           this.startCourse(cert);
         }
       },
+
 
 
       async setEnabledCardsBasedOnRoles() {
@@ -530,14 +547,12 @@ return finalProgress;
             opacity: 0;
             animation: fadeIn 0.3s ease-out forwards;
         }
-
         /* Fade in animation */
         @keyframes fadeIn {
             to {
                 opacity: 1;
             }
         }
-
         /* Scale in animation for modal box */
         @keyframes slideUp {
             from {
@@ -549,7 +564,6 @@ return finalProgress;
                 opacity: 1;
             }
         }
-
         /* Modal Box - The actual modal content */
         .modal-box {
             background: white;
@@ -562,7 +576,6 @@ return finalProgress;
             position: relative;
             animation: slideUp 0.3s ease-out;
         }
-
         /* Modal Header */
         .modal-box h2 {
             margin: 0 0 16px 0;
@@ -571,7 +584,6 @@ return finalProgress;
             color: #1f2937;
             line-height: 1.3;
         }
-
         /* Modal Text */
         .modal-box p {
             margin: 0 0 24px 0;
@@ -579,7 +591,6 @@ return finalProgress;
             font-size: 16px;
             line-height: 1.5;
         }
-
         /* Modal Button */
         .modal-btn {
             background: linear-gradient(135deg, #3b82f6, #1d4ed8);
@@ -595,40 +606,33 @@ return finalProgress;
             display: block;
             margin-left: auto;
         }
-
         .modal-btn:hover {
             background: linear-gradient(135deg, #2563eb, #1e40af);
             transform: translateY(-1px);
             box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
         }
-
         .modal-btn:active {
             transform: translateY(0);
             box-shadow: 0 2px 4px rgba(59, 130, 246, 0.2);
         }
-
         .modal-btn:focus {
             outline: none;
             box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
         }
-
         /* Responsive design */
         @media (max-width: 640px) {
             .modal-box {
                 padding: 24px;
                 margin: 20px;
             }
-
             .modal-box h2 {
                 font-size: 20px;
             }
-
             .modal-btn {
                 width: 100%;
                 margin-left: 0;
             }
         }
-
         /* Close button alternative (if you want to add one) */
         .modal-close {
             position: absolute;
@@ -643,27 +647,36 @@ return finalProgress;
             border-radius: 4px;
             transition: color 0.2s ease;
         }
-
         .modal-close:hover {
             color: #6b7280;
             background: #f3f4f6;
         }
-
         /* Warning/Alert variant styles */
         .modal-box.warning {
-            border-left: 4px solid #f59e0b;
+            border-left: 4px solid #1e4a72;
         }
-
         .modal-box.warning h2 {
-            color: #92400e;
+            color: #1e4a72;
         }
-
         .modal-box.warning .modal-btn {
-            background: linear-gradient(135deg, #f59e0b, #d97706);
+           background: #1e4a72;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all .3s ease;
+    margin-top: auto;
+    position: relative;
+    overflow: hidden;
+    z-index: 2;
         }
-
         .modal-box.warning .modal-btn:hover {
-            background: linear-gradient(135deg, #d97706, #b45309);
+            background: linear-gradient(135deg, #2d5a8a, #3d6a9a);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(30, 74, 114, .3);
         }
 
 .progress-bar.completed {
@@ -857,10 +870,13 @@ return finalProgress;
 	transition: transform 0.2s ease;
 	background: white;
 }
+
+
 .cert-btn,
 .cert-btn-disabled {
 	margin-top: auto; /* pushes it to the bottom */
 }
+
 
 .cert-card:hover {
 	transform: translateY(-5px);
