@@ -166,9 +166,9 @@
   </div>
 
   <!-- Continue Learning Button -->
-  <!-- Continue Learning Button -->
+
 <div class="continue-learning-container" 
-     v-if="outline.data && !expandAll && getNextLessonOverall() && !isLessonPage">
+     v-if="outline.data && getNextLessonOverall() && !isLessonPage">
   <Button size="sm" @click="continueLearning" class="continue-learning-button">
     <span class="continue-learning-inner">
       <svg class="continue-learning-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -176,9 +176,8 @@
         <path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9c2.89 0 5.52 1.37 7.2 3.5"></path>
       </svg>
       <span class="continue-learning-text">
-  {{ learningStatus === 'start' ? __('Start Learning') : __('Continue Learning') }}
-</span>
-
+        {{ learningStatus === 'start' ? __('Start Learning') : __('Continue Learning') }}
+      </span>
     </span>
   </Button>
 </div>
@@ -583,11 +582,18 @@ const getLessonHighlightClass = (lesson, chapter) => {
   }
   return ''
 }
+
 const isContinueLesson = (chapter, lesson) => {
+  const chapterIndex = outline.data.findIndex(c => c.name === chapter.name)
+  if (!isChapterUnlocked(chapterIndex)) return false  // 👈 block highlight if locked
+
   const firstIncomplete = chapter.lessons.find(l => !l.is_complete)
   if (!firstIncomplete) return false
   return lesson.name === firstIncomplete.name
 }
+
+
+
 const getNextLessonOverall = () => {
   debugger;
   if (!outline.data) return null;
