@@ -71,7 +71,21 @@
 		
 	</div>
 	<!-- Footer -->
-		
+	
+  <div v-if="showCertPendingModal" class="modal-overlay">
+  <div class="modal-box warning">
+    <button class="modal-close" @click="showCertPendingModal = false">&times;</button>
+    <h2>Certificate Pending</h2>
+    <p>
+      You’ve successfully completed this course. Your certificate is under review and will be issued by an administrator shortly.
+      Please check back later to download it.
+    </p>
+    <button class="modal-btn" @click="showCertPendingModal = false">Okay</button>
+  </div>
+</div>
+
+
+
 		<footer class="footer-section">
 				<div class="container-line">
 					<h2 class="main-heading">Enhance your automation knowledge to the next level</h2>
@@ -95,6 +109,7 @@ export default {
     return {
       courseSlug: 'eiq-agentic-automation-platform-foundation-certification',
       foundationProgress: 0,
+      showCertPendingModal: false,
       certifications: [
         {
           id: 1,
@@ -145,7 +160,7 @@ export default {
         const certId = certData.message?.certificate?.name;
 
         if (!certId) {
-          alert("❌ Certificate not found for this course.");
+          this.showCertPendingModal = true;
           return;
         }
 
@@ -229,6 +244,154 @@ export default {
 
 
 <style scoped>
+
+
+ .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+        /* Fade in animation */
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+        /* Scale in animation for modal box */
+        @keyframes slideUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        /* Modal Box - The actual modal content */
+        .modal-box {
+            background: white;
+            border-radius: 12px;
+            padding: 32px;
+            max-width: 450px;
+            width: 90%;
+            max-height: 90vh;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+            position: relative;
+            animation: slideUp 0.3s ease-out;
+        }
+        /* Modal Header */
+        .modal-box h2 {
+            margin: 0 0 16px 0;
+            font-size: 24px;
+            font-weight: 600;
+            color: #1f2937;
+            line-height: 1.3;
+        }
+        /* Modal Text */
+        .modal-box p {
+            margin: 0 0 24px 0;
+            color: #6b7280;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        /* Modal Button */
+        .modal-btn {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-width: 100px;
+            display: block;
+            margin-left: auto;
+        }
+        .modal-btn:hover {
+            background: linear-gradient(135deg, #2563eb, #1e40af);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+        .modal-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(59, 130, 246, 0.2);
+        }
+        .modal-btn:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+        /* Responsive design */
+        @media (max-width: 640px) {
+            .modal-box {
+                padding: 24px;
+                margin: 20px;
+            }
+            .modal-box h2 {
+                font-size: 20px;
+            }
+            .modal-btn {
+                width: 100%;
+                margin-left: 0;
+            }
+        }
+        /* Close button alternative (if you want to add one) */
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #9ca3af;
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 4px;
+            transition: color 0.2s ease;
+        }
+        .modal-close:hover {
+            color: #6b7280;
+            background: #f3f4f6;
+        }
+        /* Warning/Alert variant styles */
+        .modal-box.warning {
+            border-left: 4px solid #1e4a72;
+        }
+        .modal-box.warning h2 {
+            color: #1e4a72;
+        }
+        .modal-box.warning .modal-btn {
+           background: #1e4a72;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all .3s ease;
+    margin-top: auto;
+    position: relative;
+    overflow: hidden;
+    z-index: 2;
+        }
+        .modal-box.warning .modal-btn:hover {
+            background: linear-gradient(135deg, #2d5a8a, #3d6a9a);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(30, 74, 114, .3);
+        }
 
 .completed-text {
   color: green;
@@ -448,9 +611,15 @@ export default {
 }
 
 .cert-info {
-	padding: 1rem;
-	position: relative;
-	z-index: 2;
+	 padding: 1rem;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 1rem;
+    position: relative;
+    z-index: 2;
 }
 
 .cert-title {
@@ -473,6 +642,7 @@ export default {
 	border-radius: 6px;
 	cursor: pointer;
 	transition: background-color 0.2s ease;
+  width: fit-content;
 }
 
 .cert-btn:hover {
@@ -488,6 +658,7 @@ export default {
 	border-radius: 6px;
 	cursor: not-allowed;
 	transition: none;
+  width: fit-content;
 }
 
 .cert-btn-disabled:hover {
