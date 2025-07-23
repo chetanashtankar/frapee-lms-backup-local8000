@@ -175,7 +175,10 @@
         <path d="M9 12l2 2 4-4"></path>
         <path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9c2.89 0 5.52 1.37 7.2 3.5"></path>
       </svg>
-      <span class="continue-learning-text">{{ __('Continue Learning') }}</span>
+      <span class="continue-learning-text">
+  {{ learningStatus === 'start' ? __('Start Learning') : __('Continue Learning') }}
+</span>
+
     </span>
   </Button>
 </div>
@@ -452,13 +455,11 @@ const handleLessonClick = (chapter, chapterIndex, lesson) => {
     return
   }
 
-  // Only allow view if not editing
   if (props.allowEdit) {
-    openLessonModal(lesson, chapter) // optional for editing
+    openLessonModal(lesson, chapter) 
     return
   }
 
-  // Check if SCORM chapter — use SCORM view
   if (chapter.is_scorm_package) {
     if (!user.data) {
       toast.success(__('Please enroll for this course to view this lesson'))
@@ -474,7 +475,6 @@ const handleLessonClick = (chapter, chapterIndex, lesson) => {
     return
   }
 
-  // Normal lesson redirect
   router.push({
     name: 'Lesson',
     params: {
@@ -484,15 +484,8 @@ const handleLessonClick = (chapter, chapterIndex, lesson) => {
     },
   })
 }
-
-
-
-
-
-
 const handleChapterClick = (event, chapter, index, closeDisclosure) => {
   if (!isChapterUnlocked(index)) {
-    // Block Disclosure toggle
     event.preventDefault()
     event.stopPropagation()
 
@@ -509,13 +502,9 @@ const handleChapterClick = (event, chapter, index, closeDisclosure) => {
       ],
       class: 'custom-dialog-box'
     })
-
-    // Optionally close if open
     closeDisclosure?.()
     return
   }
-
-  // If SCORM chapter (non-edit mode), route
   if (chapter.is_scorm_package && !props.allowEdit) {
     if (!user.data) {
       toast.success(__('Please enroll for this course to view this lesson'))
@@ -530,13 +519,7 @@ const handleChapterClick = (event, chapter, index, closeDisclosure) => {
     })
   }
 }
-
-
-
-// === Define openStates first ===
 const openStates = ref([])
-
-// === Define expandAll next ===
 const expandAll = computed({
   get() {
     if (!openStates.value.length) return false
@@ -548,16 +531,12 @@ const expandAll = computed({
     }
   }
 })
-
-// === Define watchers last ===
 watch(expandAll, (newVal) => {
   if (outline.data?.length) {
     openStates.value = outline.data.map(() => newVal)
   }
 })
-
 watch(outline, () => {
-
   if (outline.data?.length && !openStates.value.length) {
     openStates.value = outline.data.map((_, i) =>
       expandAll.value ? true : openChapterDetail(i + 1)
@@ -565,24 +544,16 @@ watch(outline, () => {
     )
   }
 })
-
-
-
-
 const toggleExpandAll = () => {
  	expandAll.value = !expandAll.value
 
 }
-
-
-
 const isActiveLesson = (lessonNumber) => {
 	return (
 		route.params.chapterNumber == lessonNumber.split('.')[0] &&
 		route.params.lessonNumber == lessonNumber.split('.')[1]
 	)
 }
-
 const getChapterStatus = (chapter) => {
   if (!chapter.lessons || chapter.lessons.length === 0) return ''
 
@@ -597,8 +568,6 @@ const getChapterStatus = (chapter) => {
     return 'in-progress'
   }
 }
-
-// Helper: returns 'complete', 'in-progress', or 'not-started' for a lesson
 const getLessonStatus = (lesson) => {
   if (lesson.is_complete) return 'complete'
   if (lesson.attempts && lesson.attempts > 0) return 'in-progress'
@@ -841,7 +810,7 @@ button.ml-2 {
 }
 
 .accordion-lesson:hover {
-  background-color: #f9fafb;
+  background-color: #f3f4f6;
   cursor: pointer; /* 👈 Add this line */
 }
 
@@ -930,7 +899,7 @@ button.ml-2 {
 }
 
 .accordion-lesson:hover {
-  background-color: #f9fafb;
+  background-color: #f3f4f6;
 }
 
 /* Active Lesson Highlight */
