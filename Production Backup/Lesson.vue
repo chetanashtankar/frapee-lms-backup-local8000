@@ -5,8 +5,8 @@
 		>
 			<Breadcrumbs class="h-7" :items="breadcrumbs" />
 			<div class="flex items-center space-x-2">
-				<Tooltip v-if="canGoZen()" :text="__('Zen Mode')">
-					<Button @click="goFullScreen()">
+				<Tooltip v-if="canGoZen()" :text="__('Full Screen')">
+					<Button @click="goFullScreen()" class="course-nav-btn">
 						<template #icon>
 							<Focus class="w-4 h-4 stroke-2" />
 						</template>
@@ -111,7 +111,7 @@
 									},
 								}"
 							>
-								<Button>
+								<Button class="course-nav-btn">
 									<template #prefix>
 										<ChevronLeft class="w-4 h-4 stroke-1" />
 									</template>
@@ -131,7 +131,7 @@
 									},
 								}"
 							>
-								<Button>
+								<Button class="course-nav-btn">
 									{{ __('Edit') }}
 								</Button>
 							</router-link>
@@ -146,7 +146,7 @@
 									},
 								}"
 							>
-								<Button>
+								<Button class="course-nav-btn">
 									<template #suffix>
 										<ChevronRight class="w-4 h-4 stroke-1" />
 									</template>
@@ -155,17 +155,13 @@
 									</span>
 								</Button>
 							</router-link>
-							<router-link
-								v-else
-								:to="{
-									name: 'CourseDetail',
-									params: { courseName: courseName },
-								}"
+							<a
+								:href="getSmartRedirectURL()"
 							>
-								<Button>
-									{{ __('Back to Overview') }}
+								<Button class="course-nav-btn">
+									{{ getSmartButtonText() }}
 								</Button>
-							</router-link>
+							</a>
 						</div>
 					</div>
 
@@ -331,6 +327,53 @@ const props = defineProps({
 		required: true,
 	},
 })
+const getSmartRedirectURL = () => {
+	const path = window.location.pathname
+
+	if (isQuizLesson()) {
+		return '/lms/take-certification'
+	}
+
+	// If last lesson (no next)
+	if (!lesson.data?.next) {
+		return '/lms/take-certification'
+	}
+
+	// For regular lessons
+	return '/lms/foundation-course'
+}
+const isLessonPage = computed(() => route.path.includes('/learn/'))
+const getSmartButtonText = () => {
+	const path = window.location.pathname
+
+	if (isQuizLesson()) {
+		return __('Go Back')
+	}
+
+	if (!lesson.data?.next) {
+		return __('Get Certified')
+	}
+
+	return __('Back to Courses')
+}
+
+// Helper function to detect quiz lesson
+const isQuizLesson = () => {
+	if (lesson.data?.quiz_id) return true
+	if (lesson.data?.content) {
+		try {
+			const contentBlocks = JSON.parse(lesson.data.content)?.blocks || []
+			return contentBlocks.some(block => block.type === 'quiz')
+		} catch {
+			return false
+		}
+	}
+	// fallback check in case older quiz format uses body
+	if (lesson.data?.body && lesson.data.body.includes('{{ Quiz(')) {
+		return true
+	}
+	return false
+}
 
 onMounted(() => {
 	startTimer()
@@ -597,15 +640,33 @@ usePageMeta(() => {
 </script>
 <style>
 
+.course-nav-btn {
+	background-color: #ff4602 !important;
+	color: #fff !important;
+	font-weight: 600;
+	box-shadow: 0 2px 6px #00000026;
+	border-radius: 6px;
+	transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.course-nav-btn:hover {
+	background-color: #e04300 !important; /* slightly darker orange */
+	box-shadow: 0 4px 10px #00000040; /* stronger shadow on hover */
+}
+
 /* Only remove right border on .border-r inside .bg-surface-white */
 .bg-surface-white .border-r {
   border-right: none !important;
 }
+
 .bg-surface-white {
   display: flex;            /* Make parent a flex container */
-  justify-content: center;  /* Center child horizontally */
-  align-items: center;      /* Center child vertically */
- 
+  justify-content: center;  /* Center child horizontally */ 
+}
+
+
+.flex.min-w-0.items-center.h-7 {
+    display: none;
 }
 
 .bg-surface-white > .border-r.container.pt-5.pb-10.px-5.h-full {
@@ -799,5 +860,10 @@ usePageMeta(() => {
 :root {
 	--plyr-range-fill-background: white;
 	--plyr-video-control-background-hover: transparent;
+}
+
+.relative.inline-block.shrink-0.w-6.h-6.rounded-full.avatar.border.border-outline-gray-2.cursor-auto
+ {
+    display: none;
 }
 </style>
