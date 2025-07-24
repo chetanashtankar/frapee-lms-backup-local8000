@@ -3,100 +3,92 @@
     <!-- CERTIFICATE LANDING PAGE STYLE -->
 
 
-  <div class="cert-container">
-  <!-- Hero Section -->
-  <div class="cert-header">
-    <p class="cert-subtitle">For Interns</p>
-    <h1>{{ course.data.title }}</h1>
-   
-  </div>
+    <div class="cert-container">
+      <!-- Hero Section -->
+      <div class="cert-header">
+        <p class="cert-subtitle">For Interns</p>
+        <h1>{{ course.data.title }}</h1>
 
-  <!-- Status Bar -->
-  <div class="cert-status-bar">
-    <div class="cert-status-item">
-      <span class="cert-status-label">
+      </div>
+
+      <!-- Status Bar -->
+      <div class="cert-status-bar">
+        <div class="cert-status-item">
+          <span class="cert-status-label">
             <!-- Conditionally render based on course title -->
             {{ certificationOrCourse === 'Certification' ? 'Certification Test' : '5 Modules' }}
           </span>
-      <p class="cert-status-description">
-        {{ course.data.short_introduction }}
-      </p>
-    </div>
-
-    <div class="cert-status-item">
-      <span class="cert-status-label">Proficiency Level</span>
-      <p class="cert-status-description">
-           {{ proficiencyLevel }}
+          <p class="cert-status-description">
+            {{ course.data.short_introduction }}
           </p>
-    </div>
+        </div>
 
-    <div class="cert-status-item">
-      <span class="cert-status-label">Learning Format</span>
-      <p class="cert-status-description">
+        <div class="cert-status-item">
+          <span class="cert-status-label">Proficiency Level</span>
+          <p class="cert-status-description">
+            {{ proficiencyLevel }}
+          </p>
+        </div>
+
+        <div class="cert-status-item">
+          <span class="cert-status-label">Learning Format</span>
+          <p class="cert-status-description">
             {{ certificationOrCourse === 'Certification' ? 'Fixed Schedule' : 'Flexible Schedule' }}
           </p>
+        </div>
+      </div>
+
+      <!-- Description / Overview -->
+      <div class="cert-section">
+        <div class="cert-overview">
+          <h2>Overview:</h2>
+          <div v-html="course.data.description" class="cert-description"></div>
+
+          <div class="cert-prereqs" v-if="course.data.prerequisites">
+            <h3>Prerequisites:</h3>
+            <p>{{ course.data.prerequisites }}</p>
+          </div>
+        </div>
+
+        <!-- Topics from Outline -->
+        <div class="cert-topics">
+          <template v-if="!hideTopicsLabel">
+            <h3>Topics Covered:</h3>
+          </template>
+
+          <CourseOutline :title="showCourseContentTitle ? __('Course Content') : ''" :courseName="course.data.name"
+            :showOutline="true" :getProgress="true" />
+
+        </div>
+      </div>
+
     </div>
-  </div>
+    <div class="hidden md:block md:w-1/3">
+      <CourseCardOverlay :course="course" />
 
-  <!-- Description / Overview -->
-  <div class="cert-section">
-    <div class="cert-overview">
-      <h2>Overview:</h2>
-      <div v-html="course.data.description" class="cert-description"></div>
+      <!-- New Additional Info Block -->
+      <div class="mt-6 p-5 rounded-lg border bg-white shadow space-y-4">
+        <router-link :to="`  courses/${course.data.name}`"
+          class="block w-full text-center bg-surface-gray-7 text-ink-white py-2 rounded hover:bg-surface-gray-6 active:bg-surface-gray-5 transition">
+          Start Learning
+        </router-link>
 
-      <div class="cert-prereqs" v-if="course.data.prerequisites">
-        <h3>Prerequisites:</h3>
-        <p>{{ course.data.prerequisites }}</p>
+        <router-link :to="`/lms/courses/${course.data.name}/edit`"
+          class="block w-full text-center bg-surface-gray-2 text-ink-gray-8 py-2 rounded hover:bg-surface-gray-3 active:bg-surface-gray-4 transition">
+          Edit
+        </router-link>
       </div>
     </div>
+    <footer class="footer-section">
+      <div class="container-line">
+        <h2 class="main-heading">Enhance your automation knowledge to the next level</h2>
 
-    <!-- Topics from Outline -->
-    <div class="cert-topics">
-      <template v-if="!hideTopicsLabel">
-    <h3>Topics Covered:</h3>
-  </template>
-  
-      <CourseOutline
-       :title="showCourseContentTitle ? __('Course Content') : ''"
-        :courseName="course.data.name"
-        :showOutline="true"
-        :getProgress="true"
-      />
-      
-    </div>
-  </div>
+        <h5 class="sub-heading">EIQ Platform - Intelligent Business Automation and beyond</h5>
 
-  </div>
-  <div class="hidden md:block md:w-1/3">
-  <CourseCardOverlay :course="course" />
-
-  <!-- New Additional Info Block -->
-  <div class="mt-6 p-5 rounded-lg border bg-white shadow space-y-4">
-    <router-link
-      :to="`  courses/${course.data.name}`"
-      class="block w-full text-center bg-surface-gray-7 text-ink-white py-2 rounded hover:bg-surface-gray-6 active:bg-surface-gray-5 transition"
-    >
-      Start Learning
-    </router-link>
-
-    <router-link
-      :to="`/lms/courses/${course.data.name}/edit`"
-      class="block w-full text-center bg-surface-gray-2 text-ink-gray-8 py-2 rounded hover:bg-surface-gray-3 active:bg-surface-gray-4 transition"
-    >
-      Edit
-    </router-link>
-  </div>
-</div>
-<footer class="footer-section">
-        <div class="container-line">
-            <h2 class="main-heading">Enhance your automation knowledge to the next level</h2>
-
-            <h5 class="sub-heading">EIQ Platform - Intelligent Business Automation and beyond</h5>
-            
-            <p class="copyright">Copyright © 2025 | EvoluteIQ LMS</p>
-        </div>
+        <p class="copyright">Copyright © 2025 | EvoluteIQ LMS</p>
+      </div>
     </footer>
-</div>
+  </div>
 
 </template>
 
@@ -205,42 +197,41 @@ const showCourseContentTitle = computed(() => {
 </script>
 
 <style scoped>
-
 .footer-section {
-    background-color: #083279;
-    padding: 60px 0;
-    text-align: center;
+  background-color: #083279;
+  padding: 60px 0;
+  text-align: center;
 }
 
 .container {
-    max-width: 70%;
-    margin: 0 auto;
-    padding: 0 20px;
+  max-width: 70%;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
 .main-heading {
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 20px;
-    line-height: 1.2;
-    font-family: "Roboto", Sans-serif;
-    font-size: 31px;
-    font-weight: 600;
-    font-style: normal;
-    line-height: 33px;
-    letter-spacing: 0px;
-    word-spacing: 0px;
-    color: #FFFFFF;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+  line-height: 1.2;
+  font-family: "Roboto", Sans-serif;
+  font-size: 31px;
+  font-weight: 600;
+  font-style: normal;
+  line-height: 33px;
+  letter-spacing: 0px;
+  word-spacing: 0px;
+  color: #FFFFFF;
 }
 
 .sub-heading {
-    font-size: 1.25rem;
-    /* color: #666; */
-    margin-bottom: 30px;
-    font-weight: 500;
-    color: #FFFFFF;
-    line-height: 1.2em;
+  font-size: 1.25rem;
+  /* color: #666; */
+  margin-bottom: 30px;
+  font-weight: 500;
+  color: #FFFFFF;
+  line-height: 1.2em;
 }
 
 
@@ -249,16 +240,17 @@ const showCourseContentTitle = computed(() => {
 } */
 
 .copyright {
-    font-size: 14px;
-    color: #fff;
-    margin-top: 20px;
-    padding-top: 20px;
-    border-top: 1px solid #ddd;
+  font-size: 14px;
+  color: #fff;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #ddd;
 }
 
 .w-4 {
-    width: revert !important;
+  width: revert !important;
 }
+
 .avatar-group {
   display: inline-flex;
   align-items: center;
@@ -279,20 +271,20 @@ const showCourseContentTitle = computed(() => {
 }
 
 .cert-header {
- background-image: url('/files/explorecourse.png');
- background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+  background-image: url('/files/explorecourse.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .space-y-4 {
-    display: none !important;
+  display: none !important;
 }
 
 /* CERTIFICATE PAGE STYLE */
 
 .cert-container {
- 
+
   margin: 0 auto;
   background: #f8f9fa;
   border-radius: 12px;
@@ -300,11 +292,11 @@ const showCourseContentTitle = computed(() => {
 }
 
 .cert-header {
-  height: 276px;
+  height: 320px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 40px 20px;
+  padding: 40px 49px;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -326,16 +318,21 @@ const showCourseContentTitle = computed(() => {
 }
 
 .cert-subtitle {
-  font-size: 1.2rem;
-  opacity: 0.85;
-  margin-bottom: 10px;
+  font-size: 16px;
+  font-weight: 500;
+  opacity: 0.9;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .cert-header h1 {
-  font-size: 3rem;
+  font-size: 2.9rem;
   font-weight: 700;
-  margin-bottom: 0px;
+  margin: 0;
   line-height: 1.2;
+  position: relative;
+  z-index: 1;
 }
 
 .cert-cta-button {
@@ -357,38 +354,53 @@ const showCourseContentTitle = computed(() => {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   background: white;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
   border-radius: 12px;
   overflow: hidden;
   margin: 20px auto;
   max-width: 95%;
-   margin-top: -41px;
+  margin-top: -41px;
 }
 
 .cert-status-item {
+  position: relative;
   text-align: center;
-  padding: 20px;
-  border-right: 1px solid #e9ecef;
-  /* display: flex;
-  flex-direction: column;
-  justify-content: center; */
+  padding: 40px;
 }
+
+.cert-status-item::after {
+  content: "";
+  position: absolute;
+  top: 25%;
+  /* adjust as needed */
+  bottom: 25%;
+  /* adjust as needed */
+  right: 0;
+  width: 2px;
+  background-color: #e9ecef;
+}
+
 
 .cert-status-item:last-child {
   border-right: none;
 }
 
 .cert-status-label {
-  font-size: 1.25rem;
-  font-weight: 700;
+  font-size: 14px;
+  font-weight: 600;
   color: #0355A4;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
   margin-bottom: 8px;
+  display: block;
 }
 
 .cert-status-description {
-  font-size: 1rem;
-  color: #666;
-  line-height: 1.4;
+  font-size: 16px;
+  color: #374151;
+  line-height: 1.5;
+  margin: 0;
+  font-weight: 500;
 }
 
 .cert-badge {
@@ -408,6 +420,10 @@ const showCourseContentTitle = computed(() => {
 .cert-section {
   background: #f8f9fa;
   padding: 40px 20px;
+  max-width: 1600px;
+  margin: 0 auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .cert-overview {
@@ -416,21 +432,42 @@ const showCourseContentTitle = computed(() => {
   margin-right: 40px;
 }
 
+
+
 .cert-overview h2 {
   font-size: 2rem;
-  color: #0355A4;
-  margin-bottom: 15px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-weight: 600;
+  color: #0355a4;
+  margin-bottom: 24px;
+  font-weight: 700;
+  position: relative;
 }
 
+.cert-overview h2::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, #4f46e5, #0355A4);
+  border-radius: 2px;
+}
+
+
 .cert-description {
- 
-  color: #444;
-  line-height: 2.6;
-  margin-bottom: 25px;
+  font-size: 16px;
+  line-height: 3.4;
+  color: #4b5563;
+  margin-bottom: 32px;
+
+}
+
+.cert-description br {
+  display: block !important;
+  margin-bottom: 0.75rem !important;
+  /* spacing after <br> */
+  content: "" !important;
+  /* optional, but helps in some cases */
 }
 
 .cert-prereqs {
@@ -455,17 +492,19 @@ const showCourseContentTitle = computed(() => {
 }
 
 .cert-topics {
-  margin: 40px 0;
+  padding: 0px 106px 0px 106px;
+  background: #f8f9fa;
+  max-width: 1600px;
+  margin: 0 auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .cert-topics h3 {
   font-size: 1.5rem;
-  color: #0355A4;
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 24px;
+  font-weight: 700;
 }
 
 .cert-topic-grid {
@@ -478,7 +517,7 @@ const showCourseContentTitle = computed(() => {
   background: white;
   padding: 20px;
   border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
 .cert-topic-card h4 {
@@ -499,7 +538,7 @@ const showCourseContentTitle = computed(() => {
   background: white;
   padding: 20px;
   border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
   margin-top: 40px;
 }
 
@@ -508,7 +547,7 @@ const showCourseContentTitle = computed(() => {
   background: white;
   padding: 20px;
   border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
 .cert-instructors h3 {
@@ -520,12 +559,11 @@ const showCourseContentTitle = computed(() => {
 .cert-container .cert-description ul {
   list-style-type: disc !important;
   margin-left: 60px !important;
+  margin-bottom: 16px !important;
 }
 
 
 .mt-6.p-5.rounded-lg.border.bg-white.shadow.space-y-4 {
-    display: none;
+  display: none;
 }
-
-
 </style>
