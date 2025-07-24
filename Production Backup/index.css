@@ -99,6 +99,13 @@ header.sticky.flex.items-center.justify-between.top-0.z-10.border-b.bg-surface-w
   border: none !important;
 }
 
+.cert-topics .font-semibold.text-lg.leading-5.text-ink-gray-9 {
+  font-size: 1.5rem;
+  color: #0355a4;
+  margin-bottom: 24px;
+  font-weight: 700;
+  position: relative;
+}
 
 /* .text-3xl {
     font-size: 34px;
