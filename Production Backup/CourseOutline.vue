@@ -650,7 +650,6 @@ watchEffect(() => {
 </script>
 
 <style>
-
 .continue-learning-container {
     display: flex;
     flex-direction: row-reverse;
@@ -811,17 +810,23 @@ button.ml-2 {
   padding: 10px 32px 10px 32px;
   border-bottom: 1px solid #e5e7eb;
   background-color: #fff;
-  transition: background-color 0.2s ease;
-  cursor: pointer; /* 👈 Add this line */
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+  margin-bottom: 4px;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
 }
 
 .accordion-lesson:hover {
   background-color: #f3f4f6;
-  cursor: pointer; /* 👈 Add this line */
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+  transform: translateY(-1px);
 }
 
 .active-lesson {
   background-color: #f3f4f6;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
 }
 
 .add-lesson-button {
@@ -842,14 +847,15 @@ button.ml-2 {
 }
 
 
-/* Accordion Container */
+/* Accordion Container - Centered with max width and margins */
 .accordion-container {
-  /* border: 2px solid #e2e7ed; */
   border-radius: 8px;
-  /* background-color: #ffffff;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05); */
   padding: 8px;
   background: #f8f9fa;
+  max-width: 1600px;
+  margin: 0 auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Accordion Header (DisclosureButton) */
@@ -892,12 +898,14 @@ button.ml-2 {
   opacity: 1;
 }
 
-/* Lesson Item */
+/* Lesson Item - Enhanced with shadow */
 .accordion-lesson {
-  
   border-bottom: 1px solid #e5e7eb;
   background-color: #fff;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  margin-bottom: 4px;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
 }
 
 .accordion-lesson:last-child {
@@ -906,11 +914,14 @@ button.ml-2 {
 
 .accordion-lesson:hover {
   background-color: #f3f4f6;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+  transform: translateY(-1px);
 }
 
 /* Active Lesson Highlight */
 .active-lesson {
   background-color: #f3f4f6;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
 }
 
 /* Lesson Link */
@@ -945,6 +956,7 @@ button.ml-2 {
   opacity: 1;
 }
 
+
 /* Add Button in Panel */
 .add-lesson-button {
   display: block;
@@ -963,80 +975,91 @@ button.ml-2 {
   background-color: #4338ca;
 }
 
+/* Continue Learning Container - Also centered */
+.continue-learning-container {
+  display: flex;
+  margin: 24px auto;
+  max-width: 1600px;
+  justify-content: flex-start;
+}
 
+.continue-learning-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 19px 30px;
+  background: linear-gradient(135deg, #ff4602 0%, #d73a00 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 14px; 
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  display: flex;
+}
 
-  .continue-learning-container {
-          display: flex;
-         
-          margin: 24px 0;
-        }
+.continue-learning-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
 
-        .continue-learning-button {
-          display: inline-flex;
-          align-items: center;
-          gap: 8px;
-          padding: 19px 30px;
-          background: linear-gradient(135deg, #ff4602 0%, #d73a00 100%); /* Updated background color */
-          color: white;
-          border: none;
-          border-radius: 8px;
-          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-          font-size: 14px; 
-          font-weight: 600;
-          text-decoration: none;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
-          /* position: relative; */
-          /* overflow: hidden; */
-          display: flex;
-        }
+.continue-learning-button:hover::before {
+  left: 100%;
+}
 
-        .continue-learning-button::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: -100%;
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-          transition: left 0.5s ease;
-        }
+.continue-learning-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+  background: linear-gradient(135deg, #e54c1b 0%, #d73a00 100%);
+}
 
-        .continue-learning-button:hover::before {
-          left: 100%;
-        }
+.continue-learning-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
 
-        .continue-learning-button:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
-         background: linear-gradient(135deg, #e54c1b 0%, #d73a00 100%); /* Darker shade on hover */
-        }
+.continue-learning-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.5);
+}
 
-        .continue-learning-button:active {
-          transform: translateY(0);
-          box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
-        }
+.continue-learning-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
 
-        .continue-learning-button:focus {
-          outline: none;
-          box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.5);
-        }
+.continue-learning-text {
+  white-space: nowrap;
+}
 
-        .continue-learning-icon {
-          width: 20px;
-          height: 20px;
-          flex-shrink: 0;
-        }
+.continue-learning-button span {
+  display: flex;
+  gap: inherit;
+  align-items: center;
+}
 
-        .continue-learning-text {
-          white-space: nowrap;
-        }
+/* Center the main container wrapper if needed */
+.main-content-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
 
-        .continue-learning-button span {
-            display: flex;
-            gap: inherit; /* Inherit the gap from the parent .continue-learning-button */
-            align-items: center; /* Align items horizontally */
-        }
-
+/* For flat lesson view - also centered */
+.flat-lesson-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 8px;
+}
 </style>
