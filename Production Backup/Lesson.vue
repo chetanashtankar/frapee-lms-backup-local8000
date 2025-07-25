@@ -274,15 +274,18 @@
 				/>
 			</div>
 		</div>
+
+		
+
 		<div v-if="showIncompleteLessonModal" class="modal-overlay">
 			<div class="modal-box warning">
 				<button class="modal-close" @click="showIncompleteLessonModal = false">&times;</button>
 				<h2>Lesson Incomplete</h2>
 				<p>
-				Please complete the current lesson before moving forward.
-				You need to watch at least 30 seconds of the lesson to proceed to the next one.
+				Please complete the current lesson before proceeding to the next one.
+  				Ensure you have fully engaged with the content to continue your learning journey.
 				</p>
-				<button class="modal-btn" @click="showIncompleteLessonModal = false">Got It</button>
+				<button class="modal-btn" @click="showIncompleteLessonModal = false">Close</button>
 			</div>
 			</div>
 
@@ -549,15 +552,15 @@ watch(
 	}
 )
 
-const startTimer = () => {
-	timerInterval = setInterval(() => {
-		timer.value++
-		if (timer.value == 30) {
-			clearInterval(timerInterval)
-			markProgress()
-		}
-	}, 1000)
-}
+// const startTimer = () => {
+// 	timerInterval = setInterval(() => {
+// 		timer.value++
+// 		if (timer.value == 30) {
+// 			clearInterval(timerInterval)
+// 			markProgress()
+// 		}
+// 	}, 1000)
+// }
 
 onBeforeUnmount(() => {
 	clearInterval(timerInterval)
@@ -668,24 +671,141 @@ usePageMeta(() => {
 	}
 })
 
-const handleNextClick = () => {
-	// Require either saved progress or at least 30 seconds watched
-	if (!lesson.data?.progress && timer.value < 30) {
-		showIncompleteLessonModal.value = true
-		return
-	}
+// const handleNextClick = () => {
+// 	// Require either saved progress or at least 30 seconds watched
+// 	if (!lesson.data?.progress && timer.value < 30) {
+// 		showIncompleteLessonModal.value = true
+// 		return
+// 	}
 
-	// Navigate to next lesson
-	router.push({
-		name: 'Lesson',
-		params: {
-			courseName: props.courseName, // ✅ use props here
-			chapterNumber: lesson.data.next.split('.')[0],
-			lessonNumber: lesson.data.next.split('.')[1],
-		},
-	})
+// 	// Navigate to next lesson
+// 	router.push({
+// 		name: 'Lesson',
+// 		params: {
+// 			courseName: props.courseName, // ✅ use props here
+// 			chapterNumber: lesson.data.next.split('.')[0],
+// 			lessonNumber: lesson.data.next.split('.')[1],
+// 		},
+// 	})
+// }
+
+
+onMounted(() => {
+  const courseName = route.params.courseName;   // Extract from route params
+  const chapterNumber = route.params.chapterNumber;   // Extract from route params
+  const lessonNumber = route.params.lessonNumber;   // Extract from route params
+
+  fetchLessonData(courseName, chapterNumber, lessonNumber);
+});
+
+// Global variable to hold video duration
+let videoDuration = 0;  // Set to zero initially
+
+// Function to fetch and process lesson data
+const fetchLessonData = (courseName, chapterNumber, lessonNumber) => {
+  fetch('/api/method/lms.lms.utils.get_csrf_token')
+    .then(res => res.json())
+    .then(data => {
+      const csrfToken = data.message;  // Get CSRF token
+      console.log('✅ CSRF Token:', csrfToken);
+
+      fetch('/api/method/lms.lms.utils.get_lesson', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': csrfToken,
+        },
+        body: JSON.stringify({
+          course: courseName,
+          chapter: chapterNumber,
+          lesson: lessonNumber,
+        })
+      })
+      .then(response => response.json())
+      .then(lessonData => {
+        if (lessonData && lessonData.message) {
+          const contentData = JSON.parse(lessonData.message.content);
+          const videoBlock = contentData.blocks.find(block => block.type === 'upload');
+
+          if (videoBlock) {
+            const videoUrl = videoBlock.data.file_url;
+            console.log('✅ Video URL:', videoUrl);
+
+            // Set the video URL and fetch the video duration
+            createAndPlayVideo(videoUrl);
+          } else {
+            console.warn('⚠️ No video URL found.');
+          }
+        }
+      });
+    });
+};
+
+// Function to create video element and get duration
+function createAndPlayVideo(videoUrl) {
+  const videoElement = document.createElement('video');
+  videoElement.src = videoUrl;
+  videoElement.style.display = 'none';  // Hide the video element for loading
+
+  // Wait for the video to be ready before starting the timer
+  videoElement.onloadedmetadata = function() {
+    videoDuration = videoElement.duration;  // Get the video duration
+    console.log('✅ Video Duration:', videoDuration);  // Check the duration
+
+    // Now that we have the duration, start the timer
+    startTimer(videoDuration);  // Pass the video duration to start the timer
+  };
+
+  videoElement.onerror = function() {
+    console.error('❌ Error loading video.');
+  };
 }
 
+// Start the timer function
+const startTimer = (videoDuration) => {
+  if (videoDuration === 0) {
+    console.warn('❌ Video duration is not set yet.');
+    return;
+  }
+
+  console.log('Starting timer...');
+  let timerInterval = setInterval(() => {
+    console.log('Timer value:', timer.value);
+    timer.value++;
+
+    if (timer.value >= videoDuration) {  // When timer reaches the video duration
+      console.log('✅ Timer reached video duration:', timer.value);
+      clearInterval(timerInterval);
+      markProgress();  // Call the progress function
+    }
+  }, 1000);
+};
+
+// Handle the next button click
+const handleNextClick = () => {
+  console.log('⚙️ Checking lesson progress...');
+  console.log('Lesson Progress:', lesson.data?.progress);
+  console.log('Timer Value:', timer.value);
+  console.log('Video Duration:', videoDuration);
+
+  // Require either saved progress or at least videoDuration seconds watched
+  if (!lesson.data?.progress && timer.value < videoDuration) {
+    console.log('⚠️ Incomplete lesson, showing modal...');
+    showIncompleteLessonModal.value = true;
+    return;
+  }
+
+  // If condition is not met, navigate to the next lesson
+  console.log('Navigating to the next lesson...');
+  router.push({
+    name: 'Lesson',
+    params: {
+      courseName: props.courseName, // ✅ use props here
+      chapterNumber: lesson.data.next.split('.')[0],
+      lessonNumber: lesson.data.next.split('.')[1],
+    },
+  });
+};
 
 
 </script>
