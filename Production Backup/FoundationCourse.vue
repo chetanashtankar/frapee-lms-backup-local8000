@@ -24,6 +24,7 @@
           <p v-else class="completed-text">Completed</p>
         </div>
 
+        
         <button
   class="cert-btn"
   @click="foundationProgress >= 100 ? viewCertificate(courseSlug) : startCourse()"
@@ -238,6 +239,7 @@ export default {
   }
 }
 </script>
+
 
 
 
@@ -462,14 +464,14 @@ export default {
     min-height: 100vh;
 }
 
+
 .certification-page {
     flex-grow: 1;
-    padding: 5rem 1.25rem 1.25rem 1.25rem;
+     padding: 5rem 6.25rem 1.25rem;
 }
-
 .page-title {
     margin-bottom: 1.5rem;
-    font-size: 16px;
+    font-size: 20px;
     line-height: 1.15;
     letter-spacing: .02em;
     font-weight: 600;
@@ -590,7 +592,7 @@ export default {
     font-weight: 500;
     cursor: pointer;
     transition: all 0.2s ease;
-    width: fit-content;
+   
     min-height: 44px;
     display: flex;
     align-items: center;
@@ -598,15 +600,34 @@ export default {
 }
 
 .cert-btn {
-    background-color: #2563eb;
+    background-color: #083279;
     color: white;
 }
 
-.cert-btn:hover {
-    background-color: #1e40af;
-    transform: translateY(-1px);
+.cert-btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left .5s ease;
 }
 
+.cert-btn:hover::before {
+    left: 100%;
+}
+
+.cert-btn:hover {
+    background: linear-gradient(135deg, #2d5a8a, #3d6a9a);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(30,74,114,.3);
+}
+
+.cert-btn:active {
+    transform: translateY(0);
+}
 /* Disabled Button Styling */
 .cert-btn-disabled {
     background-color: #d1d5db;
