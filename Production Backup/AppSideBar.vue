@@ -5,7 +5,10 @@
     style="height: 56px; position: fixed; top: 0; left: 0; right: 0; z-index: 1000;"
   >
     <!-- Left side - Logo only -->
-    <div class="logo-container"></div>
+   <a href="/me">
+  <div class="logo-container"></div>
+</a>
+
 
     <!-- Right side - Navigation Links, Tools, and then User Dropdown at the end -->
     <div class="flex items-center space-x-4">
