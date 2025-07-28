@@ -1449,7 +1449,7 @@ document.body.innerHTML = `
   <div class="modal-box warning">
     <h2>Complete Foundation Course First</h2>
     <p>Please complete the Foundation course before proceeding to this certification.</p>
-    <button class="modal-btn" onclick="document.getElementById('foundation-warning-modal').style.display = 'none';">OK</button>
+    <button class="modal-btn" onclick="document.getElementById('foundation-warning-modal').style.display = 'none';">Close</button>
   </div>
 </div>
 
@@ -1959,6 +1959,7 @@ if (isConsultant) {
 /* NEW FUNCTION: Change button text on load if user is logged in */
 function updateCourseButtonsForLoggedInUser() {
   if (isUserLoggedIn()) {
+      
     document.querySelectorAll('.card-button').forEach(button => {
       const btnText = button.textContent.trim().toLowerCase();
 
