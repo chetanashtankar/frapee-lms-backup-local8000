@@ -1440,7 +1440,6 @@ document.body.innerHTML = `
 
 
 
-
     <script src="script.js" defer></script>
 
 
@@ -1453,6 +1452,22 @@ document.body.innerHTML = `
   </div>
 </div>
 
+
+<div id="passwordModal" class="password-modal" style="display:none;">
+  <div class="modal-box">
+    <h2>Update Password</h2>
+    <div class="form-group">
+      <label for="password1">New Password:</label>
+      <input type="password" id="password1" class="input-password" placeholder="Enter new password">
+    </div>
+    <div class="form-group">
+      <label for="password2">Confirm New Password:</label>
+      <input type="password" id="password2" class="input-password" placeholder="Confirm new password">
+    </div>
+    <div id="errorMsg" style="color: red; margin-top: 8px; min-height: 20px;"></div>
+    <button id="submitPasswordBtn" class="submit-password-btn">Confirm</button>
+  </div>
+</div>
 
 
 
@@ -1683,6 +1698,76 @@ document.body.innerHTML = `
  
 
 `;
+
+
+ const modal = document.getElementById('passwordModal');
+const submitBtn = document.getElementById('submitPasswordBtn');
+const password1 = document.getElementById('password1');
+const password2 = document.getElementById('password2');
+const errorMsg = document.getElementById('errorMsg');
+
+window.addEventListener('DOMContentLoaded', () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.has('key')) {
+    modal.style.display = 'block';  // Show modal
+  }
+});
+
+submitBtn.addEventListener('click', () => {
+    debugger;
+  errorMsg.textContent = ''; // Clear previous errors
+
+  const pass1 = password1.value.trim();
+  const pass2 = password2.value.trim();
+  const urlParams = new URLSearchParams(window.location.search);
+  const key = urlParams.get('key');
+
+  if (!pass1 || !pass2) {
+    errorMsg.textContent = 'Please enter new password and confirm password.';
+    return;
+  }
+
+  if (pass1 !== pass2) {
+    errorMsg.textContent = 'Passwords do not match. Please check both fields.';
+    return;
+  }
+
+  // Make the fetch call
+  fetch('/api/method/frappe.core.doctype.user.user.update_password', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      key: key,
+      new_password: pass1,
+      confirm_password: pass2
+    })
+  })
+  .then(res => res.json())
+  .then(data => {
+    console.log('Password Reset Response:', data);
+
+    // Success check updated
+    if (data.message && data.home_page) {
+      alert('Password updated successfully!');
+      modal.style.display = 'none';
+      password1.value = '';
+      password2.value = '';
+      window.location.href = 'http://216.48.181.71/login#login';
+    } else {
+      errorMsg.textContent = data.message || 'Failed to update password.';
+    }
+  })
+  .catch(err => {
+    console.error('Error:', err);
+    errorMsg.textContent = 'An error occurred while updating password.';
+  });
+});
+
+
+
+
 
 
 /* for going smoothly downside on click on explore course button */
