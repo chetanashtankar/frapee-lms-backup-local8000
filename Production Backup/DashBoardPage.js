@@ -1709,7 +1709,7 @@ const errorMsg = document.getElementById('errorMsg');
 window.addEventListener('DOMContentLoaded', () => {
   const urlParams = new URLSearchParams(window.location.search);
   if (urlParams.has('key')) {
-    modal.style.display = 'block';  // Show modal
+   modal.style.display = 'flex';  // Show modal
   }
 });
 
