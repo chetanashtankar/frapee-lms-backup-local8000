@@ -443,7 +443,7 @@ body {
     width: calc(100% * 2);
     /* double width if duplicated */
     animation: scroll 50s linear infinite;
-    gap: 100px;
+    gap: 60px;
 }
 
 @keyframes scroll {
@@ -747,10 +747,10 @@ body {
 
 .slide-button:hover {
 
-    background: linear-gradient(135deg, #cfcfcf, #ff6b35);
+    background: linear-gradient(355deg, #ff6b35ab, #ff6b35);
     background-size: 200% 200%;
     animation: shimmer 2s ease-in-out infinite;
-    transform: translateY(-2px);
+    transform: translateY(-3px);
 
 }
 
@@ -1133,8 +1133,8 @@ section.elementor-section.elementor-inner-section.elementor-element.elementor-el
 /*Footer Section*/
 
 .footer-section {
-    background-color: #083279;
-    padding: 30px 0;
+  background-color: #083279;
+    padding: 60px 0px 10px 0px;
     text-align: center;
 }
 
@@ -1148,9 +1148,9 @@ section.elementor-section.elementor-inner-section.elementor-element.elementor-el
     font-size: 2.5rem;
     font-weight: bold;
     color: #333;
-    margin-bottom: 35px;
+    margin-bottom: 42px;
     font-family: "Roboto", Sans-serif;
-    font-size: 33px;
+    font-size: 42px;
     font-weight: 600;
     font-style: normal;
     line-height: 1px !important;
@@ -1160,7 +1160,7 @@ section.elementor-section.elementor-inner-section.elementor-element.elementor-el
 }
 
 .sub-heading {
-    font-size: 1.25rem;
+    font-size: 20px;
     /* color: #666; */
     margin-bottom: 30px;
     font-weight: 500;
@@ -1505,7 +1505,13 @@ section.elementor-section.elementor-inner-section.elementor-element.elementor-el
     width: 100%;
 }
 
+
+
+
+
 /* Responsive Design */
+
+
 @media (max-width: 768px) {
     .elementor-col-50 {
         width: 100%;
@@ -2580,6 +2586,7 @@ p.cert-subtitle {
     color: #6c757d;
     border: 1px solid #dee2e6;
 }
+
 
 /* Responsive design */
 @media (max-width: 768px) {
@@ -4741,6 +4748,7 @@ label.form-label {
     }
 }
 
+
 /* ===== Styles for max-width: 506px ===== */
 @media screen and (max-width: 506px) {
     .elementor-section {
@@ -4773,6 +4781,45 @@ label.form-label {
 
     .cert-status-item {
         padding: 13px;
+    }
+}
+
+
+/* ===== Styles for max-width: 589px ===== */
+@media screen and (max-width: 587px) {
+    
+    .main-heading
+    {
+        font-size: 20px;
+    }
+    .testimonial-text {
+        font-size: 9px;
+        padding: .3em 0;
+    }
+}
+
+/* ===== Styles for max-width: 589px ===== */
+@media screen and (max-width: 511px) {
+    
+    .main-heading
+    {
+        font-size: 18px;
+    }
+    .testimonial-text {
+        font-size: 9px;
+        padding: .3em 0;
+    }
+}
+/* ===== Styles for max-width: 589px ===== */
+@media screen and (max-width: 460px) {
+    
+    .main-heading
+    {
+        font-size: 13px;
+    }
+    .testimonial-text {
+        font-size: 9px;
+        padding: .3em 0;
     }
 }
 
@@ -4931,7 +4978,18 @@ label.form-label {
 @media(max-width: 639px) {
 
     .main-heading {
-        font-size: 23px;
+        font-size: 14px;
+    }
+
+    .testimonial-name {
+       
+        font-size: 15px;
+        
+    }
+    
+    .testimonial-text {
+        font-size: 7px;
+        
     }
 
     .cert-status-label {
