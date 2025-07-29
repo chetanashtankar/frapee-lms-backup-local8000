@@ -45,17 +45,30 @@ document.body.innerHTML = `
                                             class="main-header-menu ast-menu-shadow ast-nav-menu ast-flex submenu-with-border astra-menu-animation-slide-up stack-on-mobile ast-mega-menu-enabled">
 
                                             <!-- Home -->
-                                            <li id="menu-item-1510" class="menu-item ...">
-                                                <a class="menu-link" id="homeLink" href="javascript:void(0)">
-                                                    <span class="ast-icon icon-arrow"></span>
-                                                    <span class="menu-text">Home</span>
-                                                </a>
-                                            </li>
+                                          <!-- Home -->
+                                        <li id="menu-item-1510" class="menu-item">
+                                            <a class="menu-link" id="homeLink" href="javascript:void(0)">
+                                                <span class="menu-icon">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-home-icon h-4 w-4 stroke-1.5 text-ink-gray-8">
+                                                        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                                                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                                                    </svg>
+                                                </span>
+                                                <span class="menu-text">Home</span>
+                                            </a>
+                                        </li>
+
+                                            
 
                                    <!-- Course -->
                                     <li id="menu-item-course" class="menu-item">
                                       <a class="menu-link" id="courseLink" href="javascript:void(0)" onclick="goToCourse(this)">
-                                        <span class="ast-icon icon-arrow"></span>
+                                       <span class="menu-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-book-open-icon h-4 w-4 stroke-1.5 text-ink-gray-8">
+                                                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                                                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                                            </svg>
+                                        </span>
                                         <span class="menu-text">Course</span>
                                       </a>
                                     </li>
@@ -69,8 +82,13 @@ document.body.innerHTML = `
                                     href="#"
                                     onclick="handleCertifcationlink(event)"
                                   >
-                                    <span class="ast-icon icon-arrow"></span>
-                                    <span class="menu-text">Certification</span>
+                                                                   <span class="menu-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-check-big-icon h-4 w-4 stroke-1.5 text-ink-gray-8">
+                                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                                <path d="m9 11 3 3L22 4"></path>
+                                            </svg>
+                                        </span>
+                                        <span class="menu-text">Certification</span>
                                   </a>
                                 </li>
 
@@ -113,7 +131,13 @@ document.body.innerHTML = `
                                             <!-- Login -->
                                             <li id="menu-item-login" class="menu-item menu-item-login">
                                               <a href="javascript:void(0)" class="menu-link open-login-modal" id="loginLink">
-                                                <span class="ast-icon icon-arrow"></span>
+                                                <span class="menu-icon">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-log-out-icon mr-2 h-4 w-4 flex-shrink-0 text-ink-gray-6">
+                                                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                                                        <polyline points="16 17 21 12 16 7"></polyline>
+                                                        <line x1="21" x2="9" y1="12" y2="12"></line>
+                                                    </svg>
+                                                </span>
                                                 <span class="menu-text">Login</span>
                                               </a>
                                             </li>
@@ -1445,11 +1469,11 @@ document.body.innerHTML = `
 
 
 <div id="foundation-warning-modal" class="modal-overlay" style="display: none;">
-  <div class="modal-box warning">
-    <h2>Complete Foundation Course First</h2>
-    <p>Please complete the Foundation course before proceeding to this certification.</p>
-    <button class="modal-btn" onclick="document.getElementById('foundation-warning-modal').style.display = 'none';">Close</button>
-  </div>
+ <div class="demo-modal">
+   <h1>Oops, You Missed a Step!</h1>
+    <p>You must finish the Foundation Course to access this certification.</p>
+    <button class="go-to-course-btn" onclick="document.getElementById('foundation-warning-modal').style.display = 'none';">Close</button>
+ </div>
 </div>
 
 
@@ -1474,6 +1498,9 @@ document.body.innerHTML = `
 
     <footer class="footer-section">
         <div class="container-line">
+        
+            <!-- Logo Section -->
+            <div class="footer-logo"><div class="logo"></div> <!-- Logo container --></div>
             <h2 class="main-heading">Enhance your automation knowledge to the next level</h2>
 
             <h5 class="sub-heading">EIQ Platform - Intelligent Business Automation and beyond</h5>
@@ -1700,6 +1727,8 @@ document.body.innerHTML = `
 `;
 
 
+
+
  const modal = document.getElementById('passwordModal');
 const submitBtn = document.getElementById('submitPasswordBtn');
 const password1 = document.getElementById('password1');
@@ -1709,6 +1738,7 @@ const errorMsg = document.getElementById('errorMsg');
 window.addEventListener('DOMContentLoaded', () => {
   const urlParams = new URLSearchParams(window.location.search);
   if (urlParams.has('key')) {
+    
    modal.style.display = 'flex';  // Show modal
   }
 });
@@ -1917,7 +1947,7 @@ document.addEventListener('DOMContentLoaded', function () {
 function goToCourse(button) {
   if (isUserLoggedIn()) {
     //const slug = button.getAttribute('data-slug');
-    const path = `/lms/courses/eiq-agentic-automation-platform-foundation-certification`;
+    const path = `/lms/foundation-course`;
     window.location.href = path;
   } else {
    
@@ -2140,18 +2170,27 @@ document.addEventListener('DOMContentLoaded', function () {
     const homeText = homeLink.querySelector('.menu-text');
     const docText = docLink.querySelector('.menu-text');
     const coursesText = coursesLink.querySelector('.menu-text');
+    
+     homeLink.classList.add('active-link');
+     
+    function removeActiveClasses() {
+        const allLinks = [homeLink, docLink, coursesLink];
+        allLinks.forEach(link => link.classList.remove('active-link'));
+    }
 
-    // Docs
+     // Docs link click handler
     docLink.addEventListener('click', function (e) {
         e.preventDefault();
+
+        // Hide all content sections
         docContainer.style.display = 'block';
         mainContent.style.display = 'none';
         certContainer.style.display = 'none';
         eiqContainer.style.display = 'none';
 
-        docText.classList.add('active-link');
-        homeText.classList.remove('active-link');
-        coursesText.classList.remove('active-link');
+        // Apply active class to the clicked link
+        removeActiveClasses();
+        docLink.classList.add('active-link');
     });
 
     // Home
@@ -2161,18 +2200,33 @@ document.addEventListener('DOMContentLoaded', function () {
             element.addEventListener('click', function (e) {
                 e.preventDefault();
 
+                // Hide all content sections
                 docContainer.style.display = 'none';
                 mainContent.style.display = 'block';
                 certContainer.style.display = 'none';
                 eiqContainer.style.display = 'none';
 
-                homeText.classList.add('active-link');
-                docText.classList.remove('active-link');
-                coursesText.classList.remove('active-link');
+                // Apply active class to the clicked link
+                removeActiveClasses();
+                homeLink.classList.add('active-link');
             });
         }
     });
 
+// Courses link click handler
+    coursesLink.addEventListener('click', function (e) {
+        e.preventDefault();
+
+        // Hide all content sections
+        docContainer.style.display = 'none';
+        mainContent.style.display = 'none';
+        certContainer.style.display = 'block';
+        eiqContainer.style.display = 'none';
+
+        // Apply active class to the clicked link
+        removeActiveClasses();
+        coursesLink.classList.add('active-link');
+    });
 
 
     // Courses
