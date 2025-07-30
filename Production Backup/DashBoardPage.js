@@ -62,35 +62,50 @@ document.body.innerHTML = `
 
                                    <!-- Course -->
                                     <li id="menu-item-course" class="menu-item">
-                                      <a class="menu-link" id="courseLink" href="javascript:void(0)" onclick="goToCourse(this)">
-                                       <span class="menu-icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-book-open-icon h-4 w-4 stroke-1.5 text-ink-gray-8">
-                                                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-                                                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
-                                            </svg>
-                                        </span>
-                                        <span class="menu-text">Course</span>
-                                      </a>
-                                    </li>
+  <a
+    class="menu-link"
+    id="courseLink"
+    href="javascript:void(0)"
+    onclick="goToCourse(this)"
+    data-url="/lms/foundation-course"
+  >
+    <span class="menu-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+           viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+           class="lucide lucide-book-open-icon h-4 w-4 stroke-1.5 text-ink-gray-8">
+        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+      </svg>
+    </span>
+    <span class="menu-text">Course</span>
+  </a>
+</li>
+
                                     
                                     
                                   <!-- Certification -->
-                                <li id="menu-item-certification" class="menu-item">
-                                  <a
-                                    class="menu-link"
-                                    id="certificationLink"
-                                    href="#"
-                                    onclick="handleCertifcationlink(event)"
-                                  >
-                                                                   <span class="menu-icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-check-big-icon h-4 w-4 stroke-1.5 text-ink-gray-8">
-                                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                                                <path d="m9 11 3 3L22 4"></path>
-                                            </svg>
-                                        </span>
-                                        <span class="menu-text">Certification</span>
-                                  </a>
-                                </li>
+<li id="menu-item-certification" class="menu-item">
+  <a
+    class="menu-link"
+    id="certificationLink"
+    href="javascript:void(0)"
+    onclick="handleCertifcationlink(event, this)"
+    data-url="/lms/take-certification"
+  >
+    <span class="menu-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+           viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+           class="lucide lucide-circle-check-big-icon h-4 w-4 stroke-1.5 text-ink-gray-8">
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+        <path d="m9 11 3 3L22 4"></path>
+      </svg>
+    </span>
+    <span class="menu-text">Certification</span>
+  </a>
+</li>
+
 
 
 
@@ -394,10 +409,10 @@ document.body.innerHTML = `
       <div class="card-image learning-foundation-img"></div>
       <h3 class="card-title">Foundation Course</h3>
       <p class="card-description">Master the fundamentals of intelligent business automation with our Foundation Course. The EIQ Foundation equips you with essential platform skills.</p>
-      <button class="card-button" id="learning-foundation-btn"
-    onclick="goToCourse()">
+      <button class="card-button" id="learning-foundation-btn" onclick="goToCourse(this)" data-url="/lms/courses/eiq-agentic-automation-platform-foundation-certification">
   Start Course
 </button>
+
 
     </div>
 
@@ -1477,22 +1492,24 @@ document.body.innerHTML = `
 </div>
 
 
+
+
 <div id="passwordModal" class="password-modal" style="display:none;">
   <div class="modal-box">
-    <h2>Update Password</h2>
+    <h2>Set Your New Password</h2>
+<h6>For security reasons, you need to set a new password to proceed.</h6>
     <div class="form-group">
       <label for="password1">New Password:</label>
-      <input type="password" id="password1" class="input-password" placeholder="Enter new password">
+      <input type="password" id="password1" class="input-password">
     </div>
     <div class="form-group">
       <label for="password2">Confirm New Password:</label>
-      <input type="password" id="password2" class="input-password" placeholder="Confirm new password">
+      <input type="password" id="password2" class="input-password">
     </div>
     <div id="errorMsg" style="color: red; margin-top: 8px; min-height: 20px;"></div>
     <button id="submitPasswordBtn" class="submit-password-btn">Confirm</button>
   </div>
 </div>
-
 
 
 
@@ -1726,9 +1743,6 @@ document.body.innerHTML = `
 
 `;
 
-
-
-
  const modal = document.getElementById('passwordModal');
 const submitBtn = document.getElementById('submitPasswordBtn');
 const password1 = document.getElementById('password1');
@@ -1799,7 +1813,6 @@ submitBtn.addEventListener('click', () => {
 
 
 
-
 /* for going smoothly downside on click on explore course button */
 setTimeout(() => {
   // Fully unbind any previous click handler if it was added globally
@@ -1847,23 +1860,30 @@ function handleStartLearning(event) {
 }
 
 
-function handleCertifcationlink(event) {
-    event.preventDefault();
+function handleCertifcationlink(event, el) {
+  event.preventDefault();
 
-    if (typeof isUserLoggedIn === 'function' && isUserLoggedIn()) {
-      // Redirect if user is logged in
-      window.location.href = '/lms/take-certification';
-    } else {
-      // Show login modal
-      const loginModal = document.getElementById('login-modal');
-      if (loginModal) {
-        loginModal.style.display = 'flex';
-        if (typeof showSection === 'function') showSection('login');
-      } else {
-        console.warn('Login modal not found.');
+  const targetURL = el.getAttribute('data-url') || '/lms/take-certification';
+  const redirectURL = `http://216.48.181.71/login?redirect-to=/lms/take-certification`;
+
+  if (typeof isUserLoggedIn === 'function' && isUserLoggedIn()) {
+    // User is logged in, go to the actual certification page
+    window.location.href = targetURL;
+  } else {
+    // User is not logged in, redirect to login with redirect-to param
+     const loginModal = document.getElementById('login-modal');
+    if (loginModal) {
+      loginModal.style.display = 'flex';
+      if (typeof showSection === 'function') {
+        showSection('login');
       }
     }
+     window.history.pushState({}, '', redirectURL);
   }
+}
+
+
+
 
 
 
@@ -1946,11 +1966,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function goToCourse(button) {
   if (isUserLoggedIn()) {
-    //const slug = button.getAttribute('data-slug');
-    const path = `/lms/foundation-course`;
-    window.location.href = path;
+    const url = button.getAttribute('data-url');
+    if (url) {
+      window.location.href = url;
+    } else {
+      console.error('No data-url provided on element');
+    }
   } else {
-   
     const loginModal = document.getElementById('login-modal');
     if (loginModal) {
       loginModal.style.display = 'flex';
@@ -1958,6 +1980,7 @@ function goToCourse(button) {
     }
   }
 }
+
 
 
 
@@ -1969,100 +1992,108 @@ function isUserLoggedIn() {
 
 // Function to check Foundation Course Progress and act accordingly
 
+let foundationCourseProgress = 0;
+  let foundationFirstLesson = '';
 
-function goToCertification(button = null) {
-  const isFoundation = button && button.id === 'foundation-btn';
-   const isConsultant = button && button.id === 'consultant-btn';
-   
+let consultantCertProgress = 0; // Progress percentage (0-100)
+let foundationCertProgress = 0; // Progress percentage (0-100)
 
-  if (!isUserLoggedIn()) {
-    const redirectURL = 'http://216.48.181.71/login?redirect-to=/lms/take-certification';
-    window.history.pushState({}, '', redirectURL);
+  // 🔹 Run on page load
+  document.addEventListener('DOMContentLoaded', () => {
+      debugger;
+    fetch('/api/method/lms.lms.utils.get_csrf_token')
+      .then(res => res.json())
+      .then(data => {
+        const csrfToken = data.message;
 
-    const loginModal = document.getElementById('login-modal');
-    if (loginModal) {
-      loginModal.style.display = 'flex';
-      if (typeof showSection === 'function') showSection('login');
-    }
-    return;
-  }
-
-
-if (isConsultant) {
-    window.location.href = '/lms/courses/eiq-platform-consultant-certification';
-    return;
-  }
-// User is logged in
- 
-
-  fetch('/api/method/lms.lms.utils.get_csrf_token')
-    .then(res => res.json())
-    .then(data => {
-      const csrfToken = data.message;
-
-      return fetch('/api/method/lms.lms.utils.get_course_outline', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Frappe-CSRF-Token': csrfToken
-        },
-        body: JSON.stringify({
-          course: 'eiq-agentic-automation-platform-foundation-certification',
-          progress: false
-        })
-      })
-        .then(res => res.json())
-        .then(outlineRes => {
-          const message = outlineRes.message || [];
-          let firstLessonName = null;
-
-          for (const section of message) {
-            if (section.lessons && section.lessons.length > 0) {
-              firstLessonName = section.lessons[0].name;
-              break;
-            }
-          }
-
-          if (!firstLessonName) return;
-
-          return fetch('/api/method/lms.lms.doctype.course_lesson.course_lesson.save_progress', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'X-Frappe-CSRF-Token': csrfToken
-            },
-            body: JSON.stringify({
-              course: 'eiq-agentic-automation-platform-foundation-certification',
-              lesson: firstLessonName
-            })
+        return fetch('/api/method/lms.lms.utils.get_course_outline', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Frappe-CSRF-Token': csrfToken
+          },
+          body: JSON.stringify({
+            course: 'eiq-agentic-automation-platform-foundation-certification',
+            progress: false
           })
-            .then(res => res.json())
-            .then(progressRes => {
-              const progress = Math.round(progressRes.message);
-              console.log(`Course progress: ${isNaN(progress) ? 0 : progress}%`);
+        })
+          .then(res => res.json())
+          .then(outlineRes => {
+            const message = outlineRes.message || [];
 
-
-                // ✅ Update button text
-  if (button && button.id === 'foundation-btn') {
-    button.innerText = progress >= 100 ? 'Continue' : 'Get Certified';
-  }
-                
-
-              if (progress >= 100) {
-                window.location.href = '/lms/take-certification';
-              } else if (isFoundation) {
-                const modal = document.querySelector('.modal-overlay');
-                if (modal) modal.style.display = 'flex';
+            for (const section of message) {
+              if (section.lessons && section.lessons.length > 0) {
+                foundationFirstLesson = section.lessons[0].name;
+                break;
               }
+            }
+
+            if (!foundationFirstLesson) return;
+
+            return fetch('/api/method/lms.lms.doctype.course_lesson.course_lesson.save_progress', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'X-Frappe-CSRF-Token': csrfToken
+              },
+              body: JSON.stringify({
+                course: 'eiq-agentic-automation-platform-foundation-certification',
+                lesson: foundationFirstLesson
+              })
+            })
+              .then(res => res.json())
+              .then(progressRes => {
+                foundationCourseProgress = Math.round(progressRes.message);
+                console.log(`Preloaded progress: ${isNaN(foundationCourseProgress) ? 0 : foundationCourseProgress}%`);
+
+               const courseBtn = document.getElementById('learning-foundation-btn');
+                  if (courseBtn) {
+                    courseBtn.innerText = foundationCourseProgress === 0 ? 'Start Course' : 'Continue';
+                  }
             });
-        });
-    })
-    .catch(err => {
-      console.error('Error:', err);
-    });
-}
+          });
+      })
+      .catch(err => console.error('Progress preload error:', err));
+  });
 
 
+
+  // 🔹 Button click handler
+  function goToCertification(button = null) {
+    const isFoundation = button && button.id === 'foundation-btn';
+    const isConsultant = button && button.id === 'consultant-btn';
+
+    if (!isUserLoggedIn()) {
+      const redirectURL = 'http://216.48.181.71/login?redirect-to=/lms/take-certification';
+      window.history.pushState({}, '', redirectURL);
+
+      const loginModal = document.getElementById('login-modal');
+      if (loginModal) {
+        loginModal.style.display = 'flex';
+        if (typeof showSection === 'function') showSection('login');
+      }
+      return;
+    }
+
+    if (isConsultant) {
+      window.location.href = '/lms/courses/eiq-platform-consultant-certification';
+      return;
+    }
+
+    // 🔹 Use preloaded progress
+    const progress = foundationCourseProgress;
+
+    if (button && button.id === 'foundation-btn') {
+      button.innerText = progress >= 100 ? 'Continue' : 'Get Certified';
+    }
+
+    if (progress >= 100) {
+      window.location.href = '/lms/take-certification';
+    } else if (isFoundation) {
+      const modal = document.querySelector('.modal-overlay');
+      if (modal) modal.style.display = 'flex';
+    }
+  }
 
 
 
