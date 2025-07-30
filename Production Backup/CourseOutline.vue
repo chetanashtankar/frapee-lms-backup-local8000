@@ -360,10 +360,10 @@ const redirectToChapter = (chapter, index) => {
           label: __('Got It'),
           theme: 'primary',
           variant: 'solid',
-          class: 'custom-dialog-button'
+          class: 'custom-dialog-button updated-dialog-button'  // Added new class here
         }
       ],
-      class: 'custom-dialog-box'
+      class: 'custom-dialog-box updated-dialog-box'  // Added new class here
     });
 
     return;
@@ -410,10 +410,10 @@ const handleLessonClick = (chapter, chapterIndex, lesson, lessonIndex) => {
           label: __('Got It'),
           theme: 'primary',
           variant: 'solid',
-          class: 'custom-dialog-button'
+          class: 'custom-dialog-button updated-dialog-button'  // Added new class here
         }
       ],
-      class: 'custom-dialog-box'
+      class: 'custom-dialog-box updated-dialog-box'  // Added new class here
     });
     return;
   }
@@ -428,10 +428,10 @@ const handleLessonClick = (chapter, chapterIndex, lesson, lessonIndex) => {
           label: __('Got It'),
           theme: 'primary',
           variant: 'solid',
-          class: 'custom-dialog-button'
+          class: 'custom-dialog-button updated-dialog-button'  // Added new class here
         }
       ],
-      class: 'custom-dialog-box'
+      class: 'custom-dialog-box updated-dialog-box'  // Added new class here
     });
     return;
   }
@@ -487,10 +487,10 @@ const handleChapterClick = (event, chapter, index, closeDisclosure) => {
           label: __('Got It'),
           theme: 'primary',
           variant: 'solid',
-          class: 'custom-dialog-button'
+          class: 'custom-dialog-button updated-dialog-button'  // Added new class here
         }
       ],
-      class: 'custom-dialog-box'
+      class: 'custom-dialog-box updated-dialog-box'  // Added new class here
     })
     closeDisclosure?.()
     return
@@ -602,6 +602,23 @@ const continueLearning = () => {
     toast.success(__('You have completed all lessons!'));
     return;
   }
+
+  const isTestCourse = testCourses.includes(props.courseName);
+
+  if (isTestCourse) {
+    // 🚀 Directly navigate to the lesson page without chapter lock checks
+    router.push({
+      name: 'Lesson',
+      params: {
+        courseName: props.courseName,
+        chapterNumber: next.lesson.number.split('.')[0],
+        lessonNumber: next.lesson.number.split('.')[1],
+      },
+    });
+    return;
+  }
+
+  // 🔒 Normal flow for non-test courses
   const chapterIndex = outline.data.findIndex(c => c.name === next.chapter.name);
   if (!isChapterUnlocked(chapterIndex)) {
     $dialog({
@@ -611,6 +628,7 @@ const continueLearning = () => {
     });
     return;
   }
+
   router.push({
     name: 'Lesson',
     params: {
@@ -620,6 +638,7 @@ const continueLearning = () => {
     },
   });
 };
+
 
 watchEffect(() => {
   if (!outline.data || outline.data.length === 0) {
@@ -646,31 +665,29 @@ const testCourses = [
 ];
 
 watch(
-  () => [props.courseName, props.showOutline, props.title],
-  ([newCourse, newShowOutline, newTitle]) => {
-    console.log('📘 courseName:', newCourse);
-    console.log('📂 showOutline:', newShowOutline);
-    console.log('🏷️ title:', newTitle);
-
+  () => [props.courseName, props.showOutline, props.title, learningStatus.value],
+  ([newCourse, newShowOutline, newTitle, newLearningStatus]) => {
     const isTestCourse = testCourses.includes(newCourse);
 
     learningButtonText.value = isTestCourse
-      ? learningStatus === 'start'
+      ? newLearningStatus === 'start'
         ? __('Start Test')
         : __('Continue Test')
-      : learningStatus === 'start'
+      : newLearningStatus === 'start'
         ? __('Start Learning')
         : __('Continue Learning');
-
-    console.log('🔘 Button Text:', learningButtonText.value);
   },
   { immediate: true }
 );
 
 
+
 </script>
 
 <style>
+
+
+
 .continue-learning-container {
   display: flex;
   flex-direction: row-reverse;
@@ -1140,4 +1157,7 @@ button.expand-button.inline-flex.items-center.justify-center.gap-2.transition-co
   margin: 0 auto;
   padding: 0 8px;
 }
+
+
+
 </style>
