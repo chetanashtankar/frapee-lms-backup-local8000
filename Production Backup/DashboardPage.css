@@ -5845,7 +5845,7 @@ label {
     border-radius: 16px;
     padding: 48px;
     width: 90%;
-    max-width: 500px;
+    max-width: 675px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
     text-align: center;
 }
@@ -5889,362 +5889,129 @@ label {
 }
 
         
-       .password-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            padding: 20px;
-        }
+        #passwordModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: none; /* shown by JS when key is present */
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 9999;
+}
 
-        .password-modal.show {
-            display: flex;
-        }
+      #passwordModal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 40px 16px;
+    box-sizing: border-box;
+}
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                backdrop-filter: blur(0px);
-                -webkit-backdrop-filter: blur(0px);
-            }
-            to {
-                opacity: 1;
-                backdrop-filter: blur(8px);
-                -webkit-backdrop-filter: blur(8px);
-            }
-        }
+.modal-box {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 48px 40px;
+    max-width: 600px;
+    margin: 60px auto;
+    width: 100%;
+    box-sizing: border-box;
+}
 
-        @keyframes slideIn {
-            from {
-                transform: translateY(-40px) scale(0.85);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0) scale(1);
-                opacity: 1;
-            }
-        }
+.modal-box h2 {
+    font-size: 32px;
+    font-weight: 600;
+    color: #333333;
+    text-align: center;
+    margin-bottom: 12px;
+    line-height: 1.2;
+}
 
-        .modal-box {
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            padding: 40px;
-            border-radius: 24px;
-            width: 100%;
-            max-width: 420px;
-            box-shadow: 
-                0 32px 64px -12px rgba(0, 0, 0, 0.25),
-                0 16px 32px -8px rgba(0, 0, 0, 0.15),
-                0 0 0 1px rgba(255, 255, 255, 0.2);
-            animation: slideIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
-            border: 1px solid rgba(255, 255, 255, 0.18);
-        }
+.modal-box h6 {
+    font-size: 16px;
+    color: #666666;
+    text-align: center;
+    margin-bottom: 40px;
+    line-height: 1.4;
+}
 
-        .modal-box::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
-            border-radius: 24px;
-            pointer-events: none;
-        }
+.form-group {
+    margin-bottom: 24px;
+}
 
-        .modal-box h2 {
-            margin: 0 0 32px 0;
-            font-size: 28px;
-            font-weight: 700;
-            color: #1f2937;
-            text-align: center;
-            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            position: relative;
-            z-index: 1;
-        }
+.form-group label {
+    display: block;
+    font-size: 16px;
+    font-weight: 500;
+    color: #333333;
+    margin-bottom: 8px;
+}
 
-        .form-group {
-            margin-bottom: 24px;
-            position: relative;
-            z-index: 1;
-        }
+.input-password {
+    width: 100%;
+    height: 52px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 0 16px;
+    font-size: 16px;
+    color: #333333;
+    background-color: white;
+    transition: border-color 0.2s ease;
+    outline: none;
+}
 
-        .form-group label {
-            display: block;
-            margin-bottom: 10px;
-            font-weight: 600;
-            color: #374151;
-            font-size: 15px;
-            letter-spacing: -0.025em;
-        }
+.input-password::placeholder {
+    color: #999999;
+    font-size: 16px;
+}
 
-        .input-password {
-            width: 100%;
-            padding: 16px 20px;
-            border: 2px solid rgba(229, 231, 235, 0.8);
-            border-radius: 12px;
-            font-size: 16px;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            background: rgba(249, 250, 251, 0.8);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            color: #1f2937;
-            font-weight: 500;
-        }
+.input-password:focus {
+    border-color: #4285f4;
+}
 
-        .input-password:focus {
-            outline: none;
-            border-color: #3b82f6;
-            background: rgba(255, 255, 255, 0.95);
-            box-shadow: 
-                0 0 0 4px rgba(59, 130, 246, 0.15),
-                0 8px 25px -5px rgba(59, 130, 246, 0.2);
-            transform: translateY(-2px);
-        }
+#submitPasswordBtn {
+    width: 100%;
+    height: 52px;
+    background-color: #4285f4;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin-top: 16px;
+}
 
-        .input-password::placeholder {
-            color: #9ca3af;
-            font-weight: 400;
-        }
+#submitPasswordBtn:hover {
+    background-color: #3367d6;
+}
 
-        #errorMsg {
-            color: #dc2626;
-            font-size: 14px;
-            margin-top: 12px;
-            min-height: 20px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            position: relative;
-            z-index: 1;
-            background: rgba(254, 242, 242, 0.8);
-            padding: 8px 12px;
-            border-radius: 8px;
-            border: 1px solid rgba(220, 38, 38, 0.2);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-        }
+#submitPasswordBtn:active {
+    background-color: #2851a3;
+}
 
-        #errorMsg:empty {
-            display: none;
-        }
+#submitPasswordBtn:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
 
-        .submit-password-btn {
-            width: 100%;
-            padding: 16px 24px;
-            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            margin-top: 12px;
-            position: relative;
-            overflow: hidden;
-            letter-spacing: -0.025em;
-            z-index: 1;
-            box-shadow: 0 8px 25px -5px rgba(59, 130, 246, 0.4);
-        }
+#errorMsg {
+    color: red;
+    margin-top: 8px;
+    min-height: 20px;
+    font-size: 14px;
+}
 
-        .submit-password-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s;
-        }
-
-        .submit-password-btn:hover {
-            background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
-            transform: translateY(-3px);
-            box-shadow: 
-                0 16px 40px -8px rgba(59, 130, 246, 0.5),
-                0 8px 16px -4px rgba(139, 92, 246, 0.3);
-        }
-
-        .submit-password-btn:hover::before {
-            left: 100%;
-        }
-
-        .submit-password-btn:active {
-            transform: translateY(-1px);
-            transition: transform 0.1s;
-        }
-
-        .submit-password-btn:disabled {
-            background: linear-gradient(135deg, #9ca3af 0%, #6b7280 100%);
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-
-        .submit-password-btn:disabled::before {
-            display: none;
-        }
-
-        /* Password strength indicator */
-        .password-strength {
-            margin-top: 12px;
-            height: 6px;
-            background: rgba(229, 231, 235, 0.6);
-            border-radius: 3px;
-            overflow: hidden;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-        }
-
-        .password-strength-bar {
-            height: 100%;
-            width: 0%;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            border-radius: 3px;
-        }
-
-        .strength-weak { 
-            background: linear-gradient(90deg, #ef4444 0%, #dc2626 100%); 
-            width: 25%; 
-        }
-        .strength-medium { 
-            background: linear-gradient(90deg, #f59e0b 0%, #d97706 100%); 
-            width: 50%; 
-        }
-        .strength-good { 
-            background: linear-gradient(90deg, #10b981 0%, #059669 100%); 
-            width: 75%; 
-        }
-        .strength-strong { 
-            background: linear-gradient(90deg, #059669 0%, #047857 100%); 
-            width: 100%; 
-        }
-
-        .strength-text {
-            font-size: 13px;
-            margin-top: 6px;
-            font-weight: 600;
-            text-align: center;
-            letter-spacing: -0.025em;
-        }
-
-        /* Close button */
-        .close-btn {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 20px;
-            color: #6b7280;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            font-weight: bold;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            z-index: 2;
-        }
-
-        .close-btn:hover {
-            background: rgba(239, 68, 68, 0.15);
-            color: #ef4444;
-            transform: rotate(90deg) scale(1.1);
-            border-color: rgba(239, 68, 68, 0.3);
-        }
-
-        /* Demo button for testing */
-        .demo-btn {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            color: white;
-            border: none;
-            padding: 16px 32px;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: 0 8px 25px -5px rgba(16, 185, 129, 0.4);
-            letter-spacing: -0.025em;
-        }
-
-        .demo-btn:hover {
-            background: linear-gradient(135deg, #059669 0%, #047857 100%);
-            transform: translateY(-2px);
-            box-shadow: 0 16px 40px -8px rgba(16, 185, 129, 0.5);
-        }
-
-        /* Responsive design */
-        @media (max-width: 480px) {
-            .password-modal {
-                padding: 16px;
-            }
-            
-            .modal-box {
-                padding: 32px 24px;
-                border-radius: 20px;
-            }
-            
-            .modal-box h2 {
-                font-size: 24px;
-                margin-bottom: 28px;
-            }
-
-            .input-password {
-                padding: 14px 16px;
-                font-size: 16px;
-            }
-
-            .submit-password-btn {
-                padding: 14px 20px;
-            }
-        }
-
-        @media (max-width: 360px) {
-            .modal-box {
-                padding: 24px 20px;
-            }
-            
-            .modal-box h2 {
-                font-size: 22px;
-            }
-        }
-
-        /* Additional glassmorphism effects */
-        @supports (backdrop-filter: blur(20px)) {
-            .modal-box {
-                background: rgba(255, 255, 255, 0.85);
-            }
-        }
-
-        @supports not (backdrop-filter: blur(20px)) {
-            .modal-box {
-                background: rgba(255, 255, 255, 0.98);
-            }
-        }
         
         
         #page-update-password {
