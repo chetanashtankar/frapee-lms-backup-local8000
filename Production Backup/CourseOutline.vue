@@ -167,11 +167,15 @@ import {
 } from 'lucide-vue-next'
 import { useRoute, useRouter } from 'vue-router'
 import ChapterModal from '@/components/Modals/ChapterModal.vue'
+import { usersStore } from '@/stores/user'
 
+
+const isModerator = ref(false);
 const learningButtonText = ref('');
 const route = useRoute()
 const router = useRouter()
 const user = inject('$user')
+const { userResource } = usersStore()
 const course = inject('course') // or createResource / prop, depending on where it should come from
 const showChapterModal = ref(false)
 const onlyShowLessons = ref(false)
@@ -653,15 +657,19 @@ watchEffect(() => {
   const lastWord = title.split(' ').pop();
   console.log('🔍 Last Word:', lastWord);
 
-  onlyShowLessons.value = lastWord === 'certification';
+  // ✅ Final condition: Show only lessons if NOT moderator AND lastWord is 'certification'
+  onlyShowLessons.value = !isModerator.value && lastWord === 'certification';
+
   console.log('✅ onlyShowLessons:', onlyShowLessons.value);
 });
 
 
 
+
 const testCourses = [
   'eiq-platform-foundation-certification',
-  'eiq-platform-consultant-certification'
+  'eiq-platform-consultant-certification',
+  'eiq-platform-developer-certification'
 ];
 
 watch(
@@ -685,8 +693,6 @@ watch(
 </script>
 
 <style>
-
-
 
 .continue-learning-container {
   display: flex;
