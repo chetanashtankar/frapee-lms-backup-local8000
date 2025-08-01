@@ -6,7 +6,10 @@
     <div class="cert-container">
       <!-- Hero Section -->
       <div class="cert-header">
-        <p class="cert-subtitle">For Interns</p>
+        <p class="cert-subtitle">
+      <!-- Conditionally render based on certificationOrCourse -->
+      {{ certificationOrCourse === 'Foundation Certification' ? 'For Intern' : (certificationOrCourse === 'Certification' ? 'For Professional' : 'For Intern') }}
+    </p>
         <h1>{{ course.data.title }}</h1>
 
       </div>
@@ -56,8 +59,11 @@
             <h3>Topics Covered:</h3>
           </template>
 
+          
           <CourseOutline :title="showCourseContentTitle ? __('Course Content') : ''" :courseName="course.data.name"
-            :showOutline="true" :getProgress="true" />
+            :showOutline="true" :getProgress="true"
+            class="course-outline"
+            />
 
         </div>
       </div>
@@ -79,12 +85,12 @@
         </router-link>
       </div>
     </div>
+    
     <footer class="footer-section">
       <div class="container-line">
+        <div class="footer-logo"> <div class="logo"></div> <!-- Logo container --></div>
         <h2 class="main-heading">Enhance your automation knowledge to the next level</h2>
-
         <h5 class="sub-heading">EIQ Platform - Intelligent Business Automation and beyond</h5>
-
         <p class="copyright">Copyright © 2025 | EvoluteIQ LMS</p>
       </div>
     </footer>
@@ -153,10 +159,17 @@ watchEffect(() => {
 
 // Computed property to determine whether it's a "Certification" or "Course"
 const certificationOrCourse = computed(() => {
-  const title = course?.data?.title || ''
-  const lastWord = title.split(' ').pop()
-  return lastWord === 'Certification' ? 'Certification' : 'Course'
-})
+  const title = course?.data?.title || '';
+  const lastWord = title.split(' ').pop();
+
+  // Check if it's Foundation Certification and handle accordingly
+  if (title.includes('Foundation Certification')) {
+    return 'Foundation Certification'; // Specific flag for Foundation Certification
+  }
+
+  return lastWord === 'Certification' ? 'Certification' : 'Course';
+});
+
 
 const proficiencyLevel = computed(() => {
   const title = course?.data?.title || ''
@@ -180,6 +193,7 @@ const hideTopicsLabel = computed(() => {
   return (
     title.value.endsWith('Foundation Certification') ||
     title.value.endsWith('Consultant Certification') ||
+    title.value.endsWith('Developer Certification') ||
     title.value.endsWith('Foundation Course')
   )
 })
@@ -187,7 +201,8 @@ const hideTopicsLabel = computed(() => {
 const showCourseContentTitle = computed(() => {
   return !(
     title.value.endsWith('Foundation Certification') ||
-    title.value.endsWith('Consultant Certification')
+    title.value.endsWith('Consultant Certification') ||
+    title.value.endsWith('Developer Certification')
   )
 })
 
@@ -198,54 +213,74 @@ const showCourseContentTitle = computed(() => {
 
 <style scoped>
 .footer-section {
-  background-color: #083279;
-  padding: 60px 0;
-  text-align: center;
+      background-color: #083279;
+      padding: 119px 0 10px;
+      text-align: center
+}
+
+.footer-logo {
+    min-width: 5rem;
+    /* height: 1.5rem; */
+    /* object-fit: contain; */
+    /* object-position: left; */
+    display: flex;
+    flex-direction: row-reverse;
+    align-content: center;
+    justify-content: center;
+}
+
+
+.footer-logo .logo {
+ width: 220px;
+ height: 64px;
+ background-image: url("/files/Evoluteiqlogofooter.png");
+ background-size: cover;
+ background-position: center;
+ background-repeat: no-repeat;
+ margin: -103px;
+}
+
+.container-line {
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
 .container {
-  max-width: 70%;
-  margin: 0 auto;
-  padding: 0 20px;
+    max-width: 70%;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
 .main-heading {
-  font-size: 2.5rem;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 20px;
-  line-height: 1.2;
-  font-family: "Roboto", Sans-serif;
-  font-size: 31px;
-  font-weight: 600;
-  font-style: normal;
-  line-height: 33px;
-  letter-spacing: 0px;
-  word-spacing: 0px;
-  color: #FFFFFF;
+  
+    margin-bottom: 38px;
+    font-family: "Roboto", Sans-serif;
+    font-size: 42px;
+    font-weight: 600;
+    font-style: normal;
+    line-height: 0px !important;
+    letter-spacing: 0px;
+    word-spacing: 0px;
+    color: #fff;
 }
 
 .sub-heading {
-  font-size: 1.25rem;
-  /* color: #666; */
-  margin-bottom: 30px;
-  font-weight: 500;
-  color: #FFFFFF;
-  line-height: 1.2em;
+    font-size: 20px;
+    color: #666;
+    margin-bottom: 30px;
+    font-weight: 600;
+    color: #FFFFFF;
+    line-height: 1.2em;
 }
-
-
-/* .cta-button:hover {
-    background-color: #005a87;
-} */
 
 .copyright {
-  font-size: 14px;
-  color: #fff;
-  margin-top: 20px;
-  padding-top: 20px;
-  border-top: 1px solid #ddd;
+    font-size: 14px;
+    color: #fff;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
 }
+
 
 .w-4 {
   width: revert !important;
@@ -420,7 +455,7 @@ const showCourseContentTitle = computed(() => {
 .cert-section {
   background: #f8f9fa;
   padding: 40px 20px;
-  max-width: 1600px;
+  max-width: 95%;
   margin: 0 auto;
   margin-left: auto;
   margin-right: auto;
@@ -428,8 +463,8 @@ const showCourseContentTitle = computed(() => {
 
 .cert-overview {
   margin-bottom: 40px;
-  margin-left: 40px;
-  margin-right: 40px;
+  /* margin-left: 40px;
+  margin-right: 40px; */
 }
 
 
@@ -442,16 +477,8 @@ const showCourseContentTitle = computed(() => {
   position: relative;
 }
 
-.cert-overview h2::after {
-  content: '';
-  position: absolute;
-  bottom: -8px;
-  left: 0;
-  width: 60px;
-  height: 4px;
-  background: linear-gradient(90deg, #4f46e5, #0355A4);
-  border-radius: 2px;
-}
+
+
 
 
 .cert-description {
@@ -461,6 +488,7 @@ const showCourseContentTitle = computed(() => {
   margin-bottom: 32px;
 
 }
+
 
 .cert-description br {
   display: block !important;
@@ -492,9 +520,9 @@ const showCourseContentTitle = computed(() => {
 }
 
 .cert-topics {
-  padding: 0px 106px 0px 106px;
+  /* padding: 0px 106px 0px 106px; */
   background: #f8f9fa;
-  max-width: 1600px;
+  /* max-width: 95%; */
   margin: 0 auto;
   margin-left: auto;
   margin-right: auto;
