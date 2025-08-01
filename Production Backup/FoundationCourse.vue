@@ -87,15 +87,14 @@
 
 
 
-		<footer class="footer-section">
-				<div class="container-line">
-					<h2 class="main-heading">Enhance your automation knowledge to the next level</h2>
-
-					<h5 class="sub-heading">EIQ Platform - Intelligent Business Automation and beyond</h5>
-					
-					<p class="copyright">Copyright © 2025 | EvoluteIQ LMS</p>
-				</div>
-			</footer>
+		 <footer class="footer-section">
+      <div class="container-line">
+        <div class="footer-logo"> <div class="logo"></div> <!-- Logo container --></div>
+        <h2 class="main-heading">Enhance your automation knowledge to the next level</h2>
+        <h5 class="sub-heading">EIQ Platform - Intelligent Business Automation and beyond</h5>
+        <p class="copyright">Copyright © 2025 | EvoluteIQ LMS</p>
+      </div>
+    </footer>
 			</div>
 </template>
 <script>
@@ -469,6 +468,7 @@ export default {
     flex-grow: 1;
      padding: 5rem 6.25rem 1.25rem;
 }
+
 .page-title {
     margin-bottom: 1.5rem;
     font-size: 20px;
@@ -592,7 +592,7 @@ export default {
     font-weight: 500;
     cursor: pointer;
     transition: all 0.2s ease;
-   
+    
     min-height: 44px;
     display: flex;
     align-items: center;
@@ -643,10 +643,34 @@ export default {
 
 
 /* Footer Styles */
+
+/* Footer Styles */
 .footer-section {
-    background-color: #083279;
-    padding: 60px 0px 10px 0px;
-    text-align: center;
+      background-color: #083279;
+      padding: 119px 0 10px;
+      text-align: center
+}
+
+.footer-logo {
+    min-width: 5rem;
+    /* height: 1.5rem; */
+    /* object-fit: contain; */
+    /* object-position: left; */
+    display: flex;
+    flex-direction: row-reverse;
+    align-content: center;
+    justify-content: center;
+}
+
+
+.footer-logo .logo {
+ width: 220px;
+ height: 64px;
+ background-image: url("/files/Evoluteiqlogofooter.png");
+ background-size: cover;
+ background-position: center;
+ background-repeat: no-repeat;
+ margin: -103px;
 }
 
 .container-line {
@@ -661,23 +685,25 @@ export default {
 }
 
 .main-heading {
-    font-size: 2.0rem;
+  
+    margin-bottom: 38px;
+    font-family: "Roboto", Sans-serif;
+    font-size: 42px;
     font-weight: 600;
     font-style: normal;
-    line-height: 1.2;
+    line-height: 0px !important;
     letter-spacing: 0px;
     word-spacing: 0px;
-    color: #FFFFFF;
-    margin-bottom: 20px;
-    font-family: "Roboto", Sans-serif;
+    color: #fff;
 }
 
 .sub-heading {
-    font-size: 1.25rem;
-    font-weight: 500;
+    font-size: 20px;
+    color: #666;
+    margin-bottom: 30px;
+    font-weight: 600;
     color: #FFFFFF;
     line-height: 1.2em;
-    margin-bottom: 30px;
 }
 
 .copyright {
@@ -687,6 +713,7 @@ export default {
     padding-top: 20px;
     border-top: 1px solid #ddd;
 }
+
 
 .cta-button {
     display: inline-block;
@@ -792,6 +819,7 @@ export default {
     outline: 2px solid #2563eb;
     outline-offset: 2px;
 }
+
 
 .java-beginner{
     background-image: url('/files/learning1.jpeg')
