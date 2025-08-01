@@ -50,14 +50,13 @@
 
      <!-- Modal -->
    <!-- HTML structure (add classes accordingly) -->
-      <div v-if="showFoundationModal" class="modal-overlay">
-        <div class="modal-box warning">
-         
-          <h2>Complete Foundation Course First</h2>
-          <p>Please complete the Foundation course before proceeding to this certification.</p>
-          <button class="modal-btn" @click="showFoundationModal = false">OK</button>
-        </div>
+    <div v-if="showFoundationModal" class="modal-overlay">
+    <div class="demo-modal">
+      <h1>Oops, You Missed a Step!</h1>
+      <p>You must finish the Foundation Course to access this certification.</p>
+        <button class="go-to-course-btn" @click="showFoundationModal = false">OK</button>
       </div>
+    </div>
 
     <div v-if="showCertPendingModal" class="modal-overlay">
       <div class="modal-box warning">
@@ -73,8 +72,10 @@
 
 
 
+   
     <footer class="footer-section">
       <div class="container-line">
+        <div class="footer-logo"> <div class="logo"></div> <!-- Logo container --></div>
         <h2 class="main-heading">Enhance your automation knowledge to the next level</h2>
         <h5 class="sub-heading">EIQ Platform - Intelligent Business Automation and beyond</h5>
         <p class="copyright">Copyright © 2025 | EvoluteIQ LMS</p>
@@ -116,19 +117,19 @@ export default {
           imageClass: 'java-beginner',
           courseSlug: 'eiq-platform-foundation-certification',
         },
-        {
-          id: 2,
-          title: 'Consultant Certification',
-          key: 'consultant',
-          enabled: false,
-          progress: 0,
-          description: 'The EIQ Platform Consultant Certification validates a professional’s expertise in designing, building, and managing intelligent automation solutions using the EIQ Platform.',
-          imageClass: 'Consultant-Certification',
-          courseSlug: 'eiq-platform-consultant-certification',
-        },
+        // {
+        //   id: 2,
+        //   title: 'Consultant Certification',
+        //   key: 'consultant',
+        //   enabled: false,
+        //   progress: 0,
+        //   description: 'The EIQ Platform Consultant Certification validates a professional’s expertise in designing, building, and managing intelligent automation solutions using the EIQ Platform.',
+        //   imageClass: 'Consultant-Certification',
+        //   courseSlug: 'eiq-platform-consultant-certification',
+        // },
         {
           id: 3,
-          title: 'Developer',
+          title: 'Developer Certification',
           key: 'developer',
           enabled: false,
           progress: 0,
@@ -293,11 +294,11 @@ async fetchCourseProgress() {
         let targetKeys = [];
 
         if (roles.includes('lms student')) {
-          targetKeys = ['foundation', 'consultant'];
+          targetKeys = ['foundation', 'consultant','developer'];
         } else if (roles.includes('it consultant')) {
-          targetKeys = ['foundation', 'consultant'];
+          targetKeys = ['foundation', 'consultant','developer'];
         } else if (roles.includes('developer')) {
-          targetKeys = ['foundation', 'consultant'];
+          targetKeys = ['foundation', 'consultant','developer'];
         }
 
     for (const cert of this.certifications) {
@@ -531,6 +532,72 @@ return finalProgress;
 
 
 <style scoped>
+
+/* css for show modal please complete foundation course first*/
+/* Modal Overlay */
+#foundation-warning-modal.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex; /* Centers the modal */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* Modal Box Styling */
+.demo-modal {
+    background: white;
+    border-radius: 16px;
+    padding: 48px;
+    width: 90%;
+    max-width: 675px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    text-align: center;
+}
+
+/* Modal Heading */
+.demo-modal h1 {
+    color: #333;
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    letter-spacing: -0.8px;
+}
+
+/* Modal Paragraph */
+.demo-modal p {
+    color: #666;
+    font-size: 18px;
+    margin-bottom: 32px;
+    line-height: 1.4;
+}
+
+/* Go to Course Button */
+.go-to-course-btn {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 16px 48px;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: 24px;
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+}
+
+.go-to-course-btn:hover {
+    background: #0056b3;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(0, 123, 255, 0.4);
+}
+
+
 /* Modal Styles */
 .modal-overlay {
     position: fixed;
@@ -730,6 +797,7 @@ return finalProgress;
     background-color: #22c55e;
 }
 
+
 .completed-text {
     color: #006400 !important; /* or #228B22 */
     font-weight: 700;
@@ -908,6 +976,7 @@ return finalProgress;
 .cert-btn:active {
     transform: translateY(0);
 }
+
 /* Disabled Button Styling */
 .cert-btn-disabled {
     background-color: #d1d5db;
@@ -922,9 +991,31 @@ return finalProgress;
 
 /* Footer Styles */
 .footer-section {
-    background-color: #083279;
-    padding: 60px 0px 10px 0px;
-    text-align: center;
+      background-color: #083279;
+      padding: 119px 0 10px;
+      text-align: center
+}
+
+.footer-logo {
+    min-width: 5rem;
+    /* height: 1.5rem; */
+    /* object-fit: contain; */
+    /* object-position: left; */
+    display: flex;
+    flex-direction: row-reverse;
+    align-content: center;
+    justify-content: center;
+}
+
+
+.footer-logo .logo {
+ width: 220px;
+ height: 64px;
+ background-image: url("/files/Evoluteiqlogofooter.png");
+ background-size: cover;
+ background-position: center;
+ background-repeat: no-repeat;
+ margin: -103px;
 }
 
 .container-line {
@@ -939,23 +1030,25 @@ return finalProgress;
 }
 
 .main-heading {
-    font-size: 2.0rem;
+  
+    margin-bottom: 38px;
+    font-family: "Roboto", Sans-serif;
+    font-size: 42px;
     font-weight: 600;
     font-style: normal;
-    line-height: 1.2;
+    line-height: 0px !important;
     letter-spacing: 0px;
     word-spacing: 0px;
-    color: #FFFFFF;
-    margin-bottom: 20px;
-    font-family: "Roboto", Sans-serif;
+    color: #fff;
 }
 
 .sub-heading {
-    font-size: 1.25rem;
-    font-weight: 500;
+    font-size: 20px;
+    color: #666;
+    margin-bottom: 30px;
+    font-weight: 600;
     color: #FFFFFF;
     line-height: 1.2em;
-    margin-bottom: 30px;
 }
 
 .copyright {
@@ -994,7 +1087,8 @@ return finalProgress;
 }
 
 .java-advanced {
-    background-image: url('/files/certification3.png');
+    /* background-image: url('/files/certification3.png'); */
+      background-image: url('/files/certification5.png');
 }
 
 .java-expert {
