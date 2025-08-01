@@ -339,19 +339,40 @@ const populateQuestions = () => {
 
 const setupTimer = () => {
 	if (quiz.data.duration) {
-		timer.value = quiz.data.duration * 60
+		const saved = parseInt(localStorage.getItem(`${quiz.data.title}_${user.data.name}-timer`))
+
+		if (!isNaN(saved)) {
+			if (saved <= 0) {
+				console.log('💥 Timer expired. Auto-submitting on load...')
+				submitQuiz()
+			} else {
+				timer.value = saved
+				startTimer()
+			}
+		} else {
+			timer.value = quiz.data.duration * 60
+			startTimer()
+		}
 	}
 }
 
+
+
 const startTimer = () => {
+	if (timerInterval) clearInterval(timerInterval) 
+
 	timerInterval = setInterval(() => {
-		timer.value--
-		if (timer.value == 0) {
+		if (timer.value > 0) {
+			timer.value--
+			localStorage.setItem(`${quiz.data.title}_${user.data.name}-timer`, timer.value)
+		} else {
 			clearInterval(timerInterval)
 			submitQuiz()
 		}
 	}, 1000)
 }
+
+
 
 const formatTimer = (seconds) => {
 	const hrs = Math.floor(seconds / 3600)
@@ -845,6 +866,11 @@ const resetQuiz = () => {
   quizSubmission.reset()
   localStorage.removeItem(`${quiz.data.title}_${user.data.name}`);
 localStorage.removeItem(`${quiz.data.title}_${user.data.name}-active-question`);
+
+localStorage.removeItem(`${quiz.data.title}_${user.data.name}-timer`)
+	if (timerInterval) clearInterval(timerInterval)
+	timer.value = quiz.data.duration * 60
+
   populateQuestions();
   setupTimer();
 };
