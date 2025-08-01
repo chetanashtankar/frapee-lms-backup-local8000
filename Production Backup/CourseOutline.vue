@@ -601,6 +601,7 @@ const getNextLessonOverall = () => {
   return null; // All lessons complete
 };
 const continueLearning = () => {
+
   const next = getNextLessonOverall();
   if (!next) {
     toast.success(__('You have completed all lessons!'));
