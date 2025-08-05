@@ -27,9 +27,9 @@
         
         <button
   class="cert-btn"
-  @click="foundationProgress >= 100 ? viewCertificate(courseSlug) : startCourse()"
+  @click="foundationProgress >= 100 ? redirectToCertification() : startCourse()"
 >
-  {{ foundationProgress >= 100 ? 'View Certificate' : (foundationProgress > 0 ? 'Continue Course' : 'Start Course') }}
+  {{ foundationProgress >= 100 ? 'Get Certified' : (foundationProgress > 0 ? 'Continue Course' : 'Start Course') }}
 </button>
 
 
@@ -137,7 +137,10 @@ export default {
     startCourse() {
       window.location.href = this.coursePath;
     },
-
+    redirectToCertification() {
+    // Redirect to the certification page
+    window.location.href = '/lms/take-certification';
+  },
     async viewCertificate(courseId) {
       try {
         const csrfRes = await fetch('/api/method/lms.lms.utils.get_csrf_token', {
@@ -173,6 +176,7 @@ export default {
     }
   },
   mounted() {
+    
     console.log('Component mounted, fetching CSRF token...');
     fetch('/api/method/lms.lms.utils.get_csrf_token')
       .then(res => res.json())
@@ -468,7 +472,6 @@ export default {
     flex-grow: 1;
      padding: 5rem 6.25rem 1.25rem;
 }
-
 .page-title {
     margin-bottom: 1.5rem;
     font-size: 20px;
@@ -592,7 +595,7 @@ export default {
     font-weight: 500;
     cursor: pointer;
     transition: all 0.2s ease;
-    
+   
     min-height: 44px;
     display: flex;
     align-items: center;
@@ -714,7 +717,6 @@ export default {
     border-top: 1px solid #ddd;
 }
 
-
 .cta-button {
     display: inline-block;
     background-color: #ff6b35;
@@ -819,7 +821,6 @@ export default {
     outline: 2px solid #2563eb;
     outline-offset: 2px;
 }
-
 
 .java-beginner{
     background-image: url('/files/learning1.jpeg')
