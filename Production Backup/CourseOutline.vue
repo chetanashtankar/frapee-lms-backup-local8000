@@ -691,6 +691,55 @@ watch(
 
 
 
+if (window.location.pathname === "/lms/courses/eiq-platform-foundation-certification/learn/1-1" || 
+    window.location.pathname === "/lms/courses/eiq-platform-developer-certification/learn/1-1") {
+
+    const style = document.createElement('style');
+    style.innerHTML = `
+        .accordion-lesson:last-child {
+            display: none !important;
+        }
+    `;
+    document.head.appendChild(style);
+}
+
+
+const courseUrl = window.location.href;
+const courseType = courseUrl.includes('foundation') ? 'foundation' : 
+                   courseUrl.includes('developer') ? 'developer' : 'unknown';
+const totalQuestions = courseType === 'foundation' ? 30 : 
+                       courseType === 'developer' ? 50 : 0;
+
+const cookies = Object.fromEntries(document.cookie.split('; ').map(c => c.split('=')));
+const email = decodeURIComponent(cookies.user_id || '');
+const quizTitle = `${courseType.charAt(0).toUpperCase() + courseType.slice(1)} Certification Test`;
+
+const quizKey = `${quizTitle}_${email}`;
+const activeQuestionKey = `${quizKey}-active-question`;
+
+const activeQuestion = parseInt(localStorage.getItem(activeQuestionKey), 10) || 0;
+
+const progressPercentage = totalQuestions > 0
+  ? Math.round((activeQuestion / totalQuestions) * 100)
+  : 0;
+
+console.log(`📊 Progress for ${quizTitle} (User: ${email}): ${progressPercentage}%`);
+
+const interval = setInterval(() => {
+  const button = document.querySelector('.continue-learning-text');
+  
+  if (button) {
+    if (button.innerText === 'Start Test' && progressPercentage > 0) {
+      button.innerText = 'Continue Test';
+    }
+
+    clearInterval(interval);
+  }
+}, 100);
+
+progressPercentage;
+
+
 </script>
 
 <style>
