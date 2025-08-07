@@ -1216,7 +1216,7 @@ section.elementor-section.elementor-inner-section.elementor-element.elementor-el
 }
 
 .container {
-    max-width: 70%;
+    max-width: 90%;
     margin: 0 auto;
     padding: 0 20px;
 }
@@ -1235,9 +1235,7 @@ section.elementor-section.elementor-inner-section.elementor-element.elementor-el
     word-spacing: 0px;
     color: #fff
 }
-a.cta-button.open-login-modal {
-    display: none;
-}
+
 .sub-heading {
     font-size: 20px;
     /* color: #666; */
@@ -1248,41 +1246,15 @@ a.cta-button.open-login-modal {
 }
 
 .cta-button {
-    display: inline-block;
-    background-color: #007cba;
-    color: white;
-    padding: 12px 30px;
-    text-decoration: none;
     border-radius: 5px;
-    font-size: 16px;
-    font-weight: 500;
-    transition: background-color 0.3s ease;
-    margin-bottom: 40px;
-    background-color: #FFFFFF;
     fill: #0D68AE;
-    color: #0D68AE;
-    font-size: 0.9375rem 15px;
-    border-top-left-radius: 50px;
-    border-top-right-radius: 50px;
-    border-bottom-right-radius: 50px;
-    border-bottom-left-radius: 50px;
-    padding-top: 15px;
-    padding-right: 40px;
-    padding-bottom: 16px;
-    padding-left: 40px;
     display: inline-block;
-    /* background: #ff6b6b; */
-    color: white;
     padding: 15px 30px;
     text-decoration: none;
-    /* border-radius: 50px; */
     font-weight: bold;
     font-size: 1rem;
     transition: all 0.3s ease;
-    /* box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3); */
     background-color: #ff6b35;
-    /* background: transparent; */
-    /* color: inherit; */
     text-decoration: none;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
@@ -1292,6 +1264,7 @@ a.cta-button.open-login-modal {
     padding-right: 40px;
     padding-bottom: 16px;
     padding-left: 40px;
+    color: white;
 }
 
 /* .cta-button:hover {
@@ -3586,7 +3559,7 @@ label.form-label {
 
     .footer-section {
         background-color: #083279;
-        padding: 29px 0px 0px 0px;
+        padding: 67px 0px 0px 0px;
         text-align: center;
     }
 
@@ -4880,7 +4853,7 @@ label.form-label {
 
 
 /* ===== Styles for max-width: 589px ===== */
-@media screen and (max-width: 587px) {
+@media (max-width: 587px){
     
     .main-heading
     {
@@ -4893,11 +4866,11 @@ label.form-label {
 }
 
 /* ===== Styles for max-width: 589px ===== */
-@media screen and (max-width: 511px) {
+@media (max-width: 511px){
     
     .main-heading
     {
-        font-size: 18px;
+        font-size: 18px !important;
     }
     .testimonial-text {
         font-size: 9px;
@@ -5071,8 +5044,18 @@ label.form-label {
 
 @media(max-width: 639px) {
 
+       .footer-logo .logo {
+    width: 174px;
+    height: 49px;
+    background-image: url("/files/Evoluteiqlogofooter.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: -52px
+}
+
     .main-heading {
-        font-size: 14px;
+        font-size: 20px;
     }
 
     .testimonial-name {
@@ -5114,6 +5097,63 @@ label.form-label {
 
 
 }
+
+.mobile-toggle-btn {
+  display: none;
+  font-size: 1.25rem;
+  background: none;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+
+@media (max-width: 472px) {
+  .site-primary-header-wrap {
+    flex-direction: column;
+    align-items: center;
+  }
+
+    .main-heading {
+        font-size: 12px !important;
+    }
+
+  .site-header-primary-section-left,
+  .site-header-primary-section-right {
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+
+.ast-primary-header-bar {
+    background-color: #fff;
+    border-bottom: 1px solid #e1e5e9;
+    padding: 10px 20px;
+    height: auto !important;
+}
+  .main-header-menu {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .main-header-menu > li {
+    margin: 5px;
+    flex: 1 1 100%; /* full width menu items */
+    text-align: center;
+  }
+
+  /* Optional: make logo smaller */
+  .custom-logo {
+    max-width: 150px;
+    height: auto;
+  }
+
+  /* Hide menu icons if needed */
+  .menu-icon {
+    display: none;
+  }
+}
+
 
 /* ============================== Login page Responsive css =================================== */
 
@@ -5160,8 +5200,22 @@ body .page-content-wrapper {
 }
 
 
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .login-modal-flex {
+    flex-direction: column;
+    max-width: 400px;
+    min-height: auto;
+  }
 
+  .login-modal-left {
+    display: none; /* hide image on small screens */
+  }
 
+  .login-modal-right {
+    padding: 1.5rem 2rem;
+  }
+}
 /*-----------------------------*/
 /* Container Styles */
 
@@ -5372,10 +5426,10 @@ body .page-content-wrapper {
 
 /* Certification Paths Grid - 5 cards (3+2 layout) */
 .certification-paths-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+  display: grid;
+    grid-template-columns: repeat(4, 1fr);
     gap: 40px;
-    max-width: 68%;
+    max-width: 90%;
     margin: 0 auto;
 }
 
@@ -5921,14 +5975,14 @@ label {
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     padding: 48px 40px;
-    max-width: 600px;
+    max-width: 500px;
     margin: 60px auto;
     width: 100%;
     box-sizing: border-box;
 }
 
 .modal-box h2 {
-    font-size: 32px;
+    font-size: 22px;
     font-weight: 600;
     color: #333333;
     text-align: center;
@@ -5937,7 +5991,7 @@ label {
 }
 
 .modal-box h6 {
-    font-size: 16px;
+    font-size: 12px;
     color: #666666;
     text-align: center;
     margin-bottom: 40px;
@@ -5950,7 +6004,7 @@ label {
 
 .form-group label {
     display: block;
-    font-size: 16px;
+    font-size: 12px;
     font-weight: 600;
     color: #333333;
     margin-bottom: 8px;
@@ -5958,7 +6012,7 @@ label {
 
 .input-password {
     width: 100%;
-    height: 52px;
+    height: 35px;
     border: 2px solid #e0e0e0;
     border-radius: 8px;
     padding: 0 16px;
@@ -5980,7 +6034,7 @@ label {
 
 #submitPasswordBtn {
     width: 100%;
-    height: 52px;
+    height: 35px;
     background-color: #4285f4;
     color: white;
     border: none;
