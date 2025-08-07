@@ -41,6 +41,7 @@ document.body.innerHTML = `
                                     id="primary-site-navigation-desktop" aria-label="Main Navigation"
                                     itemtype="https://schema.org/SiteNavigationElement" itemscope="itemscope">
                                     <div class="main-navigation ast-inline-flex">
+                                    <div class="mobile-menu-container">
                                         <ul id="ast-hf-menu-1"
                                             class="main-header-menu ast-menu-shadow ast-nav-menu ast-flex submenu-with-border astra-menu-animation-slide-up stack-on-mobile ast-mega-menu-enabled">
 
@@ -62,49 +63,49 @@ document.body.innerHTML = `
 
                                    <!-- Course -->
                                     <li id="menu-item-course" class="menu-item">
-  <a
-    class="menu-link"
-    id="courseLink"
-    href="javascript:void(0)"
-    onclick="goToCourse(this)"
-    data-url="/lms/foundation-course"
-  >
-    <span class="menu-icon">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-           viewBox="0 0 24 24" fill="none" stroke="currentColor"
-           stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-           class="lucide lucide-book-open-icon h-4 w-4 stroke-1.5 text-ink-gray-8">
-        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
-      </svg>
-    </span>
-    <span class="menu-text">Course</span>
-  </a>
-</li>
-
-                                    
-                                    
-                                  <!-- Certification -->
-<li id="menu-item-certification" class="menu-item">
-  <a
-    class="menu-link"
-    id="certificationLink"
-    href="javascript:void(0)"
-    onclick="handleCertifcationlink(event, this)"
-    data-url="/lms/take-certification"
-  >
-    <span class="menu-icon">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-           viewBox="0 0 24 24" fill="none" stroke="currentColor"
-           stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-           class="lucide lucide-circle-check-big-icon h-4 w-4 stroke-1.5 text-ink-gray-8">
-        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-        <path d="m9 11 3 3L22 4"></path>
-      </svg>
-    </span>
-    <span class="menu-text">Certification</span>
-  </a>
-</li>
+                                          <a
+                                            class="menu-link"
+                                            id="courseLink"
+                                            href="javascript:void(0)"
+                                            onclick="goToCourse(this)"
+                                            data-url="/lms/foundation-course"
+                                          >
+                                            <span class="menu-icon">
+                                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                   viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                   class="lucide lucide-book-open-icon h-4 w-4 stroke-1.5 text-ink-gray-8">
+                                                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                                                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                                              </svg>
+                                            </span>
+                                            <span class="menu-text">Courses</span>
+                                          </a>
+                                        </li>
+                                        
+                                                                            
+                                                                            
+                                                                          <!-- Certification -->
+                                        <li id="menu-item-certification" class="menu-item">
+                                          <a
+                                            class="menu-link"
+                                            id="certificationLink"
+                                            href="javascript:void(0)"
+                                            onclick="handleCertifcationlink(event, this)"
+                                            data-url="/lms/take-certification"
+                                          >
+                                            <span class="menu-icon">
+                                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                   viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                   class="lucide lucide-circle-check-big-icon h-4 w-4 stroke-1.5 text-ink-gray-8">
+                                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                                <path d="m9 11 3 3L22 4"></path>
+                                              </svg>
+                                            </span>
+                                            <span class="menu-text">Certifications</span>
+                                          </a>
+                                        </li>
 
 
 
@@ -158,6 +159,7 @@ document.body.innerHTML = `
                                             </li>
 
                                         </ul>
+                                        </div>
                                     </div>
                                 </nav>
                             </div>
@@ -461,8 +463,8 @@ document.body.innerHTML = `
     <!-- Card 2: Citizen Developer (Coming Soon) -->
                 <div class="path-card animate-on-scroll" id="cert-consultant">
                     <div class="card-image leadership-program-img"></div>
-                    <h3 class="card-title">Consultant Certification</h3>
-                    <p class="card-description">The EIQ Platform Consultant Certification validates a professional’s expertise in designing, building, and managing intelligent automation solutions using the EIQ Platform</p>
+                    <h3 class="card-title">Developer Certification</h3>
+                    <p class="card-description">The EIQ Platform Developer Certification validates a professional’s expertise in designing, building, and managing intelligent automation solutions using the EIQ Platform</p>
                     <button class="card-button" id="consultant-btn" onclick="goToCertification(this)">
   Get Certified
 </button>
@@ -472,30 +474,19 @@ document.body.innerHTML = `
                 <!-- Card 3: Developer (Coming Soon) -->
                 <div class="path-card coming-soon animate-on-scroll" id="cert-developer">
                     <div class="card-image developer-img"></div>
-                    <h3 class="card-title">Developer</h3>
+                    <h3 class="card-title">Citizen Developer</h3>
                     <p class="card-description">Dive into the latest information and AI fundamentals. Perfect for beginners or those looking to solidify their foundational knowledge. Start paving your path to success today!</p>
                     <button class="card-button animated" id="developer-btn">Coming Soon</button>
                 </div>
 
-                <!-- Second Row: 2 Cards (Centered) -->
-                <div class="second-row">
-                    <!-- Card 4: Architect (Coming Soon) -->
+
+                <!-- Card 4: Architect (Coming Soon) -->
                     <div class="path-card coming-soon animate-on-scroll">
                         <div class="card-image architect-img"></div>
                         <h3 class="card-title">Architect</h3>
                         <p class="card-description">Dive into the latest information and AI fundamentals. Perfect for beginners or those looking to solidify their foundational knowledge. Start paving your path to success today!</p>
                         <button class="card-button animated">Coming Soon</button>
                     </div>
-
-                    <!-- Card 5: Expert (Coming Soon) -->
-                    <div class="path-card coming-soon animate-on-scroll">
-                        <div class="card-image expert-img"></div>
-                        <h3 class="card-title">Expert</h3>
-                        <p class="card-description">Dive into the latest information and AI fundamentals. Perfect for beginners or those looking to solidify their foundational knowledge. Start paving your path to success today!</p>
-                        <button class="card-button animated">Coming Soon</button>
-                    </div>
-                </div>
-    
   </div>
   
 </div>
@@ -1800,8 +1791,23 @@ submitBtn.addEventListener('click', () => {
       password2.value = '';
       window.location.href = 'http://216.48.181.71/login#login';
     } else {
-      errorMsg.textContent = data.message || 'Failed to update password.';
+  try {
+    if (data._server_messages) {
+      const serverMessages = JSON.parse(data._server_messages); // Parses array of JSON strings
+      const messageObj = JSON.parse(serverMessages[0]); // Parses the first string into an object
+      errorMsg.textContent = messageObj.message.trim();
+    } else if (data.message) {
+      errorMsg.textContent = data.message.trim();
+    } else {
+      errorMsg.textContent = 'Failed to update password.';
     }
+  } catch (e) {
+    console.error('Failed to parse server message:', e);
+    errorMsg.textContent = 'Something went wrong.';
+  }
+}
+
+
   })
   .catch(err => {
     console.error('Error:', err);
@@ -1853,6 +1859,7 @@ function handleStartLearning(event) {
     // Show login modal
     const loginModal = document.getElementById('login-modal');
     if (loginModal) {
+         window.history.pushState({}, '', ' /lms/foundation-course');
       loginModal.style.display = 'flex';
       if (typeof showSection === 'function') showSection('login');
     }
@@ -1966,7 +1973,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function goToCourse(button) {
   if (isUserLoggedIn()) {
-    const url = button.getAttribute('data-url');
+    const buttonText = button.innerText.trim(); // Get the button text
+    let url = button.getAttribute('data-url'); // Get the URL from data-url attribute
+
+    // If the button text is "Get Certified", redirect to certification page
+    if (buttonText === 'Get Certified') {
+      url = 'http://216.48.181.71/lms/take-certification';
+    }
+
     if (url) {
       window.location.href = url;
     } else {
@@ -1975,11 +1989,13 @@ function goToCourse(button) {
   } else {
     const loginModal = document.getElementById('login-modal');
     if (loginModal) {
+        window.history.pushState({}, '', ' /lms/foundation-course');
       loginModal.style.display = 'flex';
       if (typeof showSection === 'function') showSection('login');
     }
   }
 }
+
 
 
 
@@ -1993,68 +2009,134 @@ function isUserLoggedIn() {
 // Function to check Foundation Course Progress and act accordingly
 
 let foundationCourseProgress = 0;
-  let foundationFirstLesson = '';
+let foundationFirstLesson = '';
+let developerCertificateProgress = 0;
 
-let consultantCertProgress = 0; // Progress percentage (0-100)
-let foundationCertProgress = 0; // Progress percentage (0-100)
+// 🔹 Run on page load
+document.addEventListener('DOMContentLoaded', () => {
 
-  // 🔹 Run on page load
-  document.addEventListener('DOMContentLoaded', () => {
-      debugger;
-    fetch('/api/method/lms.lms.utils.get_csrf_token')
-      .then(res => res.json())
-      .then(data => {
-        const csrfToken = data.message;
+  // Fetch Developer Certification Progress
+  fetch('http://216.48.181.71/api/method/lms.lms.utils.get_lesson', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      course: 'eiq-platform-developer-certification',
+      chapter: '1',
+      lesson: '1',
+    }),
+  })
+    .then(res => res.json())
+    .then(data => {
+      const progress = data?.message?.membership?.progress;
+      const developerCertificateProgress = isNaN(progress) ? 0 : progress;
+      console.log('📡 API Progress:', developerCertificateProgress);
 
-        return fetch('/api/method/lms.lms.utils.get_course_outline', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-Frappe-CSRF-Token': csrfToken
-          },
-          body: JSON.stringify({
-            course: 'eiq-agentic-automation-platform-foundation-certification',
-            progress: false
-          })
+      const consultantBtn = document.getElementById('consultant-btn');
+      if (!consultantBtn) return;
+
+      // Step 2: If API progress is 100 → show "View Certificate"
+      if (developerCertificateProgress === 100) {
+        consultantBtn.innerText = 'View Certificate';
+        return;
+      }
+
+     // Case 2: Not 100% → Check localStorage activeQuestion progress
+const quizTitle = 'Developer Certification Test';
+const totalQuestions = 50;
+
+// Get user email from cookies
+const cookies = Object.fromEntries(
+  document.cookie.split('; ').map(c => c.split('='))
+);
+const email = decodeURIComponent(cookies.user_id || '');
+
+// Build localStorage keys
+const quizKey = `${quizTitle}_${email}`;
+const activeQuestionKey = `${quizKey}-active-question`;
+
+// Get current question index (0-based)
+const activeQuestion = parseInt(localStorage.getItem(activeQuestionKey), 10) || 0;
+
+// Calculate progress percentage
+const progressPercentage = totalQuestions > 0
+  ? Math.round((activeQuestion / totalQuestions) * 100)
+  : 0;
+
+console.log(`📊 Progress for "${quizTitle}" (User: ${email}): ${progressPercentage}%`);
+
+// Step 3: Decide Button Text
+consultantBtn.innerText = progressPercentage === 0 ? 'Get Certified' : 'Resume Test';
+    })
+    .catch(err => console.error('❌ API Error:', err));
+
+  // Foundation Course CSRF & Progress
+  fetch('/api/method/lms.lms.utils.get_csrf_token')
+    .then(res => res.json())
+    .then(data => {
+      const csrfToken = data.message;
+
+      return fetch('/api/method/lms.lms.utils.get_course_outline', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Frappe-CSRF-Token': csrfToken
+        },
+        body: JSON.stringify({
+          course: 'eiq-agentic-automation-platform-foundation-certification',
+          progress: false
         })
-          .then(res => res.json())
-          .then(outlineRes => {
-            const message = outlineRes.message || [];
-
-            for (const section of message) {
-              if (section.lessons && section.lessons.length > 0) {
-                foundationFirstLesson = section.lessons[0].name;
-                break;
-              }
-            }
-
-            if (!foundationFirstLesson) return;
-
-            return fetch('/api/method/lms.lms.doctype.course_lesson.course_lesson.save_progress', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-                'X-Frappe-CSRF-Token': csrfToken
-              },
-              body: JSON.stringify({
-                course: 'eiq-agentic-automation-platform-foundation-certification',
-                lesson: foundationFirstLesson
-              })
-            })
-              .then(res => res.json())
-              .then(progressRes => {
-                foundationCourseProgress = Math.round(progressRes.message);
-                console.log(`Preloaded progress: ${isNaN(foundationCourseProgress) ? 0 : foundationCourseProgress}%`);
-
-               const courseBtn = document.getElementById('learning-foundation-btn');
-                  if (courseBtn) {
-                    courseBtn.innerText = foundationCourseProgress === 0 ? 'Start Course' : 'Continue';
-                  }
-            });
-          });
       })
-      .catch(err => console.error('Progress preload error:', err));
-  });
+        .then(res => res.json())
+        .then(outlineRes => {
+          const message = outlineRes.message || [];
+
+          for (const section of message) {
+            if (section.lessons && section.lessons.length > 0) {
+              foundationFirstLesson = section.lessons[0].name;
+              break;
+            }
+          }
+
+          if (!foundationFirstLesson) return;
+
+          return fetch('/api/method/lms.lms.doctype.course_lesson.course_lesson.save_progress', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-Frappe-CSRF-Token': csrfToken
+            },
+            body: JSON.stringify({
+              course: 'eiq-agentic-automation-platform-foundation-certification',
+              lesson: foundationFirstLesson
+            })
+          })
+            .then(res => res.json())
+            .then(progressRes => {
+              foundationCourseProgress = Math.round(progressRes.message);
+              console.log(`Preloaded progress: ${isNaN(foundationCourseProgress) ? 0 : foundationCourseProgress}%`);
+
+              const courseBtn = document.getElementById('learning-foundation-btn');
+
+              // 🔹 Safe cookie parse (fix)
+              const cookieSystemUser = document.cookie.split(';').find(row => row.trim().startsWith('system_user='));
+              const systemUser = cookieSystemUser ? cookieSystemUser.split('=')[1] : null;
+
+              if (courseBtn) {
+                if (systemUser === 'no' || foundationCourseProgress === 0) {
+                  courseBtn.innerText = 'Start Course';
+                } else if (foundationCourseProgress === 100) {
+    courseBtn.innerText = 'Get Certified';
+  }else {
+                  courseBtn.innerText = 'Continue';
+                }
+              }
+            });
+        });
+    })
+    .catch(err => console.error('Progress preload error:', err));
+});
 
 
 
@@ -2064,8 +2146,8 @@ let foundationCertProgress = 0; // Progress percentage (0-100)
     const isConsultant = button && button.id === 'consultant-btn';
 
     if (!isUserLoggedIn()) {
-      const redirectURL = 'http://216.48.181.71/login?redirect-to=/lms/take-certification';
-      window.history.pushState({}, '', redirectURL);
+      //const redirectURL = 'http://216.48.181.71/login?redirect-to=/lms/take-certification';
+      window.history.pushState({}, '', ' /lms/take-certification');
 
       const loginModal = document.getElementById('login-modal');
       if (loginModal) {
@@ -2076,7 +2158,7 @@ let foundationCertProgress = 0; // Progress percentage (0-100)
     }
 
     if (isConsultant) {
-      window.location.href = '/lms/courses/eiq-platform-consultant-certification';
+      window.location.href = '/lms/take-certification';
       return;
     }
 
@@ -2106,19 +2188,7 @@ let foundationCertProgress = 0; // Progress percentage (0-100)
 function updateCourseButtonsForLoggedInUser() {
   if (isUserLoggedIn()) {
       
-    document.querySelectorAll('.card-button').forEach(button => {
-      const btnText = button.textContent.trim().toLowerCase();
-
-      if (btnText === 'start course') {
-        button.textContent = 'Continue';
-      }
-
-      if (btnText === 'get certified' && button.id === 'consultant-btn') {
-        button.textContent = 'Continue';
-      }
-
-     
-    });
+ 
 
     const loginMenuText = document.querySelector('#menu-item-login .menu-text');
     const loginLink = document.getElementById('loginLink');
@@ -2164,8 +2234,10 @@ function updateCourseButtonsForLoggedInUser() {
     const loginLink = document.getElementById('loginLink');
     if (loginLink) {
       loginLink.onclick = function (e) {
+          debugger;
         e.preventDefault();
-        showLoginPrompt();
+        window.history.pushState({}, '', '/login');
+        
       };
     }
   }
