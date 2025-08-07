@@ -165,21 +165,21 @@ const participants = createListResource({
 
 	const inputBox = document.getElementById('participant-name-input');
 
-if (inputBox) {
-  if (userData) {
-    inputBox.value = userData.full_name;
+// if (inputBox) {
+//   if (userData) {
+//     inputBox.value = userData.full_name;
 
-    const event = new Event('input', {
-      bubbles: true,
-      cancelable: true,
-    });
-    inputBox.dispatchEvent(event);
-  } else {
-    inputBox.value = '';
-    console.log('User not found');
-    // No event dispatched here
-  }
-}
+//     const event = new Event('input', {
+//       bubbles: true,
+//       cancelable: true,
+//     });
+//     inputBox.dispatchEvent(event);
+//   } else {
+//     inputBox.value = '';
+//     console.log('User not found');
+//     // No event dispatched here
+//   }
+// }
   },
 })
 call('lms.lms.api.get_count_of_certified_members', {
