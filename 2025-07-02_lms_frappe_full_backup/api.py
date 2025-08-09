@@ -1474,3 +1474,46 @@ def save_quiz_progress(user, quiz, current_question_index, answers):
         doc.insert(ignore_permissions=True)
         return {"message": "Progress Created"}
 
+
+
+# file: lms/lms/api.py
+import frappe
+import requests
+import json
+from frappe import _
+@frappe.whitelist(allow_guest=False)
+def call_evoluteiq(question, assistant_id=None, input_variables="{}", conversational_id=None, rating=0):
+    import requests, json
+
+    api_key = "bef49b63-f73f-4c2a-b2f0-797bbcbfbe29"
+    access_token = "816df8e9-6b3c-4e57-9ffd-a752018464bf"
+    base_url = "https://platform.evoluteiq.net"
+
+    payload = {
+        "assistant_id": 163,
+        "question": question,
+        "rating": 0,
+        "userid": 55340,  # Hardcoded for test to match cURL
+        "org_id": 103303,
+        "roles": ["Devoloper"],  # Same typo/format as cURL
+        "input_variables": "{}"
+    }
+    if conversational_id:
+        payload["conversational_id"] = conversational_id
+
+    headers = {
+        "X-Api-Key": api_key,
+        "Content-Type": "application/json",
+        "Access-Token": access_token
+    }
+
+    url = base_url.rstrip("/") + "/gen_iq/api/v1/serve/llm_inference_with_agent"
+
+    try:
+        resp = requests.post(url, headers=headers, json=payload, timeout=30)
+        resp.raise_for_status()
+        return resp.json()
+    except Exception as e:
+        frappe.log_error(frappe.get_traceback(), "EvoluteIQ Integration Error")
+        return {"success": False, "error": str(e)}
+
