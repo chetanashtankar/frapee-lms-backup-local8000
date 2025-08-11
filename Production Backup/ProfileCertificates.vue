@@ -1,27 +1,26 @@
 /* /home/frappe/frappe-bench/apps/lms/frontend/src/pages/ProfileCertificates.vue */
 
-
 <template>
 	<div class="mt-7 mb-10">
 		<h2 class="mb-3 text-lg font-semibold text-ink-gray-9">
 			{{ __('Certificates') }}
 		</h2>
 		<div class="grid grod-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-			<div
-				v-for="certificate in certificates.data"
-				:key="certificate.name"
-				class="flex flex-col bg-surface-white border rounded-lg p-3 cursor-pointer hover:bg-surface-menu-bar"
-				@click="openCertificate(certificate)"
-			>
-				<div class="font-medium leading-5 mb-2 text-ink-gray-9">
-					{{ certificate.course_title || certificate.batch_title }}
-				</div>
-				<div class="text-sm text-ink-gray-7 font-medium mt-auto">
-					<span> {{ __('Issued on') }}: </span>
-					{{ dayjs(certificate.issue_date).format('DD MMM YYYY') }}
-				</div>
-			</div>
-		</div>
+            <div
+                v-for="certificate in certificates.data.filter(c => !hiddenCertificates.includes(c.name))"
+                :key="certificate.name"
+                class="flex flex-col bg-surface-white border rounded-lg p-3 cursor-pointer hover:bg-surface-menu-bar"
+                @click="openCertificate(certificate)"
+            >
+                <div class="font-medium leading-5 mb-2 text-ink-gray-9">
+                    {{ certificate.course_title || certificate.batch_title }}
+                </div>
+                <div class="text-sm text-ink-gray-7 font-medium mt-auto">
+                    <span> {{ __('Issued on') }}: </span>
+                    {{ dayjs(certificate.issue_date).format('DD MMM YYYY') }}
+                </div>
+            </div>
+        </div>
 	</div>
 	<!-- Modal for Incomplete Course -->
 <div v-if="showFoundationModal" class="modal-overlay">
@@ -44,7 +43,7 @@ import { ref,inject, onMounted } from 'vue'
 
 const showFoundationModal = ref(false)
 const modalCourseTitle = ref('')
-
+const hiddenCertificates = ref([])
 
 const dayjs = inject('$dayjs')
 const props = defineProps({
@@ -111,6 +110,47 @@ const openCertificate = (certificate) => {
 		})
 		.catch(error => console.error('Error:', error))
 }
+
+
+const checkCertificateProgress = async (certificate) => {
+	const courseTitle = certificate.course_title || certificate.batch_title
+
+	const dynamicCourse = courseTitle
+		.toLowerCase()
+		.replaceAll(' ', '-')
+		.replaceAll(/[^\w-]/g, '')
+
+	try {
+		const response = await fetch('/api/method/lms.lms.utils.get_lesson', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				course: dynamicCourse,
+				chapter: '1',
+				lesson: '1',
+			}),
+		})
+		const data = await response.json()
+		const progress = data.message?.membership?.progress ?? null
+
+		if (progress < 100) {
+			hiddenCertificates.value.push(certificate.name)
+		}
+	} catch (error) {
+		console.error('Error checking progress:', error)
+	}
+}
+
+onMounted(async () => {
+	if (props.profile.data?.name) {
+		await certificates.reload()
+		// Check progress for each certificate
+		const checkPromises = certificates.data.map(cert => checkCertificateProgress(cert))
+		await Promise.all(checkPromises)
+	}
+})
 
 </script>
 
