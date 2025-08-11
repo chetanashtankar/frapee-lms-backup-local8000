@@ -472,6 +472,7 @@ export default {
     flex-grow: 1;
      padding: 5rem 6.25rem 1.25rem;
 }
+
 .page-title {
     margin-bottom: 1.5rem;
     font-size: 20px;
@@ -595,7 +596,7 @@ export default {
     font-weight: 500;
     cursor: pointer;
     transition: all 0.2s ease;
-   
+    
     min-height: 44px;
     display: flex;
     align-items: center;
@@ -717,6 +718,7 @@ export default {
     border-top: 1px solid #ddd;
 }
 
+
 .cta-button {
     display: inline-block;
     background-color: #ff6b35;
@@ -821,6 +823,7 @@ export default {
     outline: 2px solid #2563eb;
     outline-offset: 2px;
 }
+
 
 .java-beginner{
     background-image: url('/files/learning1.jpeg')
