@@ -1,6 +1,5 @@
 # Copyright (c) 2021, FOSS United and contributors
 # For license information, please see license.txt
-# /home/frappe/frappe-bench/apps/lms/lms/lms/doctype/lms_certificate/lms_certificate.py
 
 import frappe
 from frappe import _
@@ -26,51 +25,33 @@ class LMSCertificate(Document):
 			if outgoing_email_account or frappe.conf.get("mail_login"):
 				self.send_mail()
 
-	def send_mail(self):
-	from lms.lms.utils import get_lesson_progress  # Import if exists or create similar logic
 
-	# Use course title slug as dynamicCourse
-	course_title = frappe.db.get_value("LMS Course", self.course, "title") or ""
-	dynamic_course = frappe.scrub(course_title)
+	# def send_mail(self):
+	# 	subject = _("Congratulations on getting certified!")
+	# 	template = "certification"
+	# 	custom_template = frappe.db.get_single_value("LMS Settings", "certification_template")
 
-	try:
-		# Call your existing lesson progress logic
-		res = frappe.call("lms.lms.utils.get_lesson", course=dynamic_course, chapter='1', lesson='1')
-		progress = res.get("message", {}).get("membership", {}).get("progress", 0)
-	except Exception as e:
-		frappe.log_error(f"Error checking progress for certificate email: {e}")
-		progress = 0
+	# 	args = {
+	# 		"student_name": self.member_name,
+	# 		"course_name": self.course,
+	# 		"course_title": frappe.db.get_value("LMS Course", self.course, "title"),
+	# 		"certificate_name": self.name,
+	# 		"template": self.template,
+	# 	}
 
-	# Only send email if progress >= 100
-	if progress < 100:
-		frappe.logger().info(f"Email not sent. Progress for {self.member} in {self.course} is {progress}%.")
-		return
+	# 	if custom_template:
+	# 		email_template = get_email_template(custom_template, args)
+	# 		subject = email_template.get("subject")
+	# 		content = email_template.get("message")
+	# 	frappe.sendmail(
+	# 		recipients=self.member,
+	# 		subject=subject,
+	# 		template=template if not custom_template else None,
+	# 		content=content if custom_template else None,
+	# 		args=args,
+	# 		header=[subject, "green"],
+	# 	)
 
-	subject = _("Congratulations on getting certified!")
-	template = "certification"
-	custom_template = frappe.db.get_single_value("LMS Settings", "certification_template")
-
-	args = {
-		"student_name": self.member_name,
-		"course_name": self.course,
-		"course_title": course_title,
-		"certificate_name": self.name,
-		"template": self.template,
-	}
-
-	if custom_template:
-		email_template = get_email_template(custom_template, args)
-		subject = email_template.get("subject")
-		content = email_template.get("message")
-
-	frappe.sendmail(
-		recipients=self.member,
-		subject=subject,
-		template=template if not custom_template else None,
-		content=content if custom_template else None,
-		args=args,
-		header=[subject, "green"],
-	)
 
 
 	def validate_duplicate_certificate(self):
