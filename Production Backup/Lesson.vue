@@ -6,7 +6,7 @@
 			<Breadcrumbs class="h-7" :items="breadcrumbs" />
 			<div class="flex items-center space-x-2">
 				<Tooltip v-if="canGoZen()" :text="__('Full Screen')">
-					<Button @click="goFullScreen()" class="course-nav-btn">
+					<Button @click="goFullScreen()" class="course-nav-btn" style="display: none">
 						<template #icon>
 							<Focus class="w-4 h-4 stroke-2" />
 						</template>
@@ -16,8 +16,8 @@
 			</div>
 		</header>
 		<div class="grid md:grid-cols-[70%,30%] h-screen">
-			<div v-if="lesson.data.no_preview" class="border-r">
-				<div class="shadow rounded-md w-3/4 mt-10 mx-auto text-center p-4">
+<div v-if="lesson.data.no_preview && !isTestCourse" class="border-r">
+				<!-- <div class="shadow rounded-md w-3/4 mt-10 mx-auto text-center p-4">
 					<div class="flex items-center justify-center mt-4 space-x-2">
 						<LockKeyholeIcon class="size-4 stroke-2 text-ink-gray-5" />
 						<div class="text-lg font-semibold text-ink-gray-7">
@@ -52,7 +52,7 @@
 						</template>
 						{{ __('Login') }}
 					</Button>
-				</div>
+				</div> -->
 			</div>
 			<div
 				v-else
@@ -414,6 +414,13 @@ onMounted(() => {
 	document.addEventListener('fullscreenchange', attachFullscreenEvent)
 })
 
+
+const testCourses = ['eiq-platform-consultant-certification'];
+
+const isTestCourse = computed(() => {
+  return testCourses.includes(route.params.courseName);
+});
+
 const attachFullscreenEvent = () => {
 	if (document.fullscreenElement) {
 		zenModeEnabled.value = true
@@ -551,21 +558,9 @@ watch(
 		setupLesson(data)
 	}
 )
-
-// const startTimer = () => {
-// 	timerInterval = setInterval(() => {
-// 		timer.value++
-// 		if (timer.value == 30) {
-// 			clearInterval(timerInterval)
-// 			markProgress()
-// 		}
-// 	}, 1000)
-// }
-
 onBeforeUnmount(() => {
 	clearInterval(timerInterval)
 })
-
 const checkIfDiscussionsAllowed = () => {
 	JSON.parse(lesson.data?.content)?.blocks?.forEach((block) => {
 		if (block.type === 'quiz') hasQuiz.value = true
@@ -580,14 +575,12 @@ const checkIfDiscussionsAllowed = () => {
 	)
 		allowDiscussions.value = true
 }
-
 const allowEdit = () => {
 	if (window.read_only_mode) return false
 	if (user.data?.is_moderator) return true
 	if (lesson.data?.instructors?.includes(user.data?.name)) return true
 	return false
 }
-
 const allowInstructorContent = () => {
 	if (user.data?.is_moderator) return true
 	if (lesson.data?.instructors?.includes(user.data?.name)) return true
@@ -617,6 +610,23 @@ const enrollStudent = () => {
 		}
 	)
 }
+
+// Watch for when both user and lesson data are available
+watch(
+	() => [user.data, lesson.data],
+	([userData, lessonData]) => {
+		debugger;
+		if (
+			userData &&
+			lessonData &&
+			!lessonData.disable_self_learning
+		) {
+			enrollStudent()
+		}
+	},
+	{ immediate: true }
+)
+
 
 const canGoZen = () => {
 	if (
@@ -770,7 +780,7 @@ const startTimer = (videoDuration) => {
 
   console.log('Starting timer...');
   let timerInterval = setInterval(() => {
-    console.log('Timer value:', timer.value);
+   
     timer.value++;
 
     if (timer.value >= videoDuration) {  // When timer reaches the video duration
@@ -804,12 +814,22 @@ const handleNextClick = () => {
       chapterNumber: lesson.data.next.split('.')[0],
       lessonNumber: lesson.data.next.split('.')[1],
     },
+  }).then(() => {
+    location.reload(); // ✅ Force reload after route navigation
   });
 };
 
 
 </script>
 <style>
+
+
+
+.sticky.top-10 {
+    width: 86%;
+    left: 0px;
+    margin: auto;
+}
 
 .modal-overlay {
     position: fixed;
