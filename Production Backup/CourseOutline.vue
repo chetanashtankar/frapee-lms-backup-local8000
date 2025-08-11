@@ -152,7 +152,7 @@
 
 <script setup>
 import { Button, createResource, Tooltip, toast } from 'frappe-ui'
-import { getCurrentInstance, inject, ref, watch, computed, watchEffect } from 'vue'
+import { getCurrentInstance, inject, ref, watch, computed, watchEffect} from 'vue'
 import Draggable from 'vuedraggable'
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
 import {
@@ -169,14 +169,13 @@ import { useRoute, useRouter } from 'vue-router'
 import ChapterModal from '@/components/Modals/ChapterModal.vue'
 import { usersStore } from '@/stores/user'
 
-
 const isModerator = ref(false);
 const learningButtonText = ref('');
 const route = useRoute()
 const router = useRouter()
 const user = inject('$user')
 const { userResource } = usersStore()
-const course = inject('course') // or createResource / prop, depending on where it should come from
+const course = inject('course')
 const showChapterModal = ref(false)
 const onlyShowLessons = ref(false)
 const currentChapter = ref(null)
@@ -690,7 +689,6 @@ watch(
 );
 
 
-
 if (window.location.pathname === "/lms/courses/eiq-platform-foundation-certification/learn/1-1" || 
     window.location.pathname === "/lms/courses/eiq-platform-developer-certification/learn/1-1") {
 
@@ -738,6 +736,9 @@ const interval = setInterval(() => {
 }, 100);
 
 progressPercentage;
+
+
+
 
 
 </script>
