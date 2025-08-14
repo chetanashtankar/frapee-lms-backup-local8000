@@ -88,7 +88,7 @@ def is_desk_apps(apps):
 
 
 def get_default_path(apps=None):
-	return "/lms/take-certification"
+	return "/lms/foundation-course"
 
 
 @frappe.whitelist()
