@@ -87,14 +87,34 @@
 
 
 
-		 <footer class="footer-section">
-      <div class="container-line">
-        <div class="footer-logo"> <div class="logo"></div> <!-- Logo container --></div>
-        <h2 class="main-heading">Enhance your automation knowledge to the next level</h2>
-        <h5 class="sub-heading">EIQ Platform - Intelligent Business Automation and beyond</h5>
-        <p class="copyright">Copyright © 2025 | EvoluteIQ LMS</p>
+		  <footer data-v-efc29c82="" class="footer-section">
+      <div data-v-efc29c82="" class="container-line">
+        <div data-v-efc29c82="" class="footer-logo">
+          <div data-v-efc29c82="" class="logo"></div>
+        </div>
+        <h2 data-v-efc29c82="" class="main-heading">Enhance your automation knowledge to the next level</h2>
+        <h5 data-v-efc29c82="" class="sub-heading">EIQ Platform - Intelligent Business Automation and beyond</h5>
+        <div class="footer-bottom">
+          <div class="left-space"></div> <!-- invisible, for layout balance -->
+
+          <div class="copyright">
+            Copyright © 2025 | EvoluteIQ LMS
+          </div>
+
+          <div class="social-icons">
+            <a href="https://www.facebook.com/EvoluteIQ" target="_blank" class="icon facebook"
+              aria-label="Facebook"></a>
+            <a href="https://www.youtube.com/@EvoluteIQ" target="_blank" class="icon youtube" aria-label="YouTube"></a>
+            <a href="https://www.linkedin.com/company/evoluteiq/posts/?feedView=all" target="_blank"
+              class="icon linkedin" aria-label="LinkedIn"></a>
+            <a href="https://www.instagram.com/evoluteiq/" target="_blank" class="icon instagram"
+              aria-label="Instagram"></a>
+          </div>
+        </div>
+
       </div>
     </footer>
+
 			</div>
 </template>
 <script>
@@ -645,97 +665,137 @@ export default {
 }
 
 
-
-/* Footer Styles */
-
-/* Footer Styles */
 .footer-section {
-      background-color: #083279;
-      padding: 119px 0 10px;
-      text-align: center
+  background-image: url("/files/footerbg.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 17px 0 10px;
+  text-align: center;
+  font-family: "Roboto", Sans-serif;
 }
 
 .footer-logo {
-    min-width: 5rem;
-    /* height: 1.5rem; */
-    /* object-fit: contain; */
-    /* object-position: left; */
-    display: flex;
-    flex-direction: row-reverse;
-    align-content: center;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
 }
 
-
 .footer-logo .logo {
- width: 220px;
- height: 64px;
- background-image: url("/files/Evoluteiqlogofooter.png");
- background-size: cover;
- background-position: center;
- background-repeat: no-repeat;
- margin: -103px;
+  width: 220px;
+  height: 64px;
+  background-image: url("/files/Evoluteiqlogofooter.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .container-line {
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-.container {
-    max-width: 70%;
-    margin: 0 auto;
-    padding: 0 20px;
+  /* max-width: 1200px; */
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
 .main-heading {
-  
-    margin-bottom: 38px;
-    font-family: "Roboto", Sans-serif;
-    font-size: 42px;
-    font-weight: 600;
-    font-style: normal;
-    line-height: 0px !important;
-    letter-spacing: 0px;
-    word-spacing: 0px;
-    color: #fff;
+  font-size: 42px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 30px;
+  line-height: 1.2;
 }
 
 .sub-heading {
-    font-size: 20px;
-    color: #666;
-    margin-bottom: 30px;
-    font-weight: 600;
-    color: #FFFFFF;
-    line-height: 1.2em;
+  font-size: 20px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 30px;
+  line-height: 1.4;
 }
-
-.copyright {
-    font-size: 14px;
-    color: #fff;
-    margin-top: 20px;
-    padding-top: 20px;
-    border-top: 1px solid #ddd;
-}
-
 
 .cta-button {
-    display: inline-block;
-    background-color: #ff6b35;
-    color: white;
-    padding: 15px 40px;
-    text-decoration: none;
-    border-radius: 10px;
-    font-size: 1rem;
-    font-weight: bold;
-    transition: all 0.3s ease;
-    margin-bottom: 40px;
+  display: inline-block;
+  padding: 15px 40px;
+  font-size: 1rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: #fff;
+  background-color: #ff6b35;
+  border-radius: 10px;
+  transition: all 0.3s ease;
 }
 
 .cta-button:hover {
-    background-color: #e55a2b;
-    transform: translateY(-2px);
+  background-color: #e85a2a;
 }
+
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 20px;
+  margin-top: 20px;
+  border-top: 1px solid #ccc;
+  color: #fff;
+  font-size: 14px;
+}
+
+.footer-bottom .left-space {
+  flex: 1;
+}
+
+.footer-bottom .copyright {
+  flex: 1;
+  text-align: center;
+}
+
+.footer-bottom .social-icons {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+
+.social-icons .icon {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+    
+}
+
+/* Specific icons */
+.social-icons .facebook {
+  background-image: url('/files/facebook.png');
+}
+
+.social-icons .youtube {
+  background-image: url('/files/youtube.png');
+}
+
+.social-icons .linkedin {
+  background-image: url('/files/linkedin.png');
+}
+
+.social-icons .instagram {
+  background-image: url('/files/instagram.png');
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer-bottom .copyright {
+    margin-bottom: 10px;
+    text-align: center;
+  }
+}
+
 
 
 
