@@ -1,5 +1,3 @@
-/* /home/frappe/frappe-bench/apps/lms/frontend/src/pages/ProfileCertificates.vue */
-
 <template>
 	<div class="mt-7 mb-10">
 		<h2 class="mb-3 text-lg font-semibold text-ink-gray-9">
