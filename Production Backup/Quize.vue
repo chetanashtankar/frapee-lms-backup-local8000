@@ -79,7 +79,7 @@
 									type="radio"
 									:name="encodeURIComponent(questionDetails.data.question)"
 									class="w-3.5 h-3.5 text-ink-gray-9"
-									@change="markAnswer(index)"
+									@click="toggleSingleOption(index)"
 									:checked="selectedOptions[index - 1]"
 								/>
 								
@@ -512,6 +512,14 @@ watch(activeQuestion, (value) => {
     localStorage.setItem(`${quiz.data.title}_${user.data.name}-active-question`, value);
 	}
 })
+
+
+watch(activeQuestion, () => {
+	loadAnswerFromLocalStorage();
+});
+
+
+
 watch(
 	() => props.quizName,
 	(newName) => {
@@ -542,11 +550,28 @@ const startQuiz = () => {
   }
   if (quiz.data.duration) startTimer()
 }
+
+
 const markAnswer = (index) => {
 	if (!questionDetails.data.multiple)
 		selectedOptions.splice(0, selectedOptions.length, ...[0, 0, 0, 0])
 	selectedOptions[index - 1] = selectedOptions[index - 1] ? 0 : 1
+
+	saveAnswerToLocalStorage(); 
 }
+
+
+const toggleSingleOption = (index) => {
+	const isAlreadySelected = selectedOptions[index - 1] === 1;
+	selectedOptions.splice(0, selectedOptions.length, ...[0, 0, 0, 0]);
+	// If it wasn't selected, select it
+	if (!isAlreadySelected) {
+		selectedOptions[index - 1] = 1;
+	}
+	saveAnswerToLocalStorage(); // ← Save after select/unselect
+};
+
+
 
 const getAnswers = () => {
 	let answers = []
@@ -563,6 +588,7 @@ const getAnswers = () => {
 
 	return answers
 }
+
 
 const checkAnswer = () => {
 	let answers = getAnswers()
@@ -609,10 +635,10 @@ const addToLocalStorage = () => {
   const answer = getAnswers().join().trim()
 
 
-if (!answer) {
-  console.log('Skipping save for empty answer!');
-  return;
-}
+	if (!answer) {
+	console.log('Skipping save for empty answer!');
+	return;
+	}
 
   let questionData = {
     question_name: currentQuestion.value,
@@ -722,7 +748,6 @@ const nextQuestion = () => {
   } else if (!quiz.data.show_answers) {
     checkAnswer();
   }
-
   saveProgressToServer();
 }
 
@@ -739,6 +764,7 @@ const resetQuestion = () => {
 }
 
 
+
 const prevQuestion = () => {
 	if (activeQuestion.value > 1) {
 		activeQuestion.value -= 1
@@ -748,23 +774,36 @@ const prevQuestion = () => {
 	}
 }
 
+
+
 const skipQuestion = () => {
-  let answers = getAnswers();
-  if (!answers.length || answers.every(a => !a.trim())) {
-    console.log('User is skipping without answering. Nothing to save.');
-  } else {
-    addToLocalStorage();
+	debugger;
+  const quizKey = `${quiz.data.name}_${user.data.name}` || 'default_quiz';
+	const currentQuestion = quiz.data.questions[activeQuestion.value];
+	const questionKey = currentQuestion?.name || `q${activeQuestion.value}`;
+	const storageKey = `quiz_${quizKey}_question_${questionKey}`;
+
+	let answers = getAnswers();
+	if (!answers.length || answers.every(a => !a.trim())) {
+		console.log('User is skipping without answering. Nothing to save.');
+
+		
+		localStorage.removeItem(storageKey);
+	} else {
+		
+		saveAnswerToLocalStorage();
+	}
+
+	 if (activeQuestion.value < quiz.data.questions.length) {
+		activeQuestion.value += 1;
+		selectedOptions.splice(0, selectedOptions.length, ...[0, 0, 0, 0]);
+		showAnswers.length = 0;
+		possibleAnswer.value = null;
   }
 
-  if (activeQuestion.value < quiz.data.questions.length) {
-    activeQuestion.value += 1;
-    selectedOptions.splice(0, selectedOptions.length, ...[0, 0, 0, 0]);
-    showAnswers.length = 0;
-    possibleAnswer.value = null;
-  }
-
-  saveProgressToServer();
+	saveProgressToServer();
 };
+
 
 
 const submitQuiz = () => {
@@ -810,6 +849,7 @@ const submitQuiz = () => {
     score
   }))
 
+  clearQuizAnswersFromLocalStorage();
   // Submit to backend
   createSubmission()
 }
@@ -985,6 +1025,50 @@ const downloadCertificate = () => {
 // 	}
 // });
 
+
+
+
+// Save answer using unique key
+const saveAnswerToLocalStorage = () => {
+	const quizKey = `${quiz.data.name}_${user.data.name}` || 'default_quiz';
+	const questionKey = quiz.data.questions[activeQuestion.value]?.name || `q${activeQuestion.value}`;
+	const key = `quiz_${quizKey}_question_${questionKey}`;
+	const data = {
+		selectedOptions: [...selectedOptions],
+		possibleAnswer: possibleAnswer.value || ''
+	};
+	localStorage.setItem(key, JSON.stringify(data));
+};
+
+// Load answer from localStorage
+const loadAnswerFromLocalStorage = () => {
+	const quizKey = `${quiz.data.name}_${user.data.name}` || 'default_quiz';
+	const questionKey = quiz.data.questions[activeQuestion.value]?.name || `q${activeQuestion.value}`;
+	const key = `quiz_${quizKey}_question_${questionKey}`;
+	const data = localStorage.getItem(key);
+
+	if (data) {
+		const parsed = JSON.parse(data);
+		if (Array.isArray(parsed.selectedOptions)) {
+			selectedOptions.splice(0, selectedOptions.length, ...parsed.selectedOptions);
+		}
+		if (typeof parsed.possibleAnswer === 'string') {
+			possibleAnswer.value = parsed.possibleAnswer;
+		}
+	} else {
+		selectedOptions.splice(0, selectedOptions.length, ...[0, 0, 0, 0]);
+		possibleAnswer.value = '';
+	}
+};
+
+// Clear all answers after quiz completion
+const clearQuizAnswersFromLocalStorage = () => {
+	const quizKey = `${quiz.data.name}_${user.data.name}` || 'default_quiz';
+	quiz.data.questions.forEach(q => {
+		const key = `quiz_${quizKey}_question_${q.name}`;
+		localStorage.removeItem(key);
+	});
+};
 
 
 
