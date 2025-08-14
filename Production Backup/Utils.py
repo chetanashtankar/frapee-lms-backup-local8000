@@ -31,15 +31,6 @@ from lms.lms.md import find_macros, markdown_to_html
 RE_SLUG_NOTALLOWED = re.compile("[^a-z0-9]+")
 
 
-@frappe.whitelist()
-def get_csrf_token():
-    if not frappe.local.session.data.csrf_token:
-        frappe.local.session.data.csrf_token = frappe.generate_hash()
-        frappe.local.session_obj.update(force=True)
-    return frappe.local.session.data.csrf_token
-
-
-
 def slugify(title, used_slugs=None):
 	"""Converts title to a slug.
 
@@ -2231,9 +2222,19 @@ def get_related_courses(course):
 	return related_course_details
 
 
+
+@frappe.whitelist()
+
+def get_csrf_token():
+
+    if not frappe.local.session.data.csrf_token:
+
+        frappe.local.session.data.csrf_token = frappe.generate_hash()
+
+        frappe.local.session_obj.update(force=True)
+
+    return frappe.local.session.data.csrf_token
+
+ 
 def persona_captured():
 	frappe.db.set_single_value("LMS Settings", "persona_captured", 1)
-
-
-
-
