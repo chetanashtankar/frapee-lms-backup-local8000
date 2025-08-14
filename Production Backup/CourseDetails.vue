@@ -7,9 +7,10 @@
       <!-- Hero Section -->
       <div class="cert-header">
         <p class="cert-subtitle">
-      <!-- Conditionally render based on certificationOrCourse -->
-      {{ certificationOrCourse === 'Foundation Certification' ? 'For Intern' : (certificationOrCourse === 'Certification' ? 'For Professional' : 'For Intern') }}
-    </p>
+          <!-- Conditionally render based on certificationOrCourse -->
+          {{ certificationOrCourse === 'Foundation Certification' ? 'For Interns' : (certificationOrCourse ===
+            'Certification' ? 'For Professionals' : 'For Interns') }}
+        </p>
         <h1>{{ course.data.title }}</h1>
 
       </div>
@@ -59,11 +60,9 @@
             <h3>Topics Covered:</h3>
           </template>
 
-          
+
           <CourseOutline :title="showCourseContentTitle ? __('Course Content') : ''" :courseName="course.data.name"
-            :showOutline="true" :getProgress="true"
-            class="course-outline"
-            />
+            :showOutline="true" :getProgress="true" class="course-outline" />
 
         </div>
       </div>
@@ -85,15 +84,35 @@
         </router-link>
       </div>
     </div>
-    
-    <footer class="footer-section">
-      <div class="container-line">
-        <div class="footer-logo"> <div class="logo"></div> <!-- Logo container --></div>
-        <h2 class="main-heading">Enhance your automation knowledge to the next level</h2>
-        <h5 class="sub-heading">EIQ Platform - Intelligent Business Automation and beyond</h5>
-        <p class="copyright">Copyright © 2025 | EvoluteIQ LMS</p>
+
+    <footer data-v-efc29c82="" class="footer-section">
+      <div data-v-efc29c82="" class="container-line">
+        <div data-v-efc29c82="" class="footer-logo">
+          <div data-v-efc29c82="" class="logo"></div>
+        </div>
+        <h2 data-v-efc29c82="" class="main-heading">Enhance your automation knowledge to the next level</h2>
+        <h5 data-v-efc29c82="" class="sub-heading">EIQ Platform - Intelligent Business Automation and beyond</h5>
+        <div class="footer-bottom">
+          <div class="left-space"></div> <!-- invisible, for layout balance -->
+
+          <div class="copyright">
+            Copyright © 2025 | EvoluteIQ LMS
+          </div>
+
+          <div class="social-icons">
+            <a href="https://www.facebook.com/EvoluteIQ" target="_blank" class="icon facebook"
+              aria-label="Facebook"></a>
+            <a href="https://www.youtube.com/@EvoluteIQ" target="_blank" class="icon youtube" aria-label="YouTube"></a>
+            <a href="https://www.linkedin.com/company/evoluteiq/posts/?feedView=all" target="_blank"
+              class="icon linkedin" aria-label="LinkedIn"></a>
+            <a href="https://www.instagram.com/evoluteiq/" target="_blank" class="icon instagram"
+              aria-label="Instagram"></a>
+          </div>
+        </div>
+
       </div>
     </footer>
+
   </div>
 
 </template>
@@ -207,79 +226,141 @@ const showCourseContentTitle = computed(() => {
 })
 
 
-
-
 </script>
 
 <style scoped>
+
 .footer-section {
-      background-color: #083279;
-      padding: 119px 0 10px;
-      text-align: center
+  background-image: url("/files/footerbg.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 17px 0 10px;
+  text-align: center;
+  font-family: "Roboto", Sans-serif;
 }
 
 .footer-logo {
-    min-width: 5rem;
-    /* height: 1.5rem; */
-    /* object-fit: contain; */
-    /* object-position: left; */
-    display: flex;
-    flex-direction: row-reverse;
-    align-content: center;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
 }
 
-
 .footer-logo .logo {
- width: 220px;
- height: 64px;
- background-image: url("/files/Evoluteiqlogofooter.png");
- background-size: cover;
- background-position: center;
- background-repeat: no-repeat;
- margin: -103px;
+  width: 220px;
+  height: 64px;
+  background-image: url("/files/Evoluteiqlogofooter.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .container-line {
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-.container {
-    max-width: 70%;
-    margin: 0 auto;
-    padding: 0 20px;
+  /* max-width: 1200px; */
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
 .main-heading {
-  
-    margin-bottom: 38px;
-    font-family: "Roboto", Sans-serif;
-    font-size: 42px;
-    font-weight: 600;
-    font-style: normal;
-    line-height: 0px !important;
-    letter-spacing: 0px;
-    word-spacing: 0px;
-    color: #fff;
+  font-size: 42px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 30px;
+  line-height: 1.2;
 }
 
 .sub-heading {
-    font-size: 20px;
-    color: #666;
-    margin-bottom: 30px;
-    font-weight: 600;
-    color: #FFFFFF;
-    line-height: 1.2em;
+  font-size: 20px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 30px;
+  line-height: 1.4;
 }
 
-.copyright {
-    font-size: 14px;
-    color: #fff;
-    margin-top: 20px;
-    padding-top: 20px;
-    border-top: 1px solid #ddd;
+.cta-button {
+  display: inline-block;
+  padding: 15px 40px;
+  font-size: 1rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: #fff;
+  background-color: #ff6b35;
+  border-radius: 10px;
+  transition: all 0.3s ease;
 }
+
+.cta-button:hover {
+  background-color: #e85a2a;
+}
+
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 20px;
+  margin-top: 20px;
+  border-top: 1px solid #ccc;
+  color: #fff;
+  font-size: 14px;
+}
+
+.footer-bottom .left-space {
+  flex: 1;
+}
+
+.footer-bottom .copyright {
+  flex: 1;
+  text-align: center;
+}
+
+.footer-bottom .social-icons {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+
+.social-icons .icon {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+    
+}
+
+/* Specific icons */
+.social-icons .facebook {
+  background-image: url('/files/facebook.png');
+}
+
+.social-icons .youtube {
+  background-image: url('/files/youtube.png');
+}
+
+.social-icons .linkedin {
+  background-image: url('/files/linkedin.png');
+}
+
+.social-icons .instagram {
+  background-image: url('/files/instagram.png');
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer-bottom .copyright {
+    margin-bottom: 10px;
+    text-align: center;
+  }
+}
+
 
 
 .w-4 {
@@ -593,5 +674,207 @@ const showCourseContentTitle = computed(() => {
 
 .mt-6.p-5.rounded-lg.border.bg-white.shadow.space-y-4 {
   display: none;
+}
+
+
+/* Responsive desin  */
+
+@media screen and (max-width: 480px) {
+  .footer-section {
+    padding: 40px 0 10px;
+  }
+
+  .footer-logo .logo {
+    width: 150px;
+    height: 44px;
+    margin: -60px;
+  }
+
+  .container {
+    max-width: 95%;
+    padding: 0 10px;
+  }
+
+  .main-heading {
+    font-size: 28px;
+    margin-bottom: 24px;
+  }
+
+  .sub-heading {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+
+  .cert-header {
+    height: 240px;
+    padding: 20px 15px;
+    text-align: center;
+  }
+
+  .cert-header h1 {
+    font-size: 1.8rem;
+    line-height: 1.1;
+  }
+
+  .cert-subtitle {
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+
+  .cert-cta-button {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+
+  .cert-status-bar {
+    margin-top: -25px;
+    max-width: 95%;
+    border-radius: 8px;
+  }
+
+  .cert-status-item {
+    padding: 20px 15px;
+  }
+
+  .cert-status-label {
+    font-size: 12px;
+  }
+
+  .cert-status-description {
+    font-size: 14px;
+  }
+
+  .cert-section {
+    padding: 20px 10px;
+    max-width: 95%;
+  }
+
+  .cert-overview h2 {
+    font-size: 1.4rem;
+    margin-bottom: 16px;
+  }
+
+  .cert-description {
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 24px;
+  }
+
+  .cert-topics h3 {
+    font-size: 1.2rem;
+    margin-bottom: 16px;
+  }
+
+  .cert-topic-grid {
+    gap: 12px;
+  }
+
+  .cert-topic-card {
+    padding: 12px;
+  }
+
+  .cert-topic-card h4 {
+    font-size: 1rem;
+  }
+
+  .cert-container .cert-description ul {
+    margin-left: 20px !important;
+  }
+
+  .cert-prereqs {
+    padding: 12px;
+    margin-top: 15px;
+  }
+
+  .cert-prereqs h3 {
+    font-size: 1rem;
+    margin-bottom: 8px;
+  }
+
+  .cert-course-content,
+  .cert-instructors {
+    padding: 12px;
+    margin-top: 20px;
+  }
+
+  .cert-instructors h3 {
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+  }
+
+  .avatar-group.overlap .avatar:not(:first-child) {
+    margin-left: -8px;
+  }
+
+  .avatar-group.overlap .avatar:hover {
+    margin-left: 0;
+  }
+}
+
+/* Extra Small Mobile (360px and below) */
+@media screen and (max-width: 360px) {
+  .cert-header {
+    height: 317px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0px 11px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #fff;
+    text-align: left;
+    overflow: hidden;
+  }
+
+  .cert-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .cert-status-bar {
+    margin: 15px auto;
+    margin-top: -20px;
+  }
+
+  .cert-status-item {
+    padding: 15px 10px;
+  }
+
+  .cert-section {
+    padding: 15px 8px;
+  }
+
+  .cert-overview h2 {
+    font-size: 1.2rem;
+  }
+
+  .cert-description {
+    font-size: 13px;
+  }
+
+  .cert-topic-card {
+    padding: 10px;
+  }
+
+  .cert-container .cert-description ul {
+    margin-left: 15px !important;
+  }
+}
+
+/* Large Desktop Styles (1200px and above) */
+@media screen and (min-width: 1200px) {
+
+  .cert-topic-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+
+  .cert-header {
+    height: 360px;
+    padding: 50px 60px;
+  }
+
+  .cert-header h1 {
+    font-size: 3.2rem;
+  }
 }
 </style>
