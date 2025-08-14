@@ -1,5 +1,3 @@
-
-
 <template>
 	<Button
 		v-if="certification.data && certification.data.certificate"
