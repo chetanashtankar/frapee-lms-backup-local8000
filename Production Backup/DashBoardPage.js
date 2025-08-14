@@ -1521,7 +1521,16 @@ document.body.innerHTML = `
             </a>
 
 
-            <p class="copyright">Copyright © 2025 | EvoluteIQ LMS</p>
+            <!-- Copyright with Social Icons -->
+        <p class="footer-bottom">
+            <span class="copyright">Copyright © 2025 | EvoluteIQ LMS</span>
+            <span class="social-icons">
+                <a href="https://www.facebook.com/EvoluteIQ" target="_blank"><img src="/files/facebook.png" alt="Facebook"></a>
+                <a href="https://www.youtube.com/@EvoluteIQ" target="_blank"><img src="/files/youtube.png" alt="YouTube"></a>
+                <a href="https://www.linkedin.com/company/evoluteiq/posts/?feedView=all" target="_blank"><img src="/files/linkedin.png" alt="LinkedIn"></a>
+                <a href="https://www.instagram.com/evoluteiq/" target="_blank"><img src="/files/instagram.png" alt="Instagram"></a>
+            </span>
+        </p>
         </div>
     </footer>
 
@@ -2688,4 +2697,3 @@ let currentSlide = 0;
 
   // Run immediately (if script is at bottom of HTML)
   initScrollAnimations();
-  
