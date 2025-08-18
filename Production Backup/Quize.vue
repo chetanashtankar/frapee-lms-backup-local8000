@@ -1070,6 +1070,80 @@ const clearQuizAnswersFromLocalStorage = () => {
 	});
 };
 
+	watch(
+  () => quizCompleted.value && isPassed.value,
+  (passed) => {
+    if (passed) {
+	  createCertificate(quiz); 
+    } else {
+      console.log("❌ User has not passed (or quiz not completed yet)");
+    }
+  }
+);
+
+
+function getCookieValue(name) {
+debugger;
+    const value = document.cookie
+        .split('; ')
+        .find(row => row.startsWith(name + '='))
+        ?.split('=')[1];
+    return value ? decodeURIComponent(value) : null;
+}
+
+
+async function createCertificate(quiz) {   
+    try {
+        const userId = getCookieValue('user_id');
+        if (!userId) {
+            throw new Error("User ID not found in cookies");
+        }
+
+        if (!quiz?.data?.course) {
+            throw new Error("Course slug not found in quiz data");
+        }
+
+        const courseSlug = quiz.data.course;        
+        const courseName = quiz.data.course_name || quiz.data.title;  
+        console.log("Slug:", courseSlug, "| Name:", courseName);
+
+        const csrfRes = await fetch('/api/method/lms.lms.utils.get_csrf_token', {
+            method: 'GET',
+            credentials: 'include'
+        });
+        const csrfToken = (await csrfRes.json()).message;
+        console.log("CSRF Token:", csrfToken);
+
+        const createRes = await fetch('/api/method/frappe.client.insert', {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Frappe-CSRF-Token': csrfToken
+            },
+            body: JSON.stringify({
+                doc: {
+                    doctype: "LMS Certificate",
+                    issue_date: "2025-08-18",
+                    expiry_date: "2025-08-31",
+                    batch_name: "lms-certification-batch",
+                    course: courseSlug,   
+                    evaluator: "chetan.a@evoluteiq.com",
+                    member: userId,
+                    published: true,
+                    template: "LMS Certificate"
+                }
+            })
+        });
+        const data = await createRes.json();
+        console.log("Certificate creation response:", data);
+
+    } catch (error) {
+        console.error("Error creating certificate:", error);
+    }
+}
+
+
 
 
 </script>
