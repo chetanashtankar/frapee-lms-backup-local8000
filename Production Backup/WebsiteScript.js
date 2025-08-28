@@ -401,95 +401,42 @@ document.body.innerHTML = `
 
 
 
-<!-- Four card Learning Path -->
-
-<!-- Learning Paths Section -->
 <div class="section" id="learning-paths">
-  <h1 class="section-title">Learning Paths</h1>
-  <div class="learning-paths-grid">
-    <div class="path-card animate-on-scroll" id="learning-foundation">
-      <div class="card-image learning-foundation-img"></div>
-      <h3 class="card-title">Foundation Course</h3>
-      <p class="card-description">Master the fundamentals of intelligent business automation with our Foundation Course. The EIQ Foundation equips you with essential platform skills.</p>
-      <button class="card-button" id="learning-foundation-btn" onclick="goToCourse(this)" data-url="/lms/courses/eiq-agentic-automation-platform-foundation-certification">
-  Start Course
-</button>
+    <h1 class="section-title">Learning and Certification Paths</h1>
+    <div class="learning-paths-grid">
+        <div class="path-card animate-on-scroll in-view" id="learning-foundation">
+            <div class="card-image learning-foundation-img"></div>
+            <h3 class="card-title">Foundation Course</h3>
+            <p class="card-description">Master the fundamentals of intelligent business automation with our Foundation
+                Course. The EIQ Foundation equips you with essential platform skills.</p>
+            <button class="card-button" id="learning-foundation-btn" onclick="goToCourse(this)"
+                data-url="/lms/courses/eiq-agentic-automation-platform-foundation-certification">Start Course</button>
+        </div>
 
 
+        <div class="path-card animate-on-scroll in-view" id="cert-foundation">
+            <div class="card-image cert-foundation-img"></div>
+            <h3 class="card-title">Foundation Certification</h3>
+            <p class="card-description">Master the fundamentals of intelligent business automation with our Foundation
+                Certification. The EIQ Foundation equips you with essential platform skills.</p>
+            <button class="card-button" id="foundation-btn" onclick="goToCertification(this)">
+                Get Certified
+            </button>
+
+        </div>
+
+        
+        <div class="path-card animate-on-scroll in-view" id="cert-consultant">
+            <div class="card-image leadership-program-img"></div>
+            <h3 class="card-title">Developer Certification</h3>
+            <p class="card-description">The EIQ Platform Developer Certification validates a professional’s expertise in
+                designing, building, and managing intelligent automation solutions using the EIQ Platform</p>
+            <button class="card-button" id="consultant-btn" onclick="goToCertification(this)">Get Certified</button>
+
+        </div>
     </div>
-
-    <div class="path-card coming-soon animate-on-scroll">
-      <div class="notification-bell"></div>
-      <div class="card-image learning-citizen-developer-img"></div>
-      <h3 class="card-title">Citizen Developer</h3>
-      <p class="card-description">Build powerful applications using our intuitive no-code tools. Learn to automate workflows and integrate systems—no programming required</p>
-      <button class="card-button animated">Coming Soon</button>
-    </div>
-
-    <div class="path-card coming-soon animate-on-scroll">
-      <div class="notification-bell"></div>
-      <div class="card-image learning-developer-img"></div>
-      <h3 class="card-title">Developer</h3>
-      <p class="card-description">Advance your skills with low-code and pro-code features. Learn to create robust apps using JavaScript, Python, APIs, and platform scripting.</p>
-      <button class="card-button animated">Coming Soon</button>
-    </div>
-
-    <div class="path-card coming-soon animate-on-scroll">
-      <div class="notification-bell"></div>
-      <div class="card-image learning-architect-img"></div>
-      <h3 class="card-title">Architect</h3>
-      <p class="card-description">Design scalable, secure enterprise solutions using the full EIQ stack. Master architecture, integrations, and AI-driven automation.</p>
-      <button class="card-button animated">Coming Soon</button>
-    </div>
-  </div>
 </div>
 
-
-
-<!-- Certification Paths Section -->
-<div class="section">
-  <h1 class="section-title">Certification Paths</h1>
-  <div class="certification-paths-grid">
-    <div class="path-card animate-on-scroll" id="cert-foundation">
-      <div class="card-image cert-foundation-img"></div>
-      <h3 class="card-title">Foundation Certification</h3>
-      <p class="card-description">Master the fundamentals of intelligent business automation with our Foundation Certification. The EIQ Foundation equips you with essential platform skills.</p>
-      <button class="card-button" id="foundation-btn" onclick="goToCertification(this)">
-  Get Certified
-</button>
-
-    </div>
-
-    <!-- Card 2: Citizen Developer (Coming Soon) -->
-                <div class="path-card animate-on-scroll" id="cert-consultant">
-                    <div class="card-image leadership-program-img"></div>
-                    <h3 class="card-title">Developer Certification</h3>
-                    <p class="card-description">The EIQ Platform Developer Certification validates a professional’s expertise in designing, building, and managing intelligent automation solutions using the EIQ Platform</p>
-                    <button class="card-button" id="consultant-btn" onclick="goToCertification(this)">
-  Get Certified
-</button>
-
-                </div>
-
-                <!-- Card 3: Developer (Coming Soon) -->
-                <div class="path-card coming-soon animate-on-scroll" id="cert-developer">
-                    <div class="card-image developer-img"></div>
-                    <h3 class="card-title">Citizen Developer</h3>
-                    <p class="card-description">Dive into the latest information and AI fundamentals. Perfect for beginners or those looking to solidify their foundational knowledge. Start paving your path to success today!</p>
-                    <button class="card-button animated" id="developer-btn">Coming Soon</button>
-                </div>
-
-
-                <!-- Card 4: Architect (Coming Soon) -->
-                    <div class="path-card coming-soon animate-on-scroll">
-                        <div class="card-image architect-img"></div>
-                        <h3 class="card-title">Architect</h3>
-                        <p class="card-description">Dive into the latest information and AI fundamentals. Perfect for beginners or those looking to solidify their foundational knowledge. Start paving your path to success today!</p>
-                        <button class="card-button animated">Coming Soon</button>
-                    </div>
-  </div>
-  
-</div>
 
 
 
@@ -1790,85 +1737,85 @@ document.body.innerHTML = `
 
 `;
 
- const modal = document.getElementById('passwordModal');
+const modal = document.getElementById('passwordModal');
 const submitBtn = document.getElementById('submitPasswordBtn');
 const password1 = document.getElementById('password1');
 const password2 = document.getElementById('password2');
 const errorMsg = document.getElementById('errorMsg');
 
 window.addEventListener('DOMContentLoaded', () => {
-  const urlParams = new URLSearchParams(window.location.search);
-  if (urlParams.has('key')) {
-    
-   modal.style.display = 'flex';  // Show modal
-  }
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('key')) {
+
+        modal.style.display = 'flex';  // Show modal
+    }
 });
 
 submitBtn.addEventListener('click', () => {
     debugger;
-  errorMsg.textContent = ''; // Clear previous errors
+    errorMsg.textContent = ''; // Clear previous errors
 
-  const pass1 = password1.value.trim();
-  const pass2 = password2.value.trim();
-  const urlParams = new URLSearchParams(window.location.search);
-  const key = urlParams.get('key');
+    const pass1 = password1.value.trim();
+    const pass2 = password2.value.trim();
+    const urlParams = new URLSearchParams(window.location.search);
+    const key = urlParams.get('key');
 
-  if (!pass1 || !pass2) {
-    errorMsg.textContent = 'Please enter new password and confirm password.';
-    return;
-  }
-
-  if (pass1 !== pass2) {
-    errorMsg.textContent = 'Passwords do not match. Please check both fields.';
-    return;
-  }
-
-  // Make the fetch call
-  fetch('/api/method/frappe.core.doctype.user.user.update_password', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      key: key,
-      new_password: pass1,
-      confirm_password: pass2
-    })
-  })
-  .then(res => res.json())
-  .then(data => {
-    console.log('Password Reset Response:', data);
-
-    // Success check updated
-    if (data.message && data.home_page) {
-      alert('Password updated successfully!');
-      modal.style.display = 'none';
-      password1.value = '';
-      password2.value = '';
-      window.location.href = 'http://216.48.181.71/login#login';
-    } else {
-  try {
-    if (data._server_messages) {
-      const serverMessages = JSON.parse(data._server_messages); // Parses array of JSON strings
-      const messageObj = JSON.parse(serverMessages[0]); // Parses the first string into an object
-      errorMsg.textContent = messageObj.message.trim();
-    } else if (data.message) {
-      errorMsg.textContent = data.message.trim();
-    } else {
-      errorMsg.textContent = 'Failed to update password.';
+    if (!pass1 || !pass2) {
+        errorMsg.textContent = 'Please enter new password and confirm password.';
+        return;
     }
-  } catch (e) {
-    console.error('Failed to parse server message:', e);
-    errorMsg.textContent = 'Something went wrong.';
-  }
-}
+
+    if (pass1 !== pass2) {
+        errorMsg.textContent = 'Passwords do not match. Please check both fields.';
+        return;
+    }
+
+    // Make the fetch call
+    fetch('/api/method/frappe.core.doctype.user.user.update_password', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            key: key,
+            new_password: pass1,
+            confirm_password: pass2
+        })
+    })
+        .then(res => res.json())
+        .then(data => {
+            console.log('Password Reset Response:', data);
+
+            // Success check updated
+            if (data.message && data.home_page) {
+                alert('Password updated successfully!');
+                modal.style.display = 'none';
+                password1.value = '';
+                password2.value = '';
+                window.location.href = '/login#login';
+            } else {
+                try {
+                    if (data._server_messages) {
+                        const serverMessages = JSON.parse(data._server_messages); // Parses array of JSON strings
+                        const messageObj = JSON.parse(serverMessages[0]); // Parses the first string into an object
+                        errorMsg.textContent = messageObj.message.trim();
+                    } else if (data.message) {
+                        errorMsg.textContent = data.message.trim();
+                    } else {
+                        errorMsg.textContent = 'Failed to update password.';
+                    }
+                } catch (e) {
+                    console.error('Failed to parse server message:', e);
+                    errorMsg.textContent = 'Something went wrong.';
+                }
+            }
 
 
-  })
-  .catch(err => {
-    console.error('Error:', err);
-    errorMsg.textContent = 'An error occurred while updating password.';
-  });
+        })
+        .catch(err => {
+            console.error('Error:', err);
+            errorMsg.textContent = 'An error occurred while updating password.';
+        });
 });
 
 
@@ -1877,25 +1824,25 @@ submitBtn.addEventListener('click', () => {
 
 /* for going smoothly downside on click on explore course button */
 setTimeout(() => {
-  // Fully unbind any previous click handler if it was added globally
-  const exploreButtons = document.querySelectorAll('.slide-button');
- 
-  exploreButtons.forEach(button => {
-    // Clone the button and replace it (removes old handlers)
-    const newBtn = button.cloneNode(true);
-    button.parentNode.replaceChild(newBtn, button);
- 
-    newBtn.addEventListener('click', function (e) {
-      e.preventDefault();
-      e.stopImmediatePropagation();
- 
-      const target = document.getElementById('learning-paths');
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth' });
-        
-      }
+    // Fully unbind any previous click handler if it was added globally
+    const exploreButtons = document.querySelectorAll('.slide-button');
+
+    exploreButtons.forEach(button => {
+        // Clone the button and replace it (removes old handlers)
+        const newBtn = button.cloneNode(true);
+        button.parentNode.replaceChild(newBtn, button);
+
+        newBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+
+            const target = document.getElementById('learning-paths');
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth' });
+
+            }
+        });
     });
-  });
 }, 200);
 
 
@@ -1906,43 +1853,43 @@ setTimeout(() => {
 /* For Opening Login Section */
 
 function handleStartLearning(event) {
-  event.preventDefault();
+    event.preventDefault();
 
-  if (isUserLoggedIn()) {
-    // Redirect directly if user is logged in
-    window.location.href = '/lms/courses/eiq-agentic-automation-platform-foundation-certification';
-  } else {
-    // Show login modal
-    const loginModal = document.getElementById('login-modal');
-    if (loginModal) {
-         window.history.pushState({}, '', ' /lms/foundation-course');
-      loginModal.style.display = 'flex';
-      if (typeof showSection === 'function') showSection('login');
+    if (isUserLoggedIn()) {
+        // Redirect directly if user is logged in
+        window.location.href = '/lms/courses/eiq-agentic-automation-platform-foundation-certification';
+    } else {
+        // Show login modal
+        const loginModal = document.getElementById('login-modal');
+        if (loginModal) {
+            window.history.pushState({}, '', ' /lms/foundation-course');
+            loginModal.style.display = 'flex';
+            if (typeof showSection === 'function') showSection('login');
+        }
     }
-  }
 }
 
 
 function handleCertifcationlink(event, el) {
-  event.preventDefault();
+    event.preventDefault();
 
-  const targetURL = el.getAttribute('data-url') || '/lms/take-certification';
-  const redirectURL = `http://216.48.181.71/login?redirect-to=/lms/take-certification`;
+    const targetURL = el.getAttribute('data-url') || '/lms/take-certification';
+    const redirectURL = `/login?redirect-to=/lms/take-certification`;
 
-  if (typeof isUserLoggedIn === 'function' && isUserLoggedIn()) {
-    // User is logged in, go to the actual certification page
-    window.location.href = targetURL;
-  } else {
-    // User is not logged in, redirect to login with redirect-to param
-     const loginModal = document.getElementById('login-modal');
-    if (loginModal) {
-      loginModal.style.display = 'flex';
-      if (typeof showSection === 'function') {
-        showSection('login');
-      }
+    if (typeof isUserLoggedIn === 'function' && isUserLoggedIn()) {
+        // User is logged in, go to the actual certification page
+        window.location.href = targetURL;
+    } else {
+        // User is not logged in, redirect to login with redirect-to param
+        const loginModal = document.getElementById('login-modal');
+        if (loginModal) {
+            loginModal.style.display = 'flex';
+            if (typeof showSection === 'function') {
+                showSection('login');
+            }
+        }
+        window.history.pushState({}, '', redirectURL);
     }
-     window.history.pushState({}, '', redirectURL);
-  }
 }
 
 
@@ -1951,72 +1898,72 @@ function handleCertifcationlink(event, el) {
 
 
 document.addEventListener('DOMContentLoaded', function () {
-  const modal = document.getElementById('login-modal');
-  const loginSection = document.querySelector('.for-login');
-  const forgotSection = document.querySelector('.for-forgot');
-  const emailLinkSection = document.querySelector('.for-login-with-email-link');
+    const modal = document.getElementById('login-modal');
+    const loginSection = document.querySelector('.for-login');
+    const forgotSection = document.querySelector('.for-forgot');
+    const emailLinkSection = document.querySelector('.for-login-with-email-link');
 
 
     function isUserLoggedIn() {
-      return document.cookie.includes('system_user=yes');
+        return document.cookie.includes('system_user=yes');
     }
-    
+
     function handleOpenLogin(e) {
         if (isUserLoggedIn()) {
-         
-          if (e) e.preventDefault();
-          return;
+
+            if (e) e.preventDefault();
+            return;
         }
         if (modal) {
-          modal.style.display = 'flex';
-          showSection('login');
+            modal.style.display = 'flex';
+            showSection('login');
         }
-      }
+    }
 
     document.querySelectorAll('.slide-button.open-login-modal').forEach(button => {
-    button.addEventListener('click', handleOpenLogin);
-  });
+        button.addEventListener('click', handleOpenLogin);
+    });
 
-  document.querySelectorAll('#professionalCourse, #studentCourse').forEach(item => {
-    item.addEventListener('click', handleOpenLogin);
-  });
+    document.querySelectorAll('#professionalCourse, #studentCourse').forEach(item => {
+        item.addEventListener('click', handleOpenLogin);
+    });
 
-  document.querySelectorAll('.signup-free-btn, .explore-course-btn , .cert-cta-button').forEach(button => {
-    button.addEventListener('click', handleOpenLogin);
-  });
+    document.querySelectorAll('.signup-free-btn, .explore-course-btn , .cert-cta-button').forEach(button => {
+        button.addEventListener('click', handleOpenLogin);
+    });
 
-  document.querySelectorAll('.open-login-modal').forEach(button => {
-    button.addEventListener('click', handleOpenLogin);
-  });
+    document.querySelectorAll('.open-login-modal').forEach(button => {
+        button.addEventListener('click', handleOpenLogin);
+    });
 
-  window.addEventListener('click', function (e) {
-    const content = document.querySelector('.modal-content');
-    if (e.target === modal && !content.contains(e.target)) {
-      modal.style.display = 'none';
+    window.addEventListener('click', function (e) {
+        const content = document.querySelector('.modal-content');
+        if (e.target === modal && !content.contains(e.target)) {
+            modal.style.display = 'none';
+        }
+    });
+
+    document.querySelector('.modal-close').addEventListener('click', function () {
+        modal.style.display = 'none';
+    });
+
+    document.getElementById('forgot-password-link').addEventListener('click', function (e) {
+        e.preventDefault();
+        showSection('forgot');
+    });
+
+    document.getElementById('login-with-email-link').addEventListener('click', function (e) {
+        e.preventDefault();
+        showSection('email');
+    });
+
+    function showSection(section) {
+        loginSection.style.display = section === 'login' ? 'block' : 'none';
+        forgotSection.style.display = section === 'forgot' ? 'block' : 'none';
+        emailLinkSection.style.display = section === 'email' ? 'block' : 'none';
     }
-  });
 
-  document.querySelector('.modal-close').addEventListener('click', function () {
     modal.style.display = 'none';
-  });
-
-  document.getElementById('forgot-password-link').addEventListener('click', function (e) {
-    e.preventDefault();
-    showSection('forgot');
-  });
-
-  document.getElementById('login-with-email-link').addEventListener('click', function (e) {
-    e.preventDefault();
-    showSection('email');
-  });
-
-  function showSection(section) {
-    loginSection.style.display = section === 'login' ? 'block' : 'none';
-    forgotSection.style.display = section === 'forgot' ? 'block' : 'none';
-    emailLinkSection.style.display = section === 'email' ? 'block' : 'none';
-  }
-
-  modal.style.display = 'none';
 });
 
 
@@ -2028,28 +1975,28 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 function goToCourse(button) {
-  if (isUserLoggedIn()) {
-    const buttonText = button.innerText.trim(); // Get the button text
-    let url = button.getAttribute('data-url'); // Get the URL from data-url attribute
+    if (isUserLoggedIn()) {
+        const buttonText = button.innerText.trim(); // Get the button text
+        let url = button.getAttribute('data-url'); // Get the URL from data-url attribute
 
-    // If the button text is "Get Certified", redirect to certification page
-    if (buttonText === 'Get Certified') {
-      url = 'http://216.48.181.71/lms/take-certification';
-    }
+        // If the button text is "Get Certified", redirect to certification page
+        if (buttonText === 'Get Certified') {
+            url = '/lms/take-certification';
+        }
 
-    if (url) {
-      window.location.href = url;
+        if (url) {
+            window.location.href = url;
+        } else {
+            console.error('No data-url provided on element');
+        }
     } else {
-      console.error('No data-url provided on element');
+        const loginModal = document.getElementById('login-modal');
+        if (loginModal) {
+            window.history.pushState({}, '', ' /lms/foundation-course');
+            loginModal.style.display = 'flex';
+            if (typeof showSection === 'function') showSection('login');
+        }
     }
-  } else {
-    const loginModal = document.getElementById('login-modal');
-    if (loginModal) {
-        window.history.pushState({}, '', ' /lms/foundation-course');
-      loginModal.style.display = 'flex';
-      if (typeof showSection === 'function') showSection('login');
-    }
-  }
 }
 
 
@@ -2057,7 +2004,7 @@ function goToCourse(button) {
 
 
 function isUserLoggedIn() {
-  return document.cookie.includes('system_user=yes');
+    return document.cookie.includes('system_user=yes');
 }
 
 
@@ -2071,169 +2018,169 @@ let developerCertificateProgress = 0;
 // 🔹 Run on page load
 document.addEventListener('DOMContentLoaded', () => {
 
-  // Fetch Developer Certification Progress
-  fetch('http://216.48.181.71/api/method/lms.lms.utils.get_lesson', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      course: 'eiq-platform-developer-certification',
-      chapter: '1',
-      lesson: '1',
-    }),
-  })
-    .then(res => res.json())
-    .then(data => {
-      const progress = data?.message?.membership?.progress;
-      const developerCertificateProgress = isNaN(progress) ? 0 : progress;
-      console.log('📡 API Progress:', developerCertificateProgress);
-
-      const consultantBtn = document.getElementById('consultant-btn');
-      if (!consultantBtn) return;
-
-      // Step 2: If API progress is 100 → show "View Certificate"
-      if (developerCertificateProgress === 100) {
-        consultantBtn.innerText = 'View Certificate';
-        document.getElementById('chatToggle').style.display = 'block';
-
-        return;
-      }
-
-     // Case 2: Not 100% → Check localStorage activeQuestion progress
-const quizTitle = 'Developer Certification Test';
-const totalQuestions = 50;
-
-// Get user email from cookies
-const cookies = Object.fromEntries(
-  document.cookie.split('; ').map(c => c.split('='))
-);
-const email = decodeURIComponent(cookies.user_id || '');
-
-// Build localStorage keys
-const quizKey = `${quizTitle}_${email}`;
-const activeQuestionKey = `${quizKey}-active-question`;
-
-// Get current question index (0-based)
-const activeQuestion = parseInt(localStorage.getItem(activeQuestionKey), 10) || 0;
-
-// Calculate progress percentage
-const progressPercentage = totalQuestions > 0
-  ? Math.round((activeQuestion / totalQuestions) * 100)
-  : 0;
-
-console.log(`📊 Progress for "${quizTitle}" (User: ${email}): ${progressPercentage}%`);
-
-// Step 3: Decide Button Text
-consultantBtn.innerText = progressPercentage === 0 ? 'Get Certified' : 'Resume Test';
-    })
-    .catch(err => console.error('❌ API Error:', err));
-
-  // Foundation Course CSRF & Progress
-  fetch('/api/method/lms.lms.utils.get_csrf_token')
-    .then(res => res.json())
-    .then(data => {
-      const csrfToken = data.message;
-
-      return fetch('/api/method/lms.lms.utils.get_course_outline', {
+    // Fetch Developer Certification Progress
+    fetch('/api/method/lms.lms.utils.get_lesson', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          'X-Frappe-CSRF-Token': csrfToken
+            'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          course: 'eiq-agentic-automation-platform-foundation-certification',
-          progress: false
-        })
-      })
-        .then(res => res.json())
-        .then(outlineRes => {
-          const message = outlineRes.message || [];
-
-          for (const section of message) {
-            if (section.lessons && section.lessons.length > 0) {
-              foundationFirstLesson = section.lessons[0].name;
-              break;
-            }
-          }
-
-          if (!foundationFirstLesson) return;
-
-          return fetch('/api/method/lms.lms.doctype.course_lesson.course_lesson.save_progress', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'X-Frappe-CSRF-Token': csrfToken
-            },
-            body: JSON.stringify({
-              course: 'eiq-agentic-automation-platform-foundation-certification',
-              lesson: foundationFirstLesson
-            })
-          })
-            .then(res => res.json())
-            .then(progressRes => {
-              foundationCourseProgress = Math.round(progressRes.message);
-              console.log(`Preloaded progress: ${isNaN(foundationCourseProgress) ? 0 : foundationCourseProgress}%`);
-
-              const courseBtn = document.getElementById('learning-foundation-btn');
-
-              // 🔹 Safe cookie parse (fix)
-              const cookieSystemUser = document.cookie.split(';').find(row => row.trim().startsWith('system_user='));
-              const systemUser = cookieSystemUser ? cookieSystemUser.split('=')[1] : null;
-
-              if (courseBtn) {
-                if (systemUser === 'no' || foundationCourseProgress === 0) {
-                  courseBtn.innerText = 'Start Course';
-                } else if (foundationCourseProgress === 100) {
-    courseBtn.innerText = 'Get Certified';
-  }else {
-                  courseBtn.innerText = 'Continue';
-                }
-              }
-            });
-        });
+            course: 'eiq-platform-developer-certification',
+            chapter: '1',
+            lesson: '1',
+        }),
     })
-    .catch(err => console.error('Progress preload error:', err));
+        .then(res => res.json())
+        .then(data => {
+            const progress = data?.message?.membership?.progress;
+            const developerCertificateProgress = isNaN(progress) ? 0 : progress;
+            console.log('📡 API Progress:', developerCertificateProgress);
+
+            const consultantBtn = document.getElementById('consultant-btn');
+            if (!consultantBtn) return;
+
+            // Step 2: If API progress is 100 → show "View Certificate"
+            if (developerCertificateProgress === 100) {
+                consultantBtn.innerText = 'View Certificate';
+                document.getElementById('chatToggle').style.display = 'block';
+
+                return;
+            }
+
+            // Case 2: Not 100% → Check localStorage activeQuestion progress
+            const quizTitle = 'Developer Certification Test';
+            const totalQuestions = 50;
+
+            // Get user email from cookies
+            const cookies = Object.fromEntries(
+                document.cookie.split('; ').map(c => c.split('='))
+            );
+            const email = decodeURIComponent(cookies.user_id || '');
+
+            // Build localStorage keys
+            const quizKey = `${quizTitle}_${email}`;
+            const activeQuestionKey = `${quizKey}-active-question`;
+
+            // Get current question index (0-based)
+            const activeQuestion = parseInt(localStorage.getItem(activeQuestionKey), 10) || 0;
+
+            // Calculate progress percentage
+            const progressPercentage = totalQuestions > 0
+                ? Math.round((activeQuestion / totalQuestions) * 100)
+                : 0;
+
+            console.log(`📊 Progress for "${quizTitle}" (User: ${email}): ${progressPercentage}%`);
+
+            // Step 3: Decide Button Text
+            consultantBtn.innerText = progressPercentage === 0 ? 'Get Certified' : 'Resume Test';
+        })
+        .catch(err => console.error('❌ API Error:', err));
+
+    // Foundation Course CSRF & Progress
+    fetch('/api/method/lms.lms.utils.get_csrf_token')
+        .then(res => res.json())
+        .then(data => {
+            const csrfToken = data.message;
+
+            return fetch('/api/method/lms.lms.utils.get_course_outline', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Frappe-CSRF-Token': csrfToken
+                },
+                body: JSON.stringify({
+                    course: 'eiq-agentic-automation-platform-foundation-certification',
+                    progress: false
+                })
+            })
+                .then(res => res.json())
+                .then(outlineRes => {
+                    const message = outlineRes.message || [];
+
+                    for (const section of message) {
+                        if (section.lessons && section.lessons.length > 0) {
+                            foundationFirstLesson = section.lessons[0].name;
+                            break;
+                        }
+                    }
+
+                    if (!foundationFirstLesson) return;
+
+                    return fetch('/api/method/lms.lms.doctype.course_lesson.course_lesson.save_progress', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-Frappe-CSRF-Token': csrfToken
+                        },
+                        body: JSON.stringify({
+                            course: 'eiq-agentic-automation-platform-foundation-certification',
+                            lesson: foundationFirstLesson
+                        })
+                    })
+                        .then(res => res.json())
+                        .then(progressRes => {
+                            foundationCourseProgress = Math.round(progressRes.message);
+                            console.log(`Preloaded progress: ${isNaN(foundationCourseProgress) ? 0 : foundationCourseProgress}%`);
+
+                            const courseBtn = document.getElementById('learning-foundation-btn');
+
+                            // 🔹 Safe cookie parse (fix)
+                            const cookieSystemUser = document.cookie.split(';').find(row => row.trim().startsWith('system_user='));
+                            const systemUser = cookieSystemUser ? cookieSystemUser.split('=')[1] : null;
+
+                            if (courseBtn) {
+                                if (systemUser === 'no' || foundationCourseProgress === 0) {
+                                    courseBtn.innerText = 'Start Course';
+                                } else if (foundationCourseProgress === 100) {
+                                    courseBtn.innerText = 'Get Certified';
+                                } else {
+                                    courseBtn.innerText = 'Continue';
+                                }
+                            }
+                        });
+                });
+        })
+        .catch(err => console.error('Progress preload error:', err));
 });
 
 
 
-  // 🔹 Button click handler
-  function goToCertification(button = null) {
+// 🔹 Button click handler
+function goToCertification(button = null) {
     const isFoundation = button && button.id === 'foundation-btn';
     const isConsultant = button && button.id === 'consultant-btn';
 
     if (!isUserLoggedIn()) {
-      //const redirectURL = 'http://216.48.181.71/login?redirect-to=/lms/take-certification';
-      window.history.pushState({}, '', ' /lms/take-certification');
+        //const redirectURL = 'http://216.48.181.71/login?redirect-to=/lms/take-certification';
+        window.history.pushState({}, '', ' /lms/take-certification');
 
-      const loginModal = document.getElementById('login-modal');
-      if (loginModal) {
-        loginModal.style.display = 'flex';
-        if (typeof showSection === 'function') showSection('login');
-      }
-      return;
+        const loginModal = document.getElementById('login-modal');
+        if (loginModal) {
+            loginModal.style.display = 'flex';
+            if (typeof showSection === 'function') showSection('login');
+        }
+        return;
     }
 
     if (isConsultant) {
-      window.location.href = '/lms/take-certification';
-      return;
+        window.location.href = '/lms/take-certification';
+        return;
     }
 
     // 🔹 Use preloaded progress
     const progress = foundationCourseProgress;
 
     if (button && button.id === 'foundation-btn') {
-      button.innerText = progress >= 100 ? 'Continue' : 'Get Certified';
+        button.innerText = progress >= 100 ? 'Continue' : 'Get Certified';
     }
 
     if (progress >= 100) {
-      window.location.href = '/lms/take-certification';
+        window.location.href = '/lms/take-certification';
     } else if (isFoundation) {
-      const modal = document.querySelector('.modal-overlay');
-      if (modal) modal.style.display = 'flex';
+        const modal = document.querySelector('.modal-overlay');
+        if (modal) modal.style.display = 'flex';
     }
-  }
+}
 
 
 
@@ -2244,65 +2191,65 @@ consultantBtn.innerText = progressPercentage === 0 ? 'Get Certified' : 'Resume T
 
 /* NEW FUNCTION: Change button text on load if user is logged in */
 function updateCourseButtonsForLoggedInUser() {
-  if (isUserLoggedIn()) {
-      
- 
+    if (isUserLoggedIn()) {
 
-    const loginMenuText = document.querySelector('#menu-item-login .menu-text');
-    const loginLink = document.getElementById('loginLink');
 
-    if (loginMenuText && loginMenuText.textContent.trim().toLowerCase() === 'login') {
-        
-      loginMenuText.textContent = 'Logout';
 
-      loginLink.addEventListener('click', async function (e) {
-        e.preventDefault();
+        const loginMenuText = document.querySelector('#menu-item-login .menu-text');
+        const loginLink = document.getElementById('loginLink');
 
-        const csrf = frappe.csrf_token;
-        const res = await fetch('/api/method/logout', {
-          method: 'POST',
-          credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-Frappe-CSRF-Token': csrf,
-          },
-        });
+        if (loginMenuText && loginMenuText.textContent.trim().toLowerCase() === 'login') {
 
-        if (res.ok) {
-           
-                window.location.href = '/login#login';
+            loginMenuText.textContent = 'Logout';
 
-          // Change button text back to Login
-          loginMenuText.textContent = 'Login';
+            loginLink.addEventListener('click', async function (e) {
+                e.preventDefault();
 
-          // Optional: Close login modal if it's open
-          const modal = document.getElementById('login-modal');
-          if (modal) {
-            modal.style.display = 'none';
-          }
+                const csrf = frappe.csrf_token;
+                const res = await fetch('/api/method/logout', {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Frappe-CSRF-Token': csrf,
+                    },
+                });
 
-        } else {
-          console.error('Logout failed:', res.status, await res.text());
+                if (res.ok) {
+
+                    window.location.href = '/login#login';
+
+                    // Change button text back to Login
+                    loginMenuText.textContent = 'Login';
+
+                    // Optional: Close login modal if it's open
+                    const modal = document.getElementById('login-modal');
+                    if (modal) {
+                        modal.style.display = 'none';
+                    }
+
+                } else {
+                    console.error('Logout failed:', res.status, await res.text());
+                }
+            });
         }
-      });
-    }
 
-  } else {
-    // In case user is logged out, ensure login opens modal
-    const loginLink = document.getElementById('loginLink');
-    if (loginLink) {
-      loginLink.onclick = function (e) {
-          debugger;
-        e.preventDefault();
-        window.history.pushState({}, '', '/login');
-        
-      };
+    } else {
+        // In case user is logged out, ensure login opens modal
+        const loginLink = document.getElementById('loginLink');
+        if (loginLink) {
+            loginLink.onclick = function (e) {
+                debugger;
+                e.preventDefault();
+                window.history.pushState({}, '', '/login');
+
+            };
+        }
     }
-  }
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-  updateCourseButtonsForLoggedInUser();
+    updateCourseButtonsForLoggedInUser();
 });
 
 
@@ -2321,7 +2268,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const homeLink = document.getElementById('homeLink');
     const homeLinkLogo = document.getElementById('homeLinkLogo');
     const coursesLink = document.getElementById('coursesLink');
-    const exploreBtn = document.querySelector('.explore-course-btn'); 
+    const exploreBtn = document.querySelector('.explore-course-btn');
 
     const docContainer = document.querySelector('.doc-container');
     const mainContent = document.querySelector('main');
@@ -2331,15 +2278,15 @@ document.addEventListener('DOMContentLoaded', function () {
     const homeText = homeLink.querySelector('.menu-text');
     const docText = docLink.querySelector('.menu-text');
     const coursesText = coursesLink.querySelector('.menu-text');
-    
-     homeLink.classList.add('active-link');
-     
+
+    homeLink.classList.add('active-link');
+
     function removeActiveClasses() {
         const allLinks = [homeLink, docLink, coursesLink];
         allLinks.forEach(link => link.classList.remove('active-link'));
     }
 
-     // Docs link click handler
+    // Docs link click handler
     docLink.addEventListener('click', function (e) {
         e.preventDefault();
 
@@ -2355,7 +2302,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Home
-     // Home
+    // Home
     [homeLink, homeLinkLogo].forEach(element => {
         if (element) {
             element.addEventListener('click', function (e) {
@@ -2374,7 +2321,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-// Courses link click handler
+    // Courses link click handler
     coursesLink.addEventListener('click', function (e) {
         e.preventDefault();
 
@@ -2408,7 +2355,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-     /* on clicking on dropdown page will get navigate  */
+    /* on clicking on dropdown page will get navigate  */
     document.getElementById('professionalCourse').addEventListener('click', function (e) {
         e.preventDefault();
 
@@ -2515,149 +2462,149 @@ function toggleAllLessons() {
 /* changing pagination dot */
 
 let currentSlide = 0;
-        const totalSlides = 8;
-        
-        // Initialize the carousel
-        function initCarousel() {
-            createPaginationDots();
-            updateCarousel();
+const totalSlides = 8;
+
+// Initialize the carousel
+function initCarousel() {
+    createPaginationDots();
+    updateCarousel();
+}
+
+// Create pagination dots
+function createPaginationDots() {
+    const pagination = document.getElementById('pagination');
+    pagination.innerHTML = '';
+
+    for (let i = 0; i < totalSlides; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'pagination-dot';
+        dot.setAttribute('role', 'tab');
+        dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+        dot.onclick = () => goToSlide(i);
+        pagination.appendChild(dot);
+    }
+}
+
+// Update carousel position and active states
+function updateCarousel() {
+    const wrapper = document.getElementById('testimonialWrapper');
+    const translateX = -currentSlide * (100 / totalSlides);
+    wrapper.style.transform = `translateX(${translateX}%)`;
+
+    // Update pagination dots
+    const dots = document.querySelectorAll('.pagination-dot');
+    dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentSlide);
+    });
+}
+
+// Go to specific slide
+function goToSlide(slideIndex) {
+    currentSlide = slideIndex;
+    updateCarousel();
+}
+
+// Next slide function
+function nextSlide() {
+    currentSlide = (currentSlide + 1) % totalSlides;
+    updateCarousel();
+}
+
+// Previous slide function
+function prevSlide() {
+    currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+    updateCarousel();
+}
+
+// Auto-play functionality
+let autoPlayInterval;
+
+function startAutoPlay() {
+    autoPlayInterval = setInterval(nextSlide, 4000); // Change slide every 4 seconds
+}
+
+function stopAutoPlay() {
+    clearInterval(autoPlayInterval);
+}
+
+// Initialize carousel when page loads
+document.addEventListener('DOMContentLoaded', function () {
+    initCarousel();
+
+    // Start auto-play
+    startAutoPlay();
+
+    // Pause auto-play on hover
+    const carousel = document.querySelector('.testimonial-carousel');
+    carousel.addEventListener('mouseenter', stopAutoPlay);
+    carousel.addEventListener('mouseleave', startAutoPlay);
+});
+
+// Keyboard navigation
+document.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowLeft') {
+        prevSlide();
+    } else if (e.key === 'ArrowRight') {
+        nextSlide();
+    }
+});
+
+// Touch/swipe support for mobile
+let startX = 0;
+let endX = 0;
+
+const carousel = document.querySelector('.testimonial-carousel');
+
+carousel.addEventListener('touchstart', function (e) {
+    startX = e.touches[0].clientX;
+});
+
+carousel.addEventListener('touchend', function (e) {
+    endX = e.changedTouches[0].clientX;
+    handleSwipe();
+});
+
+function handleSwipe() {
+    const swipeThreshold = 50;
+    const diff = startX - endX;
+
+    if (Math.abs(diff) > swipeThreshold) {
+        if (diff > 0) {
+            nextSlide(); // Swipe left
+        } else {
+            prevSlide(); // Swipe right
         }
-        
-        // Create pagination dots
-        function createPaginationDots() {
-            const pagination = document.getElementById('pagination');
-            pagination.innerHTML = '';
-            
-            for (let i = 0; i < totalSlides; i++) {
-                const dot = document.createElement('div');
-                dot.className = 'pagination-dot';
-                dot.setAttribute('role', 'tab');
-                dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
-                dot.onclick = () => goToSlide(i);
-                pagination.appendChild(dot);
-            }
-        }
-        
-        // Update carousel position and active states
-        function updateCarousel() {
-            const wrapper = document.getElementById('testimonialWrapper');
-            const translateX = -currentSlide * (100 / totalSlides);
-            wrapper.style.transform = `translateX(${translateX}%)`;
-            
-            // Update pagination dots
-            const dots = document.querySelectorAll('.pagination-dot');
-            dots.forEach((dot, index) => {
-                dot.classList.toggle('active', index === currentSlide);
-            });
-        }
-        
-        // Go to specific slide
-        function goToSlide(slideIndex) {
-            currentSlide = slideIndex;
-            updateCarousel();
-        }
-        
-        // Next slide function
-        function nextSlide() {
-            currentSlide = (currentSlide + 1) % totalSlides;
-            updateCarousel();
-        }
-        
-        // Previous slide function
-        function prevSlide() {
-            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-            updateCarousel();
-        }
-        
-        // Auto-play functionality
-        let autoPlayInterval;
-        
-        function startAutoPlay() {
-            autoPlayInterval = setInterval(nextSlide, 4000); // Change slide every 4 seconds
-        }
-        
-        function stopAutoPlay() {
-            clearInterval(autoPlayInterval);
-        }
-        
-        // Initialize carousel when page loads
-        document.addEventListener('DOMContentLoaded', function() {
-            initCarousel();
-            
-            // Start auto-play
-            startAutoPlay();
-            
-            // Pause auto-play on hover
-            const carousel = document.querySelector('.testimonial-carousel');
-            carousel.addEventListener('mouseenter', stopAutoPlay);
-            carousel.addEventListener('mouseleave', startAutoPlay);
-        });
-        
-        // Keyboard navigation
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'ArrowLeft') {
-                prevSlide();
-            } else if (e.key === 'ArrowRight') {
-                nextSlide();
-            }
-        });
-        
-        // Touch/swipe support for mobile
-        let startX = 0;
-        let endX = 0;
-        
-        const carousel = document.querySelector('.testimonial-carousel');
-        
-        carousel.addEventListener('touchstart', function(e) {
-            startX = e.touches[0].clientX;
-        });
-        
-        carousel.addEventListener('touchend', function(e) {
-            endX = e.changedTouches[0].clientX;
-            handleSwipe();
-        });
-        
-        function handleSwipe() {
-            const swipeThreshold = 50;
-            const diff = startX - endX;
-            
-            if (Math.abs(diff) > swipeThreshold) {
-                if (diff > 0) {
-                    nextSlide(); // Swipe left
-                } else {
-                    prevSlide(); // Swipe right
-                }
-            }
-        }
-        
-        
-        
-        /* ================================================================================== */
-        
-       
-       function initScrollAnimations() {
+    }
+}
+
+
+
+/* ================================================================================== */
+
+
+function initScrollAnimations() {
     var elements = document.querySelectorAll(".animate-on-scroll");
 
     var observer = new IntersectionObserver(function (entries) {
-      for (var i = 0; i < entries.length; i++) {
-        if (entries[i].isIntersecting) {
-          entries[i].target.classList.add("in-view");
-          // observer.unobserve(entries[i].target); // Uncomment for one-time animation
+        for (var i = 0; i < entries.length; i++) {
+            if (entries[i].isIntersecting) {
+                entries[i].target.classList.add("in-view");
+                // observer.unobserve(entries[i].target); // Uncomment for one-time animation
+            }
         }
-      }
     }, { threshold: 0.1 });
 
     for (var j = 0; j < elements.length; j++) {
-      observer.observe(elements[j]);
+        observer.observe(elements[j]);
     }
-  }
+}
 
-  // Run immediately (if script is at bottom of HTML)
-  initScrollAnimations();
-  
-  
-  
-  
+// Run immediately (if script is at bottom of HTML)
+initScrollAnimations();
+
+
+
+
 function toggleChat() {
     const container = document.querySelector('.chatbot-container');
     const toggleBtn = document.getElementById('chatToggle');
@@ -2837,6 +2784,60 @@ document.getElementById('messageInput').addEventListener('keydown', function (ev
     }
 });
 
+function createToggleButton() {
+    var menuContainer = document.querySelector('.mobile-menu-container');
+    var menuList = document.getElementById('ast-hf-menu-1');
+
+    // Create toggle button
+    var toggleBtn = document.createElement('button');
+    toggleBtn.id = 'menuToggleBtn';
+    toggleBtn.innerHTML = '☰'; // Only the icon
+    toggleBtn.style.fontSize = '24px';
+    toggleBtn.style.padding = '4px 10px';
+    toggleBtn.style.background = 'transparent';
+    toggleBtn.style.border = 'none';
+    toggleBtn.style.cursor = 'pointer';
+    toggleBtn.style.display = 'none';
+    toggleBtn.style.marginBottom = '10px';
+    toggleBtn.style.textAlign = 'right';
+    toggleBtn.style.width = '100%';
 
 
-  
+    // Insert the toggle button before the menu
+    menuContainer.insertBefore(toggleBtn, menuList);
+
+    // Toggle menu on click
+    toggleBtn.onclick = function () {
+        if (menuList.style.display === 'none' || menuList.style.display === '') {
+            menuList.style.display = 'block';
+        } else {
+            menuList.style.display = 'none';
+        }
+    };
+}
+
+function handleResponsiveMenu() {
+    var toggleBtn = document.getElementById('menuToggleBtn');
+    var menuList = document.getElementById('ast-hf-menu-1');
+
+    if (window.innerWidth <= 459) {
+        if (toggleBtn) {
+            toggleBtn.style.display = 'block';
+            menuList.style.display = 'none';
+        }
+    } else {
+        if (toggleBtn) {
+            toggleBtn.style.display = 'none';
+            menuList.style.display = 'flex';
+        }
+    }
+}
+
+window.onload = function () {
+    createToggleButton();
+    handleResponsiveMenu();
+};
+
+window.onresize = function () {
+    handleResponsiveMenu();
+};
