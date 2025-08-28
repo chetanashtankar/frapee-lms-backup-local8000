@@ -168,6 +168,7 @@ import {
 import { useRoute, useRouter } from 'vue-router'
 import ChapterModal from '@/components/Modals/ChapterModal.vue'
 import { usersStore } from '@/stores/user'
+import { onMounted } from 'vue'
 
 const isModerator = ref(false);
 const learningButtonText = ref('');
@@ -399,11 +400,59 @@ watch(outline, () => {
   }
 })
 
+onMounted(() => {
+  if (!user?.data?.roles?.includes('Moderator')) return
+  const removeOpacity = (el) => el.style.opacity = '1'
+  document.querySelectorAll('.locked-chapter, .locked-lesson').forEach(removeOpacity)
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      mutation.addedNodes.forEach((node) => {
+        if (node.nodeType === 1) { // element
+          if (node.matches('.locked-chapter, .locked-lesson')) {
+            console.log('🟢 Removing opacity from newly added element:', node)
+            removeOpacity(node)
+          }
+          node.querySelectorAll?.('.locked-chapter, .locked-lesson').forEach(removeOpacity)
+        }
+      })
+    })
+  })
+  observer.observe(document.body, { childList: true, subtree: true })
+})
 
 
 
 const handleLessonClick = (chapter, chapterIndex, lesson, lessonIndex) => {
-  // If chapter is locked, show dialog and block
+  if (user?.data?.roles?.includes('Moderator')) {
+    if (props.allowEdit) {
+      openLessonModal(lesson, chapter)
+      return
+    }
+    if (chapter.is_scorm_package) {
+      if (!user.data) {
+        toast.success(__('Please enroll for this course to view this lesson'))
+        return
+      }
+      router.push({
+        name: 'SCORMChapter',
+        params: {
+          courseName: props.courseName,
+          chapterName: chapter.name,
+        },
+      })
+      return
+    }
+    router.push({
+      name: 'Lesson',
+      params: {
+        courseName: props.courseName,
+        chapterNumber: lesson.number.split('.')[0],
+        lessonNumber: lesson.number.split('.')[1],
+      },
+    })
+    return
+  }
+
   if (!isChapterUnlocked(chapterIndex)) {
     $dialog({
       title: __('Lesson Completion Required'),
@@ -413,15 +462,14 @@ const handleLessonClick = (chapter, chapterIndex, lesson, lessonIndex) => {
           label: __('Got It'),
           theme: 'primary',
           variant: 'solid',
-          class: 'custom-dialog-button updated-dialog-button'  // Added new class here
-        }
+          class: 'custom-dialog-button updated-dialog-button',
+        },
       ],
-      class: 'custom-dialog-box updated-dialog-box'  // Added new class here
-    });
-    return;
+      class: 'custom-dialog-box updated-dialog-box',
+    })
+    return
   }
 
-  // If previous lesson is not complete, show dialog and block
   if (lessonIndex > 0 && !chapter.lessons[lessonIndex - 1]?.is_complete) {
     $dialog({
       title: __('Lesson Completion Required'),
@@ -431,21 +479,19 @@ const handleLessonClick = (chapter, chapterIndex, lesson, lessonIndex) => {
           label: __('Got It'),
           theme: 'primary',
           variant: 'solid',
-          class: 'custom-dialog-button updated-dialog-button'  // Added new class here
-        }
+          class: 'custom-dialog-button updated-dialog-button',
+        },
       ],
-      class: 'custom-dialog-box updated-dialog-box'  // Added new class here
-    });
-    return;
+      class: 'custom-dialog-box updated-dialog-box',
+    })
+    return
   }
 
-  // Allow editing directly
   if (props.allowEdit) {
     openLessonModal(lesson, chapter)
     return
   }
 
-  // If chapter is SCORM package
   if (chapter.is_scorm_package) {
     if (!user.data) {
       toast.success(__('Please enroll for this course to view this lesson'))
@@ -461,7 +507,6 @@ const handleLessonClick = (chapter, chapterIndex, lesson, lessonIndex) => {
     return
   }
 
-  // Default: route to lesson
   router.push({
     name: 'Lesson',
     params: {
