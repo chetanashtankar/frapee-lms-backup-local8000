@@ -16,7 +16,9 @@ a.cta-button.open-login-modal:hover {
     gap: 6px;
     /* spacing between text and icon */
 }
-
+.menu-icon svg {
+    margin-right: 9px;
+}
 .dropdown-icon {
     transition: transform 0.3s ease;
     width: 16px;
@@ -284,7 +286,6 @@ svg {
     width: 1rem;
     height: 1rem;
     flex-shrink: 0;
-    margin-right: .5rem
 }
 
 
@@ -5269,10 +5270,11 @@ body .page-content-wrapper {
 /* Learning Paths Grid - 4 cards in one row */
 .learning-paths-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 40px;
-    max-width: 90%;
+    max-width: 1200px;   
     margin: 0 auto;
+    padding: 0 20px;    
 }
 
 .path-card {
@@ -6482,4 +6484,8 @@ label {
 @keyframes bounce {
     0%, 80%, 100% { transform: scale(0); }
     40% { transform: scale(1); }
+}
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #ff6b35 #f0f0f0;
 }
