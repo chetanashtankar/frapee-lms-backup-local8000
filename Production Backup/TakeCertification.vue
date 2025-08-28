@@ -95,15 +95,19 @@
 
 
   </div>
+
+<Chatbot v-if="isCourseCompleted" />
 </template>
 
 <script>
 import ProgressBar from '@/components/ProgressBar.vue'
+import Chatbot from "@/components/Chatbot.vue";
 
 export default {
   name: 'CourseList',
   components: {
-    ProgressBar
+    ProgressBar,
+    Chatbot
   },
   data() {
     return {
@@ -168,13 +172,31 @@ export default {
       ]
     }
   },
+  computed: {
+    isCourseCompleted() {
+    const foundation = this.certifications.find(
+      c => c.courseSlug === 'eiq-platform-foundation-certification' || c.key === 'foundation'
+    );
+    const developer = this.certifications.find(
+      c => c.courseSlug === 'eiq-platform-developer-certification' || c.key === 'developer'
+    );
+
+    const fProg = foundation?.progress ?? 0;
+    const dProg = developer?.progress ?? 0;
+    const fEnabled = !!foundation?.enabled;
+    const dEnabled = !!developer?.enabled;
+
+    const bothDone = fEnabled && dEnabled && fProg >= 100 && dProg >= 100;
+
+    return bothDone;
+  }
+  },
   methods: {
     startCourse(cert) {
 
       window.location.href = `/lms/courses/${cert.courseSlug}`;
     },
-
-
+      
     async viewCertificate(courseId) {
       try {
         // Step 1: Get CSRF Token
@@ -811,83 +833,76 @@ export default {
   background-color: #22c55e;
 }
 
-
 .completed-text {
-  color: #006400 !important;
-  /* or #228B22 */
-  font-weight: 700;
-  font-size: 1rem;
-  margin: 0;
-  padding: .5rem 0;
+    color: #006400!important;
+    font-weight: 700;
+    font-size: 1rem;
+    margin: 0;
+    padding: .5rem 0;
 }
 
-/* Page Layout */
 .page-wrapper {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 .certification-page {
-  flex-grow: 1;
-  padding: 5rem 6.25rem 1.25rem;
+    flex-grow: 1;
+    padding: 5rem 6.25rem 1.25rem;
 }
 
 .page-title {
-  margin-bottom: 1.5rem;
-  font-size: 20px;
-  line-height: 1.15;
-  letter-spacing: .02em;
-  font-weight: 600;
+    margin-bottom: 1.5rem;
+    font-size: 20px;
+    line-height: 1.15;
+    letter-spacing: .02em;
+    font-weight: 600;
 }
 
-/* Main certification grid - ensures equal height cards */
 .certification-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  /* 4 columns in the first row */
-  grid-template-rows: auto auto;
-  /* Two rows */
-  gap: 1.5rem;
-  align-items: stretch;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 393px); /* Fixed width columns */
+    gap: 1.5rem;
+    align-items: stretch;
+    justify-content: start; /* Align grid items to the left */
 }
 
-/* Card container - uses flexbox for consistent internal layout */
 .cert-card {
-  display: flex;
-  flex-direction: column;
-  min-height: 500px;
-  border: 1px solid #e0e0e0;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease;
-  background: white;
+    display: flex;
+    flex-direction: column;
+    min-height: 500px;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px #0000001a;
+    transition: transform .2s ease;
+    background: #fff;
 }
 
 .cert-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, .15);
-  border-color: #ff6b35;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px #00000026;
+    border-color: #ff6b35;
 }
 
-/* Coming Soon Cards Styling */
 .cert-card.coming-soon {
-  opacity: 0.7;
-  position: relative;
+    display: none; /* Hide coming soon cards completely */
 }
 
-.cert-card.coming-soon::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(1px);
-  z-index: 1;
+.cert-card.coming-soon:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #ffffff4d;
+    -webkit-backdrop-filter: blur(1px);
+    backdrop-filter: blur(1px);
+    z-index: 1;
 }
+
 
 .cert-card.coming-soon:hover {
   transform: none;
@@ -1099,8 +1114,8 @@ export default {
 
 .social-icons .icon {
   display: inline-block;
-  width: 32px;
-  height: 32px;
+  width: 20px;
+  height: 20px;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
