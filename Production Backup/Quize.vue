@@ -194,7 +194,7 @@
 								quizSubmission.data.score_out_of
 							) }}
 						</div>
-
+						
 						<div class="mt-2">
 						<Button
 						v-if="certification.data && certification.data.certificate"
@@ -818,7 +818,7 @@ const submitQuiz = () => {
       if (!answers.length) {
         // Just mark the current question as skipped
         addToLocalStorage()
-        console.log("⏭️ Skipped: No option selected for this question")
+        console.log(" Skipped: No option selected for this question")
       } else {
         checkAnswer()
       }
@@ -840,7 +840,6 @@ const submitQuiz = () => {
   const score = ((correct / totalQuestions) * 100).toFixed(2)
 
   
-  
   // Save result to localStorage
   localStorage.setItem('quizResult', JSON.stringify({
     correct,
@@ -850,11 +849,11 @@ const submitQuiz = () => {
   }))
 
   clearQuizAnswersFromLocalStorage();
-  // Submit to backend
   createSubmission()
+
+
+
 }
-
-
 
 
 const createSubmission = () => {
@@ -1070,7 +1069,16 @@ const clearQuizAnswersFromLocalStorage = () => {
 	});
 };
 
-	watch(
+
+
+watch(quiz, (newVal) => {
+  if (newVal?.data) {
+    console.log("Slug:", newVal.data.course, " | Name:", newVal.data.course_name || newVal.data.title);
+  }
+});
+
+
+watch(
   () => quizCompleted.value && isPassed.value,
   (passed) => {
     if (passed) {
@@ -1142,7 +1150,6 @@ async function createCertificate(quiz) {
         console.error("Error creating certificate:", error);
     }
 }
-
 
 
 
