@@ -323,8 +323,8 @@ const showCourseContentTitle = computed(() => {
 
 .social-icons .icon {
   display: inline-block;
-  width: 32px;
-  height: 32px;
+  width: 20px;
+  height: 20px;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
