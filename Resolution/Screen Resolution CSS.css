@@ -1,0 +1,708 @@
+@media screen and (max-width: 1480px) {
+
+    .doc-section {
+        width: 801px;
+    }
+
+    .doc-heading {
+        font-size: 51px;
+        font-weight: 700;
+        color: #ff6b35;
+        margin-bottom: 30px;
+        letter-spacing: -0.5px;
+    }
+
+
+    .doc-paragraph {
+        font-size: 1.0rem;
+        line-height: 1.7;
+        margin-bottom: 20px;
+        color: #555;
+    }
+
+    .elementor-image-box-wrapper {
+        text-align: center;
+        background-color: #fff;
+        border-radius: 15px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, .1);
+        padding: 12px;
+        transition: transform .3s;
+        height: 207px;
+
+    }
+
+    .elementor-column {
+        margin-top: -100px;
+    }
+
+    .testimonial {
+        display: flex !important;
+        align-items: center !important;
+        /* Vertically center */
+        justify-content: center !important;
+        /* Optional: center horizontally */
+        gap: 20px !important;
+        /* Space between left and right */
+        padding: 10px !important;
+        /* Add some breathing room */
+    }
+
+    .testimonial-left {
+        flex: 0 0 auto !important;
+        /* Don't let it grow or shrink */
+    }
+
+    .testimonial-right {
+        flex: 1 !important;
+        /* Allow the text to take remaining space */
+    }
+}
+
+
+
+
+
+
+
+
+@media screen and (max-width: 1329px) {
+
+    .elementor-container {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+    }
+
+    .elementor-image-box-img {
+        height: 50px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .elementor-column {
+        margin-top: -100px;
+    }
+
+    .testimonial-role {
+        font-size: 0.90rem;
+        color: #555;
+        margin-bottom: .5rem;
+    }
+
+    .testimonial-name {
+        font-weight: bold;
+        font-size: 1.0rem 16px;
+        margin-bottom: .2rem;
+    }
+
+    .reviews-section .container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+
+    .reviews-section .container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    .modal-close {
+
+        display: none;
+
+    }
+
+
+    .login-modal-flex {
+        display: flex;
+        flex-direction: row;
+        width: 90%;
+        max-width: 790px;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 0 20px rgba(0, 0, 0, .2);
+    }
+
+
+
+    .modal-content {
+        position: relative;
+        margin: 5% auto;
+        padding: 0px;
+        border-radius: 10px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, .25), 0 12px 40px rgba(0, 0, 0, .2), 0 0 1px rgba(0, 0, 0, .05);
+        height: 66.1%;
+    }
+
+
+    .login-modal-right {
+        flex: 1;
+        padding: 0px;
+        position: relative;
+    }
+
+
+    .doc-heading {
+        font-size: 45px;
+
+    }
+
+    doc-steps {
+        border-radius: 8px;
+        margin: 20px 0;
+        border: 1px solid #e9ecef;
+
+        font-size: 1.0rem;
+    }
+
+    .doc-paragraph {
+        font-size: 1.0rem;
+        line-height: 1.7;
+        margin-bottom: 20px;
+        color: #555;
+    }
+
+    .doc-section {
+        width: 716px;
+    }
+
+    .eiq-expand-all-btn {
+        gap: 0px;
+        padding: 6px 6px;
+        cursor: pointer;
+        background: #ff6b35;
+        border: 2px solid #ff6b35;
+        border-radius: 24px;
+        transition: border-color .3s ease, background-color .3s ease;
+        color: #fff;
+    }
+
+    .eiq-cert-header h1 {
+        font-size: 55px;
+
+        margin-bottom: 25px;
+
+    }
+
+
+
+    .cert-test-icon {
+        width: 48px;
+        height: 48px;
+
+    }
+
+    .cert-course-content {
+        background: #f8f9fa;
+        padding: 30px;
+        border-radius: 10px;
+        margin-top: 30px;
+        width: 90%;
+        margin-bottom: 40px;
+        font-size: 16px;
+        border: 2px solid #e2e7ed !important;
+    }
+
+    .cert-topic-list li {
+
+        font-size: 16px;
+    }
+
+    .cert-topic-card h4 {
+        font-size: 16px;
+        line-height: revert-layer;
+    }
+
+    .cert-prereqs p {
+
+        font-size: 16px;
+    }
+
+    p.cert-description {
+
+        font-size: 16px;
+    }
+
+    .cert-topics h3 {
+        font-size: 32px;
+        color: #083279;
+    }
+
+    .cert-prereqs h3 {
+        color: #083279;
+        font-size: 32px;
+    }
+
+    .cert-section h2 {
+        color: #083279;
+        font-size: 32px;
+    }
+
+    .cert-status-description {
+
+        font-size: 12px;
+
+    }
+
+    .cert-status-label {
+
+        font-size: 20px;
+
+    }
+
+    p.cert-subtitle {
+        color: #ff6b03;
+        font-size: 28px;
+        font-weight: 600;
+        margin-bottom: -34px;
+        margin-top: -97px;
+    }
+
+    .cert-header h1 {
+        font-size: 46px;
+        font-weight: 700;
+        margin-bottom: 23px;
+        color: #fff;
+    }
+
+    .cert-cta-button {
+        /* background: #ff6b03; */
+        /* color: #fff; */
+        /* padding: 15px 30px; */
+        /* border: none; */
+        /* border-radius: 10px; */
+        /* font-weight: 600; */
+        /* text-decoration: none; */
+        /* display: inline-block; */
+        /* transition: all .3s ease; */
+        /* font-size: 1rem; */
+        /* display: inline-block; */
+        /* color: #fff; */
+        padding: -3px -2px;
+        /* text-decoration: none; */
+        font-weight: bold;
+        font-size: 13px;
+        transition: all .3s ease;
+        background-color: #ff6b35;
+        color: inherit;
+        text-decoration: none;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+        border-bottom-left-radius: 10px;
+        padding-top: 10px;
+        padding-right: 30px;
+        padding-bottom: 10px;
+        padding-left: 29px;
+        border-color: 1px solidwhite;
+    }
+
+
+    .ast-builder-grid-row.ast-builder-grid-row-has-sides.ast-builder-grid-row-no-center {
+        display: flex;
+        flex-direction: row;
+        align-content: stretch;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 13px;
+    }
+
+    .site-branding img {
+        max-width: 70%;
+        height: auto;
+    }
+
+    .partners-section h3 {
+        text-align: center;
+        font-size: 1.7rem;
+        margin-bottom: 50px;
+        font-weight: 600;
+        color: #083279;
+    }
+
+    .reviews-section h2 {
+        text-align: center;
+        /* font-size: 2.5rem; */
+        margin-bottom: 50px;
+        color: #083279;
+        font-weight: 600;
+        font-size: 1.7rem;
+    }
+
+    .partner-slide {
+        min-width: 90px;
+        height: 69px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+        padding: 15px;
+    }
+
+    .elementor-image-box-wrapper {
+        text-align: center;
+        background-color: #fff;
+        border-radius: 15px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, .1);
+        padding: 10px;
+        transition: transform .3s;
+        height: 189px;
+        font-size: 14px;
+    }
+
+    .internship-description {
+        color: #767676;
+        font-size: 15px;
+        line-height: 1.6;
+        margin-bottom: 30px;
+        font-weight: 600;
+    }
+
+    .certification-description {
+        color: #767676;
+        font-size: 15px;
+        line-height: 1.6;
+        margin-bottom: 30px;
+        font-weight: 600
+    }
+
+    .certification-title,
+    .internship-title,
+    .enterprise-title {
+        font-size: 25px
+    }
+
+    .enterprise-content {
+        padding: 0px 0 20px 0px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 100%;
+    }
+
+    .certification-image,
+    .internship-image {
+        width: 100%;
+        height: 324px;
+        overflow: hidden;
+        border-radius: 8px 0px 0px 8px
+    }
+
+    .sub-heading {
+        font-size: 1.0rem;
+        margin-bottom: 30px;
+        font-weight: 500;
+        color: #fff;
+        line-height: 1.2em;
+    }
+
+    .main-heading {
+
+        font-size: 25px;
+
+    }
+
+    .page-card-head {
+        padding: revert !important;
+        margin: 0 auto;
+        text-align: center;
+        font-size: var(--text-xl);
+        font-weight: 600;
+    }
+
+    .enterprise-image {
+        background-image: url(../automation-enterprise.jpeg);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        width: 80% !important;
+        margin-left: auto;
+        height: 388px;
+    }
+
+    .slide-heading {
+        margin-bottom: 20px;
+        font-size: 44px;
+        font-weight: 700;
+        line-height: 59px;
+        flex-direction: column;
+        color: #fff;
+    }
+
+    .slide-button {
+        display: inline-block;
+        color: #fff;
+        padding: -3px -2px;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 1rem;
+        transition: all .3s ease;
+        background-color: #ff6b35;
+        color: inherit;
+        text-decoration: none;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+        border-bottom-left-radius: 10px;
+        padding-top: 10px;
+        padding-right: 30px;
+        padding-bottom: 10px;
+        padding-left: 30px;
+        border-color: 1px solidwhite;
+    }
+
+    .explore-course-btn,
+    .signup-free-btn {
+        background: #ff6b35;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 6px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all .3s ease;
+        text-transform: none;
+        align-self: flex-start;
+    }
+
+    .cta-button {
+        padding-top: 10px;
+        padding-right: 30px;
+        padding-bottom: 10px;
+        padding-left: 30px;
+    }
+
+    .testimonial {
+        display: flex !important;
+        align-items: center !important;
+        /* Vertically center */
+        justify-content: center !important;
+        /* Optional: center horizontally */
+        gap: 20px !important;
+        /* Space between left and right */
+        padding: 10px !important;
+        /* Add some breathing room */
+    }
+
+    .testimonial-left {
+        flex: 0 0 auto !important;
+        /* Don't let it grow or shrink */
+    }
+
+    .testimonial-right {
+        flex: 1 !important;
+        /* Allow the text to take remaining space */
+    }
+}
+
+
+
+
+
+
+
+
+
+@media screen and (max-width: 1280px) {
+
+    .elementor-container {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+    }
+
+
+    .elementor-image-box-wrapper {
+        text-align: center;
+        background-color: #fff;
+        border-radius: 15px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, .1);
+        padding: 20px;
+        transition: transform .3s;
+        height: 183px;
+    }
+
+    .page-card-head {
+        padding: revert !important;
+        margin: 0 auto;
+        text-align: center;
+        font-size: var(--text-xl);
+        font-weight: 600;
+    }
+
+    .partner-slide {
+        min-width: 90px;
+        height: 69px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+        padding: 15px;
+    }
+
+    .partners-section h3 {
+        text-align: center;
+        font-size: 1.7rem;
+        margin-bottom: 50px;
+        font-weight: 600;
+        color: #083279;
+    }
+
+    .reviews-section h2 {
+        text-align: center;
+        /* font-size: 2.5rem; */
+        margin-bottom: 50px;
+        color: #083279;
+        font-weight: 600;
+        font-size: 1.7rem;
+    }
+
+    p.elementor-image-box-description {
+        border: 0;
+        font-size: 93%;
+        font-style: inherit;
+        font-weight: inherit;
+        margin: 0;
+        outline: 0;
+        padding: 0;
+        vertical-align: baseline;
+        color: #000;
+    }
+
+    h3.elementor-image-box-title {
+        color: #ff6b35;
+        font-size: medium;
+    }
+
+    .elementor-image-box-img {
+        height: 50px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .elementor-column {
+        margin-top: -100px;
+    }
+
+    .testimonial {
+        display: flex !important;
+        align-items: center !important;
+        /* Vertically center */
+        justify-content: center !important;
+        /* Optional: center horizontally */
+        gap: 20px !important;
+        /* Space between left and right */
+        padding: 10px !important;
+        /* Add some breathing room */
+    }
+
+    .testimonial-left {
+        flex: 0 0 auto !important;
+        /* Don't let it grow or shrink */
+    }
+
+    .testimonial-right {
+        flex: 1 !important;
+        /* Allow the text to take remaining space */
+    }
+}
+
+
+
+
+
+
+
+@media screen and (max-width: 1220px) {
+    .elementor-image-box-wrapper {
+        height: auto;
+        /* Let it expand naturally */
+        padding: 10px;
+    }
+
+    .elementor-image-box-img {
+        height: 40px;
+    }
+
+    .certification-image,
+    .internship-image {
+        height: 200px;
+        border-radius: 8px;
+        /* Optional: simplify for smaller screens */
+    }
+
+    .certification-label,
+    .internship-label {
+        font-size: 18px;
+    }
+
+    .certification-title,
+    .internship-title,
+    .enterprise-title {
+        font-size: 20px;
+    }
+
+    .certification-description,
+    .internship-description {
+        font-size: 13px;
+        margin-bottom: 20px;
+    }
+
+    .explore-course-btn,
+    .signup-free-btn {
+        font-size: 10px;
+        padding: 8px 16px;
+    }
+
+    .testimonial-text {
+        font-size: 12px;
+        padding: .3em 0;
+    }
+}
+
+
+
+
+@media screen and (max-width: 1389px) {
+    .cert-header h1 {
+        font-size: 45px;
+        margin-bottom: 30px;
+    }
+
+    p.cert-subtitle {
+        font-size: 24px;
+        margin-bottom: -28px;
+        margin-top: -70px;
+    }
+
+    .cert-section h2,
+    .cert-prereqs h3,
+    .cert-topics h3 {
+        font-size: 32px;
+    }
+
+    p.cert-description,
+    .cert-prereqs p,
+    .cert-topic-card h4,
+    .cert-topic-list li {
+        font-size: 18px;
+    }
+
+    .cert-topic-card h4 {
+        gap: 6px;
+    }
+
+    .cert-test-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .cert-test-text h4 {
+        font-size: 16px;
+    }
+}

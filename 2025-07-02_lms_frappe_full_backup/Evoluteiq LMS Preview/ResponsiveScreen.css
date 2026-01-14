@@ -1,0 +1,1325 @@
+
+/*===============================================================*Responsive CSS ============================================================================*/
+
+
+/* ===== Styles for max-width: 1220px ===== */
+
+@media screen and (max-width: 1220px) {
+
+    .enterprise-section {
+        border-radius: 0px;
+    }
+
+    .elementor-image-box-wrapper {
+        height: auto;
+        /* Let it expand naturally */
+        padding: 10px;
+    }
+
+    .elementor-image-box-img {
+        height: 40px;
+    }
+
+    .certification-image,
+    .internship-image {
+        height: 276px;
+
+        /* Optional: simplify for smaller screens */
+    }
+
+    .certification-label,
+    .internship-label {
+        font-size: 18px;
+    }
+
+    .certification-title,
+    .internship-title,
+    .enterprise-title {
+        font-size: 20px;
+    }
+
+    .certification-description,
+    .internship-description {
+        font-size: 13px;
+        margin-bottom: 20px;
+    }
+
+    .explore-course-btn,
+    .signup-free-btn {
+        font-size: 10px;
+        padding: 8px 16px;
+    }
+
+    .testimonial-text {
+        font-size: 12px;
+        padding: .3em 0;
+    }
+}
+
+
+/* ===== Styles for max-width: 1389px ===== */
+
+@media screen and (max-width: 1389px) {
+    .cert-header h1 {
+        font-size: 45px;
+        margin-bottom: 30px;
+    }
+
+    p.cert-subtitle {
+        font-size: 24px;
+        margin-bottom: -28px;
+        margin-top: -70px;
+    }
+
+    .cert-section h2,
+    .cert-prereqs h3,
+    .cert-topics h3 {
+        font-size: 32px;
+    }
+
+    p.cert-description,
+    .cert-prereqs p,
+    .cert-topic-card h4,
+    .cert-topic-list li {
+        font-size: 18px;
+    }
+
+    .cert-topic-card h4 {
+        gap: 6px;
+    }
+
+    .cert-test-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .cert-test-text h4 {
+        font-size: 16px;
+    }
+}
+
+
+/* ===== Styles for max-width: 980px ===== */
+
+
+@media screen and (max-width: 980px) {
+
+    .cert-header h1 {
+        font-size: 40px;
+        margin-bottom: 30px;
+    }
+
+    .eiq-cert-header h1 {
+        font-size: 40px;
+        margin-bottom: 18px;
+        margin-top: 92px;
+    }
+
+    .cert-status-description {
+        font-size: 10px;
+    }
+
+    .cert-status-label {
+        font-size: 16px;
+    }
+
+    .cert-not-enrolled {
+        font-size: 13px;
+    }
+
+    .doc-heading {
+        font-size: 31px;
+    }
+
+    .doc-paragraph {
+        font-size: 13px;
+        line-height: 1.7;
+        margin-bottom: 20px;
+        color: #555;
+    }
+
+    .doc-section {
+        width: 500px;
+    }
+
+    .slide-heading {
+        margin-bottom: 20px;
+        font-size: 40px;
+        font-weight: 700;
+        line-height: 59px;
+        flex-direction: column;
+        color: #fff;
+    }
+
+    .slide-description {
+        font-size: 1.0rem;
+        margin-bottom: 30px;
+        line-height: 1.6;
+        opacity: 0.9;
+    }
+
+    p.elementor-image-box-description {
+        border: 0;
+        font-size: 73%;
+        font-style: inherit;
+        font-weight: inherit;
+        margin: 0;
+        outline: 0;
+        padding: 0;
+        vertical-align: baseline;
+        color: #000;
+    }
+
+    h3.elementor-image-box-title {
+        color: #ff6b35;
+        font-size: small;
+    }
+
+    .elementor-image-box-img {
+        height: 30px;
+    }
+
+    .certification-label,
+    .internship-label {
+        font-size: 16px;
+    }
+
+    .certification-title,
+    .internship-title,
+    .enterprise-title {
+        font-size: 18px;
+    }
+
+    .certification-description,
+    .internship-description {
+        font-size: 9px;
+        margin-bottom: 20px;
+    }
+
+    .reviews-section h2 {
+        text-align: center;
+        margin-bottom: 50px;
+        color: #083279;
+        font-weight: 600;
+        font-size: 1.4rem;
+    }
+
+    .partners-section h3 {
+        text-align: center;
+        font-size: 1.4rem;
+        margin-bottom: 50px;
+        font-weight: 600;
+        color: #083279;
+    }
+
+    .partner-slide {
+        height: 57px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+        padding: 15px;
+    }
+
+
+    .enterprise-section {
+        border-radius: 0px;
+    }
+
+    .nav-button.prev {
+        left: 0px;
+    }
+
+    .nav-button.next {
+        right: 0px;
+    }
+
+    .pagination-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+    }
+
+    .elementor-column {
+        margin-top: -90px;
+    }
+
+    .cert-section h2,
+    .cert-prereqs h3,
+    .cert-topics h3 {
+        font-size: 25px;
+    }
+
+    p.cert-description,
+    .cert-prereqs p,
+    .cert-topic-card h4,
+    .cert-topic-list li {
+        font-size: 15px;
+    }
+}
+
+
+
+
+/* ===== Styles for max-width: 806px ===== */
+
+@media screen and (max-width: 806px) {
+
+    p.elementor-image-box-description {
+        border: 0;
+        font-size: 9px;
+        font-style: inherit;
+        font-weight: inherit;
+        margin: 0;
+        outline: 0;
+        padding: 0;
+        vertical-align: baseline;
+        color: #000;
+    }
+
+    h3.elementor-image-box-title {
+        color: #ff6b35;
+        font-size: smaller;
+    }
+
+    .elementor-image-box-img {
+        height: 25px;
+    }
+
+    .slide-heading {
+        margin-bottom: 20px;
+        font-size: 30px;
+        font-weight: 700;
+        line-height: 39px;
+        flex-direction: column;
+        color: #fff;
+    }
+
+    .elementor-column {
+        margin-top: -69px;
+    }
+
+
+    .slider-section {
+
+        height: 67vh;
+
+    }
+
+    .elementor-section {
+        margin-bottom: 0px;
+        padding: 32px 28px;
+    }
+
+    /* .elementor-section {
+        margin-bottom: 0px;
+        padding: 30px 40px;
+    } */
+
+    .certification-image,
+    .internship-image {
+        height: 12em;
+    }
+
+    .enterprise-image {
+        background-image: url(../automation-enterprise.jpeg);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        width: 80% !important;
+        margin-left: auto;
+        height: 18em;
+    }
+
+    .enterprise-description {
+        color: #fff;
+        font-size: 11px;
+        line-height: 1.6;
+        margin-bottom: 20px;
+        font-weight: 600;
+    }
+
+    .enterprise-section {
+        background: url(../automation-enterprise.jpg) no-repeat center center;
+        background-size: cover;
+        /* border-radius: 12px; */
+        padding: 34px 40px;
+        color: #fff;
+        width: 100vw;
+        max-width: 100vw;
+        position: relative;
+        left: 50%;
+        right: 50%;
+        margin-left: -50vw;
+        margin-right: -50vw;
+        box-sizing: border-box;
+    }
+
+    .eiq-cert-header h1 {
+        font-size: 40px;
+        margin-bottom: 18px;
+        margin-top: 92px;
+    }
+
+    .cert-header h1 {
+        font-size: 40px;
+        margin-bottom: 30px;
+    }
+
+}
+
+
+
+
+
+
+/* ===== Styles for max-width: 769px ===== */
+
+@media screen and (max-width: 769px) {
+
+
+    section.elementor-section.elementor-inner-section.elementor-element.elementor-element-internship.elementor-section-boxed.elementor-section-height-default.internship-card {
+        margin-bottom: 60px;
+        padding: 0px 0px;
+    }
+
+    .cert-status-bar {
+        flex-direction: row;
+        gap: 16px;
+        /* width: 97%; */
+        display: flex;
+        align-content: stretch;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: nowrap;
+    }
+
+    .cert-status-item {
+        min-width: 0px;
+        padding: 1px;
+    }
+
+
+
+    .certification-title,
+    .internship-title,
+    .enterprise-title {
+        font-size: 18px;
+    }
+
+    .enterprise-section {
+        /* padding: revert; */
+        padding: 34px 38px;
+    }
+
+    .main-heading {
+        display: block;
+    }
+
+    .cert-status-item {
+        padding: 5px;
+    }
+
+    .eiq-course-description p {
+        color: #333;
+        font-size: 9px;
+        line-height: 1.7;
+        text-align: justify;
+    }
+
+    .eiq-container {
+        /* padding: 10px; */
+        padding: 30px 120px 120px 120px;
+    }
+
+    .eiq-container {
+        padding: 15px;
+    }
+
+    .eiq-cert-header h1 {
+        font-size: 32px;
+        margin-bottom: 18px;
+        margin-top: 92px;
+    }
+
+    .slider-section {
+
+        height: 70vh;
+    }
+
+
+}
+
+
+
+
+/* ===== Styles for max-width: 768px ===== */
+
+
+@media(max-width: 768px) {
+
+    .elementor-col-50 {
+        width: revert;
+        margin-bottom: revert;
+    }
+
+    .certification-content,
+    .internship-content,
+    .enterprise-content {
+        padding: revert;
+        text-align: revert;
+    }
+
+    .certification-card,
+    .internship-card {
+        padding: revert;
+    }
+
+    .enterprise-content {
+        padding: 0px 0 28px 0px !important;
+
+    }
+
+
+    .enterprise-section {
+        padding: 34px 40px;
+    }
+
+    .certification-title,
+    .internship-title {
+        font-size: 18px;
+    }
+
+    .enterprise-title {
+        font-size: revert;
+    }
+
+    .elementor-container {
+        flex-direction: revert;
+    }
+
+    .eiq-container {
+        padding: 111px;
+    }
+}
+
+
+
+
+
+/* ===== Styles for max-width: 480px ===== */
+
+@media(max-width: 480px) {
+    .elementor-section {
+        padding: revert;
+    }
+
+    .certification-title,
+    .internship-title {
+        font-size: revert;
+    }
+
+    .enterprise-title {
+        font-size: revert;
+    }
+
+    .certification-description,
+    .internship-description,
+    .enterprise-description {
+        font-size: revert;
+    }
+}
+
+
+
+/* ===== Styles for max-width: 739px ===== */
+
+@media(max-width: 739px) {
+    .cert-header h1 {
+        font-size: 33px;
+        margin-bottom: 30px;
+    }
+
+    p.cert-subtitle {
+        font-size: 24px;
+        margin-bottom: -22px;
+        margin-top: -70px;
+    }
+
+    .cert-section h2,
+    .cert-prereqs h3,
+    .cert-topics h3 {
+        font-size: 19px;
+    }
+
+
+    .certification-title,
+    .internship-title,
+    .enterprise-title {
+        font-size: 16px;
+    }
+
+    .certification-label,
+    .internship-label {
+        font-size: 13px;
+    }
+
+    p.elementor-image-box-description {
+        border: 0;
+        font-size: 8px;
+        font-style: inherit;
+        font-weight: inherit;
+        margin: 0;
+        outline: 0;
+        padding: 0;
+        vertical-align: baseline;
+        color: #000;
+    }
+
+    h3.elementor-image-box-title {
+        color: #ff6b35;
+        font-size: 10px;
+    }
+
+    .elementor-image-box-img {
+        height: 25px;
+    }
+
+}
+
+
+/* ===== Styles for max-width: 677px ===== */
+
+@media(max-width: 677px) {
+    p.elementor-image-box-description {
+        border: 0;
+        font-size: 5px;
+    }
+
+    h3.elementor-image-box-title {
+        color: #ff6b35;
+        font-size: 8px;
+    }
+
+    .elementor-image-box-img {
+        height: 21px;
+    }
+
+    .certification-title,
+    .internship-title,
+    .enterprise-title {
+        font-size: 11px;
+    }
+
+    .certification-description,
+    .internship-description {
+        font-size: 7px;
+        margin-bottom: 6px;
+    }
+
+    .certification-image,
+    .internship-image {
+        height: 10em;
+    }
+
+
+}
+
+
+
+
+
+/* ===== Styles for max-width: 630px ===== */
+
+
+@media(max-width: 630px) {
+
+    .certification-description,
+    .internship-description {
+        font-size: 6px;
+        margin-bottom: 6px;
+    }
+
+    .explore-course-btn,
+    .signup-free-btn {
+        font-size: 6px;
+
+    }
+
+    .enterprise-image {
+
+        height: 16em;
+    }
+
+    .enterprise-description {
+        color: #fff;
+        font-size: 9px;
+        line-height: 1.6;
+        margin-bottom: 20px;
+        font-weight: 600;
+    }
+
+    .cert-status-label {
+        font-size: 13px;
+    }
+
+    .eiq-cert-header h1 {
+        font-size: 30px;
+        margin-bottom: 18px;
+        margin-top: 92px;
+    }
+
+    .cert-not-enrolled {
+        font-size: 7px;
+    }
+
+    .main-heading {
+        font-size: 21px;
+    }
+}
+
+
+
+
+
+
+
+/* ===== Styles for max-width: 622px and below ===== */
+
+@media screen and (max-width: 622px) {
+    .cert-header h1 {
+        font-size: 24px;
+    }
+
+    .cert-status-label {
+        font-size: 9px;
+    }
+
+    .cert-status-description {
+        font-size: 7px;
+    }
+}
+
+
+
+/* ===== Styles for max-width: 684px and below ===== */
+
+@media screen and (max-width: 622px) {
+    .cert-header h1 {
+        font-size: 24px;
+    }
+
+    .cert-status-label {
+        font-size: 9px;
+    }
+
+    .cert-status-description {
+        font-size: 7px;
+    }
+}
+
+
+
+/* ===== Styles for max-width: 684px and below ===== */
+
+@media screen and (max-width: 684px) {
+
+    p.elementor-image-box-description {
+
+        font-size: 7px;
+
+    }
+
+    .cert-status-label {
+        font-size: 13px;
+    }
+
+    .slider-section {
+
+        height: 61vh;
+    }
+
+
+
+}
+
+
+
+
+/* ===== Styles for max-width: 576px ===== */
+
+@media screen and (max-width: 576px) {
+    .elementor-image-box-wrapper {
+        height: auto;
+        padding: 8px;
+    }
+
+    h3.elementor-image-box-title {
+        color: #ff6b35;
+        font-size: 6px;
+    }
+
+    h3 {
+        margin-top: 8px;
+        margin-bottom: 0.5rem;
+    }
+
+    .elementor-image-box-img {
+        height: 15px;
+    }
+
+    section.elementor-section.elementor-inner-section.elementor-element-5b4952c1.elementor-section-boxed.elementor-section-height-default {
+        margin-bottom: 0;
+        padding: 82px 0;
+    }
+
+    .certification-title,
+    .internship-title,
+    .enterprise-title {
+        font-size: 10px;
+        margin-top: inherit;
+    }
+
+    .main-heading {
+        font-size: 19px;
+    }
+
+    .enterprise-image {
+        height: 15em
+    }
+
+
+    .enterprise-description {
+        color: #fff;
+        font-size: 9px;
+        line-height: 1.6;
+        margin-bottom: 1px;
+
+    }
+}
+
+
+
+
+/* ===== Styles for max-width: 528px ===== */
+
+@media screen and (max-width: 528px) {
+    .eiq-cert-header h1 {
+        font-size: 26px;
+        margin-bottom: 18px;
+        margin-top: 103px;
+    }
+
+    .cert-header h1 {
+        font-size: 23px;
+        margin-bottom: 26px;
+    }
+
+    p.cert-subtitle {
+        font-size: 24px;
+        margin-bottom: -47px;
+        margin-top: -70px;
+    }
+}
+
+/* ===== Styles for max-width: 573px ===== */
+
+@media screen and (max-width: 573px) {
+    .eiq-cert-header h1 {
+        font-size: 24px;
+        margin-bottom: 18px;
+        margin-top: 92px;
+    }
+}
+
+/* ===== Styles for max-width: 573px ===== */
+
+@media screen and (max-width: 512px) {
+    .main-heading {
+        font-size: 17px;
+    }
+
+    .sub-heading {
+        font-size: 11px;
+    }
+
+    .doc-paragraph {
+        font-size: 9px;
+        line-height: 1.7;
+        margin-bottom: 20px;
+        color: #555;
+    }
+
+    .doc-container {
+        padding: 20px 18px;
+    }
+
+    .doc-steps {
+        border-radius: 8px;
+        margin: 20px 0;
+        border: 1px solid #e9ecef;
+        font-size: smaller;
+    }
+
+    .cert-status-label {
+        font-size: 9px;
+    }
+
+    .cert-status-description {
+
+        font-size: 6px;
+    }
+
+}
+
+
+/* ===== Styles for max-width: 506px ===== */
+
+@media screen and (max-width: 506px) {
+    .elementor-section {
+        padding: 12px 40px;
+    }
+
+    h3.elementor-image-box-title {
+        font-size: 5px;
+    }
+
+    p.elementor-image-box-description {
+        font-size: 4px;
+    }
+
+    .elementor-image-box-img {
+        height: 10px;
+    }
+
+    .elementor-image-box-wrapper {
+        padding: 5px;
+    }
+
+    .cert-status-label {
+        font-size: 8px;
+    }
+
+    .cert-status-description {
+        font-size: 6px;
+    }
+
+    .cert-status-item {
+        padding: 13px;
+    }
+}
+
+/* ===== Styles for max-width: 507px ===== */
+
+@media screen and (max-width: 507px) {
+
+    section.elementor-section.elementor-inner-section.elementor-element.elementor-element-5b4952c1.elementor-section-boxed.elementor-section-height-default {
+        margin-bottom: 0px;
+        padding: 95px 0px;
+    }
+
+    .doc-container {
+
+        margin-bottom: 2px;
+        padding: 10px 10px 125px 10px;
+    }
+
+}
+
+/* ===== Styles for max-width: 481px ===== */
+
+
+
+/* ===== Styles for max-width: 486px ===== */
+
+@media screen and (max-width: 486px) {
+    .main-heading {
+        font-size: 15px;
+    }
+
+    .sub-heading {
+        font-size: 11px;
+        margin-bottom: 30px;
+        font-weight: 500;
+        color: #fff;
+        line-height: 0.2em;
+    }
+}
+
+
+/* ===== Styles for max-width: 480px ===== */
+
+@media screen and (max-width: 480px) {
+
+     .main-heading {
+        font-size: 15px !important;
+    }
+
+    .testimonial-text {
+        font-size: 9px !important;
+        padding: .3em 0;
+    }
+
+    .certification-image,
+    .internship-image {
+        height: 8em;
+    }
+
+    .elementor-col-50 {
+        width: 100%;
+        margin-bottom: 2px;
+    }
+
+    .certification-description,
+    .internship-description {
+        font-size: 5px;
+        margin-bottom: 8px;
+    }
+
+    .enterprise-section {
+        padding: 20px 0;
+    }
+
+    .enterprise-image {
+        height: 10em !important;
+    }
+
+    .cert-status-item {
+        padding: 5px;
+    }
+
+    .enterprise-description {
+        font-size: 5px;
+        color: #fff;
+        line-height: 1.6;
+        margin-bottom: 20px;
+        font-weight: 600;
+    }
+
+    .doc-heading {
+        font-size: 23px;
+    }
+
+    .doc-step {
+        font-size: x-small;
+    }
+
+    .slide-heading {
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+
+    .slide-description {
+        font-size: 9px;
+        margin-bottom: 30px;
+        line-height: 1.6;
+        opacity: 0.9;
+    }
+
+    .slider-section {
+        position: relative;
+        width: 100%;
+        height: 40vh;
+        overflow: hidden;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .doc-container {
+        padding: 20px 15px 129px 22px;
+    }
+
+    .cert-header {
+        text-align: center;
+        height: 418px;
+    }
+}
+
+
+
+/* ===== Styles for max-width: 481px ===== */
+
+@media screen and (max-width: 481px) {
+    section.elementor-section.elementor-inner-section.elementor-element.elementor-element-5b4952c1.elementor-section-boxed.elementor-section-height-default {
+        margin-bottom: 0px;
+        padding: 86px 0;
+    }
+
+    .doc-section {
+        width: 323px;
+    }
+
+    .elementor-section {
+        padding: 12px 40px;
+    }
+
+    .doc-section {
+        width: 323px;
+    }
+
+
+    .enterprise-image {
+        height: 11em;
+    }
+
+
+
+    .enterprise-description {
+
+        font-size: 5px;
+
+    }
+
+
+
+}
+
+
+/* ===== Styles for max-width: 769px ===== */
+
+
+
+
+/* ===== Styles for max-width: 426px ===== */
+
+@media screen and (max-width: 426px) {
+    .elementor-section {
+        padding: 25px 28px;
+    }
+}
+
+/* ===== Styles for max-width: 639px ===== */
+
+
+
+
+
+
+@media(max-width: 639px) {
+
+    .main-heading {
+        font-size: 20px;
+    }
+
+    .cert-status-label {
+        font-size: 13px;
+    }
+
+    .cert-status-description {
+        font-size: 8px;
+    }
+
+    .enterprise-image {
+
+        height: 18em;
+    }
+
+    .enterprise-section {
+        padding: 27px 18px;
+    }
+
+    .slider-section {
+        height: 59vh;
+    }
+
+    .cert-section {
+
+        padding: 29px 29px 29px 29px;
+    }
+
+
+}
+
+/* ===== Styles for max-width: 768 px ===== */
+
+@media (max-width: 768px) {
+    .slide-heading {
+        font-size: 2rem;
+    }
+
+    .slide-description {
+        font-size: 1rem;
+    }
+
+    .slide-content {
+        max-width: 90%;
+    }
+
+    .slider-nav {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+
+    .prev-btn {
+        left: 15px;
+    }
+
+    .next-btn {
+        right: 15px;
+    }
+}
+
+
+/* ===== Styles for max-width: 764 px ===== */
+
+@media (max-width: 764px) {
+
+    .certification-content,
+    .internship-content,
+    .enterprise-content {
+        padding: 9px -1px 0px 0px;
+        text-align: center
+    }
+
+}
+
+
+/* ===== Styles for max-width: 480px ===== */
+
+@media (max-width: 480px) {
+    .doc-text {
+        padding: 30px 20px;
+    }
+
+    .doc-heading {
+        font-size: 1.75rem;
+    }
+
+    .doc-paragraph,
+    .doc-list-item {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .eiq-container {
+        padding: 10px;
+    }
+
+    .eiq-course-title {
+        font-size: 2rem;
+    }
+
+    .eiq-status-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .eiq-status-item {
+        min-width: auto;
+    }
+
+    .eiq-lesson-preview {
+        padding: 15px 20px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .eiq-lesson-right {
+        align-self: flex-end;
+    }
+}
+
+/* ===== Styles for max-width: 768px ===== */
+
+@media (max-width: 768px) {
+    .doc-wrapper {
+        grid-template-columns: 1fr;
+    }
+
+    .doc-text {
+        padding: 40px 30px;
+        order: 2;
+    }
+
+    .doc-image {
+        height: 300px;
+        order: 1;
+    }
+
+    .doc-heading {
+        font-size: 2rem;
+    }
+
+
+}
+
+
+
+
+/* ===== Styles for max-width: 768px ===== */
+
+
+@media (max-width: 768px) {
+
+    .cert-status-bar {
+        grid-template-columns: 1fr;
+    }
+
+    .cert-status-item {
+        border-right: none;
+        border-bottom: 1px solid #e9ecef;
+        min-height: auto;
+        padding: 20px;
+    }
+
+    .cert-status-item:last-child {
+        border-bottom: none;
+    }
+
+    .doc-container {
+        padding: 22px 43px;
+    }
+
+    .cert-status-bar {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .cert-status-item {
+        min-width: auto;
+        flex: none;
+    }
+}
+
+/* ===== Styles for max-width: 768px ===== */
+
+
+
+/* ============================== Login page Responsive css =================================== */
+
+.for-login .page-card,
+.for-forgot .page-card,
+.for-login-with-email-link .page-card,
+.for-signup .page-card,
+.for-email-login .page-card {
+    padding: 7px 10px !important;
+    background-color: #fff !important;
+    max-width: 300px !important;
+    margin: 0 auto !important;
+    border-radius: var(--border-radius-md);
+    border: 1px solid var(--border-color);
+}
+
+
+
+
+/* RIGHT SIDE LOGIN SECTION CSS */
+
+body .page-content-wrapper {
+
+    min-height: unset !important;
+}
+
+.page-card-head img {
+    max-height: 40px;
+}
+
+@media (max-width: 1920px) and (min-width: 1400px) {
+    .page-card-head {
+        padding: max(10vh, 30px) 0 14px 0px !important;
+
+    }
+
+}

@@ -1,0 +1,15 @@
+<meta name="pdfkit-orientation" content="Landscape">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+{% set certificate = frappe.db.get_value("LMS Certificate", doc.name, ["name", "member", "course"], as_dict=True) %}
+{% set member = frappe.db.get_value("User", certificate.member, ["full_name"], as_dict=True) %}
+{% set course = frappe.db.get_value("LMS Course", certificate.course, ["title"], as_dict=True) %}
+{% set participant_name = member.full_name or 'Participant' %}
+{% set course_name = course.title or 'Course' %}
+{% set background_url = '/files/eiqcoursecertificate.png' %}
+
+<div class="certificate" style="background-image: url('{{ background_url }}');">
+  <div class="participant-name">{{ participant_name }}</div>
+  <div class="course-name">{{ course_name }}</div>
+</div>

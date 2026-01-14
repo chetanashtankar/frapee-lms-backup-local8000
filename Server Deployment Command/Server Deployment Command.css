@@ -1,0 +1,2092 @@
+I know your full requirement:
+➡ Same versions as local (Frappe 15.68.1, LMS 2.28.0, Node 18.20.x, MariaDB 10.6.x)
+➡ Production-ready: Nginx + Supervisor + browser-accessible LMS app working properly
+➡ Step-by-step, no missing LMS setup
+
+
+1️⃣ Update + install base tools
+apt update && apt upgrade -y
+apt install -y git curl build-essential software-properties-common
+
+
+2️⃣ Install Python 3.10 + pip
+apt install -y python3.10 python3.10-dev python3.10-venv python3-pip
+
+✅ Check:
+python3 --version
+pip3 --version
+
+
+3️⃣ Install Node.js 18 + Yarn
+curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
+apt install -y nodejs
+npm install -g yarn
+
+✅ Check:
+node --version
+npm --version
+yarn --version
+
+
+4️⃣ Install Redis + wkhtmltopdf
+apt install -y redis-server wkhtmltopdf
+
+
+5️⃣ Install MariaDB 10.6
+apt install -y mariadb-server mariadb-client
+
+✅ Secure it:
+mysql_secure_installation
+➡ Set root password
+➡ Remove anonymous users → yes
+➡ Disallow remote root login → yes
+➡ Remove test db → yes
+➡ Reload privileges → yes
+
+
+
+6️⃣ Add frappe user
+adduser frappe
+usermod -aG sudo frappe
+
+👉 Switch to frappe:
+su - frappe
+
+
+7️⃣ Install Bench CLI
+pip3 install --user frappe-bench
+echo 'export PATH=$PATH:~/.local/bin' >> ~/.bashrc
+source ~/.bashrc
+bench --version
+✅ Confirm 5.25.x (5.25.1 is fine)
+
+
+8️⃣ Initialize bench + Frappe
+bench init frappe-bench --frappe-branch v15.68.1
+cd frappe-bench
+
+
+9️⃣ Get LMS app (develop branch, like local)
+bench get-app --branch develop lms https://github.com/frappe/lms.git
+
+🔟 Create site + install LMS
+bench new-site yoursite.com
+
+➡ Set DB root password (the one you used in mysql_secure_installation)
+➡ Set admin password
+
+👉 Install LMS:
+bench --site yoursite.com install-app lms
+
+
+1️⃣1️⃣ Set up production (Nginx + Supervisor)
+sudo bench setup production frappe
+
+
+1️⃣2️⃣ Test LMS in browser
+http://216.48.181.71
+
+✅ Login with Administrator / password you set
+✅ Check LMS routes load (e.g. /courses)
+
+
+💡 Plan:
+👉 You stop after each major block (e.g. after MariaDB done) and tell me:
+✅ Block done
+
+
+
+/* bench --site yoursite.com install-app lms   
+upto 9 i completed and it is coming instal properly so i want like here you said new site yoursite what i have to give there can repeat from 9 */
+
+🌟 Step 9 — Get LMS app (you already did)
+bench get-app --branch develop lms https://github.com/frappe/lms.git
+
+✅ This cloned the LMS app (develop branch) — done!
+
+🌟 Step 10 — Create your site
+bench new-site lms.local
+
+
+🌟 Step 11 — Install LMS app on the site
+bench --site lms.local install-app lms
+
+
+✅ If you have ERPNext or other apps you want:
+bench --site lms.local install-app erpnext
+
+
+🌟 Step 12 — Set up production
+👉 Enable Nginx + Supervisor:
+sudo bench setup production frappe
+
+🌟 Access your LMS
+http://216.48.181.71
+
+
+
+/* udo bench setup production frappe  here asking me password which password i have to add */
+
+🌟 What’s happening?
+👉 When you run:
+sudo bench setup production frappe
+
+➡ You are running bench production setup with sudo.
+➡ sudo is asking for the password of the user you switched from → in this case, frappe user’s password
+
+
+🌟 Which password to enter?
+👉 Enter the password you set when you created the frappe user:
+adduser frappe
+
+
+(the one you typed during adduser frappe)
+
+👉 If you don’t remember it, you can reset it as root:
+passwd frappe
+
+
+Then switch to frappe user:
+su - frappe
+
+And re-run:
+sudo bench setup production frappe
+
+
+🌟 Why is this needed?
+✅ sudo bench setup production frappe:
+
+Configures Nginx
+
+Configures Supervisor
+
+Sets file permissions
+➡ It needs sudo access → so it asks frappe’s password to confirm permission.
+
+
+✅ Summary:
+➡ Enter frappe user’s password
+➡ Or reset it using passwd frappe as root
+
+
+
+/*  frappe@e2e-98-71:~/frappe-bench$ sudo bench setup production frappe
+sudo: bench: command not found
+frappe@e2e-98-71:~/frappe-bench$  */
+
+🌟 What happened?
+sudo bench setup production frappe
+
+
+👉 sudo launches a new root environment
+👉 In that environment, your PATH does not include ~/.local/bin
+👉 So it says:
+sudo: bench: command not found
+
+
+🌟 Solution — the right way to run production setup
+👉 Instead of sudo bench ..., run:
+sudo ~/.local/bin/bench setup production frappe
+✅ This directly calls bench using the full path.
+
+
+🌟 Alternative (if you want cleaner sudo bench)
+👉 Allow sudo to keep your PATH:
+
+sudo env "PATH=$PATH" bench setup production frappe
+
+👉 This makes sure sudo sees ~/.local/bin/bench
+
+
+⚡ Why is this needed?
+✅ Because you installed bench using:
+pip3 install --user frappe-bench
+
+
+👉 This puts it in:
+/home/frappe/.local/bin/bench
+
+👉 That folder isn’t in root’s path by default
+
+💡 What you should do now
+sudo ~/.local/bin/bench setup production frappe
+✅ This will correctly run the production setup!
+
+
+🌟 Why this happened
+➡ You installed bench with:
+pip3 install --user frappe-bench
+
+
+➡ This means bench is in this folder:
+/home/frappe/.local/bin/bench
+
+
+➡ But when you run sudo bench ...:
+
+sudo doesn’t see that folder → says bench: command not found
+
+
+🌟 Solution
+👉 Instead of just sudo bench ..., we will tell sudo the full path to bench.
+
+🚀 Steps to fix this
+✅ 1️⃣ Confirm where bench is
+which bench
+or
+echo $PATH
+
+
+👉 You’ll see something like:
+/home/frappe/.local/bin/bench
+
+✅ 2️⃣ Run production setup using full path
+sudo /home/frappe/.local/bin/bench setup production frappe
+
+✅ 3️⃣ (Optional cleaner way) — tell sudo to keep your path
+sudo env "PATH=$PATH" bench setup production frappe
+
+✅ 4️⃣ Let it finish production setup
+👉 This will:
+
+Set up Nginx config
+
+Set up Supervisor
+
+Set permissions
+
+Reload services
+
+💡 Final step: Access LMS
+http://216.48.181.71
+
+
+
+/* frappe@e2e-98-71:~/frappe-bench$ sudo /home/frappe/.local/bin/bench setup production frappe
+Traceback (most recent call last):
+  File "/home/frappe/.local/bin/bench", line 5, in <module>
+    from bench.cli import cli
+ModuleNotFoundError: No module named 'bench'
+frappe@e2e-98-71:~/frappe-bench$ */
+
+🌟 Why this error appeared
+➡ The error:
+ModuleNotFoundError: No module named 'bench'
+
+means:
+👉 Your bench executable is there (/home/frappe/.local/bin/bench)
+👉 But the Python environment isn’t finding its bench module
+
+👉 This usually happens if:
+
+The pip install of frappe-bench was incomplete or broken
+
+The environment path or site-packages got messed up
+
+
+🌟 Solution — reinstall frappe-bench properly
+👉 Let’s clean it up and reinstall:
+
+✅ 1️⃣ Remove old bench files
+rm -f /home/frappe/.local/bin/bench
+pip3 uninstall frappe-bench -y
+
+
+✅ 2️⃣ Reinstall frappe-bench cleanly
+pip3 install --user frappe-bench
+
+
+👉 Confirm:
+~/.local/bin/bench --version
+
+
+✅ You should see:
+5.25.x
+
+✅ 3️⃣ Run production setup
+sudo /home/frappe/.local/bin/bench setup production frappe
+
+
+OR cleaner:
+sudo env "PATH=$PATH" bench setup production frappe
+
+
+⚡ Why this will work
+✅ Reinstalling bench ensures all the needed Python modules are in place
+✅ The error about ModuleNotFoundError will not occur
+✅ We can proceed with production setup!
+
+
+🚀 Final step for now:
+👉 Please run the reinstall steps above.
+👉 Then tell me:
+✅ Bench reinstalled, production setup done
+
+
+
+💡 Tip: You’re doing great! This is a normal small bump — we’re almost at the finish line 🚀
+
+✅ Thank you for providing clear info, Chetan! Let’s break it down — I’ll give you a clean solution that works 100%.
+
+
+
+🌟 Why this is happening
+👉 Even though you reinstalled frappe-bench, the environment for sudo doesn’t have the Python path to find the installed bench module
+👉 pip3 install --user installs in user space — and sudo doesn’t see it
+👉 That’s why it keeps failing at:
+
+
+ ModuleNotFoundError: No module named 'bench'
+ 
+ 
+ 🚀 Solution — install frappe-bench system-wide so sudo can see it
+👉 Instead of --user, install without --user so all users (including sudo) can see it.
+
+✅ 1️⃣ Remove the user-level bench
+pip3 uninstall frappe-bench -y
+rm -f ~/.local/bin/bench
+
+
+
+
+✅ 2️⃣ Install bench system-wide
+Run:
+sudo pip3 install frappe-bench
+👉 Now bench will be installed in a system path (usually /usr/local/bin/bench) that sudo can use without problem.
+
+
+✅ 3️⃣ Confirm bench works globally
+Run:bench --version
+
+
+and
+which bench
+
+✅ You should see:
+/usr/local/bin/bench
+
+
+
+✅ 4️⃣ Now run production setup
+sudo bench setup production frappe
+👉 This will now work properly because sudo can see the bench install.
+
+
+⚡ Why this fixes the problem
+✅ sudo needs to see the Python packages (and the bench executable)
+✅ A system-wide install makes it visible to both normal user + sudo
+
+
+🚀 Next steps
+👉 Please do this and tell me:
+✅ Bench system-wide installed, production setup done
+👉 We’ll then check LMS in browser!
+
+💡 Tip: This is the clean, standard way for production servers — you’re almost there! 🚀
+
+✅ Awesome, Chetan! Great job — now you’re right at the final key stage. Let’s proceed carefully so production setup completes perfectly.
+
+
+
+🚀 Run production setup
+👉 You are ready to execute:
+sudo bench setup production frappe
+
+
+✅ What this will do:
+
+Generate and set up Nginx config for your site
+
+Generate and configure Supervisor to manage processes
+
+Set file permissions correctly
+
+Restart services (Nginx, Supervisor, etc.)
+
+🌟 What to expect
+👉 It will print output showing:
+Setting up NGINX...
+Setting up Supervisor...
+Restarting services...
+
+
+👉 At the end, your LMS will be served at:
+http://216.48.181.71
+
+
+🌟 After it finishes
+👉 Check in browser:
+http://216.48.181.71
+
+💡 If you want to double check services
+You can check:
+sudo supervisorctl status
+
+
+⚡ Next step
+👉 Run:
+sudo bench setup production frappe
+
+
+/* Setting Up supervisor...
+Setting Up NGINX...
+Port configuration list:
+
+Site lms.local assigned port: 80
+Setting Up symlinks and reloading services...
+$ sudo /usr/sbin/nginx -t
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+$ sudo systemctl reload nginx
+frappe@e2e-98-71:~/frappe-bench$ 
+
+now what i have to do */
+
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+✅ Nginx config is good
+✅ Supervisor + Nginx reloaded
+✅ Site is served on port 80
+
+👉 4️⃣ (Optional) Check Supervisor processes
+sudo supervisorctl status
+
+
+✅ You should see:
+
+frappe-bench-web RUNNING
+frappe-bench-worker-long RUNNING
+frappe-bench-worker-short RUNNING
+frappe-bench-worker-default RUNNING
+frappe-bench-socketio RUNNING
+
+
+
+🌟 Do I need to run bench start in production?
+👉 NO. You do not need bench start in production mode.
+👉 bench start is only for development mode — it starts processes in the foreground in your terminal (not using Supervisor or Nginx).
+
+🌟 What happens in production instead?
+➡ In production, after:
+sudo bench setup production frappe
+
+
+👉 Supervisor manages:
+
+Web process
+
+SocketIO
+
+Workers (default, short, long)
+
+👉 Nginx handles:
+
+HTTP requests to your server
+
+✅ This means everything starts automatically when:
+
+You reboot the server
+
+Supervisor restarts a failed process
+
+
+
+🌟 What should you do now?
+✅ Check your site directly:
+http://216.48.181.71
+
+
+sudo supervisorctl status
+
+
+🌟 When would I use bench start?
+👉 Only if you were running Frappe in development mode — e.g. on localhost without Nginx + Supervisor
+
+🚀 Summary
+✅ No bench start needed in production
+✅ Nginx + Supervisor handle everything
+✅ Just open your browser and test!
+
+💡 Next:
+👉 Open http://216.48.181.71
+
+
+✅ Good job testing that, Chetan — let’s calmly troubleshoot so we get this working perfectly.
+
+👉 Since production setup finished cleanly (Nginx syntax OK, services reloaded), here’s how we’ll debug why LMS isn’t loading on http://216.48.181.71.
+
+🌟 Step 1 — Check Nginx is running
+sudo systemctl status nginx
+
+
+active (running)
+
+
+🌟 Step 2 — Check Supervisor processes
+sudo supervisorctl status
+
+frappe-bench-web RUNNING
+frappe-bench-worker-default RUNNING
+frappe-bench-worker-short RUNNING
+frappe-bench-worker-long RUNNING
+frappe-bench-socketio RUNNING
+
+
+🌟 Step 3 — Check open ports
+sudo ss -tlnp | grep 80
+
+🌟 Step 4 — Check site enabled in Nginx
+ls /etc/nginx/sites-enabled/
+
+✅ Should see something like:
+frappe-bench.conf
+
+🌟 Step 5 — Reload Nginx (just to be sure)
+sudo systemctl reload nginx
+
+
+🌟 Step 6 — Confirm no firewall blocking
+Run:
+
+sudo ufw status
+
+✅ If enabled, ensure 80 is allowed:
+sudo ufw allow 80
+
+🌟 What to do next
+👉 Please run those commands and paste the outputs
+👉 I’ll guide the exact next fix!
+
+
+💡 You’re super close! Small config check and your LMS will load 🚀
+
+✅ Nice job gathering that info, Chetan — let’s break it down carefully so we can fix this cleanly.
+
+🌟 What’s the situation right now
+✅ Nginx is running perfectly:
+Active: active (running)
+
+
+
+👉 This means your web server is ready to serve Frappe if the backend is up.
+
+❌ Supervisor output is empty / no processes listed:
+👉 This means the Frappe backend (web, workers, socketio) is not running → site won’t load.
+
+❌ bench is missing:s
+-bash: /home/frappe/.local/bin/bench: No such file or directory
+
+👉 Your bench command isn’t available → we need to restore it.
+
+
+🚀 Here’s the clean step-by-step plan
+✅ 1️⃣ Reinstall frappe-bench so bench command is back
+Run:
+
+
+sudo pip3 install frappe-bench
+
+
+👉 This will install bench system-wide (no more missing executable)
+
+bench --version
+
+
+
+✅ 2️⃣ Re-run production setup
+Since supervisor processes are missing:
+sudo bench setup production frappe
+
+sudo supervisorctl status
+frappe-bench-web RUNNING
+frappe-bench-worker-default RUNNING
+frappe-bench-worker-short RUNNING
+frappe-bench-worker-long RUNNING
+frappe-bench-socketio RUNNING
+
+
+🌟 Why this will work
+👉 We’re restoring bench so we can properly control Frappe
+👉 We’re ensuring Supervisor has the correct processes
+👉 Nginx is already fine
+
+sudo pip3 install frappe-bench
+bench --version
+
+
+/* frappe@e2e-98-71:~/frappe-bench$ sudo pip3 install frappe-bench
+Requirement already satisfied: frappe-bench in /usr/local/lib/python3.10/dist-packages (5.25.5)
+Requirement already satisfied: semantic-version~=2.10.0 in /usr/local/lib/python3.10/dist-packages (from frappe-bench) (2.10.0)
+Requirement already satisfied: tomli in /usr/local/lib/python3.10/dist-packages (from frappe-bench) (2.2.1)
+Requirement already satisfied: jinja2~=3.1.3 in /usr/local/lib/python3.10/dist-packages (from frappe-bench) (3.1.6)
+Requirement already satisfied: honcho in /usr/local/lib/python3.10/dist-packages (from frappe-bench) (2.0.0)
+Requirement already satisfied: python-crontab~=2.6.0 in /usr/local/lib/python3.10/dist-packages (from frappe-bench) (2.6.0)
+Requirement already satisfied: requests~=2.32.3 in /usr/local/lib/python3.10/dist-packages (from frappe-bench) (2.32.4)
+Requirement already satisfied: uv~=0.7.12 in /usr/local/lib/python3.10/dist-packages (from frappe-bench) (0.7.13)
+Requirement already satisfied: click~=8.2.0 in /usr/local/lib/python3.10/dist-packages (from frappe-bench) (8.2.1)
+Requirement already satisfied: setuptools>=71.0.0 in /usr/local/lib/python3.10/dist-packages (from frappe-bench) (80.9.0)
+Requirement already satisfied: gitpython~=3.1.30 in /usr/local/lib/python3.10/dist-packages (from frappe-bench) (3.1.44)
+Requirement already satisfied: gitdb<5,>=4.0.1 in /usr/local/lib/python3.10/dist-packages (from gitpython~=3.1.30->frappe-bench) (4.0.12)
+Requirement already satisfied: MarkupSafe>=2.0 in /usr/lib/python3/dist-packages (from jinja2~=3.1.3->frappe-bench) (2.0.1)
+Requirement already satisfied: python-dateutil in /usr/local/lib/python3.10/dist-packages (from python-crontab~=2.6.0->frappe-bench) (2.9.0.post0)
+Requirement already satisfied: certifi>=2017.4.17 in /usr/lib/python3/dist-packages (from requests~=2.32.3->frappe-bench) (2020.6.20)
+Requirement already satisfied: charset_normalizer<4,>=2 in /usr/local/lib/python3.10/dist-packages (from requests~=2.32.3->frappe-bench) (3.4.2)
+Requirement already satisfied: urllib3<3,>=1.21.1 in /usr/lib/python3/dist-packages (from requests~=2.32.3->frappe-bench) (1.26.5)
+Requirement already satisfied: idna<4,>=2.5 in /usr/lib/python3/dist-packages (from requests~=2.32.3->frappe-bench) (3.3)
+Requirement already satisfied: smmap<6,>=3.0.1 in /usr/local/lib/python3.10/dist-packages (from gitdb<5,>=4.0.1->gitpython~=3.1.30->frappe-bench) (5.0.2)
+Requirement already satisfied: six>=1.5 in /usr/lib/python3/dist-packages (from python-dateutil->python-crontab~=2.6.0->frappe-bench) (1.16.0)
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+frappe@e2e-98-71:~/frappe-bench$ bench --version
+-bash: /home/frappe/.local/bin/bench: No such file or directory
+frappe@e2e-98-71:~/frappe-bench$  */
+
+
+✅ Chetan — very well spotted! You’ve installed frappe-bench system-wide successfully. Now the small missing link is just your shell not seeing the bench command path. Let’s fix this cleanly!
+
+🌟 Why this is happening
+➡ pip3 install frappe-bench installed bench in:
+
+/usr/local/bin/bench
+
+➡ But your terminal is still looking for:
+/home/frappe/.local/bin/bench
+
+➡ That’s why it says:
+-bash: /home/frappe/.local/bin/bench: No such file or directory
+
+🚀 What to do now
+👉 Try this:
+
+which bench
+
+
+✅ It should show:
+/usr/local/bin/bench
+
+👉 Now run production setup again:
+
+sudo bench setup production frappe
+
+
+💡 If which bench doesn’t work:
+👉 Run directly:sudo /usr/local/bin/bench setup production frappe
+
+
+🌟 Next
+✅ Once production setup finishes:
+👉 Check:sudo supervisorctl status
+
+
+🚀 Why CSS/JS might fail
+Common causes:
+✅ Missing bench build (assets not generated)
+✅ Permissions issue
+✅ Nginx misconfigured or not picking up static files
+✅ Browser cache issue (rare, but worth checking)
+
+🌟 Solution — clean and rebuild assets
+Run these commands on your server:
+cd ~/frappe-bench
+bench build
+bench clear-cache
+bench clear-website-cache
+sudo supervisorctl restart all
+sudo systemctl reload nginx
+
+
+💡 Tell me what happens — I’ll guide the next fine-tuning if needed! 🚀
+
+✅ Good catch, Chetan — let’s fix this right now so you can build assets successfully.
+.
+
+🌟 What’s happening
+👉 Your system-wide bench is installed at:
+/usr/local/bin/bench
+
+
+👉 But your shell is still trying to run:	
+/home/frappe/.local/bin/bench
+
+👉 That’s why you get:
+-bash: /home/frappe/.local/bin/bench: No such file or directory
+
+🚀 Solution
+👉 Simply run:
+/usr/local/bin/bench build
+
+
+👉 OR make sure bench is in your PATH:
+hash -r
+bench --version
+
+
+🌟 Next steps
+👉 After you run bench build, also do:
+
+bench clear-cache
+bench clear-website-cache
+sudo supervisorctl restart all
+sudo systemctl reload nginx
+
+
+🌟 Why this will work
+✅ This ensures your static files are built
+✅ Cache is cleared
+✅ Nginx + Supervisor serve the fresh assets
+
+
+/*
+completd evrything but 
+http://216.48.181.71:8000/
+i run this there it is coming This site can’t be reached 
+
+and http://216.48.181.71/  i run so there is no css js file is loading frapee login page is not coming properly */
+
+
+
+🌟 What’s happening
+👉 http://216.48.181.71:8000/
+➡ ❌ Not needed.
+➡ That port is only used in development (bench start).
+➡ In production, Nginx serves on port 80 — no need for :8000.
+
+👉 http://216.48.181.71/
+➡ Your site opens, but CSS/JS missing → assets aren’t being served properly.
+
+🚀 Why CSS/JS missing?
+✅ Causes:
+
+Assets not built correctly
+
+Nginx config issue
+
+File permissions preventing Nginx from reading assets
+
+🌟 Let’s fix this step-by-step
+1️⃣ Force rebuild assets
+Run:cd ~/frappe-bench
+/usr/local/bin/bench build --force
+/usr/local/bin/bench clear-cache
+/usr/local/bin/bench clear-website-cache
+
+
+2️⃣ Fix permissions
+Run:sudo chown -R frappe:frappe ~/frappe-bench
+sudo chmod -R o+rx ~/frappe-bench/sites ~/frappe-bench/sites/assets
+
+3️⃣ Restart everything
+sudo supervisorctl restart all
+sudo systemctl reload nginx
+
+4️⃣ Verify Nginx site config
+👉 Check:
+ls /etc/nginx/sites-enabled/
+
+
+
+✅ You should see:
+
+frappe-bench.conf
+
+
+👉 Check that file includes a line like:
+root /home/frappe/frappe-bench/sites;
+
+
+✅ If not, we’ll regenerate config:
+
+sudo /usr/local/bin/bench setup nginx
+sudo systemctl reload nginx
+
+
+5️⃣ Test in browser
+👉 Open:
+
+http://216.48.181.71/
+
+✅ Press Ctrl+F5 to force refresh + clear cache.
+
+👉 Open DevTools → Network → reload → check if CSS/JS load (no 404s).
+
+🌟 Summary
+✅ No need for :8000 — Nginx production serves on port 80.
+✅ We’ll rebuild, fix permissions, reload services → your CSS/JS will load!
+
+
+/*  frappe@e2e-98-71:~/frappe-bench$ /usr/local/bin/bench clear-cache
+Please specify --site sitename
+frappe@e2e-98-71:~/frappe-bench$   */
+
+
+
+ls sites
+
+apps.txt  common_site_config.json  currentsite.txt  lms.local  ...
+
+
+👉 Now run:
+/usr/local/bin/bench --site lms.local clear-cache
+/usr/local/bin/bench --site lms.local clear-website-cache
+
+
+🌟 Continue with
+Then proceed:
+/usr/local/bin/bench build --force
+sudo supervisorctl restart all
+sudo systemctl reload nginx
+
+
+🌟 Check Nginx site config
+👉 Run:
+cat /etc/nginx/sites-enabled/frappe-bench.conf | grep server_name
+
+
+✅ This will show what domain or IP Nginx is configured to serve.
+
+👉 Example output:
+server_name lms.local default_server;
+
+
+
+🌟 How to fix Nginx server_name
+If the output shows lms.local:
+👉 Edit Nginx config:
+sudo nano /etc/nginx/sites-enabled/frappe-bench.conf
+
+
+👉 Change:
+server_name lms.local;
+
+👉 To:
+server_name 216.48.181.71;
+
+👉 Save + exit.
+👉 Reload Nginx:
+
+sudo systemctl reload nginx
+
+🌟 Check where assets point
+👉 Run:
+cat ~/frappe-bench/sites/common_site_config.json | grep host_name
+
+
+👉 Or look inside:
+cat ~/frappe-bench/sites/lms.local/site_config.json
+✅ This may show:
+"host_name": "http://lms.local"
+
+
+👉 You can update with:
+/usr/local/bin/bench set-config host_name http://216.48.181.71 --site lms.local
+
+👉 Then:
+
+/usr/local/bin/bench build
+sudo supervisorctl restart all
+sudo systemctl reload nginx
+
+
+
+🌟 Summary
+✅ We’ll align Nginx + Frappe config to serve correctly on your public IP.
+✅ Then assets will load fine without needing :8000 or special hostnames!
+
+💡 Next:
+👉 Run the above commands and share output
+👉 I’ll help adjust config if needed!
+
+🚀 You're close — let’s finish this cleanly!
+
+✅ Good work checking that, Chetan — you’ve given me exactly the clue we need. Let’s break this down clearly so we solve it cleanly.
+
+🚩 Root cause
+👉 Nginx is serving the site, but:
+
+
+/etc/nginx/sites-enabled/frappe-bench.conf: No such file or directory
+
+➡ This means Nginx has no config linked for your Frappe site → it doesn't know how to serve CSS/JS, and it's not routing properly to your app.
+➡ That’s why no CSS/JS loads — Nginx isn’t pointing to your static assets or proxying to your backend processes!
+
+🌟 What we need to do
+We need to regenerate Nginx config for your site and enable it:
+
+✅ 1️⃣ Re-generate Nginx config
+Run:
+
+cd ~/frappe-bench
+/usr/local/bin/bench setup nginx
+
+
+✅ 2️⃣ Enable the site config in Nginx
+Run:
+sudo ln -s /home/frappe/frappe-bench/config/nginx.conf /etc/nginx/sites-enabled/frappe-bench.conf
+
+✅ 3️⃣ Reload Nginx
+sudo nginx -t
+sudo systemctl reload nginx
+
+✅ Ensure nginx -t says:
+syntax is ok
+test is successful
+
+
+✅ 4️⃣ Restart Supervisor processes
+Run:sudo supervisorctl restart all
+
+
+
+💡 Important
+👉 No port :8000 needed — Nginx listens on port 80 in production mode.
+👉 We are fixing this at the Nginx + asset routing level — this is the correct permanent solution.
+
+🚀 Next
+✅ Please run these commands.
+✅ Paste output of nginx -t and confirm if login page loads.
+
+👉 If anything fails, tell me — I’ll guide the exact next fix!
+
+We’re very close — this will solve your CSS/JS issue. 🚀
+
+✅ Chetan — you're doing great. Let’s calmly solve this step-by-step. We’ll focus on what matters to serve the CSS/JS.
+
+🌟 Let’s double-check key points
+👉 Nginx in production mode serves on port 80 (default HTTP).
+👉 You should not need any :8000 → that’s for bench start (development mode only).
+
+👉 If the login page shows without CSS/JS, that means:
+➡ Nginx is serving the page HTML
+➡ But static files (assets) aren’t served → either Nginx path issue or assets missing
+
+
+
+🚀 Here’s what I want you to check + share
+✅ 1️⃣ Confirm Nginx config exists
+
+ls -l /etc/nginx/sites-enabled/
+
+✅ You should see something like:
+frappe-bench.conf -> /home/frappe/frappe-bench/config/nginx.conf
+
+
+✅ You should see something like:
+frappe-bench.conf -> /home/frappe/frappe-bench/config/nginx.conf
+
+✅ 2️⃣ Check that assets exist
+ls -l ~/frappe-bench/sites/assets
+
+👉 You should see folders like:
+frappe/  lms/  css/  js/
+
+✅ 3️⃣ Check site name
+ls ~/frappe-bench/sites
+
+👉 Confirm the actual site folder name (e.g., lms.local)
+
+
+✅ 4️⃣ Confirm Nginx is listening
+sudo lsof -i :80
+👉 This tells us Nginx is actually bound on port 80
+
+✅ 5️⃣ Check if assets are 404
+👉 Open browser DevTools → Network tab → reload
+👉 Look for failed files → are CSS/JS coming back 404?
+
+
+
+
+💡 Once I have these details
+👉 I can tell you exactly where the problem is — Nginx path, asset build, or permission.
+
+
+🌟 Summary
+🚀 Please share:
+✅ Nginx sites-enabled link
+✅ Sites/assets folder content
+✅ Actual site folder name
+✅ Port binding (lsof)
+✅ Example 404 asset path
+
+👉 Once you paste that, I’ll give the exact commands to fix.
+👉 No port :8000 needed — we’ll solve it on port 80 as intended!
+
+🚩 Root cause
+👉 Your browser tries:
+http://216.48.181.71/assets/frappe/css/bootstrap.css
+
+🚀 Solution steps — clean and permanent
+1️⃣ Ensure Frappe assets are built
+Let’s force build the assets:
+/usr/local/bin/bench build --force
+
+
+
+2️⃣ Ensure correct permissions
+Sometimes static files aren’t accessible due to permissions:
+sudo chown -R frappe:frappe ~/frappe-bench/sites/assets
+sudo chmod -R 755 ~/frappe-bench/sites/assets
+
+3️⃣ Ensure Nginx config is mapping /assets
+👉 Check:grep assets /home/frappe/frappe-bench/config/nginx.conf
+
+✅ You should see something like:
+location /assets {
+    try_files $uri =404;
+}
+
+If not, re-run:
+/usr/local/bin/bench setup nginx
+
+And reload:
+sudo systemctl reload nginx
+
+
+4️⃣ Restart services
+sudo supervisorctl restart all
+
+
+5️⃣ Test
+👉 In browser, go to:
+http://216.48.181.71/
+
+
+
+💡 Why this will work
+✅ We’re forcing the asset build
+✅ We’re ensuring file permissions
+✅ We’re ensuring Nginx knows how to route /assets
+
+
+
+🌟 If still stuck
+👉 Paste:
+grep assets /home/frappe/frappe-bench/config/nginx.conf
+
+
+/* ✓ built in 22.47s
+$ cp ../lms/public/frontend/index.html ../lms/www/lms.html
+Done in 33.35s.
+Compiling translations for frappe
+MO file created at /home/frappe/frappe-bench/sites/assets/locale/sr_CS/LC_MESSAGES/frappe.mo
+MO file created at /home/frappe/frappe-bench/sites/assets/locale/th/LC_MESSAGES/frappe.mo
+MO file created at /home/frappe/frappe-bench/sites/assets/locale/pt_BR/LC_MESSAGES/frappe.mo
+MO file created at /home/frappe/frappe-bench/sites/assets/locale/zh/LC_MESSAGES/frappe.mo
+MO file created at /home/frappe/frappe-bench/sites/assets/locale/ru/LC_MESSAGES/frappe.mo
+MO file created at /home/frappe/frappe-bench/sites/assets/locale/pl/LC_MESSAGES/frappe.mo
+MO file created at /home/frappe/frappe-bench/sites/assets/locale/pt/LC_MESSAGES/frappe.mo
+MO file created at /home/frappe/frappe-bench/sites/assets/locale/tr/LC_MESSAGES/frappe.mo
+MO file created at /home/frappe/frappe-bench/sites/assets/locale/eo/LC_MESSAGES/frappe.mo
+MO file created at /home/frappe/frappe-bench/sites/assets/locale/fa/LC_MESSAGES/frappe.mo
+MO file created at /home/frappe/frappe-bench/sites/assets/locale/hu/LC_MESSAGES/frappe.mo
+MO file created at /home/frappe/frappe-bench/sites/assets/locale/hr/LC_MESSAGES/frappe.mo
+MO file created at /home/frappe/frappe-bench/sites/assets/locale/bs/LC_MESSAGES/frappe.mo
+MO file created at /home/frappe/frappe-bench/sites/assets/locale/es/LC_MESSAGES/frappe.mo
+MO file created at /home/frappe/frappe-bench/sites/assets/locale/de/LC_MESSAGES/frappe.mo
+MO file created at /home/frappe/frappe-bench/sites/assets/locale/fr/LC_MESSAGES/frappe.mo
+MO file created at /home/frappe/frappe-bench/sites/assets/locale/sv/LC_MESSAGES/frappe.mo
+MO file created at /home/frappe/frappe-bench/sites/assets/locale/ar/LC_MESSAGES/frappe.mo
+Compiling translations for lms
+MO file created at /home/frappe/frappe-bench/sites/assets/locale/tr/LC_MESSAGES/lms.mo
+MO file created at /home/frappe/frappe-bench/sites/assets/locale/pt_BR/LC_MESSAGES/lms.mo
+MO file created at /home/frappe/frappe-bench/sites/assets/locale/th/LC_MESSAGES/lms.mo
+MO file created at /home/frappe/frappe-bench/sites/assets/locale/pl/LC_MESSAGES/lms.mo
+MO file created at /home/frappe/frappe-bench/sites/assets/locale/sr_CS/LC_MESSAGES/lms.mo
+MO file created at /home/frappe/frappe-bench/sites/assets/locale/sr/LC_MESSAGES/lms.mo
+MO file created at /home/frappe/frappe-bench/sites/assets/locale/ru/LC_MESSAGES/lms.mo
+MO file created at /home/frappe/frappe-bench/sites/assets/locale/it/LC_MESSAGES/lms.mo
+MO file created at /home/frappe/frappe-bench/sites/assets/locale/zh/LC_MESSAGES/lms.mo
+MO file created at /home/frappe/frappe-bench/sites/assets/locale/fa/LC_MESSAGES/lms.mo
+MO file created at /home/frappe/frappe-bench/sites/assets/locale/cs/LC_MESSAGES/lms.mo
+MO file created at /home/frappe/frappe-bench/sites/assets/locale/eo/LC_MESSAGES/lms.mo
+MO file created at /home/frappe/frappe-bench/sites/assets/locale/pt/LC_MESSAGES/lms.mo
+MO file created at /home/frappe/frappe-bench/sites/assets/locale/hr/LC_MESSAGES/lms.mo
+MO file created at /home/frappe/frappe-bench/sites/assets/locale/hu/LC_MESSAGES/lms.mo
+MO file created at /home/frappe/frappe-bench/sites/assets/locale/es/LC_MESSAGES/lms.mo
+MO file created at /home/frappe/frappe-bench/sites/assets/locale/nl/LC_MESSAGES/lms.mo
+MO file created at /home/frappe/frappe-bench/sites/assets/locale/de/LC_MESSAGES/lms.mo
+MO file created at /home/frappe/frappe-bench/sites/assets/locale/fr/LC_MESSAGES/lms.mo
+MO file created at /home/frappe/frappe-bench/sites/assets/locale/vi/LC_MESSAGES/lms.mo
+MO file created at /home/frappe/frappe-bench/sites/assets/locale/bs/LC_MESSAGES/lms.mo
+MO file created at /home/frappe/frappe-bench/sites/assets/locale/ar/LC_MESSAGES/lms.mo
+MO file created at /home/frappe/frappe-bench/sites/assets/locale/sv/LC_MESSAGES/lms.mo
+frappe@e2e-98-71:~/frappe-bench$ sudo chown -R frappe:frappe ~/frappe-bench/sites/assets
+sudo chmod -R 755 ~/frappe-bench/sites/assets
+frappe@e2e-98-71:~/frappe-bench$ grep assets /home/frappe/frappe-bench/config/nginx.conf
+	location /assets {
+frappe@e2e-98-71:~/frappe-bench$ sudo supervisorctl restart all
+/usr/lib/python3/dist-packages/supervisor/options.py:13: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+frappe-bench-redis:frappe-bench-redis-queue: stopped
+frappe-bench-web:frappe-bench-node-socketio: stopped
+frappe-bench-redis:frappe-bench-redis-cache: stopped
+frappe-bench-web:frappe-bench-frappe-web: stopped
+frappe-bench-workers:frappe-bench-frappe-schedule: stopped
+frappe-bench-workers:frappe-bench-frappe-short-worker-0: stopped
+frappe-bench-workers:frappe-bench-frappe-long-worker-0: stopped
+frappe-bench-redis:frappe-bench-redis-cache: started
+frappe-bench-redis:frappe-bench-redis-queue: started
+frappe-bench-web:frappe-bench-frappe-web: started
+frappe-bench-web:frappe-bench-node-socketio: started
+frappe-bench-workers:frappe-bench-frappe-schedule: started
+frappe-bench-workers:frappe-bench-frappe-short-worker-0: started
+frappe-bench-workers:frappe-bench-frappe-long-worker-0: started
+frappe@e2e-98-71:~/frappe-bench$ grep assets /home/frappe/frappe-bench/config/nginx.conf
+	location /assets {
+frappe@e2e-98-71:~/frappe-bench$   */
+
+
+
+✅ Chetan — fantastic job! You followed all the right steps. You’re very close to a clean working production setup! Let’s summarize and apply the final checks to get the login page with CSS/JS loading perfectly.
+
+🌟 What’s done and correct
+✅ Assets are built
+✅ Permissions on assets are correct
+✅ Nginx has /assets location
+✅ Supervisor processes are running
+
+
+
+
+🚀 What to do now
+1️⃣ Confirm Nginx is using the right config
+Let’s double check what Nginx is serving:
+
+sudo nginx -t
+
+
+✅ Ensure:
+syntax is ok
+test is successful
+
+👉 If OK, reload:
+sudo systemctl reload nginx
+
+
+2️⃣ Check what domain Nginx is matching
+grep server_name /home/frappe/frappe-bench/config/nginx.conf
+
+✅ Output should include:
+server_name 216.48.181.71;
+
+
+👉 If it still says lms.local, you need to fix it:
+/usr/local/bin/bench setup nginx
+
+
+
+Edit:
+nano /home/frappe/frappe-bench/config/nginx.conf
+
+Change:
+
+server_name lms.local;
+
+
+👉 To:
+server_name 216.48.181.71;
+
+
+Reload:
+sudo systemctl reload nginx
+
+
+3️⃣ Double-check browser requests
+👉 In browser → open DevTools → Network
+👉 Reload http://216.48.181.71/
+👉 Tell me if:
+
+CSS/JS files are loading (200 OK)
+
+Or still 404 — and what exact URL it tries
+
+✅ Summary
+👉 Run:sudo nginx -t
+sudo systemctl reload nginx
+grep server_name /home/frappe/frappe-bench/config/nginx.conf
+
+
+👉 If server_name isn’t 216.48.181.71, change + reload
+
+👉 Re-test in browser
+
+⚡ Once you do this, your login page should load fully styled!
+💬 Paste outputs, and tell me what you see in browser — we’ll close this cleanly 🚀
+
+✅ Great job testing, Chetan — this confirms the key missing link! Let me explain and guide you cleanly.
+
+🚩 What’s wrong
+👉 Your Nginx config shows:
+server_name
+
+
+➡ This means no server name is defined → Nginx doesn’t know for which domain/IP it should serve your site.
+
+➡ That’s why your assets aren’t loading → Nginx can’t match the request properly.
+
+🚀 How to fix
+We need to regenerate Nginx config with your IP as server_name.
+
+✅ 1️⃣ Run:
+/usr/local/bin/bench setup nginx
+
+✅ 2️⃣ Edit the generated config
+nano /home/frappe/frappe-bench/config/nginx.conf
+
+
+👉 Find:
+server_name ;
+
+👉 Change to:
+server_name 216.48.181.71;
+
+
+👉 Save + exit (Ctrl+O, Enter, Ctrl+X)
+
+✅ 3️⃣ Apply config
+sudo systemctl reload nginx
+
+
+
+✅ Optionally verify:
+
+
+sudo nginx -t
+✅ Should say:
+
+syntax is ok
+test is successful
+
+
+/* give me bench build command */
+✅ Sure, Chetan! Here’s the exact command to build assets cleanly:
+/usr/local/bin/bench build --force
+
+💡 Why use --force?
+It ensures all apps' assets (Frappe, LMS, custom apps) are rebuilt from scratch — no stale files.
+
+📌 Follow-up after build
+After this completes:
+sudo supervisorctl restart all
+sudo systemctl reload nginx
+
+
+/* same issue can set port if we set perticular port then it wil work ? */
+
+✅ Good thinking, Chetan — let’s break this down clearly so you can decide the right next step.
+
+🌟 Your current situation
+Nginx is running in production mode → it already serves on port 80
+
+The browser reaches http://216.48.181.71/ → the page loads, but CSS/JS (assets) don’t load
+
+This is not a port problem — it’s a server_name or Nginx mapping problem
+
+🚩 Why setting a different port won’t help
+👉 Even if you change the port (e.g. 8080 or 8000):
+
+The issue is Nginx is not mapping /assets correctly because:
+
+server_name in Nginx config is empty or wrong
+
+Nginx doesn’t know your IP is the intended host
+
+Or Nginx is serving a default config
+
+👉 Port change won’t fix /assets not mapping.
+
+🚀 What will fix it
+✅ We need to:
+1️⃣ Ensure your Nginx config has the correct server_name 216.48.181.71;
+2️⃣ Ensure Nginx is reloaded after config change
+3️⃣ Ensure no other Nginx default site is conflicting
+
+📌 Exact steps to try now
+1️⃣ Check what Nginx sites are active
+
+ls -l /etc/nginx/sites-enabled/
+
+👉 If you see default, remove it:
+sudo rm /etc/nginx/sites-enabled/default
+
+
+2️⃣ Force regenerate Nginx config
+/usr/local/bin/bench setup nginx
+
+
+👉 Edit:
+nano ~/frappe-bench/config/nginx.conf
+👉 Change:server_name ;
+👉 To:
+
+nginx
+
+server_name 216.48.181.71;
+👉 Save + exit.
+
+
+3️⃣ Link it to sites-enabled
+sudo ln -sf /home/frappe/frappe-bench/config/nginx.conf /etc/nginx/sites-enabled/frappe-bench.conf
+
+4️⃣ Reload Nginx
+sudo nginx -t
+sudo systemctl reload nginx
+
+
+5️⃣ Rebuild assets + restart services
+/usr/local/bin/bench build --force
+sudo supervisorctl restart all
+
+
+🌟 Final check
+👉 Open:http://216.48.181.71/
+
+
+
+⚡ Summary:
+✅ Port change isn’t needed
+✅ Fix Nginx server_name and asset mapping
+✅ Remove any conflicting default configs
+
+💬 Do these and tell me the results — we’ll get it working 100%! 🚀
+
+✅ Chetan, great that you shared this! This is exactly the part we need to fix so your server maps requests properly. Let’s go step-by-step.
+
+🚩 What’s wrong in your config
+👉 Your server_name is:
+
+server_name
+        lms.local
+        ;
+
+
+➡ This means Nginx expects requests for lms.local.
+➡ But you're accessing by http://216.48.181.71/.
+➡ Mismatch! That’s why assets fail.
+
+🚀 How to fix it
+1️⃣ Edit the config
+Run:nano ~/frappe-bench/config/nginx.conf
+
+
+Change this:
+server_name
+        lms.local
+        ;
+
+
+👉 To:server_name 216.48.181.71;
+
+
+2️⃣ Apply the config
+sudo nginx -t
+sudo systemctl reload nginx
+
+✅ Make sure you see:
+syntax is ok
+test is successful
+
+
+3️⃣ Final restart
+sudo supervisorctl restart all
+
+
+4️⃣ Recheck in browser
+
+
+
+
+✅ Good share, Chetan! I reviewed your config — let’s break it down cleanly so you can confidently update it.
+
+🚩 What’s the issue
+👉 You have:
+
+nginx
+
+server_name
+        lms.local
+        ;
+➡ Nginx is waiting for requests with Host: lms.local.
+➡ But you are accessing via http://216.48.181.71/.
+➡ This mismatch is why CSS/JS (assets) are failing.
+
+🛠 What to change
+👉 Just replace that block with:
+
+nginx
+
+server_name 216.48.181.71;
+✅ Nothing else needs changing.
+
+💡 Example final block
+nginx
+
+server_name 216.48.181.71;
+or (if you plan domain + IP)
+
+nginx
+
+server_name 216.48.181.71 lms.local;
+👉 This will match both IP and local domain if ever needed.
+
+⚡ Next steps
+1️⃣ Edit the config
+
+nano ~/frappe-bench/config/nginx.conf
+👉 Update server_name as shown above.
+
+2️⃣ Reload Nginx
+
+sudo nginx -t
+sudo systemctl reload nginx
+✅ Ensure:
+
+
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+3️⃣ Restart services (good practice)
+
+sudo supervisorctl restart all
+🌟 Result
+👉 Visit:
+
+cpp
+
+http://216.48.181.71/
+✅ Now CSS/JS assets should load properly!
+
+⚡ Summary
+👉 Yes — you only need to change server_name.
+👉 No port changes needed — you’re already on 80.
+👉 You’re very close, just apply this!
+
+💬 Tell me once done — I can help verify asset mappings if needed! 🚀
+
+✅ Chetan, you’re almost there — I can see the config looks much cleaner now. Let’s break this down and solve it fully.
+
+🚩 Key point
+👉 You’re accessing:
+
+cpp
+
+http://216.48.181.71:8000/
+➡ But port 8000 is handled by the Python (Gunicorn) server directly — not by Nginx.
+
+👉 Your Nginx is listening on port 80, so you should access:
+
+cpp
+
+http://216.48.181.71/
+👉 This way, Nginx proxies to 127.0.0.1:8000 for you.
+
+⚡ Why CSS/JS still not loading
+👉 Common causes (let’s check these in order):
+1️⃣ Assets location
+Check if assets exist:
+
+
+ls -l /home/frappe/frappe-bench/sites/assets
+✅ Do you see JS/CSS files?
+
+👉 If not — rebuild assets:
+
+
+/usr/local/bin/bench build --force
+sudo supervisorctl restart all
+2️⃣ Nginx serving assets
+Check if Nginx can see asset files:
+
+
+curl -I http://216.48.181.71/assets/js/frappe-web.min.js
+✅ It should give:
+
+
+HTTP/1.1 200 OK
+👉 If it gives 404 → asset files not present OR Nginx mapping wrong.
+
+3️⃣ Remove port 8000 from browser
+👉 Try this in browser:
+
+cpp
+
+http://216.48.181.71/
+(not :8000 — Nginx handles that!)
+
+4️⃣ Confirm no firewall blocks
+Run:
+
+
+sudo ufw status
+✅ Make sure port 80 is open (and 443 if using HTTPS)
+
+5️⃣ Check Nginx logs
+See if Nginx is trying to serve assets but failing:
+
+
+sudo tail -n 50 /var/log/nginx/error.log
+🚀 Quick action plan
+✅ Open site without :8000
+✅ Rebuild assets + restart
+✅ Test Nginx asset serving
+✅ Review Nginx error logs
+
+⚡ Summary
+👉 http://216.48.181.71:8000/ is bypassing Nginx — use http://216.48.181.71/
+👉 Let’s verify assets + Nginx mappings fully
+
+💬 Do these checks — paste your curl -I result and log if you want help analyzing it! 🚀
+
+✅ Chetan — thank you for sharing all that clearly! Let’s break it down and I’ll give you exact next steps.
+
+🚩 What we learned
+👉 You do have:
+
+swift
+
+/home/frappe/frappe-bench/sites/assets/js/
+✅ This means the js directory exists.
+
+👉 But:
+
+ruby
+
+curl -I http://216.48.181.71/assets/js/frappe-web.min.js
+❌ Nginx returns 404 → means either:
+
+The file frappe-web.min.js doesn’t exist in sites/assets/js/
+
+OR Nginx mapping is broken
+
+👉 ufw is inactive → no firewall blocking
+
+💡 Let’s verify the file
+Run:
+
+
+ls -l /home/frappe/frappe-bench/sites/assets/js
+👉 See if frappe-web.min.js is really there.
+
+If not → this confirms why Nginx gives 404.
+
+🚀 Next steps
+If frappe-web.min.js is missing:
+👉 Rebuild assets:
+
+
+/usr/local/bin/bench build --force
+sudo supervisorctl restart all
+👉 Double check:
+
+
+ls -l /home/frappe/frappe-bench/sites/assets/js
+👉 Test:
+
+
+curl -I http://216.48.181.71/assets/js/frappe-web.min.js
+If frappe-web.min.js is present, but still 404:
+👉 Nginx asset mapping is wrong — we’ll fix:
+1️⃣ Check Nginx config points here:
+
+nginx
+
+location /assets {
+    try_files $uri =404;
+    add_header Cache-Control "max-age=31536000";
+}
+2️⃣ Confirm root is:
+
+swift
+
+root /home/frappe/frappe-bench/sites;
+👉 If yes — then Nginx is correct, just assets are missing
+
+✉ Summary
+👉 Check if frappe-web.min.js exists.
+👉 If not → bench build --force + restart
+👉 If yes → share Nginx asset config (or I’ll help check)
+
+💬 Please paste the ls -l /home/frappe/frappe-bench/sites/assets/js result — that will confirm our next step. We’re close, great work! 🚀
+
+
+
+/*   
+
+usr/local/bin/bench build --force --verbose
+✔ Application Assets Linked                                                                                                                                                                                   
+
+
+yarn run v1.22.22
+$ node esbuild --production --run-build-command
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+File                                                        Size
+
+frappe/dist/js/
+├─ billing.bundle.TQHLK7UT.js                               4.44 Kb
+├─ bootstrap-4-web.bundle.FOZOVELL.js                       1.73 Kb
+├─ controls.bundle.IIQRAQRW.js                              874.02 Kb
+├─ data_import_tools.bundle.GJL3D5RM.js                     127.48 Kb
+├─ desk.bundle.PWIAF7YM.js                                  1349.89 Kb
+├─ dialog.bundle.FWWX2X6K.js                                57.48 Kb
+├─ form.bundle.IWQ54OUB.js                                  169.39 Kb
+├─ frappe-web.bundle.UASKDUCM.js                            830.23 Kb
+├─ libs.bundle.TIV7ZGVY.js                                  556.25 Kb
+├─ list.bundle.MH7JA5ZP.js                                  199.28 Kb
+├─ logtypes.bundle.EKN7LWKW.js                              0.73 Kb
+├─ onboarding_tours.bundle.RAUR6X4Z.js                      7.60 Kb
+├─ report.bundle.RTW7DMAI.js                                200.26 Kb
+├─ sentry.bundle.AX44GVWW.js                                74.42 Kb
+├─ telemetry.bundle.LKEZCADB.js                             2.59 Kb
+├─ user_profile_controller.bundle.TPZWXYWN.js               11.97 Kb
+├─ video_player.bundle.DUYYLSFO.js                          120.67 Kb
+├─ web_form.bundle.LLDQ5XNF.js                              1065.94 Kb
+├─ form_builder.bundle.CYK52TRC.js                          798.65 Kb
+├─ form_builder.bundle.2JQOQVZM.css                         23.19 Kb
+├─ print_format_builder.bundle.3YCNST3U.js                  685.24 Kb
+├─ print_format_builder.bundle.FFVPBPB6.css                 5.54 Kb
+├─ workflow_builder.bundle.3GDVTW3J.js                      351.84 Kb
+├─ workflow_builder.bundle.NCYHBU52.css                     11.02 Kb
+├─ build_events.bundle.BCX32TWL.js                          105.71 Kb
+├─ build_events.bundle.CZHNP7YC.css                         1.29 Kb
+├─ file_uploader.bundle.ZDBEQI7G.js                         202.16 Kb
+├─ file_uploader.bundle.WV4MAVCJ.css                        6.53 Kb
+└─ kanban_board.bundle.FBBHCLAN.js                          578.16 Kb
+
+frappe/dist/css/
+├─ desk.bundle.S27IIG3A.css                                 594.90 Kb
+├─ email.bundle.LWSX5KPK.css                                5.97 Kb
+├─ login.bundle.JIA3GR7H.css                                32.29 Kb
+├─ print.bundle.MSYQZMRB.css                                206.71 Kb
+├─ print_format.bundle.LGRH3IAA.css                         186.11 Kb
+├─ report.bundle.OQW7JFCO.css                               5.51 Kb
+├─ web_form.bundle.S6HSHUYF.css                             14.86 Kb
+└─ website.bundle.CNIDIIE2.css                              446.74 Kb
+
+lms/dist/css/
+└─ lms.bundle.VPXRSZHQ.css                                  32.03 Kb
+
+frappe/dist/css-rtl/
+├─ desk.bundle.KGDTHR76.css                                 595.40 Kb
+├─ email.bundle.45UDBKDY.css                                5.98 Kb
+├─ login.bundle.6HCV6UQ4.css                                32.29 Kb
+├─ print.bundle.UFOS7AK5.css                                206.87 Kb
+├─ print_format.bundle.LB5H72MN.css                         186.24 Kb
+├─ report.bundle.UNCVNDW2.css                               5.50 Kb
+├─ web_form.bundle.4AFPWD3Y.css                             14.85 Kb
+└─ website.bundle.R2FJLGEO.css                              446.89 Kb
+
+lms/dist/css-rtl/
+└─ lms.bundle.4OBJ7LXF.css                                  32.06 Kb
+
+ DONE  Total Build Time: 8.606s
+
+
+Running build command for lms
+$ cd frontend && yarn build
+$ vite build --base=/assets/lms/frontend/ && yarn copy-html-entry
+vite v5.4.19 building for production...
+transforming (115) ../node_modules/frappe-ui/src/components/Resource.vue
+Inter-DisplayRegular.woff2?v=3.19 referenced in Inter-DisplayRegular.woff2?v=3.19 didn't resolve at build time, it will remain unchanged to be resolved at runtime
+✓ 3797 modules transformed.
+Export "default" of module "../node_modules/frappe-ui/src/components/TextEditor/TextEditor.vue" was reexported through module "../node_modules/frappe-ui/src/index.ts" while both modules are dependencies of each other and will end up in different chunks by current Rollup settings. This scenario is not well supported at the moment as it will produce a circular dependency between chunks and will likely lead to broken execution order.
+Either change the import in "src/components/Modals/AnnouncementModal.vue" to point directly to the exporting module or reconfigure "output.manualChunks" to ensure these modules end up in the same chunk.
+Export "default" of module "../node_modules/frappe-ui/src/components/TextEditor/TextEditor.vue" was reexported through module "../node_modules/frappe-ui/src/index.ts" while both modules are dependencies of each other and will end up in different chunks by current Rollup settings. This scenario is not well supported at the moment as it will produce a circular dependency between chunks and will likely lead to broken execution order.
+Either change the import in "src/components/DiscussionReplies.vue" to point directly to the exporting module or reconfigure "output.manualChunks" to ensure these modules end up in the same chunk.
+Export "default" of module "../node_modules/frappe-ui/src/components/TextEditor/TextEditor.vue" was reexported through module "../node_modules/frappe-ui/src/index.ts" while both modules are dependencies of each other and will end up in different chunks by current Rollup settings. This scenario is not well supported at the moment as it will produce a circular dependency between chunks and will likely lead to broken execution order.
+Either change the import in "src/components/Modals/DiscussionModal.vue" to point directly to the exporting module or reconfigure "output.manualChunks" to ensure these modules end up in the same chunk.
+Export "default" of module "../node_modules/frappe-ui/src/components/TextEditor/TextEditor.vue" was reexported through module "../node_modules/frappe-ui/src/index.ts" while both modules are dependencies of each other and will end up in different chunks by current Rollup settings. This scenario is not well supported at the moment as it will produce a circular dependency between chunks and will likely lead to broken execution order.
+Either change the import in "src/components/Modals/EditProfile.vue" to point directly to the exporting module or reconfigure "output.manualChunks" to ensure these modules end up in the same chunk.
+Export "default" of module "../node_modules/frappe-ui/src/components/TextEditor/TextEditor.vue" was reexported through module "../node_modules/frappe-ui/src/index.ts" while both modules are dependencies of each other and will end up in different chunks by current Rollup settings. This scenario is not well supported at the moment as it will produce a circular dependency between chunks and will likely lead to broken execution order.
+Either change the import in "src/pages/CourseForm.vue" to point directly to the exporting module or reconfigure "output.manualChunks" to ensure these modules end up in the same chunk.
+Export "default" of module "../node_modules/frappe-ui/src/components/TextEditor/TextEditor.vue" was reexported through module "../node_modules/frappe-ui/src/index.ts" while both modules are dependencies of each other and will end up in different chunks by current Rollup settings. This scenario is not well supported at the moment as it will produce a circular dependency between chunks and will likely lead to broken execution order.
+Either change the import in "src/pages/BatchForm.vue" to point directly to the exporting module or reconfigure "output.manualChunks" to ensure these modules end up in the same chunk.
+Export "default" of module "../node_modules/frappe-ui/src/components/TextEditor/TextEditor.vue" was reexported through module "../node_modules/frappe-ui/src/index.ts" while both modules are dependencies of each other and will end up in different chunks by current Rollup settings. This scenario is not well supported at the moment as it will produce a circular dependency between chunks and will likely lead to broken execution order.
+Either change the import in "src/pages/JobForm.vue" to point directly to the exporting module or reconfigure "output.manualChunks" to ensure these modules end up in the same chunk.
+Export "default" of module "../node_modules/frappe-ui/src/components/TextEditor/TextEditor.vue" was reexported through module "../node_modules/frappe-ui/src/index.ts" while both modules are dependencies of each other and will end up in different chunks by current Rollup settings. This scenario is not well supported at the moment as it will produce a circular dependency between chunks and will likely lead to broken execution order.
+Either change the import in "src/components/Modals/Question.vue" to point directly to the exporting module or reconfigure "output.manualChunks" to ensure these modules end up in the same chunk.
+Export "default" of module "../node_modules/frappe-ui/src/components/TextEditor/TextEditor.vue" was reexported through module "../node_modules/frappe-ui/src/index.ts" while both modules are dependencies of each other and will end up in different chunks by current Rollup settings. This scenario is not well supported at the moment as it will produce a circular dependency between chunks and will likely lead to broken execution order.
+Either change the import in "src/components/Modals/AssignmentForm.vue?vue&type=script&setup=true&lang.ts" to point directly to the exporting module or reconfigure "output.manualChunks" to ensure these modules end up in the same chunk.
+Export "default" of module "../node_modules/frappe-ui/src/components/TextEditor/TextEditor.vue" was reexported through module "../node_modules/frappe-ui/src/index.ts" while both modules are dependencies of each other and will end up in different chunks by current Rollup settings. This scenario is not well supported at the moment as it will produce a circular dependency between chunks and will likely lead to broken execution order.
+Either change the import in "src/components/Assignment.vue" to point directly to the exporting module or reconfigure "output.manualChunks" to ensure these modules end up in the same chunk.
+src/pages/ProfileRoles.vue (81:19): Use of eval in "src/pages/ProfileRoles.vue" is strongly discouraged as it poses security risks and may cause issues with minification.
+src/pages/ProfileRoles.vue (101:10): Use of eval in "src/pages/ProfileRoles.vue" is strongly discouraged as it poses security risks and may cause issues with minification.
+[frappeui-build-config-plugin] Successfully copied index.html to ../lms/www/lms.html
+../lms/public/frontend/index.html                                                              1.49 kB │ gzip:     0.56 kB
+../lms/public/frontend/assets/Inter-Regular-trENmjXB.woff2                                   100.79 kB
+../lms/public/frontend/assets/Inter-Thin-D3JiHKaG.woff2                                      101.16 kB
+../lms/public/frontend/assets/Inter-DisplayBlack-WeYNDCAX.woff2                              101.92 kB
+../lms/public/frontend/assets/Inter-DisplayThin-ChL4oFCg.woff2                               102.15 kB
+../lms/public/frontend/assets/Inter-ExtraLight-CCj5KODw.woff2                                102.87 kB
+../lms/public/frontend/assets/Inter-Light-dIA14uc3.woff2                                     103.27 kB
+../lms/public/frontend/assets/Inter-Black-9EvaAvES.woff2                                     103.59 kB
+../lms/public/frontend/assets/Inter-ExtraBold-Ce88byQn.woff2                                 104.99 kB
+../lms/public/frontend/assets/Inter-Bold-R0zHozHF.woff2                                      105.21 kB
+../lms/public/frontend/assets/Inter-Medium-BN7iDkqy.woff2                                    105.22 kB
+../lms/public/frontend/assets/Inter-DisplayLight-w8lPQKnS.woff2                              105.34 kB
+../lms/public/frontend/assets/Inter-DisplayExtraBold-BXf2GJrG.woff2                          105.36 kB
+../lms/public/frontend/assets/Inter-DisplayMedium-DcjtbkcA.woff2                             105.38 kB
+../lms/public/frontend/assets/Inter-SemiBold-CBUekF9E.woff2                                  105.40 kB
+../lms/public/frontend/assets/Inter-DisplaySemiBold-BBWLY5vL.woff2                           105.56 kB
+../lms/public/frontend/assets/Inter-DisplayBold-C-1EDGRh.woff2                               105.57 kB
+../lms/public/frontend/assets/Inter-DisplayExtraLight-D2Ja0abb.woff2                         105.87 kB
+../lms/public/frontend/assets/Inter-DisplayItalic-JNEE2o-3.woff2                             106.12 kB
+../lms/public/frontend/assets/Inter-Italic-ClOttZep.woff2                                    106.55 kB
+../lms/public/frontend/assets/Inter-ThinItalic-Dty9qLU6.woff2                                106.64 kB
+../lms/public/frontend/assets/Inter-DisplayBlackItalic-DFEmIFsd.woff2                        107.28 kB
+../lms/public/frontend/assets/Inter-DisplayThinItalic-Cxxw6hRb.woff2                         107.44 kB
+../lms/public/frontend/assets/Inter-LightItalic-BcJQrN_r.woff2                               108.56 kB
+../lms/public/frontend/assets/Inter-BlackItalic-I0v0TUo2.woff2                               108.59 kB
+../lms/public/frontend/assets/Inter-ExtraLightItalic-BXS8QPqu.woff2                          109.00 kB
+../lms/public/frontend/assets/Inter-DisplayBoldItalic-CISmTavk.woff2                         110.20 kB
+../lms/public/frontend/assets/Inter-DisplaySemiBoldItalic-CNvBGF7e.woff2                     110.39 kB
+../lms/public/frontend/assets/Inter-DisplayMediumItalic-BBCoS5uP.woff2                       110.46 kB
+../lms/public/frontend/assets/Inter-BoldItalic-D0-5Ex_3.woff2                                110.52 kB
+../lms/public/frontend/assets/Inter-ExtraBoldItalic-Cgmm6Ie2.woff2                           110.52 kB
+../lms/public/frontend/assets/Inter-DisplayLightItalic-DBve3eI1.woff2                        110.56 kB
+../lms/public/frontend/assets/Inter-SemiBoldItalic-J43nRLRr.woff2                            110.64 kB
+../lms/public/frontend/assets/Inter-DisplayExtraBoldItalic-Czv3KFD8.woff2                    110.82 kB
+../lms/public/frontend/assets/Inter-MediumItalic-iRTrRc5x.woff2                              110.82 kB
+../lms/public/frontend/assets/Inter-DisplayExtraLightItalic-DRwiM9T2.woff2                   111.11 kB
+../lms/public/frontend/assets/Inter-Regular-CODxxkJm.woff2                                   181.32 kB
+../lms/public/frontend/assets/Inter-Thin-B_uUBCoZ.woff2                                      183.58 kB
+../lms/public/frontend/assets/Inter-Black-Cshk1Ouu.woff2                                     189.20 kB
+../lms/public/frontend/assets/Inter-Light-C30yDEIo.woff2                                     191.10 kB
+../lms/public/frontend/assets/Inter-ExtraLight-CVi2P0ys.woff2                                192.27 kB
+../lms/public/frontend/assets/Inter-Medium-CzCDdD8n.woff2                                    193.56 kB
+../lms/public/frontend/assets/Inter-Bold-wPZ6LF5Z.woff2                                      194.16 kB
+../lms/public/frontend/assets/Inter-Italic-C54yVidA.woff2                                    194.17 kB
+../lms/public/frontend/assets/Inter-SemiBold-BeKvnjMK.woff2                                  194.68 kB
+../lms/public/frontend/assets/Inter-ExtraBold-BsIfWbEo.woff2                                 195.07 kB
+../lms/public/frontend/assets/Inter-ThinItalic-YHidimb8.woff2                                195.60 kB
+../lms/public/frontend/assets/Inter-BlackItalic-BjcoK2hX.woff2                               198.44 kB
+../lms/public/frontend/assets/Inter-LightItalic-BPE1IxhF.woff2                               202.69 kB
+../lms/public/frontend/assets/Inter-ExtraLightItalic-6TFOpbKD.woff2                          202.93 kB
+../lms/public/frontend/assets/Inter-BoldItalic-CzV6Tv7P.woff2                                203.78 kB
+../lms/public/frontend/assets/Inter-SemiBoldItalic-C3grxp6v.woff2                            203.79 kB
+../lms/public/frontend/assets/Inter-MediumItalic-CGBFDtcS.woff2                              204.23 kB
+../lms/public/frontend/assets/Inter-ExtraBoldItalic-DxTsNEOh.woff2                           204.67 kB
+../lms/public/frontend/assets/Inter-Regular-DBCApsjw.woff                                    246.04 kB
+../lms/public/frontend/assets/Inter-Thin-Ul_XpALr.woff                                       250.35 kB
+../lms/public/frontend/assets/Inter-Black-BOV8XG9T.woff                                      255.17 kB
+../lms/public/frontend/assets/Inter-Light-BKVjUX-w.woff                                      258.66 kB
+../lms/public/frontend/assets/Inter-ExtraLight-BMbphDvi.woff                                 258.67 kB
+../lms/public/frontend/assets/Inter-Medium-Bo29Umh-.woff                                     260.17 kB
+../lms/public/frontend/assets/Inter-Italic-Cm_EBKra.woff                                     260.95 kB
+../lms/public/frontend/assets/Inter-SemiBold-CNAjOvz0.woff                                   261.31 kB
+../lms/public/frontend/assets/Inter-ExtraBold-CJBt3edo.woff                                  261.85 kB
+../lms/public/frontend/assets/Inter-Bold-g6Xj0jn7.woff                                       262.48 kB
+../lms/public/frontend/assets/Inter.var-C9xDBOS3.woff2                                       264.24 kB
+../lms/public/frontend/assets/Inter-ThinItalic-BWOlBIs9.woff                                 264.44 kB
+../lms/public/frontend/assets/Inter-BlackItalic-Wdjh7EHa.woff                                265.52 kB
+../lms/public/frontend/assets/Inter-ExtraLightItalic-D4UzWCoA.woff                           270.09 kB
+../lms/public/frontend/assets/Inter-LightItalic-xkgxSzrU.woff                                270.72 kB
+../lms/public/frontend/assets/Inter-MediumItalic-BuyD3L9U.woff                               271.80 kB
+../lms/public/frontend/assets/Inter-SemiBoldItalic-CdzhttxU.woff                             271.90 kB
+../lms/public/frontend/assets/Inter-ExtraBoldItalic-D0n3C9E8.woff                            272.21 kB
+../lms/public/frontend/assets/Inter-BoldItalic-8tC2rJIs.woff                                 272.32 kB
+../lms/public/frontend/assets/Inter-Italic.var-BGHziHgI.woff2                                297.27 kB
+../lms/public/frontend/assets/Notifications-Bax51NhM.css                                       0.05 kB │ gzip:     0.06 kB
+../lms/public/frontend/assets/JobDetail-CxNe8sOu.css                                           0.07 kB │ gzip:     0.08 kB
+../lms/public/frontend/assets/CourseDetail-CbcHN0vY.css                                        0.11 kB │ gzip:     0.11 kB
+../lms/public/frontend/assets/QuizForm-BVS5er5W.css                                            0.13 kB │ gzip:     0.11 kB
+../lms/public/frontend/assets/CertifiedParticipants-CInkYQ8Q.css                               0.13 kB │ gzip:     0.12 kB
+../lms/public/frontend/assets/Jobs-BxS8k0Zn.css                                                0.17 kB │ gzip:     0.14 kB
+../lms/public/frontend/assets/BatchDetail-svDRwAkr.css                                         0.23 kB │ gzip:     0.15 kB
+../lms/public/frontend/assets/Batch-CheouqEg.css                                               0.27 kB │ gzip:     0.21 kB
+../lms/public/frontend/assets/Batches-BE6B3NxE.css                                             0.34 kB │ gzip:     0.23 kB
+../lms/public/frontend/assets/CourseCard-DpN1sNTX.css                                          0.89 kB │ gzip:     0.45 kB
+../lms/public/frontend/assets/Lesson-Bwc-aYtY.css                                              2.36 kB │ gzip:     0.93 kB
+../lms/public/frontend/assets/LessonForm-3onnY_SJ.css                                          2.69 kB │ gzip:     1.03 kB
+../lms/public/frontend/assets/index-BF3O0f_X.css                                             169.62 kB │ gzip:    27.37 kB
+../lms/public/frontend/assets/InsertLink-D40bcZaU.js                                           0.31 kB │ gzip:     0.25 kB │ map:      0.67 kB
+../lms/public/frontend/assets/DateRange-Ds9_J9-Q.js                                            0.43 kB │ gzip:     0.32 kB │ map:      0.95 kB
+../lms/public/frontend/assets/UserAvatar-CZ2bBAqn.js                                           0.54 kB │ gzip:     0.38 kB │ map:      0.96 kB
+../lms/public/frontend/assets/InsertImage-F4ZaSiQY.js                                          0.60 kB │ gzip:     0.43 kB │ map:      1.40 kB
+../lms/public/frontend/assets/EmptyState.vue_vue_type_script_setup_true_lang-D6dDq2ej.js       0.79 kB │ gzip:     0.50 kB │ map:      1.39 kB
+../lms/public/frontend/assets/Badge-BA7qCrVz.js                                                1.11 kB │ gzip:     0.67 kB │ map:      2.95 kB
+../lms/public/frontend/assets/QuizPage-CtOPTUMK.js                                             1.21 kB │ gzip:     0.78 kB │ map:      2.84 kB
+../lms/public/frontend/assets/CourseInstructors-BH6ltlb3.js                                    1.26 kB │ gzip:     0.51 kB │ map:      2.42 kB
+../lms/public/frontend/assets/Rating.vue_vue_type_script_setup_true_lang-CypEF17B.js           1.27 kB │ gzip:     0.75 kB │ map:      3.42 kB
+../lms/public/frontend/assets/ProfileCertificates-BDUKk7xd.js                                  1.44 kB │ gzip:     0.85 kB │ map:      3.16 kB
+../lms/public/frontend/assets/CertificationLinks-DmsIVYLO.js                                   1.62 kB │ gzip:     0.76 kB │ map:      3.76 kB
+../lms/public/frontend/assets/InsertVideo-C-_dLZJ3.js                                          2.09 kB │ gzip:     1.06 kB │ map:      4.67 kB
+../lms/public/frontend/assets/QuizSubmissionList-BgnyiRVa.js                                   2.29 kB │ gzip:     1.20 kB │ map:      5.32 kB
+../lms/public/frontend/assets/Breadcrumbs.vue_vue_type_script_setup_true_lang-Cj6e3Uus.js      2.47 kB │ gzip:     1.12 kB │ map:      6.18 kB
+../lms/public/frontend/assets/PersonaForm-l_zCPBGA.js                                          2.68 kB │ gzip:     1.38 kB │ map:      6.38 kB
+../lms/public/frontend/assets/CourseCertification-CkE94pKB.js                                  2.73 kB │ gzip:     1.37 kB │ map:      6.72 kB
+../lms/public/frontend/assets/Quizzes-DvWuqRny.js                                              2.78 kB │ gzip:     1.40 kB │ map:      6.81 kB
+../lms/public/frontend/assets/ProfileRoles-DW41rZKX.js                                         3.03 kB │ gzip:     1.19 kB │ map:      4.57 kB
+../lms/public/frontend/assets/SCORMChapter-CQCt0QAC.js                                         3.29 kB │ gzip:     1.56 kB │ map:      8.24 kB
+../lms/public/frontend/assets/FontColor-kTB8KvrG.js                                            3.39 kB │ gzip:     1.15 kB │ map:      7.56 kB
+../lms/public/frontend/assets/QuizSubmission-CPRqZGTT.js                                       3.47 kB │ gzip:     1.50 kB │ map:      7.56 kB
+../lms/public/frontend/assets/Notifications-DxfJDnZj.js                                        3.50 kB │ gzip:     1.66 kB │ map:      8.49 kB
+../lms/public/frontend/assets/CourseCard-DIQiFj7M.js                                           3.51 kB │ gzip:     1.43 kB │ map:      8.65 kB
+../lms/public/frontend/assets/ProfileAbout-DCDwPa99.js                                         3.67 kB │ gzip:     1.70 kB │ map:      8.99 kB
+../lms/public/frontend/assets/AssignmentSubmissionList-D3_K6m34.js                             3.84 kB │ gzip:     1.70 kB │ map:      9.88 kB
+../lms/public/frontend/assets/CertifiedParticipants-DiQaNj8f.js                                3.99 kB │ gzip:     1.82 kB │ map:      9.79 kB
+../lms/public/frontend/assets/MultiSelect-CsRVdatc.js                                          4.12 kB │ gzip:     2.06 kB │ map:     11.67 kB
+../lms/public/frontend/assets/Programs-KkUP_ruP.js                                             4.29 kB │ gzip:     1.90 kB │ map:     10.26 kB
+../lms/public/frontend/assets/Jobs-S6Y7xchq.js                                                 4.59 kB │ gzip:     1.99 kB │ map:     11.51 kB
+../lms/public/frontend/assets/Courses-BnXJXeUZ.js                                              5.69 kB │ gzip:     2.49 kB │ map:     15.39 kB
+../lms/public/frontend/assets/mode-json-pspJhvWI.js                                            5.79 kB │ gzip:     2.22 kB │ map:     17.06 kB
+../lms/public/frontend/assets/JobForm-Dubk_ghZ.js                                              5.92 kB │ gzip:     2.30 kB │ map:     15.24 kB
+../lms/public/frontend/assets/ProgramForm-BJtknwiD.js                                          5.99 kB │ gzip:     2.18 kB │ map:     16.03 kB
+../lms/public/frontend/assets/Assignments-iY6wXftW.js                                          6.08 kB │ gzip:     2.61 kB │ map:     15.48 kB
+../lms/public/frontend/assets/ProfileEvaluator-fiAt-IHI.js                                     6.30 kB │ gzip:     2.17 kB │ map:     14.82 kB
+../lms/public/frontend/assets/Statistics-CcyRKFAw.js                                           6.32 kB │ gzip:     2.38 kB │ map:     16.88 kB
+../lms/public/frontend/assets/TabButtons-Baq_vZOp.js                                           6.74 kB │ gzip:     2.85 kB │ map:     16.23 kB
+../lms/public/frontend/assets/BatchDetail-4fme4lpg.js                                          6.75 kB │ gzip:     2.48 kB │ map:     15.91 kB
+../lms/public/frontend/assets/JobDetail-DLxcp-Qx.js                                            6.86 kB │ gzip:     2.76 kB │ map:     16.73 kB
+../lms/public/frontend/assets/UpcomingEvaluations-CiNLyL2B.js                                  7.06 kB │ gzip:     2.77 kB │ map:     17.90 kB
+../lms/public/frontend/assets/Batches-Dsc63Us_.js                                              7.57 kB │ gzip:     3.01 kB │ map:     19.15 kB
+../lms/public/frontend/assets/Billing-1ppiXDJM.js                                              8.23 kB │ gzip:     3.04 kB │ map:     19.00 kB
+../lms/public/frontend/assets/mode-python-BqcSnhHu.js                                          8.56 kB │ gzip:     2.82 kB │ map:     25.57 kB
+../lms/public/frontend/assets/Discussions-BEcqp-PC.js                                          8.72 kB │ gzip:     3.07 kB │ map:     22.81 kB
+../lms/public/frontend/assets/NumberChart.vue_vue_type_script_setup_true_lang-DirHeyhm.js      9.67 kB │ gzip:     3.84 kB │ map:     31.39 kB
+../lms/public/frontend/assets/Tabs-DAzyaCJS.js                                                10.13 kB │ gzip:     3.80 kB │ map:     25.68 kB
+../lms/public/frontend/assets/AssignmentSubmission-DtpRRKuy.js                                10.26 kB │ gzip:     3.80 kB │ map:     26.00 kB
+../lms/public/frontend/assets/Profile-1KYmtI6P.js                                             10.40 kB │ gzip:     4.10 kB │ map:     25.50 kB
+../lms/public/frontend/assets/LessonForm-CZFXYI-L.js                                          10.52 kB │ gzip:     3.89 kB │ map:     30.74 kB
+../lms/public/frontend/assets/BatchForm-v8qS1WF_.js                                           11.21 kB │ gzip:     3.68 kB │ map:     27.69 kB
+../lms/public/frontend/assets/CourseForm-DUkZ0SPk.js                                          12.82 kB │ gzip:     4.34 kB │ map:     32.74 kB
+../lms/public/frontend/assets/CourseOutline-CjdyeZBZ.js                                       13.32 kB │ gzip:     4.85 kB │ map:     33.87 kB
+../lms/public/frontend/assets/CourseDetail-BXr5NXOD.js                                        13.42 kB │ gzip:     4.50 kB │ map:     30.80 kB
+../lms/public/frontend/assets/QuizForm-BsD00w6y.js                                            13.42 kB │ gzip:     4.38 kB │ map:     34.90 kB
+../lms/public/frontend/assets/mode-css-DY83jZBL.js                                            21.15 kB │ gzip:     7.45 kB │ map:     50.28 kB
+../l
+
+*/
+
+
+
+✅ Your bench build --force --verbose completed successfully.
+The build process generated all required JS, CSS, and asset files for both Frappe and LMS apps without critical errors.
+
+⚠️ Notable warnings during the build:
+
+Browserslist is outdated →
+You can update it by running:
+npx update-browserslist-db@latest
+
+
+Circular dependency warnings from frappe-ui →
+Rollup reported circular dependencies involving TextEditor.vue and other components (e.g., AnnouncementModal.vue, CourseForm.vue).
+👉 These might cause runtime order issues. It’s recommended to:
+
+Import TextEditor.vue directly where possible (instead of through frappe-ui/src/index.ts), or
+
+Adjust Rollup’s output.manualChunks config (needs changes in build config).
+
+eval usage warning in ProfileRoles.vue →
+Eval can cause security risks and minification issues. Ideally, refactor to remove eval.
+
+💡 Next recommended steps
+1️⃣ Restart your server processes:
+
+sudo supervisorctl restart all
+
+
+or, if using bench:
+
+
+bench restart
+2️⃣ Clear browser cache (or do hard refresh) and verify LMS is loading:
+
+
+http://216.48.181.71/
+or wherever your LMS is hosted.
+
+3️⃣ (Optional) Fix circular dependencies + eval warnings if you want a cleaner build.
+
+✅ Let me know if you want help:
+
+fixing those circular dependencies
+
+eliminating eval
+
+or deploying + testing on your production server! 🚀
+
+
+
+
+
+/*  
+
+st: "GET /website_script.js HTTP/1.1", host: "216.48.181.71", referrer: "http://216.48.181.71/"
+2025/06/20 18:14:48 [crit] 40021#40021: *1113 open() "/home/frappe/frappe-bench/sites/assets/frappe/images/frappe-framework-logo.svg" failed (13: Permission denied), client: 202.83.16.163, server: 216.48.181.71, request: "GET /assets/frappe/images/frappe-framework-logo.svg HTTP/1.1", host: "216.48.181.71", referrer: "http://216.48.181.71/"
+2025/06/20 18:14:48 [crit] 40021#40021: *1106 open() "/home/frappe/frappe-bench/sites/assets/frappe/dist/js/frappe-web.bundle.UASKDUCM.js" failed (13: Permission denied), client: 202.83.16.163, server: 216.48.181.71, request: "GET /assets/frappe/dist/js/frappe-web.bundle.UASKDUCM.js HTTP/1.1", host: "216.48.181.71", referrer: "http://216.48.181.71/"
+2025/06/20 18:15:12 [crit] 40021#40021: *1116 stat() "/home/frappe/frappe-bench/sites/lms.local/public//" failed (13: Permission denied), client: 216.59.58.229, server: 216.48.181.71, request: "HEAD / HTTP/1.1", host: "216.48.181.71:80"
+2025/06/20 18:15:13 [crit] 40021#40021: *1118 open() "/home/frappe/frappe-bench/sites/lms.local/public//" failed (13: Permission denied), client: 216.59.58.221, server: 216.48.181.71, request: "HEAD / HTTP/1.1", host: "216.48.181.71:80"
+2025/06/20 18:15:13 [crit] 40021#40021: *1120 open() "/home/frappe/frappe-bench/sites/lms.local/public//" failed (13: Permission denied), client: 216.59.58.217, server: 216.48.181.71, request: "HEAD / HTTP/1.1", host: "216.48.181.71:80"
+2025/06/20 18:15:13 [crit] 40021#40021: *1122 open() "/home/frappe/frappe-bench/sites/lms.local/public//" failed (13: Permission denied), client: 216.59.61.255, server: 216.48.181.71, request: "HEAD / HTTP/1.1", host: "216.48.181.71:80"
+2025/06/20 18:15:14 [crit] 40021#40021: *1124 open() "/home/frappe/frappe-bench/sites/lms.local/public//" failed (13: Permission denied), client: 216.59.58.233, server: 216.48.181.71, request: "HEAD / HTTP/1.1", host: "216.48.181.71:80"
+2025/06/20 18:15:14 [crit] 40021#40021: *1126 open() "/home/frappe/frappe-bench/sites/lms.local/public//" failed (13: Permission denied), client: 216.59.58.225, server: 216.48.181.71, request: "HEAD / HTTP/1.1", host: "216.48.181.71:80"
+2025/06/20 18:15:16 [crit] 40021#40021: *1128 open() "/home/frappe/frappe-bench/sites/lms.local/public//" failed (13: Permission denied), client: 216.59.58.231, server: 216.48.181.71, request: "HEAD / HTTP/1.1", host: "216.48.181.71:80"
+2025/06/20 18:15:16 [crit] 40021#40021: *1130 open() "/home/frappe/frappe-bench/sites/lms.local/public//" failed (13: Permission denied), client: 216.59.61.253, server: 216.48.181.71, request: "HEAD / HTTP/1.1", host: "216.48.181.71:80"
+2025/06/20 18:15:18 [crit] 40021#40021: *1132 stat() "/home/frappe/frappe-bench/sites/lms.local/public//" failed (13: Permission denied), client: 199.38.148.39, server: 216.48.181.71, request: "HEAD / HTTP/1.1", host: "216.48.181.71:80"
+2025/06/20 18:15:20 [crit] 40021#40021: *1134 open() "/home/frappe/frappe-bench/sites/lms.local/public//" failed (13: Permission denied), client: 199.38.148.95, server: 216.48.181.71, request: "HEAD / HTTP/1.1", host: "216.48.181.71:80"
+2025/06/20 18:15:21 [crit] 40021#40021: *1136 open() "/home/frappe/frappe-bench/sites/lms.local/public//" failed (13: Permission denied), client: 199.38.148.173, server: 216.48.181.71, request: "HEAD / HTTP/1.1", host: "216.48.181.71:80"
+2025/06/20 18:15:22 [crit] 40021#40021: *1138 open() "/home/frappe/frappe-bench/sites/lms.local/public//" failed (13: Permission denied), client: 199.38.148.111, server: 216.48.181.71, request: "HEAD / HTTP/1.1", host: "216.48.181.71:80"
+2025/06/20 18:15:22 [crit] 40021#40021: *1140 open() "/home/frappe/frappe-bench/sites/lms.local/public//" failed (13: Permission denied), client: 199.38.148.89, server: 216.48.181.71, request: "HEAD / HTTP/1.1", host: "216.48.181.71:80"
+frappe@e2e-98-71:~$ 
+
+
+
+Need to install the following packages:
+update-browserslist-db@1.1.3
+Ok to proceed? (y) y
+
+update-browserslist-db: Cannot find package.json. Is this the right directory to run npx update-browserslist-db in?
+npm notice
+npm notice New major version of npm available! 10.8.2 -> 11.4.2
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.4.2
+npm notice To update run: npm install -g npm@11.4.2
+npm notice
+frappe@e2e-98-71:~/frappe-bench$ sudo supervisorctl restart all
+/usr/lib/python3/dist-packages/supervisor/options.py:13: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+frappe-bench-web:frappe-bench-node-socketio: stopped
+frappe-bench-workers:frappe-bench-frappe-schedule: stopped
+frappe-bench-redis:frappe-bench-redis-cache: stopped
+frappe-bench-redis:frappe-bench-redis-queue: stopped
+frappe-bench-workers:frappe-bench-frappe-short-worker-0: stopped
+frappe-bench-workers:frappe-bench-frappe-long-worker-0: stopped
+frappe-bench-web:frappe-bench-frappe-web: stopped
+frappe-bench-redis:frappe-bench-redis-cache: started
+frappe-bench-redis:frappe-bench-redis-queue: started
+frappe-bench-web:frappe-bench-frappe-web: started
+frappe-bench-web:frappe-bench-node-socketio: started
+frappe-bench-workers:frappe-bench-frappe-schedule: started
+frappe-bench-workers:frappe-bench-frappe-short-worker-0: started
+frappe-bench-workers:frappe-bench-frappe-long-worker-0: started
+frappe@e2e-98-71:~/frappe-bench$ bench restart
+-bash: /home/frappe/.local/bin/bench: No such file or directory
+frappe@e2e-98-71:~/frappe-bench$ 
+
+
+still same issue 
+
+*/
+
+
+
+✅ Your issue is clear:
+Your Nginx + Frappe setup is getting permission denied errors when trying to serve static files (like frappe-framework-logo.svg, frappe-web.bundle.js, etc.) from /home/frappe/frappe-bench/sites/assets/... or /home/frappe/frappe-bench/sites/lms.local/public/.
+
+🔑 Why this happens?
+The Nginx worker process (typically running as www-data or nginx user) does not have permission to access files under /home/frappe/frappe-bench/sites/....
+
+The directory permissions or ownership are too restrictive.
+
+💡 How to fix this?
+Let’s proceed step-by-step:
+
+1️⃣ Give correct permissions
+sudo chown -R frappe:frappe /home/frappe/frappe-bench
+sudo chmod -R o+r /home/frappe/frappe-bench/sites
+sudo find /home/frappe/frappe-bench/sites -type d -exec chmod o+x {} \;
+
+
+👉 What this does:
+✅ Ensures frappe owns everything
+✅ Grants "others" read access to files
+✅ Grants "others" execute (traverse) permission on directories (so Nginx can reach files)
+
+2️⃣ Check which user Nginx runs as
+Run:
+
+ps -eo user,cmd | grep nginx
+
+
+👉 You will see the user (commonly www-data or nginx).
+
+If you want, you can adjust permissions accordingly:
+
+sudo usermod -aG frappe www-data
+
+3️⃣ Restart services
+sudo supervisorctl restart all
+sudo systemctl restart nginx
+
+
+4️⃣ Check if assets are accessible
+Try:curl -I http://216.48.181.71/assets/frappe/images/frappe-framework-logo.svg
+
+
+✅ You should see HTTP/1.1 200 OK if it’s working.
+
+⚠ Optional: Better way (symlink assets to /var/www or similar)
+If you prefer not to serve files directly from /home, you could:
+
+sudo mkdir -p /var/www/frappe_assets
+sudo cp -r /home/frappe/frappe-bench/sites/assets/* /var/www/frappe_assets/
+
+Then, change your Nginx config to serve static files from /var/www/frappe_assets/.
+
+💬 Next step
+👉 Please apply these commands and let me know the result of the curl or browser test.
+If you'd like, I can guide you through checking your Nginx config file too.
+
+Would you like that? 🚀
+
+✅ Excellent, Chetan!
+Seeing HTTP/1.1 200 OK means your permissions fix worked and Nginx can now serve the static assets properly. 🎉
+
+
+
+🚀 What this means
+👉 Your browser should now load those files without "Permission Denied" errors.
+👉 The site (including its JS, CSS, and images) should render correctly.
+
+📝 Next steps
+➡ Open your site at http://216.48.181.71
+➡ Refresh the page (hard refresh: Ctrl + F5 or Shift + Reload) to clear any cached errors.
+
+⚠ If you still face layout / asset issues:
+💡 Do this:
+
+
+/**/
+
+bench build
+bench clear-cache
+bench clear-website-cache
+sudo supervisorctl restart all
+sudo systemctl restart nginx
+
+
+
+👉 This will rebuild assets and clear any cache issues.
+
+If you'd like, share a quick update—
+✔ Is the site fully loading now?
+✔ Do you want help setting up a production domain / SSL?
+
+💬 Let me know!
+
+
+/* great thanks */
+
+You're very welcome, Chetan! 🙌
+I'm glad we got it working — nice job sticking through it! 🚀
+
+If you need help next with:
+✅ setting up a domain name (instead of IP)
+✅ enabling SSL (HTTPS)
+✅ optimizing performance
+✅ or anything else in your LMS / Frappe setup
+
+just say the word — I’m here to guide you!
+
+Good luck with your deployment! 💻🌟
+
+
+/* now evrything is working fine now */
+
+
+
+
+
+
+
+
+
+

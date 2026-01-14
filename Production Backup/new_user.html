@@ -1,0 +1,26 @@
+# /home/frappe/frappe-bench/apps/frappe/frappe/templates/emails/new_user.html
+
+{% set site_link = "<a href='http://216.48.181.71'>" + "http://216.48.181.71" + "</a>" %}
+{% set cleaned_link = link.replace('lms.local', '216.48.181.71') %}
+
+<p>{{ _("A new account has been created for you at {0}").format(site_link) }}.</p>
+<p>{{ _("Your login id is") }}: <b>{{ user }}</b></p>
+<p>{{ _("Click on the link below to complete your registration and set a new password") }}.</p>
+
+<p style="margin: 15px 0px;">
+	<a href="{{ cleaned_link }}" rel="nofollow" class="btn btn-primary">{{ _("Complete Registration") }}</a>
+</p>
+
+{% if created_by != "Administrator" %}
+<br>
+<p style="margin-top: 15px">
+	{{ _("Thanks") }},<br>
+	{{ created_by }}
+</p>
+{% endif %}
+
+<br>
+<p>
+	{{ _("You can also copy-paste following link in your browser") }}<br>
+	<a href="{{ cleaned_link }}">{{ cleaned_link }}</a>
+</p>

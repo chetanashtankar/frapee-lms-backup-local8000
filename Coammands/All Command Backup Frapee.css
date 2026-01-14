@@ -1,0 +1,769 @@
+pip uninstall redis
+pip install redis==3.5.3
+pip install redisearch==2.1.1
+sudo supervisorctl status
+sudo supervisorctl restart frappe-bench-web
+sudo supervisorctl restart frappe-bench-socketio
+sudo supervisorctl restart frappe-bench-worker
+tail -f /var/log/supervisor/frappe-bench-web.log
+tail -f /var/log/supervisor/frappe-bench-socketio.log
+tail -f /var/log/supervisor/frappe-bench-worker.log
+sudo supervisorctl restart frappe-bench-web
+sudo supervisorctl restart frappe-bench-socketio
+sudo supervisorctl restart frappe-bench-worker
+
+
+
+bench init frappe-bench --frappe-branch version-14 --python python3.10
+cd frappe-bench
+bench get-app erpnext --branch version-14
+bench new-site yoursite.local
+bench --site yoursite.local install-app erpnext
+bench start
+
+sudo supervisorctl status
+sudo supervisorctl status
+sudo supervisorctl start all
+sudo supervisorctl restart all
+
+
+ # Activate your virtual environment if not already
+source env/bin/activate
+(env) frappe@e2e-98-71:~/frappe-bench$ bench restart
+(env) frappe@e2e-98-71:~/frappe-bench$ pip freeze > requirements.txt
+(env) frappe@e2e-98-71:~/frappe-bench$ bench --site 216.48.181.71 install-app lms
+
+bench setup requirements
+
+
+
+
+
+Open the file:
+
+finding the file
+apps/lms/frontend/src/index.css
+
+
+At the bottom of the file, add your styles.
+For example:
+
+
+/* ✅ Custom LMS course page styles */
+.custom-heading {
+  color: #007bff;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 20px;
+}
+
+
+Step 2: Build the Frontend Assets
+Now compile the CSS so that the changes reflect on the site.
+
+In your terminal:
+
+cd ~/frappe-bench/apps/lms/frontend
+
+Run these commands:
+
+
+npm install         # (only if not already done)
+npm run build
+
+
+Step 3: Rebuild and Restart the Frappe Server
+After building the frontend, you need to rebuild the Frappe backend and clear the cache.
+
+cd ~/frappe-bench
+
+
+Run the following commands:
+
+bash
+Copy
+Edit
+
+bench build
+bench clear-cache
+bench restart
+
+
+
+
+/* ============================================================================================================================================ */
+
+
+Complete Frappe and LMS Setup Guide (Local + Production)
+
+1. System Requirements
+
+	Ubuntu 22.04 or similar
+
+	Python 3.10+
+
+	Node.js 18+
+
+	Redis
+
+	MariaDB 10.6+
+
+	yarn, pip, npm
+
+	wkhtmltopdf
+
+
+2. Install Dependencies
+
+	sudo apt update && sudo apt upgrade -y
+	sudo apt install python3-dev python3.10-dev python3-pip python3-setuptools python3-distutils libmysqlclient-dev build-essential libssl-dev libffi-dev python3-venv curl git redis mariadb-server xvfb libfontconfig wkhtmltopdf -y
+
+3. Setup Frappe Bench
+
+	# Install bench CLI
+	git clone https://github.com/frappe/bench bench-repo
+	sudo pip3 install -e bench-repo
+
+# Create bench
+	bench init frappe-bench --frappe-branch version-14
+	cd frappe-bench
+
+4. Create New Site
+
+	bench new-site dev.local
+	# Enter MySQL root password and admin password when prompted
+
+5. Get LMS App
+
+	cd apps
+	git clone https://github.com/frappe/lms.git
+	cd ..
+	bench --site dev.local install-app lms
+
+6. Start Local Server
+
+	bench start
+	# Visit: http://localhost:8000
+
+7. Develop Custom CSS/JS for LMS Website
+
+	# Path for custom styles
+	apps/lms/frontend/src/index.css
+	apps/lms/frontend/src/assets/**/inter.css
+
+	# To rebuild assets after changes:
+	bench build --apps lms
+
+8. Email Setup
+
+Go to Settings > Email Account
+
+Fill in:
+
+Email ID
+
+SMTP Server (e.g., smtp-mail.outlook.com)
+
+Port: 587
+
+Enable Outgoing
+
+Add credentials
+
+Mark as "Default Outgoing"
+
+Save and test
+
+If using Outlook:
+
+Enable SMTP Auth via: https://aka.ms/smtp_auth_disabled
+
+
+
+9. Bulk User Import via Data Import
+
+	Go to http://localhost:8000/app/data-import
+
+	Select:
+
+	Doctype: User
+
+	Import Type: Insert New Records
+
+	Download Template, fill data (Email, First Name, Last Name...)
+
+	Upload CSV
+
+	Import
+
+
+
+10. Email Queue
+
+	View at: /app/email-queue
+
+	Emails are shown here for debugging (status, failures, etc.)
+
+11. Production Deployment
+
+	A. SSH to Server
+
+	ssh username@<your-ip>
+
+B. Set Up Bench Production Environment
+
+	sudo apt update
+	sudo apt install python3-pip python3-dev mariadb-server redis git curl -y
+
+	# Setup Frappe Bench same as local
+
+	bench setup production frappe
+
+C. Start/Stop Services
+
+	sudo supervisorctl start all
+	sudo supervisorctl stop all
+
+D. Common Bench Commands
+
+	bench start
+	bench restart
+	bench update
+	bench build
+	bench migrate
+	bench --site your-site-name enable-scheduler
+
+12. Site URLs
+
+	Desk (Admin): http://localhost:8000/app
+	LMS Website: http://localhost:8000/lms/courses
+	For production:
+	Replace localhost with your server IP/domain: http://your-ip:8000/lms/courses
+
+13. Helpful Links
+
+	Frappe Framework Docs
+	LMS GitHub Repo
+	Bench CLI
+	SMTP Auth Setup for Outlook
+	Let me know if you want this exported as PDF or Markdown!
+
+
+
+
+
+/* ============================================================================================================================== */
+
+
+
+1.Run this only if you haven’t already:
+  sudo pip3 install frappe-bench
+  
+Step 3: Create Bench Folder
+
+This creates frappe-bench and downloads core Frappe code.
+bench init frappe-bench --frappe-branch version-15
+
+
+Step 4: Enter the Bench Directory
+cd frappe-bench
+
+
+
+
+chetan@ltpchetan:~/frappe-bench$ 
+SUCCESS: Bench frappe-bench initialized
+upto here i done now what i have to do
+
+successfully created your frappe-bench environment.
+
+
+Actual codebase you want to work with, run, and possibly modify is in this repository:
+👉 https://github.com/frappe/lms.git
+
+
+You’re already inside:
+~/frappe-bench/apps
+
+
+Step 1: Clone the real LMS app
+git clone https://github.com/frappe/lms.git
+
+
+Run this:
+git clone https://github.com/frappe/lms.git
+
+
+This will download the app to:
+~/frappe-bench/apps/lms
+
+Step 2: Go back to bench folder
+cd ..
+
+
+Step 3: Create your site
+bench new-site dev.local
+
+
+Step 4: Install the LMS app on the site
+bench --site dev.local install-app lms
+
+
+
+Step 5: Start the server
+bench start
+http://localhost:8000
+
+
+
+Frappe development server is running correctly! 
+
+To check your site name, look in this folder:
+ls sites
+
+
+
+
+Step 2: Restart the Server (if it was running before installing app)
+bench start
+
+
+
+Install MariaDB:
+sudo apt update
+sudo apt install mariadb-server
+
+
+Secure MariaDB Installation:
+sudo mysql_secure_installation
+
+
+Recreate Database and User for Frappe:
+mysql -u root -p
+CREATE DATABASE frappe;
+CREATE USER 'frappeuser'@'localhost' IDENTIFIED BY 'your_password';
+GRANT ALL PRIVILEGES ON frappe.* TO 'frappeuser'@'localhost';
+FLUSH PRIVILEGES;
+
+
+Reinstall Frappe and LMS:
+bench new-site dev.local
+bench --site dev.local install-app lms
+
+
+
+You need to stop the currently running MariaDB process before you can proceed.
+Run the following command to stop MariaDB:
+sudo systemctl stop mariadb
+
+
+If you are not able to stop MariaDB using systemctl, you can manually kill the process:
+sudo killall mysqld
+
+
+Kill the Running MariaDB Process
+It seems that the MariaDB process is still running despite attempting to stop it. Since killall mysqld didn't work, we'll try a more direct approach.
+
+Run the following command to kill the specific process:
+
+
+
+2. Verify the Process is Stopped
+ps aux | grep mysql
+
+
+3. Start MariaDB in Safe Mode
+sudo mysqld_safe --skip-grant-tables &
+
+
+4. Log into MariaDB
+mysql -u root
+
+
+5. Change the Root Password
+USE mysql;
+UPDATE user SET authentication_string=PASSWORD('new_password') WHERE User='root';
+FLUSH PRIVILEGES;
+EXIT;
+
+
+
+6. Restart MariaDB
+sudo systemctl restart mariadb
+
+
+
+7. Log in Using the New Password
+mysql -u root -p
+
+
+
+Check Apache Status:
+sudo systemctl status apache2
+
+
+Check Nginx Status (if using Nginx):
+sudo systemctl status nginx
+
+
+
+Navigate to Your Bench Folder:
+cd ~/frappe-bench
+
+
+
+Start Bench (Frappe):
+bench start
+
+
+
+Step 1: Install the Desired App (e.g., ERPNext)
+
+First, make sure you have the ERPNext app installed:
+bench get-app erpnext --branch version-13
+
+After fetching the app, install it on your dev.local site:
+bench --site dev.local install-app erpnext
+
+
+
+
+Step 3: Set Up Supervisor for Process Management
+bench setup supervisor
+
+
+Update Supervisor:
+sudo supervisorctl reread
+sudo supervisorctl update
+sudo supervisorctl start all
+
+
+Set Up Redis (If Not Already Set Up)
+
+Set Up Redis:
+bench setup redis
+
+
+After setting it up, ensure that Redis is running:
+sudo service redis-server restart
+
+
+Step 1: Enable the Scheduler
+Enable the Scheduler:
+bench --site dev.local set-config SystemSettings.enable_scheduler 1
+
+
+
+
+5. Firewall and Port Issues
+Ensure that port 8000 is open and not being blocked by any firewall. This should not be a problem in most cases, but you can check if it's open with:
+
+sudo ufw allow 8000
+
+
+6. Check if the Server is Listening on Port 8000
+You can confirm that the server is listening on port 8000 with the following command:
+
+sudo lsof -i :8000
+
+
+
+7. Access the Site
+Now that everything should be set up correctly, visit the following in your browser:
+http://localhost:8000
+ 
+ 
+ 
+Step 6: Allow Port 8000 Through Firewall (Optional)
+If you're using a firewall, you may need to allow traffic on port 8000. Run the following
+sudo ufw allow 8000
+
+
+
+/* Issue Facing */
+
+
+Traceback (most recent call last)
+File "/home/chetan/frappe-bench/apps/frappe/frappe/app.py", line 100, in application
+init_request(request)
+File "/home/chetan/frappe-bench/apps/frappe/frappe/app.py", line 184, in init_request
+raise frappe.SessionStopped("Session Stopped")
+During handling of the above exception, another exception occurred:
+File "/home/chetan/frappe-bench/apps/frappe/frappe/website/serve.py", line 20, in get_response
+return renderer_instance.render()
+File "/home/chetan/frappe-bench/apps/frappe/frappe/website/page_renderers/template_page.py", line 84, in render
+html = self.get_html()
+File "/home/chetan/frappe-bench/apps/frappe/frappe/website/utils.py", line 534, in cache_html_decorator
+html = func(*args, **kwargs)
+File "/home/chetan/frappe-bench/apps/frappe/frappe/website/page_renderers/template_page.py", line 92, in get_html
+self.init_context()Open an interactive python shell in this frame
+File "/home/chetan/frappe-bench/apps/frappe/frappe/website/page_renderers/base_template_page.py", line 15, in init_context
+self.context.update(get_website_settings())
+File "/home/chetan/frappe-bench/apps/frappe/frappe/website/doctype/website_settings/website_settings.py", line 263, in get_website_settings
+context.boot = get_boot_data()
+File "/home/chetan/frappe-bench/apps/frappe/frappe/website/utils.py", line 171, in get_boot_data
+apps = get_apps() or []
+File "/home/chetan/frappe-bench/apps/frappe/frappe/utils/typing_validations.py", line 31, in wrapper
+return func(*args, **kwargs)
+
+
+
+
+1. Check the current site you're using
+bench use dev.local
+
+
+2. Check if the site is properly installed
+ls sites/dev.local
+
+
+3. Reinstall the site (WARNING: This will delete all data in the site)
+bench --site dev.local reinstall
+
+
+Then reinstall your custom app on it:
+bench --site dev.local install-app said_custom
+
+
+4. Start the server
+bench start --port 8080
+
+
+
+/* ==================================================== */
+
+The 503
+
+To fix the issue, follow these steps:
+Turn off maintenance mode for your site:
+bench --site your-site-name set-maintenance-mode off
+Replace your-site-name with the name of your site (e.g., site1.local or lms.local).
+
+
+Clear caches and restart:
+bench clear-cache
+bench clear-website-cache
+bench restart
+
+ls sites/
+
+bench --site dev.local set-maintenance-mode off
+
+
+/*====================================================*/
+
+
+
+| Command                                                | Description                                                                           |
+| ------------------------------------------------------ | ------------------------------------------------------------------------------------- |
+| `cd ~/frappe-bench`                                    | Navigate to your Frappe/ERPNext bench folder. Adjust path if yours is different.      |
+| `bench list-sites`                                     | Shows all sites in your bench. Helpful to find your site name (e.g. `dev.local`).     |
+| `bench use your-site-name`                             | Set the site to work with. Example: `bench use dev.local`.                            |
+| `bench --site your-site-name set-maintenance-mode off` | **Turn off maintenance mode** (this resolves the 503 error).                          |
+| `bench --site your-site-name migrate`                  | **Complete any pending migrations.** Run this if updates or installs were incomplete. |
+| `bench build`                                          | Rebuild JS/CSS assets. Use if assets are missing or broken.                           |
+| `bench clear-cache`                                    | Clear cached metadata and settings.                                                   |
+| `bench clear-website-cache`                            | Clears cache specifically for the website UI.                                         |
+| `bench restart`                                        | Restart all bench services. Often needed after migration or build.                    |
+| `bench start`                                          | Start the development server and all related services.                                |
+| `bench update`                                         | Updates bench, pulls latest code, applies patches. Use with caution on production.    |
+| `bench setup requirements`                             | Install Python and JS dependencies required by the apps.                              |
+| `bench doctor`                                         | Shows the status of workers, Redis, and other services. Good for debugging.           |
+
+
+| Command                    | Description                                                 |
+| -------------------------- | ----------------------------------------------------------- |
+| `bench setup redis`        | Reconfigure Redis. Helpful if Redis isn’t responding.       |
+| `bench setup socketio`     | Reset SocketIO configuration.                               |
+| `bench setup nginx`        | Rewrites Nginx config files (if using production setup).    |
+| `bench setup supervisor`   | Rewrites Supervisor config (if using production setup).     |
+| `bench disable-production` | Switch to development mode if previously set as production. |
+| `bench enable-scheduler`   | Turn on background jobs and scheduled tasks.                |
+| `bench disable-scheduler`  | Turn off background jobs (for debugging issues).            |
+
+
+
+/*=========================================================================================================================================================================*/
+
+
+To manage your Frappe/ERPNext development work efficiently, especially after resolving issues like 503 errors, here’s a practical update and maintenance workflow you can follow regularly:
+
+
+| **Command**                                         | **Purpose**                                                                                    |
+| --------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| `bench update`                                      | Pulls latest code, applies patches, builds assets, and migrates. Use this to update your apps. |
+| `bench build`                                       | Compiles frontend assets (JS, CSS). Run this if UI changes don’t reflect.                      |
+| `bench migrate`                                     | Applies schema and database patches. Use after pulling code or restoring DB.                   |
+| `bench restart`                                     | Restarts all services like web, workers, socketio. Use after updates or crashes.               |
+| `bench clear-cache`                                 | Clears Python and website cache. Run if you see outdated values/UI issues.                     |
+| `bench clear-website-cache`                         | Clears only website cache. Helps with portal/website-related changes.                          |
+| `bench --site [your-site] set-maintenance-mode on`  | Enables maintenance mode. Use when deploying updates.                                          |
+| `bench --site [your-site] set-maintenance-mode off` | Disables maintenance mode. Use when updates are done.                                          |
+| `bench start`                                       | Starts bench in development mode (foreground). Useful during dev/debugging.                    |
+
+
+
+/*==========================================================================================================================================================================*/
+
+
+
+🧩 Step 1: Check if LMS App Exists
+bench list-apps
+
+
+
+🔧 Step 2: Install the App to Your Site
+bench --site dev.local install-app lms
+
+
+🔁 Step 3: Restart Bench & Clear Cache
+bench restart
+bench --site dev.local clear-cache
+
+
+
+1. Find the LMS app in your system
+ls apps/
+
+
+2. Install the LMS app into your site
+bench --site dev.local install-app lms
+
+
+3. Restart bench
+bench restart
+
+
+chetan@ltpchetan:~/frappe-bench$ bench --site dev.local install-app lms
+
+Installing lms...
+Updating DocTypes for lms           : [========================================] 100%
+
+
+
+Perfect, Chetan — you’ve successfully installed the lms app on your site!
+
+✅ Next Steps:
+Login to your site:
+Go to: http://localhost:8000
+
+Give roles and permissions:
+
+Log in as Administrator
+
+Go to Users (/app/user)
+
+Open the user (eiqtest@eiq.com)
+
+Scroll to Roles section and add necessary roles:
+
+LMS Admin
+
+System Manager
+
+Website Manager (if needed)
+
+Any custom role your lms app uses
+
+Assign module access:
+
+Also in the user profile, check the "Allow Modules" section
+
+Make sure LMS (or similar) is checked so the user sees it on the sidebar
+
+Try these URLs:
+
+http://localhost:8000/app/lms-course
+
+http://localhost:8000/lms/courses
+
+http://localhost:8000/lms/programs
+
+📝 Sample 2-Line Status Update for Your Team Lead:
+✔️ Local LMS environment set up successfully.
+✅ Installed lms app, assigned roles, and verified access to all LMS modules.
+
+Let me know if you’d like help verifying the page routes or setting custom permissions.
+
+
+
+
+
+/* ========================================================================= */
+
+
+
+✅ 2. Run the app creation command
+bench new-app said-custom
+App Title [Said Custom]:
+This is the human-readable name of your app.
+
+Example:
+said innovation
+
+App Description:
+A short description of what your app does.
+
+Example:
+Custom code for said innovation features
+
+App Publisher:
+The name of the person or company publishing the app.
+
+Example:
+Chetan Ashtankar
+
+App Email:
+Your email address (or your organization's).
+
+Example:
+chetan@example.com
+
+
+
+
+/* ============================================================================ */
+
+
+
+✅ Where to Edit App Metadata
+cd ~/frappe-bench/apps/said_custom
+
+
+1. setup.py
+This file contains the main metadata for your app.
+
+To edit:
+nano setup.py
+
+
+app_name = "said_custom"
+app_title = "Said Innovation"  # ← change this
+app_publisher = "Chetan Ashtankar"  # ← change if needed
+app_description = "Custom code for said innovation features"  # ← change
+app_email = "chetan@example.com"  # ← change
+app_license = "MIT"  # ← or whatever license you prefer
+
+
+Save and exit (Ctrl + O, Enter, then Ctrl + X in nano).
+
+
+
+✅ Final Step: Rebuild assets (optional)
+cd ~/frappe-bench
+bench build
+bench restart
+
+bench update --reset
+bench restart
+bench --site dev.local clear-cache
+tail -f logs/{latest_log_file}.log
+bench --site dev.local status
+
+
+
+/* ============================================================================ */
+
+
+
